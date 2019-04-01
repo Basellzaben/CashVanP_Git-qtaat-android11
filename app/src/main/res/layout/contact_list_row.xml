@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RR"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="12">
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_no"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="no"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="2.5"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#000"
+        android:textIsSelectable="false"
+        android:textSize="16sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_Price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="TextView"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_Qty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.8"
+        android:gravity="center_horizontal"
+        android:text="Qty"
+        android:textColor="#000"
+        android:textIsSelectable="false"
+        android:textSize="16sp" />
+
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_Unit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:text="Unit"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_tax"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:text="Tax"
+        android:textColor="#000"
+        android:textIsSelectable="false"
+        android:textSize="16sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_Tax_Amt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1.2"
+        android:gravity="center_horizontal"
+        android:text="Tax_Amt"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_Bounce"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Bounce"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_Disc_Per"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="perdisc"
+        android:textColor="#000"
+        android:textIsSelectable="false"
+        android:textSize="16sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_Disc_Amt"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:gravity="center"
+        android:text="Disc_Amt"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:visibility="invisible" />
+
+    <Methdes.MyTextView
+        android:id="@+id/tv_Total"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:digits="#.000"
+        android:gravity="center_horizontal"
+        android:text="Total"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/imageButton14"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"
+        android:onClick="btn_Delete_Item"
+        android:scaleType="fitXY"
+        android:src="@android:drawable/ic_delete" />
+
+</LinearLayout>

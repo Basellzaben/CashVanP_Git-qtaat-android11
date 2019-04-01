@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    tools:context="com.cds_jo.GalaxySalesApp.SittingNew">
+
+
+    <LinearLayout
+        android:id="@+id/LinearLayout03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp">
+        <!-- Divide | EditText | Button | -->
+        <TextView
+            android:id="@+id/textView252"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="Printer MAC ID"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/EditTextAddressBT"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:hint="00:00:00:00:00:"
+            android:inputType="text"
+            android:maxLength="17"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <Button
+            android:id="@+id/ButtonConnectBT"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/Footer_Menu"
+            android:text="توصيل الطابعة"
+            android:textSize="20sp"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/textView83"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="Server Static IP"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textIsSelectable="false"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/et_IP"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp">
+
+        <Methdes.MyTextView
+            android:id="@+id/textView131"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="بداية تسلسل الفواتير"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_Sal_inv"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:id="@+id/textView155"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Methdes.MyTextView
+            android:id="@+id/textView156"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="بداية تسلسل طلبات البيع"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_SalesOrder"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingRight="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp">
+
+        <Methdes.MyTextView
+            android:id="@+id/textView137"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="بداية تسلسل سندات القبض"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_Payments"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:id="@+id/textView157"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Methdes.MyTextView
+            android:id="@+id/textView158"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="بداية تسلسل  العملاء النقديين"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_CustCash"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingRight="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp">
+
+        <Methdes.MyTextView
+            android:id="@+id/textView148"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="بداية تسلسل طلب تجهيز مواد"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_PrepQty"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:id="@+id/textView159"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Methdes.MyTextView
+            android:id="@+id/textView160"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="بداية تسلسل  ارجاع المواد"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_ReturnQty"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:ems="10"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingRight="10dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp">
+
+        <Methdes.MyTextView
+            android:id="@+id/textView148"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="بداية تسلسل الزيارات"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_Visit"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:id="@+id/textView159"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp">
+
+        <Methdes.MyTextView
+            android:id="@+id/textView1481"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="الفترة المطلوبة للتحديث بالدقائق"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/et_PostDelay"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:id="@+id/textView1590"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <Methdes.MyTextView
+            android:id="@+id/textView1688"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="بداية تسلسل سندات النقل"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/ed_TransSerial"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:inputType="number"
+            android:maxLength="8"
+            android:paddingRight="10dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/button25"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@color/Green"
+            android:onClick="btn_Save"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="حــــفـــظ"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@color/Footer_Menu"
+            android:onClick="btn_GetSerial"
+            android:text="تحديث التسلسلات" />
+
+        <Button
+            android:id="@+id/btn_Delete"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:onClick="DeleteAll"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="مسح كل البيانات"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+</LinearLayout>

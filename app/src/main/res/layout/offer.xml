@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RR1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:weightSum="5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Methdes.MyTextView
+            android:id="@+id/textView267"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="الرقم :"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/OfferNo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:gravity="right|center_vertical"
+            android:text="no"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        <Methdes.MyTextView
+            android:id="@+id/textViيew267"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="right|center_vertical"
+            android:text="الوصف :"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/Desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1.5"
+            android:gravity="right|center_vertical"
+            android:text="TextView"
+            android:textColor="#000"
+            android:textIsSelectable="false"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        <Methdes.MyTextView
+            android:id="@+id/tdextView267"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="من  :"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/OfferDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+
+            android:layout_weight="1.5"
+            android:gravity="right|center_vertical"
+            android:text="Qty"
+            android:textColor="#000"
+            android:textIsSelectable="false"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+        <Methdes.MyTextView
+            android:id="@+id/scs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="إلى  :"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/OfferExpDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+
+            android:layout_weight="1.5"
+            android:gravity="right|center_vertical"
+            android:text="Qty"
+            android:textColor="#000"
+            android:textIsSelectable="false"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Methdes.MyTextView
+            android:id="@+id/textView265"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right|center"
+            android:text="الصنف :"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/tv_Offer_Type_Item"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="right|center_vertical"
+            android:textColor="#000"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Methdes.MyTextView
+            android:id="@+id/textView258"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="right|center"
+            android:text="الفئة  :"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/tv_Cate_Offer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="right|center_vertical"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

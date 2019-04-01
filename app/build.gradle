@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '28.0.3'
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "com.cds_jo.GalaxySalesApp"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 2
+        versionName "2.0"
+        multiDexEnabled true
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/files'] } }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/Sewoo_Android_1070.jar')
+    compile files('libs/ZQ110.jar')
+    compile files('libs/ZSDK_ANDROID_API.jar')
+    compile files('libs/gson-1.4.jar')
+    compile files('libs/tscsdk.jar')
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'org.apache.commons:commons-lang3:3.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.mostafagazar:customshapeimageview:1.0.4'
+    compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.romainpiel.shimmer:library:1.4.0@aar'
+    compile 'com.google.maps.android:android-maps-utils:0.4'
+    compile 'com.baoyz.swipemenulistview:library:1.3.0'
+    compile 'com.google.android.gms:play-services-maps:8.1.0'
+    compile 'com.android.support:multidex:1.0.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.jrummyapps:android-shell:1.0.1'
+    compile files('libs/hsm-android-print.jar')
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile "com.android.support:support-v4:24.1.1"
+    compile files('libs/posprinterconnectandsendsdk.jar')
+    compile 'com.zxy.android:tiny:0.0.6'
+}

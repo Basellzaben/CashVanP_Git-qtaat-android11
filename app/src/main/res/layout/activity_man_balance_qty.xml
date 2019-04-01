@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="com.cds_jo.GalaxySalesApp.TransQtyReportActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/Blue"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <FrameLayout
+                android:id="@+id/Frag1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/dd1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#fff"
+            android:gravity="right"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="215dp"
+                android:background="@mipmap/row2"
+                android:gravity="center">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_ScrTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="تسوية الجرد"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:background="@mipmap/row1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView4"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Main_Page"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@android:color/darker_gray"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView182"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:text="رقم الطلب"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/imageButton24"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:onClick="btn_Search_Orders"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_search" />
+
+            <EditText
+                android:id="@+id/et_OrdeNo"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:ems="10"
+                android:enabled="false"
+                android:gravity="center_horizontal"
+                android:inputType="number"
+                android:scrollIndicators="top"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/textView183"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView184"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="  عدد المواد :"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_RowCount"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/Blue"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:weightSum="11">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView175"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_horizontal"
+                android:text="رقم المادة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView176"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center|center_horizontal"
+                android:text="اسم  المادة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView177"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_horizontal"
+                android:text="الوحدة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView225"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:gravity="center|center_horizontal"
+                android:text="كمية التزويد"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView178"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:gravity="center|center_horizontal"
+                android:text="الكمية المباعة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView228"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:gravity="center|center_horizontal"
+                android:text="كمية المستودع"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView179"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:gravity="center|center_horizontal"
+                android:text="الكمية الفعلية"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView180"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_horizontal"
+                android:text="الفرق"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView181"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:orientation="horizontal"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
+
+            <ListView
+                android:id="@+id/lst_Items"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginBottom="60dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/Blue"
+        android:gravity="center_horizontal"
+        android:onClick="btn_back"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+
+        <ImageButton
+            android:id="@+id/imageButton25"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
+            android:longClickable="true"
+            android:onClick="btn_new"
+            android:paddingLeft="00dp"
+            android:paddingRight="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/btnnew" />
+
+        <ImageButton
+            android:id="@+id/imageButton26"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
+            android:focusableInTouchMode="true"
+            android:onClick="btn_save_po"
+            android:scaleType="fitXY"
+            android:src="@drawable/btnsave" />
+
+        <ImageButton
+            android:id="@+id/imageButton27"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
+            android:onClick="btn_delete"
+            android:paddingLeft="0dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/btndelete" />
+
+        <ImageButton
+            android:id="@+id/imageButton28"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
+            android:onClick="btn_print"
+            android:scaleType="fitXY"
+            android:src="@drawable/btnprint" />
+
+        <ImageButton
+            android:id="@+id/imageButton30"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
+            android:onClick="btn_ConvertToInvoice"
+            android:scaleType="fitXY"
+            android:src="@drawable/balantoinvoice" />
+
+        <ImageButton
+            android:id="@+id/imageButton29"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@android:color/transparent"
+            android:onClick="btn_back"
+            android:scaleType="fitXY"
+            android:src="@drawable/btnback" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/Footer_Menu"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:onClick="btn_new"
+            android:orientation="horizontal">
+
+
+            <Methdes.MyTextView
+                android:id="@+id/textView230"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="جديد"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView130"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/ic_new" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/Footer_Menu"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:onClick="btn_save_po"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView231"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:elevation="1dp"
+                android:text="حفظ"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/ic_save" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/Footer_Menu"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:onClick="btn_delete"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView233"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="حذف"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/ic_delete" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/Footer_Menu"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:onClick="btn_print"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView236"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="طباعة"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/ic_print" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lyt_Share"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/Footer_Menu"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:onClick="btn_ConvertToInvoice"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView2037"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="فاتورة  مبيعات"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView19"
+                android:layout_width="25dp"
+                android:layout_height="25dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/Home_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/Footer_Menu"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:onClick="btn_back"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_Back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="الرئيسية"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@mipmap/ic_home" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</RelativeLayout>

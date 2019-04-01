@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layoutDirection="rtl">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView93"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="رقم الشيك"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/CheckNo"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="number"
+                android:textAlignment="center" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView138"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="عدد الايام المسموح بها"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/DayCount"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:editable="false"
+                android:ems="10"
+                android:enabled="true"
+                android:gravity="center"
+                android:textAlignment="center" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView94"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:gravity="left|center"
+                android:text="تاريخه"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/ed_CheckData"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="31/12/2018"
+                android:inputType="date"
+                android:maxLength="10"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/CheckData"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView167"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="مثال"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fa0a0a"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textView166"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="31/12/2018"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#fa0a0a"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView101"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="المبلغ"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/ChekAmt"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView139"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView100"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="اسم البنك"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/sp_banks"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView151"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:gravity="center_vertical"
+                android:text="  مبلغ الشيكات  "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_CheckAmt"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView152"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <ImageButton
+                android:id="@+id/btn_save_Check"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:nestedScrollingEnabled="true"
+                android:onClick="btn_save_po"
+                android:padding="0dp"
+                android:src="@drawable/save" />
+
+            <ImageButton
+                android:id="@+id/btn_Back"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:onClick="btn_back"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@+id/textView149"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView147"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text=" عدد الشيكات "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_Check_count"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@color/Blue"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView140"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="التسلسل"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView141"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="رقم الشيك"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView142"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="تاريخه"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView143"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="اسم البنك"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView144"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="المبلغ"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/lstCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layoutDirection="ltr" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

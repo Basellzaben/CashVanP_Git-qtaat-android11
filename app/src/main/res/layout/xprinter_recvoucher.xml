@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layoutDirection="rtl">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/f_view"
+                layout="@layout/rec_voucher_img_xprinter"
+                android:layout_width="420dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_Print"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"
+                android:background="@color/Green"
+                android:nestedScrollingEnabled="false"
+                android:onClick="btn_convert"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="طبــاعــــة "
+                android:textColor="#000"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/button21"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/btn_Print"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_dark"
+                android:nestedScrollingEnabled="false"
+                android:onClick="btn_back"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="رجـــــــــــوع "
+                android:textColor="#000"
+                android:textSize="30sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

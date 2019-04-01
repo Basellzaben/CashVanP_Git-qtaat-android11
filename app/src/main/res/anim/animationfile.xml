@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+
+    android:fillAfter="true">
+    >
+
+  <!--  <translate
+        android:duration="15000"
+    android:fromXDelta="-100%p"
+    android:toXDelta="100%p"
+
+
+    />-->
+
+
+
+ <!-- <rotate
+      android:fromDegrees="0"
+      android:pivotX="50%"
+      android:pivotY="50%"
+      android:toDegrees="360"
+      android:duration="1000"
+      android:repeatCount="infinite"
+      android:repeatMode="restart"/>-->
+
+
+
+  <!--  <alpha
+        android:duration="10000"
+        android:fromAlpha="100.0"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:toAlpha="100.0"
+        android:repeatCount="infinite"
+        android:repeatMode="restart" /> &lt;!&ndash; i've added repeatCount and repeatMode attr &ndash;&gt;
+-->
+    <translate
+        android:duration="15000"
+        android:fromXDelta="-100%p"
+         android:toXDelta="100%"
+        android:repeatCount="infinite"
+        android:repeatMode="restart"/>
+
+
+
+</set>

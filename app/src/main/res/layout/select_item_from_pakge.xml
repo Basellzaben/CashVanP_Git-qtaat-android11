@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/WindwoTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/Gray1"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:weightSum="4">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView248"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right|center_vertical"
+                    android:text="عدد مواد الهدية "
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_total_item"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView257"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="معامل التكرار"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Factor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/Gray4"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView255"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="right|center_vertical"
+                    android:text="مجموع كميات مواد الهدية"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Sum_Qty_item"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView259"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="الكمية * التكرار"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:visibility="visible" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_QtyWithFactor"
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:visibility="visible" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/Blue"
+            android:orientation="horizontal"
+            android:weightSum="9">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView101"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="رقم المادة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView150"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="اسم المادة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView153"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="اقل كمية"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView146"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="الوحدة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView154"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="كمية الهدية"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ListView
+                android:id="@+id/Lstview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/listview_border"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/button22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@android:color/holo_green_dark"
+                android:onClick="btn_back"
+                android:text="تخــزيـــــن الــــهـديــــــة"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

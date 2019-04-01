@@ -1,0 +1,935 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#282b30"
+    android:id="@+id/R_Back">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layoutDirection="ltr"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/Blue"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <FrameLayout
+                android:id="@+id/Frag1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></FrameLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/dd1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#fff"
+            android:gravity="right"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="215dp"
+                android:background="@mipmap/row2"
+                android:gravity="center">
+
+                <Methdes.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="سند القبض"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:background="@mipmap/row1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView4"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Main_Page"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@color/Gray2"
+                android:orientation="vertical"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1.3"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="3dp">
+
+                            <ImageView
+                                android:id="@+id/imageView24"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_marginLeft="10dp"
+                                android:src="@mipmap/d2" />
+
+                            <Spinner
+                                android:id="@+id/sp_VouchType"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="#fff"
+                                android:backgroundTint="#fff"
+                                android:textAlignment="center" />
+
+                        </LinearLayout>
+
+
+                        <Methdes.MyTextView
+                            android:id="@+id/myTextView3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:gravity="center"
+                            android:text="نوع القبض"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/et_Amt"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:gravity="center"
+                            android:inputType="none"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+
+                        <Methdes.MyTextView
+                            android:id="@+id/myTextView5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="مجموع القبض"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/btn_cir_white_fill_black"
+                                android:orientation="horizontal"
+                                android:padding="3dp"
+                                android:weightSum="2">
+
+                                <EditText
+                                    android:id="@+id/et_OrdeNo"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.6"
+                                    android:background="#fff"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:textColor="#000"
+                                    android:textSize="12sp">
+
+                                </EditText>
+
+
+                                <LinearLayout
+                                    android:id="@+id/imageView3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.4"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:padding="2dp">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:onClick="btn_search_Recv"
+                                        android:src="@mipmap/ic_search" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Methdes.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="رقم القبض"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="#000"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_acc"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1.3"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:gravity="center"
+                            android:inputType="none"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="15sp" />
+
+                        <Methdes.MyTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:gravity="center"
+                            android:text="رقم العميل"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_Cash"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:gravity="center"
+                            android:inputType="numberDecimal"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+
+                        <Methdes.MyTextView
+                            android:id="@+id/myTextView2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="المبلغ النقدي"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:onClick="btn_SearchCust"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/btn_cir_white_fill_black"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <TextView
+                                    android:id="@+id/tv_cusnm"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1.6"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:textColor="#000"
+                                    android:textSize="12sp">
+
+                                </TextView>
+
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.4"
+                                    android:gravity="center"
+                                    android:orientation="horizontal"
+                                    android:padding="5dp">
+
+
+                                    <ImageView
+                                        android:id="@+id/imageView206"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:src="@mipmap/ic_search" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Methdes.MyTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="اسم العميل"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:textColor="#000"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="25dp">
+
+                        <TextView
+                            android:id="@+id/tv_CheckAmt"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1.3"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:gravity="center"
+                            android:inputType="none"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="15sp" />
+
+                        <Methdes.MyTextView
+                            android:id="@+id/myTextView4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.7"
+                            android:gravity="center"
+                            android:text="مبلغ الشيكات"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_notes"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_weight="1.5"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:gravity="center"
+                            android:inputType="none"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="12sp" />
+
+                        <Methdes.MyTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.25"
+                            android:gravity="center"
+                            android:text="ملاحظات"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:background="@color/Gray3"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:weightSum="4">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="25dp"
+                    android:layout_weight="1.20"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1.3"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="3dp">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@mipmap/d2" />
+
+                        <Spinner
+                            android:id="@+id/sp_cur"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#fff"
+                            android:backgroundTint="#fff"
+                            android:textAlignment="center" />
+
+                    </LinearLayout>
+
+                    <Methdes.MyTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="نوع العملة"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="25dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/et_Date"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:gravity="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+
+                    <Methdes.MyTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="التاريخ"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="#000"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="25dp"
+                    android:layout_weight="0.77"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="25dp"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="center|right"
+                        android:onClick="btn_ShowPopAddCheck"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <Methdes.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="15dp"
+                            android:text="اضافة شيكات"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#000" />
+
+                        <ImageView
+                            android:id="@+id/imageButton5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:src="@drawable/sm"
+                            tools:src="@drawable/sm" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.8"
+                    android:background="#fff"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="0dp"
+                    android:paddingBottom="0dp"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:background="#fff"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <Methdes.MyTextView
+                            android:id="@+id/tv_Amnt"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="0.5dp"
+                            android:layout_weight="1"
+                            android:background="#000"
+                            android:gravity="center"
+                            android:text="مبلغ الشيك"
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <Methdes.MyTextView
+                            android:id="@+id/tv_BankNm"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="0.5dp"
+                            android:layout_weight="1"
+                            android:background="#000"
+                            android:gravity="center"
+                            android:text="اسم البنك"
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <Methdes.MyTextView
+                            android:id="@+id/tv_CheckDate"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="0.5dp"
+                            android:layout_weight="1"
+                            android:background="#000"
+                            android:gravity="center"
+                            android:text="تاريخ الشيك"
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <Methdes.MyTextView
+                            android:id="@+id/tv_Checkno"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="0.5dp"
+                            android:layout_weight="1"
+                            android:background="#000"
+                            android:gravity="center"
+                            android:text="رقم الشيك"
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <Methdes.MyTextView
+                            android:id="@+id/ser"
+                            android:layout_width="fill_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="0.5dp"
+                            android:layout_weight="1"
+                            android:background="#000"
+                            android:gravity="center"
+                            android:text="تسلسل الشيك"
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <ListView
+                        android:id="@+id/lstCheck"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/linearLayout"
+                        android:layout_marginTop="0dp"
+                        android:layout_weight="4.8"
+                        android:listSelector="@null"
+                        android:scrollingCache="false"
+                        android:smoothScrollbar="true"
+                        android:stackFromBottom="false"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.2"
+                    android:background="@color/Gray3"
+                    android:orientation="horizontal"
+                    android:weightSum="6">
+
+                    <LinearLayout
+                        android:id="@+id/imageButton7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="0.5dp"
+                        android:layout_weight="1"
+                        android:background="@color/Footer_Menu"
+                        android:gravity="center"
+                        android:onClick="btn_back"
+                        android:orientation="horizontal">
+
+                        <Methdes.MyTextView
+                            android:id="@+id/tv_Back"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:text="الرئيسية"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imgBack"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@mipmap/ic_home" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/imageButton9"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0.5dp"
+                        android:layout_marginRight="0.5dp"
+                        android:layout_weight="1"
+                        android:background="@color/Footer_Menu"
+                        android:gravity="center"
+                        android:onClick="btn_share"
+                        android:orientation="horizontal">
+
+                        <Methdes.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:text="اعتماد"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@mipmap/ic_post" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/imageButton2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0.5dp"
+                        android:layout_marginRight="0.5dp"
+                        android:layout_weight="1"
+                        android:background="@color/Footer_Menu"
+                        android:gravity="center"
+                        android:onClick="btn_print"
+                        android:orientation="horizontal">
+
+                        <Methdes.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:text="طباعة"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@mipmap/ic_print" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/imageButton6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0.5dp"
+                        android:layout_marginRight="0.5dp"
+                        android:layout_weight="1"
+                        android:background="@color/Footer_Menu"
+                        android:gravity="center"
+                        android:onClick="btn_delete"
+                        android:orientation="horizontal">
+
+                        <Methdes.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:text="حذف"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@mipmap/ic_delete" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/imageButton3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0.5dp"
+                        android:layout_marginRight="0.5dp"
+                        android:layout_weight="1"
+                        android:background="@color/Footer_Menu"
+                        android:gravity="center"
+                        android:onClick="btn_save_po"
+                        android:orientation="horizontal">
+
+                        <Methdes.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:text="حفظ"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@mipmap/ic_save" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/imageButton8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="0.5dp"
+                        android:layout_weight="1"
+                        android:background="@color/Footer_Menu"
+                        android:gravity="center"
+                        android:onClick="btn_new"
+                        android:orientation="horizontal">
+
+                        <Methdes.MyTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:text="جديد"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="#fff"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@mipmap/ic_new" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
+

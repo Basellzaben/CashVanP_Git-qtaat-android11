@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <FrameLayout
+                android:id="@+id/Frag1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/tv_UserName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#96ccd5"
+                android:paddingRight="30dp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_margin="0dp"
+            android:paddingRight="20dp">
+
+            <GridView
+                android:id="@+id/gridView1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#ffffff"
+                android:columnWidth="180dp"
+                android:gravity="center"
+                android:numColumns="auto_fit"
+                android:paddingBottom="20dp"
+                android:stretchMode="none"></GridView>
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+
+
+<!--
+
+            <TextView
+                android:id="@+id/tv_News"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#9412499b"
+                android:gravity="center_vertical|center_horizontal"
+                android:layoutDirection="rtl"
+                android:singleLine="false"
+                android:text=" رمضــــــــــان كريــــــــــــــــــم"
+                android:textColor="#010000"
+                android:textIsSelectable="false"
+                android:textSize="30dp"
+                android:visibility="visible"
+                android:ellipsize="marquee"
+                android:scrollHorizontally="true"
+                />-->
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_News"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="#9412499b"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:text="Your_Text"
+                android:textColor="#fff"
+                android:textSize="30dp" />
+
+
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView189"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:background="@color/Blue"
+                android:gravity="center_vertical|center_horizontal"
+                android:singleLine="false"
+                android:text="مجموعة المجرة الدولية @2018"
+                android:textColor="#fff"
+                android:textIsSelectable="false"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cds_jo.GalaxySalesApp"
+    android:versionCode="3"
+    android:versionName="3.0">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="my.package.name.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/gi"
+        android:label="Galaxy Sales App"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".StartUpActivity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="port.bluetooth.BluetoothConnectMenu"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".assist.MenuActivity" />
+        <activity android:name=".assist.layout_to_imgActivity" />
+        <activity
+            android:name=".assist.Convert_Layout_Img"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_Layout_Img_Tsc"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_RecVouch_To_Img"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_RecVouch_To_Img_Tab10"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_Prapre_Qty_To_Img"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_Man_Balance_Qty_To_Img"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_TransQty_To_Img"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_ccReportTo_ImgActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_ccReport2To_ImgActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ScheduleManActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".RecvVoucherActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".assist.CustomerReturnQtyActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".CustomerQty"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".assist.OrdersItems"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".TransferQty"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".assist.Acc_ReportActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".TransQtyReportActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ManBalanceQtyActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".PreapareManQty"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".UpdateDataToMobileActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".EditeTransActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".assist.Sale_InvoiceActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ItemGalleryActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".assist.Convert_Sal_Invoice_To_ImgActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_Sal_Invoice_To_ImgActivity_Tab_10"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_Sal_Invoice_To_Img_Ukrainian"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_RecVouch_To_Img_GoodSystem"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Convert_Sal_Invoice_To_ImgActivity_Prestaige"
+            android:screenOrientation="landscape" />
+        <activity android:name=".PrintImageActivity" />
+        <activity android:name=".ItemCostActivity" />
+        <activity android:name=".SaleManRoundsActivity" />
+        <activity android:name=".assist.SimpleListViewActivity" />
+        <activity android:name=".QuestneerActivity" />
+        <activity android:name=".CaptureSignatureActivity" />
+        <activity android:name=".ZepraActivity" />
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".NotifationResultActivity" />
+
+        <service
+            android:name=".GetManMessage"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".ManLocationsReport"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".NewLoginActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".JalMasterActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ManSummeryActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".BeeHiveActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DoctorReportActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".GalaxyLoginActivity"
+            android:label="@string/title_activity_galaxy_login"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Store_Trans_Qty_Img"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ConnectXPrinterActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".CusfCard"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".ManSummeryNew"
+            android:screenOrientation="landscape" />
+
+        <service android:name="net.posprinter.service.PosprinterService" />
+        <service
+            android:name=".AutoPostTrans"
+            android:enabled="true"
+            android:exported="true" />
+        <service android:name="net.posprinter.service.PosprinterService" />
+        <service
+            android:name=".ManLocation.AutoPostLocation"
+            android:enabled="true"
+            android:exported="false"
+            android:stopWithTask="false" />
+
+        <activity
+            android:name=".SittingNew"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity android:name=".VisitImges" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".MapsTest"
+            android:label="@string/title_activity_maps_test" />
+        <activity android:name=".RR3Printer" />
+        <activity android:name=".imgtest" />
+        <activity
+        android:name=".XprinterDoc.Xprinter_RecVoucher"
+        android:screenOrientation="landscape"
+        android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <activity
+            android:name=".XprinterDoc.Xprinter_SalesOrder"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <activity
+            android:name=".XprinterDoc.Xprinter_SalesInvoice"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".XprinterDoc.Xprinter_ManSummeryTo_img"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+    </application>
+
+</manifest>

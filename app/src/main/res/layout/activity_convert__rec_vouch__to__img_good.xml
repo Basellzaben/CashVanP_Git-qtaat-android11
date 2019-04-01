@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/f_view"
+                layout="@layout/rec_voucher_img_goodsystem"
+                android:layout_width="500dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_Print"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+
+                android:onClick="btn_convert"
+                android:text="طبــاعــــة "
+                android:textSize="35sp" />
+
+            <Button
+                android:id="@+id/button21"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:nestedScrollingEnabled="false"
+                android:onClick="btn_back"
+
+                android:text="رجـــــــــــوع "
+                android:textSize="35sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

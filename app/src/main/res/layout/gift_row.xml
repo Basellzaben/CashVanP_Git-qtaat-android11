@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RR1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#000"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:weightSum="4">
+
+    <LinearLayout
+        android:id="@+id/RR"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <Methdes.MyTextView
+            android:id="@+id/ItemNo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="no"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/ItemNm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#000"
+            android:textIsSelectable="false"
+            android:textSize="16sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/Qty"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Qty"
+            android:textColor="#000"
+            android:textIsSelectable="false"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RR"
+    android:layout_width="fill_parent"
+    android:layout_height="60dp"
+    android:layoutDirection="rtl"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:weightSum="9">
+
+    <Methdes.MyTextView
+        android:id="@+id/ItemNo"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="no"
+        android:textColor="#000"
+        android:textSize="16sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/ItemNm"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#000"
+        android:textIsSelectable="false"
+        android:textSize="18sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/MinQty"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Qty"
+        android:textColor="#000"
+        android:textIsSelectable="false"
+        android:textSize="18sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/UnitNm"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center"
+        android:text="Tax"
+        android:textColor="#000"
+        android:textIsSelectable="false"
+        android:textSize="18sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/GiftQty"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Bounce"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_Inc"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:background="@color/Green"
+        android:gravity="center"
+        android:padding="0dp"
+        android:text="+"
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/btn_Dec"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:background="@color/ColorPrimaryDark"
+        android:gravity="center"
+
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="-"
+        android:textSize="50sp" />
+
+
+</LinearLayout>
