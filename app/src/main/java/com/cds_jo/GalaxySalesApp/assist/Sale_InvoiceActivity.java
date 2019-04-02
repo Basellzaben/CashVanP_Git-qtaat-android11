@@ -321,7 +321,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
     ListView listView;
     android.support.v7.app.AlertDialog alertDialog2;
     EditText   et_OrdeNo;
-
+ //vdv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
