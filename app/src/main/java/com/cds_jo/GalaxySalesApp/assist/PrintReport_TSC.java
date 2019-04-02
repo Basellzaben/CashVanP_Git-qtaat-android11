@@ -104,7 +104,7 @@ public class PrintReport_TSC {
 
         Bitmap b = loadBitmapFromView(ReportView);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        String filename = "Zain.jpg";
+        String filename = "Zain.BMP";
         File sd = Environment.getExternalStorageDirectory();
         File dest = new File(sd.getPath()+"/Download", filename);
 
@@ -190,23 +190,27 @@ public class PrintReport_TSC {
      File dest = new File(sd.getPath()+"/Download", "Zain.jpg");
      TscDll.openport(BPrinter_MAC_ID);
      //TscDll.downloadpcx("UL.PCX");
-      //TscDll.downloadbmp("Zain.jpg");
-     TscDll.sendpicture_halftone(0,0,"//sdcard//Download/Zain.jpg");
+       TscDll.downloadbmp("Zain.jpg");
      // TscDll.sendcommand("PUTBMP 100,520,\"Zain.jpg\"\n");
-     // TscDll.setup(70, 110, 4, 4, 0, 0, 0);
-     // TscDll.clearbuffer();
+     TscDll.setup(70, 110, 4, 4, 0, 0, 0);
+
+     TscDll.clearbuffer();
+    // TscDll.sendcommand("PUTBMP 19,15,\"Zain.BMP\"");
+
      // TscDll.sendcommand("SET TEAR ON\n");
      // TscDll.sendcommand("SET COUNTER @1 1\n");
      // TscDll.sendcommand("@1 = \"0001\"\n");
      // TscDll.sendcommand("TEXT 100,300,\"3\",0,1,1,@1\n");
      // TscDll.sendcommand("PUTPCX 100,300,\"UL.PCX\"\n");
      // TscDll.sendcommand("PUTBMP 100,520,\"Zain.jpg\"\n");
-     // TscDll.sendbitmap(0, 0, bitmap);
+       TscDll.sendbitmap(0, 0, TscDll.bitmap2Gray(bitmap));
 
   //   TscDll.sendbitmap(0, 0, bitmap);
-    // TscDll.sendpicture(0,0,"//sdcard//Download/Zain.jpg");
+
+     // TscDll.sendpicture(0,0,"//sdcard//z1.jpg");
+
       String status = TscDll.printerstatus();
-    // TscDll.printlabel(1, 1);
+     TscDll.printlabel(1, 1);
      TscDll.closeport(5000);
 
  }catch ( Exception ex){
