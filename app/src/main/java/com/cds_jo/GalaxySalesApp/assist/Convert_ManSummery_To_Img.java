@@ -457,7 +457,8 @@ public class Convert_ManSummery_To_Img extends Fragment {
         if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
             PrintReport_TSC obj = new PrintReport_TSC(getActivity(),
                     getActivity(), lay, 520, 1);
-            obj.DoPrint();
+           // obj.DoPrint();
+            obj.DoPrint1();
 
 
         }else {

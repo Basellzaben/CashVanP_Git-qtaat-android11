@@ -23,6 +23,7 @@ import com.zebra.sdk.printer.ZebraPrinterFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
@@ -68,24 +69,44 @@ public class PrintReport_TSC {
 
     }
     public  void DoPrint1(){
-        StoreEmptyImage();
+        StoreImage1();
         Bitmap myBitmap1 = null;
-        myBitmap1= BitmapFactory.decodeFile("//sdcard//e1.jpg");
+
+        myBitmap1= BitmapFactory.decodeFile("//sdcard//Download/Zain.jpg");
 
         Toast.makeText(context  ,"جاري تحميل الملف  000",Toast.LENGTH_SHORT ).show();
 
-         PrintImageEmpty( myBitmap1);
+       PrintImage_new( myBitmap1);
 
 
     }
     private  void StoreEmptyImage(){
         // LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
-
         Bitmap b = loadBitmapFromView(ReportView);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         String filename = "e1.jpg";
         File sd = Environment.getExternalStorageDirectory();
         File dest = new File(sd, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            out.flush();
+            out.close();
+            //  bitmap.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    private  void StoreImage1(){
+
+
+        Bitmap b = loadBitmapFromView(ReportView);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String filename = "Zain.jpg";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd.getPath()+"/Download", filename);
 
         try {
             FileOutputStream out = new FileOutputStream(dest);
@@ -164,33 +185,33 @@ public class PrintReport_TSC {
 
     public void PrintImage_new(final Bitmap bitmap) {
 
+ try {
+     File sd = Environment.getExternalStorageDirectory();
+     File dest = new File(sd.getPath()+"/Download", "Zain.jpg");
+     TscDll.openport(BPrinter_MAC_ID);
+     //TscDll.downloadpcx("UL.PCX");
+      //TscDll.downloadbmp("Zain.jpg");
+     TscDll.sendpicture_halftone(0,0,"//sdcard//Download/Zain.jpg");
+     // TscDll.sendcommand("PUTBMP 100,520,\"Zain.jpg\"\n");
+     // TscDll.setup(70, 110, 4, 4, 0, 0, 0);
+     // TscDll.clearbuffer();
+     // TscDll.sendcommand("SET TEAR ON\n");
+     // TscDll.sendcommand("SET COUNTER @1 1\n");
+     // TscDll.sendcommand("@1 = \"0001\"\n");
+     // TscDll.sendcommand("TEXT 100,300,\"3\",0,1,1,@1\n");
+     // TscDll.sendcommand("PUTPCX 100,300,\"UL.PCX\"\n");
+     // TscDll.sendcommand("PUTBMP 100,520,\"Zain.jpg\"\n");
+     // TscDll.sendbitmap(0, 0, bitmap);
 
+  //   TscDll.sendbitmap(0, 0, bitmap);
+    // TscDll.sendpicture(0,0,"//sdcard//Download/Zain.jpg");
+      String status = TscDll.printerstatus();
+    // TscDll.printlabel(1, 1);
+     TscDll.closeport(5000);
 
-                        TscDll.openport(BPrinter_MAC_ID);
-        TscDll.downloadpcx("UL.PCX");
-        TscDll.downloadbmp("Triangle.bmp");
-        TscDll.downloadttf("ARIAL.TTF");
-        TscDll.setup(70, 110, 4, 4, 0, 0, 0);
-        TscDll.clearbuffer();
-        TscDll.sendcommand("SET TEAR ON\n");
-        TscDll.sendcommand("SET COUNTER @1 1\n");
-        TscDll.sendcommand("@1 = \"0001\"\n");
-        TscDll.sendcommand("TEXT 100,300,\"3\",0,1,1,@1\n");
-        TscDll.sendcommand("PUTPCX 100,300,\"UL.PCX\"\n");
-        TscDll.sendcommand("PUTBMP 100,520,\"Triangle.bmp\"\n");
-        TscDll.sendcommand("TEXT 100,760,\"ARIAL.TTF\",0,15,15,\"THIS IS ARIAL FONT\"\n");
-        TscDll.sendbitmap(0,0,bitmap);
-
-        TscDll.printerfont(100, 250, "3", 0, 1, 1, "معن نعامنه");
-
-        String status = TscDll.printerstatus();
-
-        TscDll.printlabel(1, 1);
-
-//TscDll.sendfile("zpl.txt");
-        TscDll.closeport(5000);
-
-
+ }catch ( Exception ex){
+     Toast.makeText(context,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
+ }
     }
   private void PrintImage(final Bitmap bitmap) {
 

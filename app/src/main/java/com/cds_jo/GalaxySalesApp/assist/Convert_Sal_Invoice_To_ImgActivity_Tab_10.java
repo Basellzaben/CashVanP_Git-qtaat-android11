@@ -378,7 +378,7 @@ try {
         PrintReport_TSC obj = new PrintReport_TSC(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this,
                 Convert_Sal_Invoice_To_ImgActivity_Tab_10.this,lay, 570, 1);
 
-        obj.DoPrint();
+        obj.DoPrint1();
 
     }
 
