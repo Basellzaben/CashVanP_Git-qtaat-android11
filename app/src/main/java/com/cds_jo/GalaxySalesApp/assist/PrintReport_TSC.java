@@ -104,7 +104,7 @@ public class PrintReport_TSC {
 
         Bitmap b = loadBitmapFromView(ReportView);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        String filename = "Zain.BMP";
+        String filename = "Zain.jpg";
         File sd = Environment.getExternalStorageDirectory();
         File dest = new File(sd.getPath()+"/Download", filename);
 
