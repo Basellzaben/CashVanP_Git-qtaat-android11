@@ -39,7 +39,7 @@ public class CallWebServices  {
           //URL = "http://192.168.1.118/GIWS/CV.asmx";
            URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
        //   URL = "http://192.168.1.100:3750/CV.asmx";
-          //URL = "http://92.253.22.118:3733/CV.asmx";// Targit
+        //   URL = "http://92.253.22.118:3733/CV.asmx";// Targit
        //   URL = "http://194.165.133.147:85/CV.asmx";// Okrania
     }
 
