@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import Methdes.MyTextView;
+
 /**
  * Created by Hp on 18/03/2016.
  */
@@ -50,26 +52,26 @@ public class Cls_ItemCost_Adapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.itemcostrow, null);
 
         }
-        TextView bill_no = (TextView) convertView.findViewById(R.id.tv_bill_no);
+        MyTextView bill_no = (MyTextView) convertView.findViewById(R.id.tv_bill_no);
         bill_no.setText(cls_itemCost.getBill_no());
 
-        TextView bill_date = (TextView) convertView.findViewById(R.id.tv_bill_date);
+        MyTextView bill_date = (MyTextView) convertView.findViewById(R.id.tv_bill_date);
         bill_date.setText(cls_itemCost.getBill_date());
 
-        TextView venname = (TextView) convertView.findViewById(R.id.tv_venname);
+        MyTextView venname = (MyTextView) convertView.findViewById(R.id.tv_venname);
         venname.setText(cls_itemCost.getVenname());
 
-        TextView qty = (TextView) convertView.findViewById(R.id.tv_qty);
+        MyTextView qty = (MyTextView) convertView.findViewById(R.id.tv_qty);
         qty.setText(cls_itemCost.getQty());
 
-        TextView cost = (TextView) convertView.findViewById(R.id.tv_cost);
+        MyTextView cost = (MyTextView) convertView.findViewById(R.id.tv_cost);
         cost.setText(cls_itemCost.getCost());
 
-        TextView UnitName = (TextView) convertView.findViewById(R.id.tv_UnitName);
+        MyTextView UnitName = (MyTextView) convertView.findViewById(R.id.tv_UnitName);
         UnitName.setText(cls_itemCost.getUnitName());
 
 
-        TextView unitcost = (TextView) convertView.findViewById(R.id.tv_unitcost);
+        MyTextView unitcost = (MyTextView) convertView.findViewById(R.id.tv_unitcost);
         unitcost.setText(cls_itemCost.getUnitcost());
 
         return convertView;

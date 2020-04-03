@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
 
 import com.example.tscdll.TSCActivity;
 
@@ -43,8 +44,8 @@ public class PrintReport_TSC {
     int h;
     Bitmap Empty_bitmap = null;
     Connection connection;
-    PrintReport_TSC(Context _context, Activity _Activity,
-                    View _ReportView, int _PageWidth, float _ImageCountFactor) {
+    public PrintReport_TSC(Context _context, Activity _Activity,
+                           View _ReportView, int _PageWidth, float _ImageCountFactor) {
         context = _context;
         Activity = _Activity;
 
@@ -56,16 +57,102 @@ public class PrintReport_TSC {
         ImageCountFactor = _ImageCountFactor;
 
     }
+    public  void StoreContent(View v,String file_name){
+        Bitmap b = loadBitmapFromView(v);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String filename = file_name ;
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
 
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            out.flush();
+            out.close();
+            //  bitmap.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public  void StoreFooter(View v){
+        Bitmap b = loadBitmapFromView(v);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String filename = "z3.jpg";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            out.flush();
+            out.close();
+            //  bitmap.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
     public  void DoPrint(){
         StoreImage();
         Bitmap myBitmap = null;
         myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
 
+
         Toast.makeText(context  ,"العمل جاري على طباعة الملف",Toast.LENGTH_SHORT ).show();
 
-       PrintImage(myBitmap);
-       // PrintImage_new(myBitmap);
+        PrintImage(myBitmap);
+
+
+    }
+
+    public  void StoreHeader(View v){
+        Bitmap b = loadBitmapFromView(v);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String filename = "z1.jpg";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            out.flush();
+            out.close();
+            //  bitmap.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+    public  void DoPrint2Img(){
+        StoreImage();
+        Bitmap myBitmap = null;
+        myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
+
+
+
+        Bitmap myBitmap2 = null;
+        myBitmap2= BitmapFactory.decodeFile("//sdcard//z2.jpg");
+
+        Bitmap myBitmap21 = null;
+        myBitmap21= BitmapFactory.decodeFile("//sdcard//z21.jpg");
+
+         Bitmap myBitmap22 = null;
+        myBitmap22= BitmapFactory.decodeFile("//sdcard//z22.jpg");
+
+
+        Bitmap myBitmap3 = null;
+        myBitmap3= BitmapFactory.decodeFile("//sdcard//z3.jpg");
+
+        Toast.makeText(context  ,"العمل جاري على طباعة الملف",Toast.LENGTH_SHORT ).show();
+
+
+        PrintImage2(myBitmap, myBitmap2,myBitmap21,myBitmap22,myBitmap3);
+
 
     }
     public  void DoPrint1(){
@@ -114,6 +201,46 @@ public class PrintReport_TSC {
             out.flush();
             out.close();
             //  bitmap.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    private  void StoreImage3(){
+
+
+        Bitmap b = loadBitmapFromView(ReportView);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String filename = "z3.jpg";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            out.flush();
+            out.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    private  void StoreImage2(){
+
+
+        Bitmap b = loadBitmapFromView(ReportView);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String filename = "z2.jpg";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            out.flush();
+            out.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -182,10 +309,30 @@ public class PrintReport_TSC {
         }).start();
 
     }*/
+  public void SendCommand(String txt) {
 
+     /* try {
+
+          TscDll.openport(BPrinter_MAC_ID);
+
+          TscDll.setup(70, 110, 4, 4, 0, 0, 0);
+          TscDll.clearbuffer();
+          TscDll.sendcommand("SET TEAR ON\n");
+          TscDll.sendcommand("SET COUNTER @1 1\n");
+          TscDll.sendcommand("@1 = \"0001\"\n");
+          TscDll.sendcommand("TEXT 100,300,\"3\",0,1,1,@1\n");
+
+          TscDll.printerfont(100, 250, "3", 0, 1, 1, "معن");
+          TscDll.printlabel(1, 1);
+          TscDll.closeport(5000);
+
+      }catch ( Exception ex){
+          Toast.makeText(context,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
+      }*/
+  }
     public void PrintImage_new(final Bitmap bitmap) {
 
- try {
+   try {
      File sd = Environment.getExternalStorageDirectory();
      File dest = new File(sd.getPath()+"/Download", "Zain.jpg");
      TscDll.openport(BPrinter_MAC_ID);
@@ -216,6 +363,35 @@ public class PrintReport_TSC {
  }catch ( Exception ex){
      Toast.makeText(context,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
  }
+    }
+    private void PrintImage2(final Bitmap bitmap,final Bitmap bitmap2,final Bitmap bitmap21,final Bitmap bitmap22,final Bitmap bitmap3) {
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        Looper.prepare();
+                        String BPrinter_MAC_ID;
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        BPrinter_MAC_ID = sharedPreferences.getString("AddressBT", "");
+                        Connection c2 = new BluetoothConnection(BPrinter_MAC_ID);
+                        c2.open();
+                        ZebraPrinter printer = ZebraPrinterFactory.getInstance(PrinterLanguage.CPCL, c2);
+                        c2.write("! U1 JOURNAL\r\n! U1 SETFF 20 2\r\n".getBytes());
+                        printer.printImage(new ZebraImageAndroid(bitmap), 20, 0, 550, bitmap.getHeight(), false);
+                        printer.printImage(new ZebraImageAndroid(bitmap2), 20, 0, 550, bitmap2.getHeight(), false);
+                        printer.printImage(new ZebraImageAndroid(bitmap21), 20, 0, 550, bitmap21.getHeight(), false);
+                        printer.printImage(new ZebraImageAndroid(bitmap22), 20, 0, 550, bitmap22.getHeight(), false);
+                        printer.printImage(new ZebraImageAndroid(bitmap3), 20, 0, 550, bitmap3.getHeight(), false);
+                        c2.close();
+
+                    } catch (ConnectionException e) {
+                        e.printStackTrace();
+
+                    } finally {
+                        Looper.myLooper().quit();
+                    }
+                }
+            }).start();
+
     }
   private void PrintImage(final Bitmap bitmap) {
 
@@ -271,7 +447,7 @@ public class PrintReport_TSC {
                       TscDll.closeport(5000);
                      /* printer.printImage(new ZebraImageAndroid(bm1), 20, 0, 550, bm1.getHeight(), false);
                       printer.printImage(new ZebraImageAndroid(bm2), 20, 0, 550, bm2.getHeight(), false);*/
-                      connection.close();
+                      //connection.close();
 
                   } catch (ConnectionException e) {
                       e.printStackTrace();

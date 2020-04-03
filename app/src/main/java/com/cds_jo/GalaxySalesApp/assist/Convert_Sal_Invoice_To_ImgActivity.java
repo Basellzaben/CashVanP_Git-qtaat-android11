@@ -16,6 +16,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RectShape;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -27,7 +28,9 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -45,6 +48,7 @@ import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.sewoo.jpos.printer.ESCPOSPrinter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
@@ -63,10 +67,11 @@ public class Convert_Sal_Invoice_To_ImgActivity extends FragmentActivity {
     private Button mButton;
     private View mView;
     String ShowTax = "0";
+    String name="0";
     private static final int REQUEST_ENABLE_BT = 0;
     private static final int REQUEST_DISCOVERABLE_BT = 0;
     private static final DecimalFormat oneDecimal = new DecimalFormat("#,##0.0");
-
+    LinearLayout Layout_name;
     Button btn_Save,btn_Clear,btn_Cancel;
     LinearLayout mContent;
     View ViewNotes;
@@ -79,6 +84,7 @@ public class Convert_Sal_Invoice_To_ImgActivity extends FragmentActivity {
     String DIRECTORY ;
     float STROKE_WIDTH = 5f;
     float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +119,7 @@ try {
         mContent.addView(mSignature, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         ViewNotes = mContent;
 
-
+        //Layout_name=(LinearLayout)findViewById(R.id.Layout_name);
 
         btn_Save=(Button)  findViewById(R.id.btn_Save);
         btn_Save.setOnClickListener(new View.OnClickListener() {
@@ -222,7 +228,7 @@ try {
 
         tv_footer3 .setText(footer3);
         ShowTax=getIntent().getStringExtra("ShowTax");
-
+        name= getIntent().getStringExtra("name");
 
         TextView    tv_UserNm  = (TextView)findViewById(R.id.tv_UserNm);
         tv_UserNm.setText(u);
@@ -328,6 +334,7 @@ try {
         }
     });
         mBluetoothAdapter.enable();
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
  }
 
     private  void ResetFoundSize(){
@@ -430,6 +437,67 @@ try {
             }
         }
 
+
+    }
+
+    public void Do_Whatsapp(View view) {
+        StoreImage();
+        openWhatsApp();
+    }
+    private void openWhatsApp() {
+        EditText     et_phoneNo=(EditText) findViewById(R.id.et_phoneNo);
+        File imageFileToShare = new File("//sdcard/z1.jpg");
+        Uri uri2 = Uri.fromFile(imageFileToShare);
+        String toNumber = "+962785381939";
+        toNumber="+962" + et_phoneNo.getText();
+        toNumber = toNumber.replace("+", "").replace(" ", "");
+        Intent shareIntent = new Intent("android.intent.action.MAIN");
+        shareIntent.setAction(Intent.ACTION_SEND);
+        String ExtraText;
+        ExtraText = "Galaxy Sales App";
+        shareIntent.putExtra(Intent.EXTRA_TEXT, ExtraText);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri2);
+        shareIntent.setType("image/jpg");
+        shareIntent.setPackage("com.whatsapp");
+        shareIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        try {
+
+            startActivity(shareIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getBaseContext(), "Sharing tools have not been installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public static Bitmap loadBitmapFromView(View v) {
+
+        v.measure(View.MeasureSpec.makeMeasureSpec(v.getLayoutParams().width,
+                View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(
+                v.getLayoutParams().height, View.MeasureSpec.UNSPECIFIED));
+        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
+    }
+    private  void StoreImage(){
+        LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
+
+        Bitmap b = loadBitmapFromView(lay);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String filename = "z1.jpg";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            out.flush();
+            out.close();
+            //  bitmap.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
     public class signature extends View {
@@ -662,7 +730,9 @@ try {
         if (c1 != null && c1.getCount() != 0) {
             if (c1.moveToFirst()) {
                 et_Date.setText(c1.getString(c1.getColumnIndex("date")));
-                tv_cusnm.setText(c1.getString(c1.getColumnIndex("name")));
+                if (name.equalsIgnoreCase("1")){
+                    tv_cusnm.setText(c1.getString(c1.getColumnIndex("name")));
+
                 if(c1.getString(c1.getColumnIndex("inovice_type")).equals("0")){
                     tv_cusnm.setText(c1.getString(c1.getColumnIndex("Nm")).toString());
 
@@ -671,6 +741,16 @@ try {
                 {
                     tv_cusnm.setText(c1.getString(c1.getColumnIndex("name")));
                 }
+                }
+                else
+                {
+                    tv_cusnm.setText("");
+                    LinearLayout Layout_name=(LinearLayout)findViewById(R.id.Layout_name);
+                    Layout_name.setVisibility(View.GONE);
+
+                }
+            }else {
+                tv_cusnm.setText("");
                 tv_Disc.setText(c1.getString(c1.getColumnIndex("disc_Total")));
                 tv_NetTotal.setText(c1.getString(c1.getColumnIndex("Net_Total")));
                 tv_TotalTax.setText(c1.getString(c1.getColumnIndex("Tax_Total")));
@@ -925,7 +1005,9 @@ try {
 
                 tv_no.setText(Obj.getno());
                 tv_name.setText(Obj.getName());
-                tv_Price.setText(Obj.getprice());
+                try {
+                    tv_Price.setText(Obj.getprice());
+                }catch (Exception ex ){}
                 tv_Qty.setText(Obj.getQty());
                 tv_Unit.setText(Obj.getUnite() );
                 tv_tax.setText(Obj.getTax());

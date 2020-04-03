@@ -61,33 +61,14 @@
         </LinearLayout>
 
         <HorizontalScrollView
+            android:id="@+id/Spiner"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:layout_marginBottom="2dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="2dp"
             android:orientation="horizontal">
 
-
-
-<!--
-
-            <TextView
-                android:id="@+id/tv_News"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#9412499b"
-                android:gravity="center_vertical|center_horizontal"
-                android:layoutDirection="rtl"
-                android:singleLine="false"
-                android:text=" رمضــــــــــان كريــــــــــــــــــم"
-                android:textColor="#010000"
-                android:textIsSelectable="false"
-                android:textSize="30dp"
-                android:visibility="visible"
-                android:ellipsize="marquee"
-                android:scrollHorizontally="true"
-                />-->
 
             <Methdes.MyTextView
                 android:id="@+id/tv_News"
@@ -120,7 +101,7 @@
                 android:background="@color/Blue"
                 android:gravity="center_vertical|center_horizontal"
                 android:singleLine="false"
-                android:text="مجموعة المجرة الدولية @2018"
+                android:text="مجموعة المجرة الدولية @2020"
                 android:textColor="#fff"
                 android:textIsSelectable="false"
                 android:textSize="25sp" />

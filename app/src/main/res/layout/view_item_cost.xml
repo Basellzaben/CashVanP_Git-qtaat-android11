@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="          ستعلام عن كلفة مادة    "
+                android:text="          إستعلام عن كلفة مادة    "
                 android:id="@+id/textView37"
                 android:background="@drawable/listview_border" />
         </LinearLayout>
@@ -32,44 +32,49 @@
             android:layout_height="wrap_content" >
 
 
-            <TextView
+            <Methdes.MyTextView
+                android:id="@+id/textView30"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_height="match_parent"
                 android:text="اسم المادة"
-                android:id="@+id/textView30" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000" />
 
             <ImageButton
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:id="@+id/imageButton4"
-                android:src="@android:drawable/ic_menu_help"
+                android:src="@android:drawable/ic_menu_search"
                 android:onClick="btn_searchCustomer"
                 android:layout_gravity="center_vertical" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/tv_cusnm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:paddingRight="10dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="رقم المادة"
-                android:id="@+id/textView3"
-                android:layout_marginLeft="100dp"
-                android:gravity="left" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingRight="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:gravity="left"
+                android:text="رقم المادة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000" />
+
+            <TextView
                 android:id="@+id/tv_acc"
-                android:gravity="left" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000" />
 
         </LinearLayout>
 

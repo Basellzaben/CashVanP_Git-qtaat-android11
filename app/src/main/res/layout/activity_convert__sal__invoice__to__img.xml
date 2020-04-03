@@ -210,16 +210,79 @@
             </LinearLayout>
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView285"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_fill_white"
+                    android:gravity="center"
+                    android:text="رقم الواتس"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_phoneNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_fill_white"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="phone"
+                    android:selectAllOnFocus="true" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/et_phoneKey"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_fill_white"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="phone"
+                    android:text="962+"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="3">
 
             <Button
                 android:id="@+id/btn_Print"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="10dp"
@@ -232,12 +295,28 @@
                 android:textSize="25sp" />
 
             <Button
-                android:id="@+id/button18"
-                android:layout_width="fill_parent"
+                android:id="@+id/buttoلاn18"
+                android:layout_width="0dp"
                 android:layout_height="80dp"
+                android:layout_alignTop="@+id/btn_Print"
                 android:layout_alignEnd="@+id/f_view"
                 android:layout_alignRight="@+id/f_view"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/Green"
+                android:onClick="Do_Whatsapp"
+                android:text="واتساب"
+                android:textColor="@android:color/white"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/button18"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
                 android:layout_alignTop="@+id/btn_Print"
+                android:layout_alignEnd="@+id/f_view"
+                android:layout_alignRight="@+id/f_view"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"

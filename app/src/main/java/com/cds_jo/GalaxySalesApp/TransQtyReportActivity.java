@@ -181,8 +181,8 @@ CheckBox chk_hdr_disc ;
                         //date,fromstore,tostore,des,docno,itemno,qty,UnitNo,UnitRate,myear
                         cls_trans_qty = new Cls_Trans_Qty();
 
-                        cls_trans_qty.setDocno(c.getString(c
-                                .getColumnIndex("ser")));
+                      /*  cls_trans_qty.setDocno(c.getString(c
+                                .getColumnIndex("ser")));*/
                         cls_trans_qty.setItemno(c.getString(c
                                 .getColumnIndex("itemno")));
                         cls_trans_qty.setItem_Name(c.getString(c

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/listview_border"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Methdes.MyTextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/listview_border"
+            android:text="   بطاقة المندوب    "
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="45dp"
+        android:orientation="vertical"
+        android:weightSum="2.2">
+
+        <LinearLayout
+            android:layout_width="175dp"
+            android:layout_weight=".9"
+            android:weightSum="1.2"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_height="0dp">
+
+            <RelativeLayout
+                android:layout_width="175dp"
+                android:layout_height="wrap_content">
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    app:civ_border_color="@color/Black11"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/hr_person"
+                    app:civ_border_width="2dp" />
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/img_plus"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:onClick="addImage"
+
+                    android:layout_alignBottom="@id/img_profile"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_add_black_24dp"
+                    app:civ_shadow="true"
+                    app:civ_shadow_radius="1" />
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="2.1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight=".3"
+                android:orientation="horizontal"
+
+                android:paddingEnd="20dp"
+                android:weightSum="6">
+
+                <Methdes.MyTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2"
+
+
+                    android:gravity="center"
+                    android:text="رقم المندوب:"
+                    android:textColor="@color/Black11"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/manNo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.8"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="5dp"
+                    android:text=""
+                    android:textColor="@color/Black11"
+                    android:textSize="18dp" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight=".3"
+
+                android:orientation="horizontal"
+                android:paddingEnd="20dp"
+                android:weightSum="6">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2"
+                    android:gravity="center"
+                    android:text="الاسم"
+                    android:textColor="@color/Black11"
+                    android:textSize="18sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.8"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="5dp"
+                    android:text=""
+                    android:textColor="@color/Black11"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight=".3"
+                android:orientation="horizontal"
+
+                android:paddingEnd="20dp"
+                android:weightSum="6">
+
+                <Methdes.MyTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2"
+
+
+                    android:gravity="center"
+                    android:text="رقم الهاتف:"
+                    android:textColor="@color/Black11"
+                    android:textSize="18sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/phone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.8"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="5dp"
+                    android:text=""
+                    android:textColor="@color/Black11"
+                    android:textSize="18dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight=".3"
+                android:orientation="horizontal"
+
+                android:paddingEnd="20dp"
+                android:weightSum="6">
+
+                <Methdes.MyTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2"
+
+
+                    android:gravity="center"
+                    android:text="اسم المشرف:"
+                    android:textColor="@color/Black11"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/SupervisorNutes"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.8"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="5dp"
+                    android:text=""
+                    android:textColor="@color/Black11"
+                    android:textSize="18dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight=".3"
+                android:orientation="horizontal"
+                android:paddingEnd="20dp"
+                android:weightSum="6">
+
+                <Methdes.MyTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2"
+
+
+                    android:gravity="center"
+                    android:text="اسم الفرع:"
+                    android:textColor="@color/Black11"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/Br"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.8"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="5dp"
+                    android:text=""
+                    android:textColor="@color/Black11"
+                    android:textSize="18dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight=".3"
+                android:orientation="horizontal"
+                android:paddingEnd="20dp"
+                android:weightSum="6">
+
+                <Methdes.MyTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.2"
+                    android:gravity="center"
+                    android:text="البريد الكتروني:"
+                    android:textColor="@color/Black11"
+                    android:textSize="18sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/email"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.8"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center_vertical|right"
+                    android:paddingRight="5dp"
+
+                    android:text=""
+                    android:textColor="@color/Black11"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".3"
+                android:orientation="horizontal"
+                android:paddingEnd="20dp"
+                android:weightSum="2">
+
+
+                <Button
+                    android:id="@+id/btn_Update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/Green"
+                    android:text="تحديث "
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/btn_Back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/Pink"
+                    android:text="رجوع"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

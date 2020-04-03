@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView278"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1pt"
+                android:layout_marginEnd="1pt"
+                android:layout_weight="1"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
+                android:text="مجموع القبوضات المطلوب "
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_CollectionAmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
+                android:text="0.000"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+
+            <Methdes.MyTextView
+                android:id="@+id/textViewس277"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+
+            <Methdes.MyTextView
+                android:id="@+id/textViedw278"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1pt"
+                android:layout_weight="1"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
+                android:paddingStart="2dp"
+                android:text="مجموع التحصيلات"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_PaymentAmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1pt"
+                android:layout_weight="1"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
+                android:text="0.000"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/textViesfswس277"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:textColor="#000"
+                android:textSize="16sp" />
+            <Methdes.MyTextView
+                android:id="@+id/textVgfiew278"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1pt"
+                android:layout_marginEnd="1pt"
+                android:layout_weight="1"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
+                android:text="النسبة "
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_Percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
+                android:text="0.000"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_marginTop="50dp"
+            android:visibility="gone"></ListView>
+
+    </LinearLayout>
+
+</FrameLayout>

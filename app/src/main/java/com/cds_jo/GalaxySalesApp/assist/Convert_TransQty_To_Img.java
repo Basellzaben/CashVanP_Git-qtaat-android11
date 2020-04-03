@@ -81,7 +81,9 @@ public class Convert_TransQty_To_Img extends AppCompatActivity {
 
         sqlHandler = new SqlHandler(this);
         showList();
-        mBluetoothAdapter.enable();
+        try {
+            mBluetoothAdapter.enable();
+        }catch (Exception d){}
     }
     private Double GetSaledQtyNotPosted(String ItemNo ){
 

@@ -82,12 +82,16 @@
                     android:textColor="#fff" />
             </LinearLayout>
 
+
+
             <ImageView
                 android:id="@+id/Img_Menu"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:src="@mipmap/icon_menu" />
+
+
 
         </RelativeLayout>
 
@@ -123,7 +127,7 @@
                         android:id="@+id/textView30"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="اسم العميل "
+                        android:text="العميل"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#000"
                         android:textSize="15sp" />
@@ -256,7 +260,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.4"
                     android:orientation="horizontal">
 
                     <TextView
@@ -266,7 +270,7 @@
                         android:layout_weight="1"
                         android:gravity="left|center"
                         android:paddingLeft="20dp"
-                        android:text="رقم العميل"
+                        android:text="الرقم"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#000"
                         android:textSize="15sp" />
@@ -281,7 +285,7 @@
                     <TextView
                         android:id="@+id/tv_acc"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/btn_cir_white_fill_black"
                         android:gravity="center"
@@ -302,13 +306,13 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_marginTop="2dp"
-            android:weightSum="6">
+            android:weightSum="7">
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
                 android:background="@drawable/blue_fill_white"
 
                 android:orientation="horizontal"
@@ -343,9 +347,10 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="ذمة العميل :"
+                    android:text="الذمة"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="15dp" />
 
                 <TextView
                     android:id="@+id/tv_CustNetTotal"
@@ -374,7 +379,8 @@
                     android:gravity="center"
                     android:text="سقف العميل :"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="15dp"/>
 
                 <TextView
                     android:id="@+id/tv_CustCelling"
@@ -401,14 +407,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:text="طباعة الضريبة" />
+                    android:text="طباعة الضريبة"
+                    android:textSize="15dp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:background="@drawable/blue_fill_white"
                 android:orientation="horizontal">
 
@@ -420,7 +427,8 @@
                     android:gravity="center"
                     android:text="نوع الفاتورة"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#000" />
+                    android:textColor="#000"
+                    android:textSize="15dp"/>
 
                 <CheckBox
                     android:id="@+id/chk_Type"
@@ -428,7 +436,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:checked="false"
-                    android:text="نقدي" />
+                    android:text="نقدي"
+                    android:textSize="15dp"/>
 
             </LinearLayout>
 
@@ -446,7 +455,27 @@
                     android:layout_weight="1"
                     android:checked="false"
                     android:paddingLeft="10dp"
-                    android:text="السعر شامل الضريبة" />
+                    android:text="السعر شامل الضريبة"
+                    android:textSize="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/chk_cus_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:paddingLeft="10dp"
+                    android:text="طباعة اسم العميل"
+                    android:textSize="15dp"/>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -618,10 +647,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1.2"
+                android:gravity="center"
                 android:text="قيمة الضريبة"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#fff"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <Methdes.MyTextView

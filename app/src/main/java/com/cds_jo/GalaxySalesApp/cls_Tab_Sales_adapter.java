@@ -68,7 +68,7 @@ public class cls_Tab_Sales_adapter extends BaseAdapter {
         tvacc.setText(cls_search_po.getAcc());
 
 
-        MyTextView tv_tot = (MyTextView) convertView.findViewById(R.id.tv_tot);
+        MyTextView tv_tot = (MyTextView) convertView.findViewById(R.id.tv_Bill);
         tv_tot.setText(cls_search_po.getTot());
 
 

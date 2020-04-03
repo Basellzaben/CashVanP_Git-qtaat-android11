@@ -101,7 +101,7 @@
             android:textSize="16sp" />
 
         <Methdes.MyTextView
-            android:id="@+id/tv_Amt"
+            android:id="@+id/tv_Type"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="1dp"

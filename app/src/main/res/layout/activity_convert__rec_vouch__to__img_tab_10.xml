@@ -37,7 +37,7 @@
                 android:nestedScrollingEnabled="false"
                 android:onClick="btn_convert"
                 android:text="طبــاعــــة "
-                android:textSize="30sp" />
+                android:textSize="30dp" />
 
             <Button
                 android:id="@+id/button21"
@@ -50,7 +50,7 @@
                 android:nestedScrollingEnabled="false"
                 android:onClick="btn_back"
                 android:text="رجـــــــــــوع "
-                android:textSize="30sp" />
+                android:textSize="30dp" />
         </LinearLayout>
     </LinearLayout>
 

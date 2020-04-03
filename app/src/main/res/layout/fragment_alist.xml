@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".assist.Monthly_target_elements.QuantitieslistFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <Methdes.MyTextView
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=" الصنف"
+                android:textColor="@color/Black11"
+                android:textSize="25dp"></Methdes.MyTextView>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:background="#000" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <Methdes.MyTextView
+                android:id="@+id/sales"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:text=" المطلوبة"
+                android:textColor="@color/Black11"
+                android:textSize="25dp"></Methdes.MyTextView>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:background="#000" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <Methdes.MyTextView
+                android:id="@+id/sales1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:gravity="center"
+                android:text=" المحققة"
+                android:textColor="@color/Black11"
+                android:textSize="25dp"></Methdes.MyTextView>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:background="#000" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <Methdes.MyTextView
+                android:id="@+id/Ret2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=" المرتجعة"
+                android:textColor="@color/Black11"
+                android:textSize="25dp"></Methdes.MyTextView>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:background="#000" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:weightSum="2"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <Methdes.MyTextView
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+
+                android:id="@+id/Ret"
+                android:text="النسبة"
+                android:textColor="@color/Black11"
+                android:textSize="25dp"
+                android:layout_height="match_parent"
+                ></Methdes.MyTextView>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="3dp"
+                android:layout_weight="1"
+                android:background="#000" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
+        <ListView
+            android:layout_width="match_parent"
+            android:id="@+id/Alv"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>

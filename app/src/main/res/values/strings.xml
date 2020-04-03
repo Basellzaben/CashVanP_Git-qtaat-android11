@@ -151,8 +151,18 @@
         <item>سند النقل</item>
         <item>استعراض العروض</item>
         <item>أخر حركات العميل</item>
-        <item>تعديل الحركات</item>
+        <item>ملاحظات العميل</item>
         <item>اضافة الصور</item>
+        <item>تغيير الباسورد</item>
+        <item>كميات المندوب</item>
+        <item>المواد التالفة</item>
+        <item>الهدف الشهري</item>
+        <item>جدول التحصيلات</item>
+        <item>كود السقوفات</item>
+        <item>بطاقة المندوب</item>
+        <item>طلب اجازة</item>
+        <item>الدوام</item>
+        <item>Gps</item>
         <item>خروج</item>
         <item></item>
     </array>

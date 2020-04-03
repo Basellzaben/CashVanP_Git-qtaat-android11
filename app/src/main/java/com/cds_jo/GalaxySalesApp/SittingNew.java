@@ -1,8 +1,12 @@
 package com.cds_jo.GalaxySalesApp;
 
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -10,9 +14,15 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
@@ -20,6 +30,11 @@ import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import port.bluetooth.BluetoothConnectMenu;
 
 
@@ -27,6 +42,35 @@ public class SittingNew extends FragmentActivity {
     EditText Sal_inv ,Payments,PrepQty,SalesOrder,ReturnQty,CustCash , PostDelay ,TransQtySerial,Visits;
     SqlHandler sqlHandler;
     Button btn_Delete , button25,ButtonConnectBT;
+    private View dialogView;
+    private ArrayAdapter<String> adapter1
+            ,adapter2;
+    private ListView lv1,lv2;
+    private Button btn_scan;
+    private LinearLayout LLlayout;
+    android.support.v7.app.AlertDialog dialog;
+    private DeviceReceiver myDevice;
+    private ArrayList<String> deviceList_found=new ArrayList<String>();//found list
+    String mac;
+    private ArrayList<String> deviceList_bonded=new ArrayList<String>();//bonded list
+    EditText showET;
+    BluetoothAdapter bluetoothAdapter;
+   // Button btn_scan;
+
+    // BluetoothAdapter bluetoothAdapter;
+   // private View dialogView;
+//    private ArrayAdapter<String> adapter1
+//            ,adapter2
+//            ,adapter3;
+//    private ArrayList<String> deviceList_bonded=new ArrayList<String>();//bonded list
+//    private ListView lv1,lv2,lv_usb;
+//    private Button btn_scan; //scan button
+//    private LinearLayout LLlayout;
+//    private ArrayList<String> deviceList_found=new ArrayList<String>();//found list
+//    android.support.v7.app.AlertDialog dialog;
+//    private DeviceReceiver myDevice;
+//    String mac;
+//    EditText showET;// show edittext
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +91,7 @@ public class SittingNew extends FragmentActivity {
         PostDelay = (EditText)findViewById(R.id.et_PostDelay);
         TransQtySerial= (EditText)findViewById(R.id.ed_TransSerial);
         Visits= (EditText)findViewById(R.id.et_Visit);
-        EditText     AddressBT = (EditText)findViewById(R.id.EditTextAddressBT);
+        EditText  AddressBT = (EditText)findViewById(R.id.EditTextAddressBT);
 
 
         EditText     IP = (EditText)findViewById(R.id.et_IP);
@@ -72,8 +116,6 @@ public class SittingNew extends FragmentActivity {
 
         EditText     AddressBT = (EditText)findViewById(R.id.EditTextAddressBT);
         EditText     IP = (EditText)findViewById(R.id.et_IP);
-
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor    = sharedPreferences.edit();
         editor.putString("ServerIP", IP.getText().toString().trim());
@@ -484,4 +526,283 @@ public class SittingNew extends FragmentActivity {
         GetSerials();
 
     }
+    public void setBluetooth(){
+        bluetoothAdapter= BluetoothAdapter.getDefaultAdapter();
+
+        if (!bluetoothAdapter.isEnabled()){
+            //open bluetooth
+            Intent intent=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(intent, Conts.ENABLE_BLUETOOTH);
+        }else {
+
+            showblueboothlist();
+
+        }
+    }
+
+    private void showblueboothlist() {
+        if (!bluetoothAdapter.isDiscovering()) {
+            bluetoothAdapter.startDiscovery();
+        }
+        LayoutInflater inflater=LayoutInflater.from(this);
+        dialogView=inflater.inflate(R.layout.printer_list, null);
+        adapter1=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, deviceList_bonded);
+        lv1=(ListView) dialogView.findViewById(R.id.listView1);
+        btn_scan=(Button) dialogView.findViewById(R.id.btn_scan);
+        LLlayout=(LinearLayout) dialogView.findViewById(R.id.ll1);
+        lv2=(ListView) dialogView.findViewById(R.id.listView2);
+        adapter2=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, deviceList_found);
+        lv1.setAdapter(adapter1);
+        lv2.setAdapter(adapter2);
+        dialog=new android.support.v7.app.AlertDialog.Builder(this).setTitle("الاجهزة المتاحة").setView(dialogView).create();
+        dialog.show();
+
+        myDevice=new DeviceReceiver(deviceList_found,adapter2,lv2);
+
+        //register the receiver
+        IntentFilter filterStart=new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        IntentFilter filterEnd=new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        registerReceiver(myDevice, filterStart);
+        registerReceiver(myDevice, filterEnd);
+
+
+        setDlistener();
+        findAvalibleDevice();
+    }
+    private void setDlistener() {
+        // TODO Auto-generated method stub
+        btn_scan.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                LLlayout.setVisibility(View.VISIBLE);
+                //btn_scan.setVisibility(View.GONE);
+            }
+        });
+        //boned device connect
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                // TODO Auto-generated method stub
+                try {
+                    if(bluetoothAdapter!=null&&bluetoothAdapter.isDiscovering()){
+                        bluetoothAdapter.cancelDiscovery();
+
+                    }
+                    EditText AddressBT = (EditText)findViewById(R.id.EditTextAddressBT);
+                    String msg=deviceList_bonded.get(arg2);
+                    mac=msg.substring(msg.length()-17);
+                    String name=msg.substring(0, msg.length()-18);
+                    //lv1.setSelection(arg2);
+                    dialog.cancel();
+                    AddressBT.setText(mac);
+
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SittingNew.this);
+                    SharedPreferences.Editor editor    = sharedPreferences.edit();
+                    editor.putString("AddressBT", mac);
+
+                    editor.commit();
+                    new SweetAlertDialog(SittingNew.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+
+                            .setContentText("تمت عملية التخزين بنجاح")
+                            .setCustomImage(R.drawable.tick)
+                            .setConfirmText("رجــــوع")
+                            .show();
+
+                    //Log.i("TAG", "mac="+mac);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+        //found device and connect device
+        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                // TODO Auto-generated method stub
+                try {
+                    if(bluetoothAdapter!=null&&bluetoothAdapter.isDiscovering()){
+                        bluetoothAdapter.cancelDiscovery();
+
+                    }
+                    EditText AddressBT = (EditText)findViewById(R.id.EditTextAddressBT);
+                    String msg=deviceList_found.get(arg2);
+                    mac=msg.substring(msg.length()-17);
+                    String name=msg.substring(0, msg.length()-18);
+                    //lv2.setSelection(arg2);
+                    dialog.cancel();
+                    AddressBT.setText(mac);
+                    Log.i("TAG", "mac="+mac);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /*
+    find avaliable device
+     */
+    private void findAvalibleDevice() {
+        // TODO Auto-generated method stub
+
+        Set<BluetoothDevice> device=bluetoothAdapter.getBondedDevices();
+
+        deviceList_bonded.clear();
+        if(bluetoothAdapter!=null&&bluetoothAdapter.isDiscovering()){
+            adapter1.notifyDataSetChanged();
+        }
+        if(device.size()>0){
+            //already
+            for(Iterator<BluetoothDevice> it = device.iterator(); it.hasNext();){
+                BluetoothDevice btd=it.next();
+                deviceList_bonded.add(btd.getName()+'\n'+btd.getAddress());
+                adapter1.notifyDataSetChanged();
+            }
+        }else{
+            deviceList_bonded.add("No can be matched to use bluetooth");
+            adapter1.notifyDataSetChanged();
+        }
+
+    }
+    public void btn_bluetooth(View v){
+        setBluetooth();
+
+        EditText AddressBT = (EditText)findViewById(R.id.EditTextAddressBT);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor    = sharedPreferences.edit();
+        editor.putString("AddressBT", AddressBT.getText().toString().trim());
+
+        editor.commit();
+
+
+
+
+    }
+
+//    private void showblueboothlist() {
+//        if (!bluetoothAdapter.isDiscovering()) {
+//            bluetoothAdapter.startDiscovery();
+//        }
+//        LayoutInflater inflater=LayoutInflater.from(this);
+//        dialogView=inflater.inflate(R.layout.printer_list, null);
+//        adapter1=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, deviceList_bonded);
+//        lv1=(ListView) dialogView.findViewById(R.id.listView1);
+//        btn_scan=(Button) dialogView.findViewById(R.id.btn_scan);
+//        LLlayout=(LinearLayout) dialogView.findViewById(R.id.ll1);
+//        lv2=(ListView) dialogView.findViewById(R.id.listView2);
+//        adapter2=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, deviceList_found);
+//        lv1.setAdapter(adapter1);
+//        lv2.setAdapter(adapter2);
+//        dialog=new android.support.v7.app.AlertDialog.Builder(this).setTitle("BLE").setView(dialogView).create();
+//        dialog.show();
+//
+//        myDevice=new DeviceReceiver(deviceList_found,adapter2,lv2);
+//
+//        //register the receiver
+//        IntentFilter filterStart=new IntentFilter(BluetoothDevice.ACTION_FOUND);
+//        IntentFilter filterEnd=new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+//        registerReceiver(myDevice, filterStart);
+//        registerReceiver(myDevice, filterEnd);
+//
+//        setDlistener();
+//        findAvalibleDevice();
+//    }
+//
+//    private void setDlistener() {
+//        // TODO Auto-generated method stub
+//        btn_scan.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // TODO Auto-generated method stub
+//                LLlayout.setVisibility(View.VISIBLE);
+//                //btn_scan.setVisibility(View.GONE);
+//            }
+//        });
+//        //boned device connect
+//        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                // TODO Auto-generated method stub
+//                try {
+//                    if(bluetoothAdapter!=null&&bluetoothAdapter.isDiscovering()){
+//                        bluetoothAdapter.cancelDiscovery();
+//
+//                    }
+//
+//                    String msg=deviceList_bonded.get(arg2);
+//                    mac=msg.substring(msg.length()-17);
+//                    String name=msg.substring(0, msg.length()-18);
+//                    //lv1.setSelection(arg2);
+//                    dialog.cancel();
+//                    showET.setText(mac);
+//                    //Log.i("TAG", "mac="+mac);
+//                } catch (Exception e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//        //found device and connect device
+//        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//                                    long arg3) {
+//                // TODO Auto-generated method stub
+//                try {
+//                    if(bluetoothAdapter!=null&&bluetoothAdapter.isDiscovering()){
+//                        bluetoothAdapter.cancelDiscovery();
+//
+//                    }
+//                    String msg=deviceList_found.get(arg2);
+//                    mac=msg.substring(msg.length()-17);
+//                    String name=msg.substring(0, msg.length()-18);
+//                    //lv2.setSelection(arg2);
+//                    dialog.cancel();
+//                    showET.setText(mac);
+//                    Log.i("TAG", "mac="+mac);
+//                } catch (Exception e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
+//
+//    /*
+//    find avaliable device
+//     */
+//    private void findAvalibleDevice() {
+//        // TODO Auto-generated method stub
+//
+//        Set<BluetoothDevice> device=bluetoothAdapter.getBondedDevices();
+//
+//        deviceList_bonded.clear();
+//        if(bluetoothAdapter!=null&&bluetoothAdapter.isDiscovering()){
+//            adapter1.notifyDataSetChanged();
+//        }
+//        if(device.size()>0){
+//            //already
+//            for(Iterator<BluetoothDevice> it = device.iterator(); it.hasNext();){
+//                BluetoothDevice btd=it.next();
+//                deviceList_bonded.add(btd.getName()+'\n'+btd.getAddress());
+//                adapter1.notifyDataSetChanged();
+//            }
+//        }else{
+//            deviceList_bonded.add("No can be matched to use bluetooth");
+//            adapter1.notifyDataSetChanged();
+//        }
+//
+//    }
 }

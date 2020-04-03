@@ -8,7 +8,8 @@ public enum Companies {
     tariget(5),
     Arabian (6) ,
     Ukrania(7),
-    beutyLine(8) ;
+    beutyLine(8) ,
+    Ma8bel(9);
     private final int value;
     Companies(int type)
     {

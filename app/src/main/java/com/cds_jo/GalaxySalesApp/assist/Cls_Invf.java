@@ -15,6 +15,8 @@ public class Cls_Invf {
     String  Pack;
     String  Place;
     String  dno;
+    String Damaged;
+    String Note;
 
     public String getTax() {
         return tax;
@@ -110,6 +112,22 @@ public class Cls_Invf {
 
     public void setUnit(String unit) {
         Unit = unit;
+    }
+
+    public String getDamaged() {
+        return Damaged;
+    }
+
+    public void setDamaged(String Damaged) {
+        Damaged = Damaged;
+    }
+
+    public String getNote() {
+        return Note;
+    }
+
+    public void setNote(String Note) {
+        Note = Note;
     }
 
     String  tax ;

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
 import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
 import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
+import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 
 import org.w3c.dom.Text;
 
@@ -27,7 +28,7 @@ import Methdes.MyTextView;
 
 public class PopSmallMenue extends DialogFragment implements View.OnClickListener  {
     View form ;
-    ImageButton add,cancel,acc,invoice,rec,order;
+    ImageButton add,cancel,acc,invoice,rec,order,return1;
     Button back;
 MyTextView tv_Invoice ;
 
@@ -74,6 +75,7 @@ MyTextView tv_Invoice ;
         invoice=(ImageButton) form.findViewById(R.id.btn_invoice);
         rec=(ImageButton) form.findViewById(R.id.btn_rec);
         order=(ImageButton) form.findViewById(R.id.btn_order);
+        return1=(ImageButton) form.findViewById(R.id.btn_return);
 
 
         tv_Invoice=(MyTextView) form.findViewById(R.id.tv_Invoice);
@@ -82,6 +84,7 @@ MyTextView tv_Invoice ;
         back.setOnClickListener(this);
         order.setOnClickListener(this);
         acc.setOnClickListener(this);
+        return1.setOnClickListener(this);
 
 
 
@@ -120,6 +123,11 @@ MyTextView tv_Invoice ;
             startActivity(k);
         }
 
+        if (v == return1) {
+            Intent k = new Intent(v.getContext(), Sale_ReturnActivity.class);
+            startActivity(k);
+        }
+
         if (v == rec) {
             Intent k = new Intent(v.getContext(), RecvVoucherActivity.class);
             startActivity(k);
@@ -129,6 +137,8 @@ MyTextView tv_Invoice ;
             Intent k = new Intent(v.getContext(), OrdersItems.class);
             startActivity(k);
         }
+
+
 
 
     }

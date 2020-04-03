@@ -289,7 +289,7 @@
                                 android:layout_weight="1"
                                 android:checked="false"
                                 android:gravity="center|clip_vertical|right"
-                                android:text="رموز التحقق"
+                                android:text=" كود السقوفات"
                                 android:textSize="18sp"
                                 android:visibility="visible" />
 
@@ -400,15 +400,15 @@
 
 
                             <CheckBox
-                                android:id="@+id/chk_t1"
+                                android:id="@+id/chk_PaymentSchudel"
                                 android:layout_width="fill_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:checked="false"
                                 android:gravity="center|clip_vertical|right"
-                                android:text="---"
+                                android:text="جدول التحصيلات"
                                 android:textSize="18sp"
-                                android:visibility="invisible" />
+                                android:visibility="visible" />
 
 
                             <CheckBox

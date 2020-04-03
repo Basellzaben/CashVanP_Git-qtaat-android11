@@ -83,9 +83,9 @@ public class Convert_RecVouch_To_Img_Tab10 extends AppCompatActivity {
        ShowRecord (OrderNo);
 
 
-
-        mBluetoothAdapter.enable();
         try {
+        mBluetoothAdapter.enable();
+
             LinearLayout EmptyLyt = (LinearLayout) findViewById(R.id.Mainlayout);
             PrintReport_TSC obj = new PrintReport_TSC(Convert_RecVouch_To_Img_Tab10.this,
                     Convert_RecVouch_To_Img_Tab10.this, EmptyLyt, 10, 1);

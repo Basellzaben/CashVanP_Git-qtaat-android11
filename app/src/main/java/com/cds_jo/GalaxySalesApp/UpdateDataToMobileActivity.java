@@ -62,8 +62,9 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 87;
-
+    private static final int LASTUPDATE = 124;
+    String FD;
+    String TD;
     private Handler progressBarHandler = new Handler();
     SqlHandler sqlHandler;
 
@@ -79,7 +80,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
     String UserID;
     int DB_VERVSION;
 
-    CheckBox chk_cust, chk_banks, chk_Items, chk_Unites, Chk_Items_Unites, Chk_Curf, Chk_deptf, Chk_Users, Chk_Drivers, Chk_CustLastTrans;
+    CheckBox chk_PaymentSchudel,chk_cust, chk_banks, chk_Items, chk_Unites, Chk_Items_Unites, Chk_Curf, Chk_deptf, Chk_Users, Chk_Drivers, Chk_CustLastTrans;
     CheckBox Chk_TransQty, chk_Pro, chkCompany, chkCashCust, chk_Item_cat, chk_Cust_Cat, chk_Serial, chk_LastPrice, Chk_Msg, Chk_Batch;
     CheckBox Chk_Post_Inv, Chk_Post_Payments, chk_po_post, Chk_Code, chk_Stores, chk_Gift, chk_OfferGroups;
 
@@ -1096,6 +1097,269 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         } catch (SQLException e) {
         }
 
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Sal_return_Hdr    " +
+                    "( no integer primary key autoincrement,Orderno text null, nm  text null  ,acc   text null ,date   text null ,UserID   text null ,Post   text null ,hdr_dis_per   text null ,hdr_dis_value   text null ,Qtystoreser   text null ,Total   text null ,Net_Total   text null ,Tax_Total   text null ,bounce_Total   text null  ,include_Tax   text null ,disc_Total   text null ,inovice_Type   text null ,v_Orderno   text null ,driverno   text null ,Time   text null ,DayNum   text null ,DelveryNm   text null ,seq   text null ,CellingCode   text null ,docType   text null ,TotalwithoutDiscount    text null ,hdr_dis_type   text null )");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Sal_return_Det    " +
+                    "( no integer primary key autoincrement,Orderno text null, ItemNo  text null  ,unitNo   text null ,price   text null ,qty   text null ,tax   text null ,UserID   text null ,Post   text null ,dis_Amt   text null ,dis_per   text null ,OrgPrice   text null ,bounce_qty   text null ,bounce_unitno   text null ,Tax_Amt   text null ,Total   text null ,net_Total   text null ,ProID   text null ,Pro_bounce   text null ,Pro_dis_Per   text null ,Pro_Amt   text null ,Pro_Total   text null ,Operand   text null ,Pro_type   text null ,ItemInOffer   text null ,weight    text null ,doctype   text null ,DisAmtFromHdr   text null ,DisPerFromHdr   text null )");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table SaleManRounds  Add COLUMN  Note text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_return_Det  Add COLUMN  Damaged text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_return_Det  Add COLUMN  Note text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Payment_method  " +
+                    "( no integer primary key autoincrement,Orderno text null, Date  text null  ,Amt   text null ,Note   text null )");
+        } catch (SQLException e) {
+
+        }
+
+
+        try {
+            sqlHandler.executeQuery("Alter Table UsedCode  Add COLUMN  Flag text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Det  Add COLUMN  Code text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Det  Add COLUMN  Code_Desc text null ");
+        } catch (SQLException e) {
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table Payment_method  Add COLUMN  custNo text null ");
+        } catch (SQLException e) {
+        }
+
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Pay_method " +
+                    "( no integer primary key autoincrement,custNo text null,manNo  text null  ,orderNo   text null ,Amt  text null,Tr_date  text null,Notes  text null,Flag  text null,SupervisorNutes  text null,OldDate  text null,InoviceAmt  text null )");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  cardMan " +
+                    "( no integer primary key autoincrement,manNo text null,manName  text  NULL  ,Email   text null ,photo  text null,Phone text null,BranchName  text null,SupervisorName  text null )");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  InvoicePaymentSchedule " +
+                    "( no integer primary key autoincrement,custName  text  NULL  ,custNo   text null ,New_Amt  text null,orderNo text null,Amt  text null,InoviceAmt  text null ,Notes  text null,SupervisorNutes text null,Tr_date  text null,New_Tr_date  text null )");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  TimeLogin " +
+                    "( no integer primary key autoincrement,manNo text null ,DateLogin text null)");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table InvoicePaymentSchedule  Add COLUMN  orderDate text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN  CHECK_IMG  text null");
+
+
+        } catch (SQLException e) {
+            Log.i("ADD PAMENT_PERIOD_NO", "Week already PAMENT_PERIOD_NO");
+        }
+
+
+
+    }
+    private void DataBaseChanges1() {
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN  ManType  text null ");
+        } catch (SQLException e) {
+            Log.i("ADD COLUMN Operand", "Week already Operand");
+
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Pay_method " +
+                    "( no integer primary key autoincrement,custNo text null,manNo  text null  ,orderNo   text null ,Amt  text null,Tr_date  text null,Notes  text null,Flag  text null,SupervisorNutes  text null,OldDate  text null,InoviceAmt  text null )");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  cardMan " +
+                    "( no integer primary key autoincrement,manNo text null,manName  text  NULL  ,Email   text null ,photo  text null,Phone text null,BranchName  text null,SupervisorName  text null )");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  InvoicePaymentSchedule " +
+                    "( no integer primary key autoincrement,custName  text  NULL  ,custNo   text null ,New_Amt  text null,orderNo text null,Amt  text null,InoviceAmt  text null ,Notes  text null,SupervisorNutes text null,Tr_date  text null,New_Tr_date  text null )");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  TimeLogin " +
+                    "( no integer primary key autoincrement,manNo text null ,DateLogin text null)");
+        } catch (SQLException e) {
+
+        }
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  PhotoMan " +
+                    "( no integer primary key autoincrement,manNo text null ,Photo text null)");
+        } catch (SQLException e) {
+
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table InvoicePaymentSchedule  Add COLUMN  orderDate text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table UsedCode  Add COLUMN Tr_Desc text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table UsedCode  Add COLUMN NewValue text null ");
+        } catch (SQLException e) {
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN  AlternativeMan  text null ");
+        } catch (SQLException e) {
+            Log.i("ADD COLUMN Operand", "Week already Operand");
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN  TypeDesc  text null ");
+        } catch (SQLException e) {
+            Log.i("ADD COLUMN Operand", "Week already Operand");
+
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN  CloseVisitWithoutimg  text null ");
+        } catch (SQLException e) {
+            Log.i("ADD COLUMN Operand", "Week already Operand");
+
+        }
+
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  CodeDefinition " +
+                    "( no integer primary key autoincrement,Id text null ,ManId text null " +
+                    ",CustomerId text null,ItemId text null,MaterialId text null" +
+                    ",Code text null,Note text null,MaxBouns text null,MaxDiscount text null" +
+                    ",AllBillMaterial text null,Code_Status text null,tabManNo text null" +
+                    ",tabCustNo text null,TabItemNo text null,TabBonce text null,TabDiscount text null" +
+                    ",Tr_DateTime text null,InvoiceNo text null )");
+        } catch (SQLException e) {
+
+        }
+
+
+        try {
+            sqlHandler.executeQuery("Alter Table UsedCode  Add COLUMN  BouncePercent text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table UsedCode  Add COLUMN  DiscountPercent text null ");
+        } catch (SQLException e) {
+        }
+            // Create
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Man_Vac" +
+                    "( no integer primary key autoincrement,Id text null ,ManId text null " +
+                    ",CustId text null,FromDate text null,ToDate text null,Note text null,ProcedureType text null,VacationType text null )");
+        } catch (SQLException e) {
+
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table Man_Vac  Add COLUMN  VacationType_Desc text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table Man_Vac  Add COLUMN  ProcedureType_Desc text null ");
+        } catch (SQLException e) {
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table Man_Vac  Add COLUMN  VacDays text null ");
+        } catch (SQLException e) {
+        }
+
+
+        try {
+            sqlHandler.executeQuery("Alter Table SaleManRounds  Add COLUMN  X_Lat text null ");
+        } catch (SQLException e) {
+        }
+
+
+        try {
+            sqlHandler.executeQuery("Alter Table SaleManRounds  Add COLUMN  Y_Long text null ");
+        } catch (SQLException e) {
+        }
+
+
+        try {
+            sqlHandler.executeQuery("Alter Table SaleManRounds  Add COLUMN  Loct text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  ManLogTrans" +
+                    "( no integer primary key autoincrement,ManNo text null ,CustNo text null " +
+                    ",ScreenCode text null,ActionNo text null,TransNo text null,Trans_Date text null,TabletId text null,BattryCharge text null,Notes text null )");
+        } catch (SQLException e) {}
+        try {
+            sqlHandler.executeQuery("Alter Table ManLogTrans  Add COLUMN  Posted text null ");
+        } catch (SQLException e) {
+        }
+
+
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add COLUMN  BranchName text null ");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add COLUMN  SupervisorName text null ");
+        } catch (SQLException e) {
+        }
+ try {
+            sqlHandler.executeQuery("Alter Table manf  Add COLUMN  Email text null ");
+        } catch (SQLException e) {
+        }
+
     }
 
     CheckBox chkall;
@@ -1162,6 +1426,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                                               }
                                           }
         );
+        chk_PaymentSchudel = (CheckBox) findViewById(R.id.chk_PaymentSchudel);
         chk_cust = (CheckBox) findViewById(R.id.Chk_Custs);
         chk_banks = (CheckBox) findViewById(R.id.Chk_Banks);
         chk_Items = (CheckBox) findViewById(R.id.Chk_Items);
@@ -1191,6 +1456,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_OfferGroups = (CheckBox) findViewById(R.id.chk_OfferGroups);
 
 
+        chk_PaymentSchudel.setChecked(true);
         chk_cust.setChecked(true);
         chk_banks.setChecked(true);
         chk_Items.setChecked(true);
@@ -1226,6 +1492,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_OfferGroups.setEnabled(false);
         chk_Pro.setEnabled(false);
 
+        chk_PaymentSchudel.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_cust.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_banks.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_Items.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
@@ -1286,7 +1553,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             sqlHandler.executeQuery(q);
             if (DB_VERVSION < LASTUPDATE)
                 DataBaseChanges();
-
+                DataBaseChanges1();
         } catch (Exception ex) {
             WriteTxtFile.MakeText("DB_VERVSION < LASTUPDATE", ex.getMessage().toString());
         }
@@ -1300,6 +1567,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
         if (f == 1) {
             chkall.setText("عدم اختيار الكل");
+            chk_PaymentSchudel.setChecked(true);
             chk_cust.setChecked(true);
             chk_banks.setChecked(true);
             chk_Items.setChecked(true);
@@ -1331,6 +1599,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
         } else {
             chkall.setText("  اختيار الكل");
+            chk_PaymentSchudel.setChecked(false);
             chk_cust.setChecked(false);
             chk_banks.setChecked(false);
             chk_Items.setChecked(false);
@@ -1651,6 +1920,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String query;
+        final CheckBox chk_PaymentSchudel = (CheckBox) findViewById(R.id.chk_PaymentSchudel);
         final CheckBox chk_cust = (CheckBox) findViewById(R.id.Chk_Custs);
         final CheckBox chk_banks = (CheckBox) findViewById(R.id.Chk_Banks);
         final CheckBox chk_Items = (CheckBox) findViewById(R.id.Chk_Items);
@@ -1675,6 +1945,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         final CheckBox chk_Stores = (CheckBox) findViewById(R.id.chk_Stores);
 
 
+
         if (Chk_Code.isChecked()) {
             final Handler _handler = new Handler();
             tv = new TextView(getApplicationContext());
@@ -1697,7 +1968,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             CodeDailoge.setProgress(0);
             CodeDailoge.setMax(100);
             CodeDailoge.setMessage("  الرجاء الانتظار ..." + "  العمل جاري على نسخ البيانات  ");
-            tv.setText("كلمــــات التحقق");
+            tv.setText("كود السقوفات");
             CodeDailoge.setCustomTitle(tv);
             CodeDailoge.setProgressDrawable(greenProgressbar);
             CodeDailoge.show();
@@ -1705,22 +1976,40 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     CallWebServices ws = new CallWebServices(UpdateDataToMobileActivity.this);
-                    ws.GetRndNum();
+                   // ws.GetRndNum();
+                    ws.GetCodeDefinition(UserID);
                     try {
                         Integer i;
                         String q;
-                        JSONObject js = new JSONObject(We_Result.Msg);
+                        /*JSONObject js = new JSONObject(We_Result.Msg);
                         JSONArray js_ID = js.getJSONArray("ID");
-                        JSONArray js_Value = js.getJSONArray("Value");
+                        JSONArray js_Value = js.getJSONArray("Value");*/
 
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray js_Id = js.getJSONArray("Id");
+                        JSONArray js_ManId = js.getJSONArray("ManId");
+                        JSONArray js_CustomerId = js.getJSONArray("CustomerId");
+                        JSONArray js_ItemId = js.getJSONArray("ItemId");
+                        JSONArray js_MaterialId = js.getJSONArray("MaterialId");
+                        JSONArray js_Code = js.getJSONArray("Code");
+                        JSONArray js_Note = js.getJSONArray("Note");
+                        JSONArray js_MaxBouns = js.getJSONArray("MaxBouns");
+                        JSONArray js_MaxDiscount = js.getJSONArray("MaxDiscount");
+                        JSONArray js_AllBillMaterial = js.getJSONArray("AllBillMaterial");
+                        JSONArray js_Code_Status = js.getJSONArray("Code_Status");
 
                         q = "Delete from RndNum";
                         sqlHandler.executeQuery(q);
                         q = " delete from sqlite_sequence where name='RndNum'";
                         sqlHandler.executeQuery(q);
 
+                        q = "Delete from CodeDefinition";
+                        sqlHandler.executeQuery(q);
+                        q = " delete from sqlite_sequence where name='CodeDefinition'";
+                        sqlHandler.executeQuery(q);
 
-                        for (i = 0; i < js_ID.length(); i++) {
+
+                      /*  for (i = 0; i < js_ID.length(); i++) {
                             q = "INSERT INTO RndNum(ID,Value,Flg) values ('"
                                     + js_ID.get(i).toString()
                                     + "','" + js_Value.get(i).toString() + "' , '0' )";
@@ -1731,21 +2020,43 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                             if (CodeDailoge.getProgress() == CodeDailoge.getMax()) {
                                 CodeDailoge.dismiss();
                             }
+                        }*/
+                        for (i = 0; i < js_Id.length(); i++) {
+                            q = "Insert INTO CodeDefinition(Id,ManId,CustomerId,ItemId,MaterialId,Code,Note,MaxBouns,MaxDiscount,AllBillMaterial,Code_Status) values ("
+                                    + js_Id.get(i).toString()
+                                    + ",'" + js_ManId.get(i).toString()
+                                    + "','" + js_CustomerId.get(i).toString()
+                                    + "','" + js_ItemId.get(i).toString()
+                                    + "','" + js_MaterialId.get(i).toString()
+                                    + "','" + js_Code.get(i).toString()
+                                    + "','" + js_Note.get(i).toString()
+                                    + "','" + js_MaxBouns.get(i).toString()
+                                    + "','" + js_MaxDiscount.get(i).toString()
+                                    + "','" + js_AllBillMaterial.get(i).toString()
+                                    + "','" + js_Code_Status.get(i).toString()
+                                    + "' )";
+                            sqlHandler.executeQuery(q);
+                            CodeDailoge.setMax(js_Id.length());
+                            CodeDailoge.incrementProgressBy(1);
+                            if (CodeDailoge.getProgress() == CodeDailoge.getMax()) {
+                                CodeDailoge.dismiss();
+                            }
                         }
                         final int total = i;
                         _handler.post(new Runnable() {
                             public void run() {
-                                filllist("كلمات التحقق", 1, total);
+                                filllist("كود السقوفات", 1, total);
                                 Chk_Code.setChecked(false);
                                 CodeDailoge.dismiss();
                                 Do_Trans_From_Server();
                             }
                         });
+
                     } catch (final Exception e) {
                         CodeDailoge.dismiss();
                         _handler.post(new Runnable() {
                             public void run() {
-                                filllist("كلمات التحقق", 0, 0);
+                                filllist("كود السقوفات", 0, 0);
                                 Chk_Code.setChecked(false);
                                 Do_Trans_From_Server();
                             }
@@ -1840,7 +2151,123 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                 }
             }).start();
 
-        } else if (Chk_Batch.isChecked()) {
+        }
+        else if (chk_PaymentSchudel.isChecked()) {
+            Calendar calendar = Calendar.getInstance();
+
+            SimpleDateFormat mdformatyear = new SimpleDateFormat("yyyy", Locale.ENGLISH);
+            String stryear = mdformatyear.format(calendar.getTime());
+
+            SimpleDateFormat mdformatmonth = new SimpleDateFormat("MM", Locale.ENGLISH);
+            String strmonth = mdformatmonth.format(calendar.getTime());
+
+            SimpleDateFormat mdformatday = new SimpleDateFormat("dd", Locale.ENGLISH);
+            String strday = mdformatday.format(calendar.getTime());
+            FD=strday+"/"+strmonth+"/"+stryear;
+            TD=strday+"/"+strmonth+"/"+stryear;
+            final Handler _handler = new Handler();
+            tv = new TextView(getApplicationContext());
+            lp = new RelativeLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+            tv.setLayoutParams(lp);
+            tv.setLayoutParams(lp);
+            tv.setPadding(10, 15, 10, 15);
+            tv.setGravity(Gravity.CENTER);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+            tv.setTextColor(Color.WHITE);
+            tv.setBackgroundColor(Color.BLUE);
+            tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
+
+            final ProgressDialog progressDialog;
+            progressDialog = new ProgressDialog(UpdateDataToMobileActivity.this);
+            progressDialog.setProgressStyle(progressDialog.STYLE_HORIZONTAL);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setProgress(0);
+            progressDialog.setMax(100);
+            progressDialog.setMessage("  الرجاء الانتظار ..." + "  العمل جاري على نسخ البيانات  ");
+            tv.setText("جدول التحصيلات");
+            progressDialog.setCustomTitle(tv);
+            progressDialog.setProgressDrawable(greenProgressbar);
+            progressDialog.show();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int i;
+                    CallWebServices ws = new CallWebServices(UpdateDataToMobileActivity.this);
+                    ws.GatTableCollections(UserID, FD, TD, "-1");
+                    try {
+
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray NameCust = js.getJSONArray("NameCust");
+                        JSONArray Tr_date = js.getJSONArray("Tr_date");
+                        JSONArray new_Tr_date = js.getJSONArray("NewTr_date");
+                        JSONArray custNo1 = js.getJSONArray("custNo1");
+                        JSONArray orderNo = js.getJSONArray("orderNo");
+                        JSONArray Amt = js.getJSONArray("Amt");
+                        JSONArray InoviceAmt = js.getJSONArray("InoviceAmt");
+                        JSONArray Notes = js.getJSONArray("Notes");
+                        JSONArray SupervisorNutes = js.getJSONArray("SupervisorNutes");
+                        JSONArray newAmt = js.getJSONArray("InoviceAmt");
+                        JSONArray orderDate = js.getJSONArray("Order_date");
+
+
+                        //  Specialization  No  Aname Ename
+
+                        q = "Delete from InvoicePaymentSchedule";
+                        sqlHandler.executeQuery(q);
+                        q = " delete from sqlite_sequence where name='InvoicePaymentSchedule'";
+                        sqlHandler.executeQuery(q);
+                        for ( i = 0; i < NameCust.length(); i++) {
+                            q = "INSERT INTO InvoicePaymentSchedule(custName,custNo,New_Amt ,orderNo ,Amt  ,InoviceAmt ,Notes,SupervisorNutes,Tr_date,New_Tr_date,orderDate ) values ('"
+                                    +  NameCust.get(i).toString()
+                                    + "','" + custNo1.get(i).toString()
+                                    + "','" + newAmt.get(i).toString()
+                                    + "','" + orderNo.get(i).toString()
+                                    + "','" + Amt.get(i).toString()
+                                    + "','" + InoviceAmt.get(i).toString()
+                                    + "','" + Notes.get(i).toString()
+                                    + "','" + SupervisorNutes.get(i).toString()
+                                    + "','" + Tr_date.get(i).toString()
+                                    + "','" + new_Tr_date.get(i).toString()
+                                    + "','" + orderDate.get(i).toString()
+                                    + "')";
+
+                            sqlHandler.executeQuery(q);
+
+
+                            progressDialog.setMax(NameCust.length());
+                            progressDialog.incrementProgressBy(1);
+                            if (progressDialog.getProgress() == progressDialog.getMax()) {
+
+                                progressDialog.dismiss();
+                            }
+                        }
+                        final int total = i;
+                        _handler.post(new Runnable() {
+                            public void run() {
+                                filllist("جدول التحصيلات", 1, total);
+                                chk_PaymentSchudel.setChecked(false);
+                                progressDialog.dismiss();
+                                Do_Trans_From_Server();
+                            }
+                        });
+                    } catch (final Exception e) {
+                        progressDialog.dismiss();
+                        _handler.post(new Runnable() {
+                            public void run() {
+                                filllist("جدول التحصيلات", 0, 0);
+                                chk_PaymentSchudel.setChecked(false);
+                                Do_Trans_From_Server();
+                            }
+                        });
+                    }
+                }
+            }).start();
+
+        }
+
+        else if (Chk_Batch.isChecked()) {
 
             final Handler _handler = new Handler();
             tv = new TextView(getApplicationContext());
@@ -2164,6 +2591,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         JSONArray js_Longitude = js.getJSONArray("Longitude");
                         JSONArray js_Note2 = js.getJSONArray("Note2");
                         JSONArray js_sat = js.getJSONArray("sat");
+
                         JSONArray js_sun = js.getJSONArray("sun");
                         JSONArray js_mon = js.getJSONArray("mon");
                         JSONArray js_tues = js.getJSONArray("tues");
@@ -2190,6 +2618,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         JSONArray js_country_No = js.getJSONArray("country_No");
                         JSONArray js_CheckAlowedDay = js.getJSONArray("CheckAlowedDay");
                         JSONArray js_PromotionFlag = js.getJSONArray("PromotionFlag");
+                        JSONArray js_CloseVisitWithoutimg = js.getJSONArray("CloseVisitWithoutimg");
 
 
                         q = "Delete from Customers";
@@ -2200,7 +2629,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         for (i = 0; i < js_no.length(); i++) {
                             q = "Insert INTO Customers(no,name,Ename,barCode,Address,State,SMan,Latitude,Longitude,Note2,sat " +
                                     " ,sun,mon,tues,wens,thurs,sat1,sun1,mon1,tues1,wens1,thurs1 , Celing , CatNo " +
-                                    ",CustType,PAMENT_PERIOD_NO , CUST_PRV_MONTH,CUST_NET_BAL,Pay_How,Cust_type,LocationNo,Tax_Status,Location,CheckAlowedDay,PromotionFlag) values ('"
+                                    ",CustType,PAMENT_PERIOD_NO , CUST_PRV_MONTH,CUST_NET_BAL,Pay_How,Cust_type,LocationNo,Tax_Status,Location,CheckAlowedDay,PromotionFlag,CloseVisitWithoutimg) values ('"
                                     + js_no.get(i).toString()
                                     + "','" + js_name.get(i).toString()
                                     + "','" + js_Ename.get(i).toString()
@@ -2236,6 +2665,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                                     + "','" + js_country_Nm.get(i).toString()
                                     + "','" + js_CheckAlowedDay.get(i).toString()
                                     + "','" + js_PromotionFlag.get(i).toString()
+                                    + "','" + js_CloseVisitWithoutimg.get(i).toString()
                                     + "')";
                             sqlHandler.executeQuery(q);
 
@@ -2797,6 +3227,17 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         JSONArray js_Password = js.getJSONArray("Password");
                         JSONArray js_Mobile1 = js.getJSONArray("MobileNo");
                         JSONArray js_Mobile2 = js.getJSONArray("MobileNo2");
+                        JSONArray js_MANTYPE = js.getJSONArray("MANTYPE");
+                        JSONArray js_TypeDesc= js.getJSONArray("TypeDesc");
+
+                        JSONArray js_ManSupervisor= js.getJSONArray("ManSupervisor");
+                        JSONArray js_BranchNo= js.getJSONArray("BranchNo");
+                        JSONArray js_Email= js.getJSONArray("Email");
+                        JSONArray js_SuperVisor_name= js.getJSONArray("SuperVisor_name");
+                        JSONArray js_BranchArName= js.getJSONArray("BranchArName");
+
+
+                        JSONArray js_AlternativeMan = js.getJSONArray("AlternativeMan");
 
                         q = "Delete from manf";
                         sqlHandler.executeQuery(q);
@@ -2804,7 +3245,8 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         sqlHandler.executeQuery(q);
 
                         for (i = 0; i < js_man.length(); i++) {
-                            q = "Insert INTO manf(man,name,MEName,username,password,StoreNo,Stoped,SupNo,Mobile1,Mobile2) values ("
+                            q = "Insert INTO manf(man,name,MEName,username,password,StoreNo,Stoped,SupNo,Mobile1,Mobile2" +
+                                    " , ManType,TypeDesc,AlternativeMan,BranchName,SupervisorName,Email) values ("
                                     + js_man.get(i).toString()
                                     + ",'" + js_name.get(i).toString()
                                     + "','" + js_MEName.get(i).toString()
@@ -2815,6 +3257,12 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                                     + "," + js_SupNo.get(i).toString()
                                     + ",'" + js_Mobile1.get(i).toString()
                                     + "','" + js_Mobile2.get(i).toString()
+                                    + "','" + js_MANTYPE.get(i).toString()
+                                    + "','" + js_TypeDesc.get(i).toString()
+                                    + "','" + js_AlternativeMan.get(i).toString()
+                                    + "','" + js_BranchArName.get(i).toString()
+                                    + "','" + js_SuperVisor_name.get(i).toString()
+                                    + "','" + js_Email.get(i).toString()
                                     + "')";
                             sqlHandler.executeQuery(q);
                             progressDialog.setMax(js_man.length());
@@ -5259,7 +5707,7 @@ try {
 
         final Handler _handler = new Handler();
         String query = "select  distinct no,ManNo, CusNo, DayNum ,Tr_Data ,Start_Time,End_Time, Duration,OrderNo " +
-                "  from SaleManRounds   where Posted = -1";
+                "  ,Note from SaleManRounds   where Posted = -1";
         Cursor c1 = sqlHandler.selectQuery(query);
         ArrayList<Cls_SaleManDailyRound> RoundList;
         RoundList = new ArrayList<Cls_SaleManDailyRound>();
@@ -5293,6 +5741,11 @@ try {
 
                     cls_saleManDailyRound.setOrderNo(c1.getString(c1
                             .getColumnIndex("OrderNo")));
+
+                    cls_saleManDailyRound.setNote(c1.getString(c1
+                            .getColumnIndex("Note")));
+
+
 
                     RoundList.add(cls_saleManDailyRound);
 
@@ -5407,6 +5860,7 @@ try {
     private void filllist_post(String str, int f, String c) {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
 
 
         q = "Select distinct s.Post as posted , s.Net_Total as Amt, s.OrderNo ,s.acc ,s.date , 'فاتورة مبيعات' as type,  CASE s.inovice_type WHEN '-1' THEN  c.name ELSE s.Nm END as  name   " +

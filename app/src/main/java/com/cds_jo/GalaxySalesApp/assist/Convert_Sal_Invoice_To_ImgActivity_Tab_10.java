@@ -202,6 +202,73 @@ try {
         tv_footer1.setText(" هاتف الشركة  "+ (sharedPreferences.getString("CompanyMobile", "")));
 
 
+        String invoice_type = "";
+        invoice_type = DB.GetValue(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this, "RecVoucher", "VouchType", "SalesOrderNo='" + OrderNo.getText().toString() + "'");
+        if (invoice_type.equalsIgnoreCase("1")) {
+
+            TextView tv_RecVoucher = (TextView) findViewById(R.id.tv_RecVoucher);
+            String RecVoucher = "";
+            RecVoucher = DB.GetValue(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this, "RecVoucher", "DocNo", "SalesOrderNo='" + OrderNo.getText().toString() + "'");
+            if (RecVoucher.equalsIgnoreCase("")) {
+                RecVoucher = "";
+            }
+            tv_RecVoucher.setText(RecVoucher);
+
+            TextView tv_Vouchertype = (TextView) findViewById(R.id.tv_Vouchertype);
+            tv_Vouchertype.setText("نقدي");
+
+            TextView tv_custacc = (TextView) findViewById(R.id.tv_custacc);
+            String custacc = "";
+            custacc = DB.GetValue(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this, "RecVoucher", "CustAcc", "Docno='" + tv_RecVoucher.getText().toString() + "'");
+            if (custacc.equalsIgnoreCase("")) {
+                custacc = "";
+            }
+            tv_custacc.setText(custacc);
+
+
+            TextView tv_custnameV = (TextView) findViewById(R.id.tv_custnameV);
+            String custnameV = "";
+            custnameV = DB.GetValue(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this, "Customers", "name", "no='" + tv_custacc.getText().toString() + "'");
+            if (custnameV.equalsIgnoreCase("")) {
+                custnameV = "";
+            }
+            tv_custnameV.setText(custnameV);
+
+
+            TextView tv_cashv = (TextView) findViewById(R.id.tv_cashv);
+            String cashv = "";
+            cashv = DB.GetValue(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this, "RecVoucher", "Cash", "Docno='" + tv_RecVoucher.getText().toString() + "'");
+            if (cashv.equalsIgnoreCase("")) {
+                cashv = "";
+            }
+            tv_cashv.setText(cashv);
+
+
+            TextView tv_cashVoucher = (TextView) findViewById(R.id.tv_cashVoucher);
+            String cashVoucher = "";
+            cashVoucher = DB.GetValue(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this, "RecVoucher", "Cash", "Docno='" + tv_RecVoucher.getText().toString() + "'");
+            if (cashVoucher.equalsIgnoreCase("")) {
+                cashv = "";
+            }
+            tv_cashVoucher.setText(cashVoucher);
+
+
+            TextView tv_DescVoucher = (TextView) findViewById(R.id.tv_DescVoucher);
+            String DescVoucher = "";
+            DescVoucher = DB.GetValue(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this, "RecVoucher", "Desc", "Docno='" + tv_RecVoucher.getText().toString() + "'");
+            if (DescVoucher.equalsIgnoreCase("")) {
+                DescVoucher = "";
+            }
+            tv_DescVoucher.setText(DescVoucher);
+
+        }
+        else {
+            LinearLayout Voucher=(LinearLayout)findViewById(R.id.voucher);
+            Voucher.setVisibility(View.GONE);
+
+
+        }
+
         String  footer3 = "" ;
 
          if(ComInfo.ComNo==3) {
@@ -377,8 +444,7 @@ try {
         Toast.makeText(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this  ,"العمل جاري على إرسال الملف للطابعة 01",Toast.LENGTH_SHORT ).show();
         PrintReport_TSC obj = new PrintReport_TSC(Convert_Sal_Invoice_To_ImgActivity_Tab_10.this,
                 Convert_Sal_Invoice_To_ImgActivity_Tab_10.this,lay, 570, 1);
-
-        obj.DoPrint1();
+        obj.DoPrint();
 
     }
 

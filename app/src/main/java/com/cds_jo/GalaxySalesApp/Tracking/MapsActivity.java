@@ -1,47 +1,54 @@
-package com.cds_jo.GalaxySalesApp;
+package com.cds_jo.GalaxySalesApp.Tracking;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
+
+import com.cds_jo.GalaxySalesApp.ComInfo;
+import com.cds_jo.GalaxySalesApp.ContactListItems;
+import com.cds_jo.GalaxySalesApp.DB;
+import com.cds_jo.GalaxySalesApp.MyApplication;
+import com.cds_jo.GalaxySalesApp.PopSmallMenue;
+import com.cds_jo.GalaxySalesApp.Pop_Update_Qty;
+import com.cds_jo.GalaxySalesApp.R;
+import com.cds_jo.GalaxySalesApp.We_Result;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
-import com.cds_jo.GalaxySalesApp.assist.Cls_Acc_Report;
-import com.cds_jo.GalaxySalesApp.assist.Cls_Acc_Report_Adapter;
-import com.cds_jo.GalaxySalesApp.assist.Cls_ManLocation_Adapter;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -50,6 +57,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -62,17 +70,18 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import header.Header_Frag;
+import Methdes.MyTextView;
 import header.SimpleSideDrawer;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     ListView items_Lsit;
     private GoogleMap mMap;
     private LocationManager mLocationManager = null;
@@ -88,40 +97,143 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private RelativeLayout mFooterLayout = null;
     private ImageView Img_Menu;
     private SimpleSideDrawer mNav;
-    ArrayList<Cls_ManLocationReport>  LocationList;
+    ArrayList<Cls_ManLocationReport> LocationList;
     LatLng ManLoc ;
+    int GoogleMapType=1;
+    MyTextView tv_DayNm,tv_date,tv_FromTime,tv_ToTime;
+    private int year, month, day;
+    String Man;
+    Circle circle;
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        // TODO Auto-generated method stub
+        if (id == 999) {
+            return new DatePickerDialog(this, myDateListener, year,month, day);
+        }
+        return null;
+    }
+    public void setDate(View view) {
+        showDialog(999);
+
+    }
+    private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            showDate(arg1, arg2 + 1, arg3);
+        }
+    };
+
+    private void showDate(int year, int month, int day) {
+
+        tv_date.setText(new StringBuilder().append(intToString(Integer.valueOf(day), 2)).append("/")
+                    .append(intToString(Integer.valueOf(month), 2)).append("/").append(year));
+        onProgressUpdate();
+    }
+    public static String intToString(int num, int digits) {
+        String output = Integer.toString(num);
+        while (output.length() < digits) output = "0" + output;
+        return output;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         tv = (TextView) findViewById(R.id.tv);
         mFooterLayout = (RelativeLayout) findViewById(R.id.footer_layout);
-        Img_Menu=(ImageView)findViewById(R.id.Img_Menu);
+        Man = "";
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Man = sharedPreferences.getString("UserID", "");
         LocationList = new ArrayList<Cls_ManLocationReport>();
 
-       // mNav = new SimpleSideDrawer(this);
-       // mNav.setLeftBehindContentView(R.layout.po_nav_google_map);
+        // mNav = new SimpleSideDrawer(this);
+        // mNav.setLeftBehindContentView(R.layout.po_nav_google_map);
 
-        Img_Menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              mNav.toggleLeftDrawer();
-            }
-        });
-        Button btn_Get_Data ;
-        btn_Get_Data = (Button)findViewById(R.id.btn_Get_Data);
+
+        Button btn_Get_Data;
+        btn_Get_Data = (Button) findViewById(R.id.btn_Get_Data);
         btn_Get_Data.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        String currentDateandTime = sdf.format(new Date());
 
+        int dayOfWeek;
+        Calendar c = Calendar.getInstance();
+        dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+
+
+        tv_DayNm = (MyTextView) findViewById(R.id.tv_DayNm);
+        tv_date = (MyTextView) findViewById(R.id.tv_date);
+        tv_FromTime = (MyTextView) findViewById(R.id.tv_FromTime);
+        tv_ToTime = (MyTextView) findViewById(R.id.tv_ToTime);
+
+
+        tv_FromTime.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(MapsActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        tv_FromTime.setText(selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("وقت بداية التتبع");
+                mTimePicker.show();
+
+            }
+        });
+
+        tv_ToTime.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(MapsActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        tv_ToTime.setText(selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("وقت نهاية التتبع");
+                mTimePicker.show();
+
+            }
+        });
+
+        year = c.get(Calendar.YEAR);
+
+        month = c.get(Calendar.MONTH);
+
+        day = c.get(Calendar.DAY_OF_MONTH);
+
+        tv_date.setText(currentDateandTime);
+        tv_DayNm.setText(GetDayName(dayOfWeek));
         btn_Get_Data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  mNav.toggleLeftDrawer();
+                //  mNav.toggleLeftDrawer();
                 onProgressUpdate();
             }
         });
 
-        items_Lsit=(ListView)findViewById(R.id.items_Lsit);
+        tv_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog(999);
+            }
+        });
+        items_Lsit = (ListView) findViewById(R.id.items_Lsit);
 
         items_Lsit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -139,37 +251,112 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 arg1.setBackgroundColor(Color.GRAY);
                 Cls_ManLocationReport o = (Cls_ManLocationReport) items_Lsit.getItemAtPosition(position);
-                ShowMap(o.getX(),o.getY());
+                ShowMapWithTitle(o.getX(), o.getY(),o.getMan_Name());
 
             }
         });
 
-        Fragment frag=new Header_Frag();
-        android.support.v4.app.FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.Frag1,frag).commit();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-      //  onProgressUpdate();
+        //  onProgressUpdate();
         //addMarks(mMap);
-    }
-    private  void ShowMap(String x ,String y){
 
-           Double Lat = Double.parseDouble(x);
-           Double Long =Double.parseDouble(y);
-
-        ManLoc= new LatLng(Lat, Long);
-        mMap.clear();
 
         // Add a marker in Sydney and move the camera
 
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(16);
-        mMap.addMarker(new MarkerOptions().position(ManLoc).title("Marker in ManLoc"));
+      /*  try {
+             circle.remove();
+            circle = mMap.addCircle(new CircleOptions()
+                    .center(new LatLng(32.0178761, 35.8637203))
+                    .radius(200 * 1609.34) // Converting Miles into Meters...
+                    .strokeColor(Color.RED)
+                    .strokeWidth(50));
+           circle.isVisible();
+        } catch (Exception ex){
+*/
+         // Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
+       // }
+
+    }
+    private void drawCircle(LatLng point){
+
+        // Instantiating CircleOptions to draw a circle around the marker
+        CircleOptions circleOptions = new CircleOptions();
+
+        // Specifying the center of the circle
+        circleOptions.center(point);
+
+        // Radius of the circle
+        circleOptions.radius(20);
+
+        // Border color of the circle
+        circleOptions.strokeColor(Color.BLACK);
+
+        // Fill color of the circle
+        circleOptions.fillColor(0x30ff0000);
+
+        // Border width of the circle
+        circleOptions.strokeWidth(2);
+
+        // Adding the circle to the GoogleMap
+        mMap.addCircle(circleOptions);
+
+    }
+    public String GetDayName(Integer Day){
+
+
+        String DayNm ="" ;
+        if (Day == 1) DayNm = "الاحد";
+        else if ( Day == 2) DayNm = "الاثنين";
+        else if (Day == 3) DayNm = "الثلاثاء";
+        else if (Day == 4) DayNm = "الاربعاء";
+        else if (Day == 5) DayNm = "الخميس";
+        else if (Day == 6) DayNm = "الجمعة";
+        else if (Day == 7) DayNm = "السبت";
+
+
+
+        return  DayNm;
+
+    }
+
+    private  void ShowMapWithTitle(String x , String y , String t){
+
+        Double Lat = Double.parseDouble(x);
+        Double Long = Double.parseDouble(y);
+
+        ManLoc= new LatLng(Lat, Long);
+      //  mMap.clear();
+
+        // Add a marker in Sydney and move the camera
+
+
+        mMap.addMarker(new MarkerOptions().position(ManLoc).title(t)).showInfoWindow();
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ManLoc));
-        mMap.animateCamera(zoom);
-       // Toast.makeText(this, x +" , "+ y , Toast.LENGTH_SHORT).show();
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+
+
+    }
+    private  void ShowMap(String x , String y){
+
+           Double Lat = Double.parseDouble(x);
+           Double Long = Double.parseDouble(y);
+
+        ManLoc= new LatLng(Lat, Long);
+         mMap.clear();
+
+        // Add a marker in Sydney and move the camera
+
+
+        mMap.addMarker(new MarkerOptions().position(ManLoc).title("Marker in ManLoc")).showInfoWindow();
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(ManLoc));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(18));
+      //  mMap.animateCamera(CameraUpdateFactory.zoomTo(zoomLevel));
+      //   Toast.makeText(this, x +" xs, "+ y , Toast.LENGTH_SHORT).show();
 
     }
     public void onProgressUpdate( ){
@@ -179,19 +366,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         final List<String> items_ls = new ArrayList<String>();
 
         items_Lsit.setAdapter(null);
-
-
-
-        final   TextView acc = (TextView)findViewById(R.id.tv_acc);
-
-
-
-
-        LocationList.clear();
-
-
+       LocationList.clear();
         final Handler _handler = new Handler();
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         final String UserID = sharedPreferences.getString("UserID", "");
         final ProgressDialog custDialog = new ProgressDialog(MapsActivity.this);
@@ -212,7 +388,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void run() {
 
                 CallWebServices ws = new CallWebServices(MapsActivity.this);
-                ws.CallAllManLocation("1","1","1","1","1");
+                ws.GetManVisitDtl(Man,tv_date.getText().toString());
 
 
                 try {
@@ -223,33 +399,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     JSONObject js = new JSONObject(We_Result.Msg);
                     JSONArray js_ID= js.getJSONArray("ID");
-                   // JSONArray js_ManNo= js.getJSONArray("ManNo");
-                    JSONArray js_Tr_time= js.getJSONArray("Tr_time");
-                 //   JSONArray js_Tr_date= js.getJSONArray("Tr_date");
-                 //   JSONArray js_no= js.getJSONArray("no");
-                    JSONArray js_X= js.getJSONArray("X");
-                    JSONArray js_Y= js.getJSONArray("Y");
-                 //   JSONArray js_Loct= js.getJSONArray("Loct");
-                  //  JSONArray js_V_OrderNo= js.getJSONArray("V_OrderNo");
-                    //JSONArray js_man_name= js.getJSONArray("man_name");
-
+                    JSONArray js_TransDate= js.getJSONArray("TransDate");
+                    JSONArray js_LocX= js.getJSONArray("LocX");
+                    JSONArray js_LoxY= js.getJSONArray("LoxY");
+                    JSONArray js_LocOrder= js.getJSONArray("LocOrder");
+                    JSONArray js_CustNm= js.getJSONArray("CustNm");
 
 
                     Cls_ManLocationReport obj = new Cls_ManLocationReport();
 
-                    obj.setID("");
-                    obj.setManNo("رقم المندوب");
-                    obj.setTime("الوقت");
-                    obj.setDate("التاريخ");
-                    obj.setX("احداثيات X");
-                    obj.setY("إحداثيات Y");
-                    obj.setLoct("الموقع");
-                    obj.setV_OrderNo(" ");
-                    obj.setNo("  ");
-                    obj.setMan_Name("اسم المندوب");
-                    LocationList.add(obj);
-
-                    // date,fromstore,tostore,des,docno,itemno,qty,UnitNo,UnitRate,myear
 
 
                     for( i =0 ; i<js_ID.length();i++)
@@ -258,15 +416,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                         obj.setID(js_ID.get(i).toString());
-                      //  obj.setManNo(js_ManNo.get(i).toString());
-                        obj.setTime(js_Tr_time.get(i).toString());
-                      //  obj.setDate(js_Tr_date.get(i).toString());
-                        obj.setX(js_X.get(i).toString());
-                        obj.setY(js_Y.get(i).toString());
-                      //  obj.setLoct(js_Loct.get(i).toString());
-                     //   obj.setV_OrderNo(js_V_OrderNo.get(i).toString());
-                      //  obj.setNo(js_no.get(i).toString());
-                      //  obj.setMan_Name(js_man_name.get(i).toString());
+                        obj.setMan_Name(js_CustNm.get(i).toString());
+
+                        obj.setTime(js_TransDate.get(i).toString());
+
+                        obj.setX(js_LocX.get(i).toString());
+                        obj.setY(js_LoxY.get(i).toString());
+
                         LocationList.add(obj);
 
 
@@ -300,7 +456,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 }
                             });
                             // alertDialog.show();
-
+                            drawPoints();
                             custDialog.dismiss();
                         }
                     });
@@ -330,8 +486,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                     });
                 }
-
-
             }
         }).start();
 
@@ -339,37 +493,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
 
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMapType);
 
-        if (isProviderAvailable() && (provider != null)) {
+      /*  if (isProviderAvailable() && (provider != null)) {
             locateCurrentPosition();
-        }
+        }*/
 
         addMarks(mMap);
-
-    }
-    @Override
-    public void onBackPressed() {
-         Intent k= new Intent(this, ManLocationsReport.class);
-        startActivity(k);
-    }
-
-    private void addMarks(GoogleMap googleMap) {
-       Double Lat = Double.parseDouble( getIntent().getExtras().getString("Lat"));
-       Double Long =Double.parseDouble(getIntent().getExtras().getString("Lon"));
-
-        //initCities();
+        drawCircle(new LatLng(32.0178761, 35.8637203));
 
 
-        mMap = googleMap;
-       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( 35.87698936004177 , 32.02167852621059),1));
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.goodsystem_icon);
-         /*for (int i = 0; i < cityList.size(); i++) {
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                ShowMenu(marker.getPosition().latitude+"");
+                return false;
+            }
+        });
+
+
+    }         /*for (int i = 0; i < cityList.size(); i++) {
             Cities city = cityList.get(i);
             LatLng latLng = new LatLng(city.getLatitude(), city.getLongitude());
             MarkerOptions markerOptions = new MarkerOptions();
@@ -381,8 +530,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             mMap.addMarker(markerOptions);
 
-            mMap.setOnMarkerClickListener((GoogleMap.OnMarkerClickListener) this);
+
         } */
+private void ShowMenu(String rr){
+    final View view;
+    Bundle bundle = new Bundle();
+    FragmentManager Manager = getFragmentManager();
+    PopSmallMenue obj = new PopSmallMenue();
+    bundle.putString("Msg", rr);
+    obj.setArguments(bundle);
+    obj.show(Manager, null);
+
+}
+    @Override
+    public void onBackPressed() {
+         Intent k= new Intent(this, ManLocationsReport.class);
+        startActivity(k);
+    }
+
+    private void addMarks(GoogleMap googleMap) {
+       Double Lat = Double.parseDouble( "31.931656");
+       Double Long = Double.parseDouble("35.870689");
+//31.931656, 35.870689
+        //initCities();
+
+
+        mMap = googleMap;
+       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( 35.87698936004177 , 32.02167852621059),1));
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.goodsystem_icon);
      /*   CameraUpdate center=
                 CameraUpdateFactory.newLatLng(new LatLng(32.02167852621059,
                         35.87698936004177));
@@ -396,9 +571,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(32.016414, 35.866777);
         LatLng sydney = new LatLng(Lat, Long);
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(17);
+        mMap.addMarker(new MarkerOptions().position(sydney).title(" "));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.animateCamera(zoom);
 
 
@@ -409,24 +588,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // traceMe();
     }
-    public void initCities() {
-        cityList = new ArrayList<Cities>();
-        String json = loadJSONFromAsset("city.json");
 
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray jsonArray = jsonObject.getJSONArray("cities");
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject city = jsonArray.getJSONObject(i);
-                Cities cities = new Cities(city.getString("name"), city.getDouble("lat"), city.getDouble("long"));
-                cityList.add(cities);
-            }
-
-        } catch (Exception e) {
-
-        }
-    }
     public String loadJSONFromAsset(String filename) {
         String json = null;
         try {
@@ -486,24 +648,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return false;
     }
     private void updateWithNewLocation(Location location) {
+//31.931656, 35.870689
+        Double lat = Double.parseDouble( "31.931656");
+        Double lng = Double.parseDouble("35.870689");
 
-        if (location != null && provider != null) {
-            double lng = location.getLongitude();
-            double lat = location.getLatitude();
+
+
+
+
+     //   if (location != null && provider != null) {
+          //  double lng = location.getLongitude();
+          //  double lat = location.getLatitude();
 
             mSourceLatLng = new LatLng(lat, lng);
 
             addBoundaryToCurrentPosition(lat, lng);
 
             CameraPosition camPosition = new CameraPosition.Builder()
-                    .target(new LatLng(lat, lng)).zoom(10f).build();
+                    .target(new LatLng(lat, lng)).zoom(50f).build();
 
             if (mMap != null)
                 mMap.animateCamera(CameraUpdateFactory
                         .newCameraPosition(camPosition));
-        } else {
+       /* } else {
             Log.d("Location error", "Something went wrong");
-        }
+        }*/
 
     }
     private void addBoundaryToCurrentPosition(double lat, double lang) {
@@ -515,7 +684,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMarkerOptions.anchor(0.5f, 0.5f);
 
         CircleOptions mOptions = new CircleOptions()
-                .center(new LatLng(lat, lang)).radius(10000)
+                .center(new LatLng(lat, lang)).radius(500)
                 .strokeColor(0x110000FF).strokeWidth(1).fillColor(0x110000FF);
         mMap.addCircle(mOptions);
         if (mCurrentPosition != null)
@@ -562,7 +731,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             }
                         }
 
-                        drawPoints(points, mMap);
+                        drawPoints( mMap);
                         PD.dismiss();
 
                     }
@@ -574,10 +743,84 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
 
-        MyApplication.getInstance().addToReqQueue(jsonObjectRequest);
+     MyApplication.getInstance().addToReqQueue(jsonObjectRequest);
 
     }
-    private void drawPoints(ArrayList<LatLng> points, GoogleMap mMaps) {
+    private void drawPoints( ) {
+
+
+
+
+        ArrayList<LatLng> points =new ArrayList<>();
+        double lat=0 ;
+        double lng=0 ;
+        int i =0;
+        try {
+            for (i = 0; i < LocationList.size(); i++) {
+
+                lat = Double.parseDouble(LocationList.get(i).getX());
+                lng = Double.parseDouble(LocationList.get(i).getY());
+                LatLng position = new LatLng(lat, lng);
+                points.add(position);
+                ShowMapWithTitle(LocationList.get(i).getX(), LocationList.get(i).getY(),LocationList.get(i).getMan_Name());
+
+            }
+        }catch (Exception x  ){}
+        /*if(i>0) {
+            ShowMap(LocationList.get(i - 1).getX(), LocationList.get(i - 1).getY());
+        }
+*/
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(13);
+
+        mMap.animateCamera(zoom);
+
+
+        if (points == null) {
+            return;
+        }
+        traceOfMe = points;
+        PolylineOptions polylineOpt = new PolylineOptions();
+        for (LatLng latlng : traceOfMe) {
+            polylineOpt.add(latlng);
+            polylineOpt.width(20);
+        }
+        polylineOpt.color(Color.BLUE);
+
+
+        if (mPolyline != null) {
+            mPolyline.remove();
+            mPolyline = null;
+        }
+        if (mMap != null) {
+            mPolyline = mMap.addPolyline(polylineOpt);
+
+        } else {
+
+        }
+        if (mPolyline != null)
+            mPolyline.setWidth(10);
+
+        mFooterLayout.setVisibility(View.GONE);
+    }
+    private void drawPoints( GoogleMap mMaps) {
+        ArrayList<LatLng> points =new ArrayList<>();
+        double lat ;
+        double lng ;
+        for( int i =0 ; i< LocationList.size();i++) {
+
+              lat = Double.parseDouble(LocationList.get(i).getX());
+              lng = Double.parseDouble(LocationList.get(i).getY());
+            LatLng position = new LatLng(lat, lng);
+            points.add(position);
+
+        }
+
+
+
+
+
+
+
         if (points == null) {
             return;
         }
@@ -612,5 +855,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void BtnBack(View view) {
         Intent k= new Intent(this, ManLocationsReport.class);
         startActivity(k);
+    }
+
+    public void btn_Hybrid(View view) {
+        GoogleMapType=4;
+        mMap.setMapType(GoogleMapType);
+    }
+
+    public void btn_Satellite(View view) {
+        GoogleMapType=2;
+        mMap.setMapType(GoogleMapType);
+    }
+
+
+    public void btn_Normal(View view) {
+        GoogleMapType=1;
+        mMap.setMapType(GoogleMapType);
+    }
+
+    public void btn_Terrain(View view) {
+        GoogleMapType=3;
+        mMap.setMapType(GoogleMapType);
+    }
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+
+            menu.setHeaderTitle("");
+            menu.add(Menu.NONE, 1, Menu.NONE, "تعديل الكمية");
+            menu.add(Menu.NONE, 2, Menu.NONE, "حذف المادة");
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+
+
+        return super.onContextItemSelected(item);
     }
 }

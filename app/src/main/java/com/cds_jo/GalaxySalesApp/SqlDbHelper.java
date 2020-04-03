@@ -188,5 +188,8 @@ catch ( Exception ex)
 
 
     }
-
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.setVersion(oldVersion);
+    }
 }

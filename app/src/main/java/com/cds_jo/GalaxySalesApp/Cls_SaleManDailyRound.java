@@ -13,6 +13,41 @@ public class Cls_SaleManDailyRound {
         String End_Time ;
         String Duration;
 
+    public String getX_Lat() {
+        return X_Lat;
+    }
+
+    public void setX_Lat(String x_Lat) {
+        X_Lat = x_Lat;
+    }
+
+    public String getY_Long() {
+        return Y_Long;
+    }
+
+    public void setY_Long(String y_Long) {
+        Y_Long = y_Long;
+    }
+
+    public String getLoct() {
+        return Loct;
+    }
+
+    public void setLoct(String loct) {
+        Loct = loct;
+    }
+
+    String   X_Lat,Y_Long,Loct;
+    public String getNote() {
+        return Note;
+    }
+
+    public void setNote(String note) {
+        Note = note;
+    }
+
+    String Note;
+
     public String getOrderNo() {
         return OrderNo;
     }

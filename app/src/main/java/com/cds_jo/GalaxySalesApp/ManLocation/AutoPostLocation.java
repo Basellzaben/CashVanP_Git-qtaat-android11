@@ -103,7 +103,7 @@ public class AutoPostLocation extends Service {
             Toast.makeText(getApplicationContext(), "onDestroy", Toast.LENGTH_SHORT).show();
 
             super.stopService(intent1);
-           // mTimer.cancel();
+             mTimer.cancel();
         }catch (Exception ex ){
              Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
         }

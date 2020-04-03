@@ -31,8 +31,6 @@ import com.cds_jo.GalaxySalesApp.assist.Cls_Invf_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.CustomerReturnQtyActivity;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -319,7 +317,7 @@ public class PopMenuItems  extends DialogFragment implements View.OnClickListene
             }
         });
 
-        ListView lst_Promotion = (ListView)form.findViewById(R.id.lst_Promotion);
+        ListView lst_Promotion = (ListView)form.findViewById(R.id.lst_Bill_Info);
 
         String q = "Select  distinct * from Offers_Hdr ";
         Cursor c1 = sqlHandler.selectQuery(q);

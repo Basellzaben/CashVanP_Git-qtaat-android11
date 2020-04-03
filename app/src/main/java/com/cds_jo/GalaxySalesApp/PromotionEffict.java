@@ -58,7 +58,7 @@ public class PromotionEffict extends DialogFragment implements View.OnClickListe
         sqlHandler =  new SqlHandler(getActivity());
 
 
-        ListView lst_Promotion = (ListView)form.findViewById(R.id.lst_Promotion);
+        ListView lst_Promotion = (ListView)form.findViewById(R.id.lst_Bill_Info);
 
         String q = "Select * from Offers_Hdr ";
         Cursor c1 = sqlHandler.selectQuery(q);

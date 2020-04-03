@@ -13,9 +13,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <uses-feature android:name="android.hardware.location.gps" />
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-feature android:name="android.hardware.location.gps" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -41,21 +39,47 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".StartUpActivity"
-            android:screenOrientation="landscape">
+        <activity android:name=".CustomerSummary.CustomerSummaryAct"></activity>
+        <activity android:name=".ManCard.SplashLoginAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ItemsDameged" />
+        <activity android:name=".Man_Qty" />
+        <activity android:name=".Convert_Sal_Return_To_ImgActivity_Line" />
+        <activity android:name=".assist.Sale_ReturnActivity" />
+        <activity
+            android:name=".StartUpActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Tracking.MapsActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".assist.Monthly_Items_AmountAct"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".assist.TOfCollections"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".assist.ReturnItemsFromCustActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".assist.ManAttenActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="port.bluetooth.BluetoothConnectMenu"
             android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="landscape" />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".assist.MenuActivity" />
         <activity android:name=".assist.layout_to_imgActivity" />
         <activity
@@ -149,6 +173,9 @@
             android:name=".assist.Convert_Sal_Invoice_To_ImgActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".assist.Convert_Sal_Invoice_To_ImgActivity_Line"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".assist.Convert_Sal_Invoice_To_ImgActivity_Tab_10"
             android:screenOrientation="landscape" />
         <activity
@@ -234,23 +261,18 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity
             android:name=".MapsTest"
             android:label="@string/title_activity_maps_test" />
         <activity android:name=".RR3Printer" />
         <activity android:name=".imgtest" />
         <activity
-        android:name=".XprinterDoc.Xprinter_RecVoucher"
-        android:screenOrientation="landscape"
-        android:windowSoftInputMode="stateHidden|adjustPan" />
-
+            android:name=".XprinterDoc.Xprinter_RecVoucher"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".XprinterDoc.Xprinter_SalesOrder"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-
         <activity
             android:name=".XprinterDoc.Xprinter_SalesInvoice"
             android:screenOrientation="landscape"

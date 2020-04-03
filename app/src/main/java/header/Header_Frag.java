@@ -51,8 +51,12 @@ public class Header_Frag extends Fragment {
         });
         tv_CpmpanyName = (Methdes.MyTextView)view.findViewById(R.id.tv_CpmpanyName);
         tv_UserNm = (Methdes.MyTextView)view.findViewById(R.id.tv_UserNm);
+         String UserID=sharedPreferences.getString("UserID", "-1");
+         String TypeDesc;
 
-        tv_UserNm.setText( sharedPreferences.getString("UserName", ""));
+
+        TypeDesc= DB.GetValue(this.getContext(),"manf","TypeDesc","man='"+UserID+"'");
+        tv_UserNm.setText( sharedPreferences.getString("UserName", "")+"/"+TypeDesc);
 
         tv_CpmpanyName.setText( DB.GetValue(this.getContext(),"ComanyInfo","CompanyNm","1=1") +"  "  +DB.GetValue(this.getContext(),"ComanyInfo","CompanyID","1=1"));
         Img_Setting.setOnClickListener(new View.OnClickListener() {
@@ -166,104 +170,55 @@ public class Header_Frag extends Fragment {
 
         itme=new Main_List_Itme();
         itme.setTitle(arr[6]);
-        itme.setImg(R.mipmap.see18);
-        myList_Setting.add(itme);
-
-
-    }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////
-    private void FillData_Setting() {
-        String []arr=getResources().getStringArray(R.array.Main_Item);
-        myList_Setting=new ArrayList<>();
-        Main_List_Itme itme=new Main_List_Itme();
-        itme.setTitle(arr[0]);
-        itme.setImg(R.mipmap.see0);
-        myList_Setting.add(itme);
-
-        itme=new Main_List_Itme();
-        itme.setTitle(arr[1]);
-        itme.setImg(R.mipmap.see1);
-        myList_Setting.add(itme);
-
-        itme=new Main_List_Itme();
-        itme.setTitle(arr[2]);
         itme.setImg(R.mipmap.see2);
         myList_Setting.add(itme);
 
         itme=new Main_List_Itme();
-        itme.setTitle(arr[3]);
+        itme.setTitle(arr[7]);
+        itme.setImg(R.mipmap.see3);
+        myList_Setting.add(itme);
+
+
+        itme=new Main_List_Itme();
+        itme.setTitle(arr[8]);
         itme.setImg(R.mipmap.see3);
         myList_Setting.add(itme);
 
         itme=new Main_List_Itme();
-        itme.setTitle(arr[5]);
-        itme.setImg(R.mipmap.see5);
-        myList_Setting.add(itme);
-
-        itme=new Main_List_Itme();
-        itme.setTitle(arr[6]);
-        itme.setImg(R.mipmap.see6);
-        myList_Setting.add(itme);
-
-        itme=new Main_List_Itme();
-        itme.setTitle(arr[7]);
-        itme.setImg(R.mipmap.see7);
-        myList_Setting.add(itme);
-
-
-        itme=new Main_List_Itme();
         itme.setTitle(arr[9]);
-        itme.setImg(R.mipmap.see9);
+        itme.setImg(R.mipmap.see3);
         myList_Setting.add(itme);
 
         itme=new Main_List_Itme();
         itme.setTitle(arr[10]);
-        itme.setImg(R.mipmap.see10);
+        itme.setImg(R.mipmap.see3);
         myList_Setting.add(itme);
 
         itme=new Main_List_Itme();
         itme.setTitle(arr[11]);
-        itme.setImg(R.mipmap.see11);
+        itme.setImg(R.mipmap.see3);
+        myList_Setting.add(itme);
+
+        itme=new Main_List_Itme();
+        itme.setTitle(arr[12]);
+        itme.setImg(R.mipmap.see3);
         myList_Setting.add(itme);
 
         itme=new Main_List_Itme();
         itme.setTitle(arr[13]);
-        itme.setImg(R.mipmap.see13);
+        itme.setImg(R.mipmap.see3);
         myList_Setting.add(itme);
 
-
+        itme=new Main_List_Itme();
+        itme.setTitle(arr[14]);
+        itme.setImg(R.mipmap.see3);
+        myList_Setting.add(itme);
 
         itme=new Main_List_Itme();
         itme.setTitle(arr[15]);
-        itme.setImg(R.mipmap.see15);
+        itme.setImg(R.mipmap.see3);
         myList_Setting.add(itme);
-
-        itme=new Main_List_Itme();
-        itme.setTitle(arr[16]);
-        itme.setImg(R.mipmap.see16);
-        myList_Setting.add(itme);
-
-        itme=new Main_List_Itme();
-        itme.setTitle(arr[17]);
-        itme.setImg(R.mipmap.see17);
-        myList_Setting.add(itme);
-
-        itme=new Main_List_Itme();
-        itme.setTitle(arr[18]);
-        itme.setImg(R.mipmap.see18);
-        myList_Setting.add(itme);
-
-
-        itme=new Main_List_Itme();
-        itme.setTitle(arr[18]);
-        itme.setImg(R.mipmap.see18);
-        myList_Setting.add(itme);
-
-
-        itme=new Main_List_Itme();
-        itme.setTitle(arr[20]);
-        itme.setImg(R.mipmap.see18);
-        myList_Setting.add(itme);
-
     }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

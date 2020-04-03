@@ -552,7 +552,7 @@
                             android:layout_weight="1"
                             android:text="TextView" />
 
-                        <ImageView
+                         <ImageView
                             android:id="@+id/Search_By_image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -626,7 +626,7 @@
                     android:visibility="invisible">
 
                     <ListView
-                        android:id="@+id/lst_Promotion"
+                        android:id="@+id/lst_Bill_Info"
                         android:layout_width="0dp"
                         android:layout_height="0dp" />
                 </LinearLayout>

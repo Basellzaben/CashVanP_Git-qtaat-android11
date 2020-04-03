@@ -21,8 +21,11 @@
         import org.apache.commons.lang3.StringUtils;
 
         import java.lang.reflect.Field;
+        import java.text.DateFormat;
+        import java.text.ParseException;
         import java.text.SimpleDateFormat;
         import java.util.ArrayList;
+        import java.util.Calendar;
         import java.util.Date;
         import java.util.Locale;
         import java.util.logging.Logger;
@@ -54,12 +57,16 @@
         import android.widget.TextView;
         import android.widget.Toast;
 
+        import com.cds_jo.GalaxySalesApp.ManCard.DetailCardMan;
         import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
         import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
         import com.cds_jo.GalaxySalesApp.assist.CustomerReturnQtyActivity;
 
+        import com.cds_jo.GalaxySalesApp.assist.Logtrans.PostLogTrans;
         import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
+        import com.cds_jo.GalaxySalesApp.assist.ReturnItemsFromCustActivity;
         import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
+        import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 
 
         import org.json.JSONArray;
@@ -76,15 +83,98 @@ public class JalMasterActivity extends FragmentActivity {
     JalImageGridAdapter customGridAdapter;
 
     GetPermession obj;
+    SqlHandler sqlHandler;
+    private String getday() {
+
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat mdformatyear = new SimpleDateFormat("yyyy", Locale.ENGLISH);
+        String stryear = mdformatyear.format(calendar.getTime());
+
+        SimpleDateFormat mdformatmonth = new SimpleDateFormat("MM", Locale.ENGLISH);
+        String strmonth = mdformatmonth.format(calendar.getTime());
+
+        SimpleDateFormat mdformatday = new SimpleDateFormat("dd", Locale.ENGLISH);
+        String strday = mdformatday.format(calendar.getTime());
+
+        String day=strday+"/"+strmonth+"/"+stryear;
+
+        return day;
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+       // PostLogTrans  postLogTrans = new PostLogTrans(JalMasterActivity.this);
         setContentView(R.layout.activity_jal_master);
         TextView Un = (TextView) findViewById(R.id.tv_UserName);
 
 
-        ComInfo.ComNo = Integer.parseInt(DB.GetValue(this, "ComanyInfo", "CompanyID", "1=1"));
+
+        String q=DB.GetValue(this,"cardMan","no","1=1");
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final String UserID = sharedPreferences.getString("UserID", "");
+        String query = "Select DateLogin From TimeLogin where manNo ='"+UserID +"'";
+        sqlHandler = new SqlHandler(this);
+        Cursor c1 = sqlHandler.selectQuery(query);
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                try{
+                    String day=getday();
+
+                    String d=c1.getString(c1
+                            .getColumnIndex("DateLogin"));
+
+                    DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    Date d1 = sdf.parse(d);
+                    Date day2 = sdf.parse(day);
+                    if(sdf.format(d1).equals(sdf.format( day2)))
+                    {
+
+                    }else
+                    {
+                        String qu="UPDATE TimeLogin SET DateLogin='"+String.valueOf(day)+"' WHERE  manNo ='"+UserID+"'" ;
+                        sqlHandler.executeQuery(qu);
+                       /* DetailCardMan exampleDialog = new DetailCardMan();
+                        exampleDialog.show(getSupportFragmentManager(), "dialog");*/
+                       android.app.FragmentManager fragmentManager = getFragmentManager();
+                       DetailCardMan detailCardMan =new DetailCardMan();
+                       detailCardMan.show(fragmentManager,null);
+
+
+
+                    }
+
+
+
+                }catch(ParseException ex){
+                    // handle parsing exception if date string was different from the pattern applying into the SimpleDateFormat contructor
+                }
+
+            }}
+        else
+        {
+            String day=getday();
+
+            String qur = "insert into TimeLogin (manNo,DateLogin ) values ( '" +
+                    UserID
+                    + "','" + day
+                    + "')";
+
+            sqlHandler.executeQuery(qur);
+           /* DetailCardMan exampleDialog = new DetailCardMan();
+            exampleDialog.show(getSupportFragmentManager(), "dialog");*/
+
+            android.app.FragmentManager fragmentManager = getFragmentManager();
+            DetailCardMan detailCardMan = new DetailCardMan();
+            detailCardMan.show( fragmentManager,null);
+        }
+
+
+try {
+    ComInfo.ComNo = Integer.parseInt(DB.GetValue(this, "ComanyInfo", "CompanyID", "1=1"));
+}catch (Exception t){}
+
 
         Locale locale = new Locale("ar");
         Locale.setDefault(locale);
@@ -116,7 +206,7 @@ public class JalMasterActivity extends FragmentActivity {
         Call_marque();
 
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
 
 
         String Login = sharedPreferences.getString("Login", "No");
@@ -340,7 +430,7 @@ public class JalMasterActivity extends FragmentActivity {
 
                    case "30013":
                        ComInfo.DocType = 2;
-                       k = new Intent(v.getContext(),Sale_InvoiceActivity.class);
+                       k = new Intent(v.getContext(), Sale_ReturnActivity.class);
                        break;
                    case "30019":
                        k = new Intent(v.getContext(),SittingNew.class);
@@ -502,7 +592,7 @@ public class JalMasterActivity extends FragmentActivity {
                        Intent k = new Intent(JalMasterActivity.this, TransQtyReportActivity.class);
                        startActivity(k);
                    } else {
-                       final String pass = DB.GetValue(JalMasterActivity.this, "Tab_Password", "Password", "PassNo = 4");
+                     /*  final String pass = DB.GetValue(JalMasterActivity.this, "Tab_Password", "Password", "PassNo = 4");
                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(JalMasterActivity.this);
                        alertDialog.setTitle(DB.GetValue(JalMasterActivity.this, "Tab_Password", "PassDesc", "PassNo = 4"));
 
@@ -540,8 +630,9 @@ public class JalMasterActivity extends FragmentActivity {
                                    }
                                });
 
-                       alertDialog.show();
-
+                       alertDialog.show();*/
+                       Intent k = new Intent(JalMasterActivity.this, TransQtyReportActivity.class);
+                       startActivity(k);
                    }
                } else if (position == 9) {
                     /*if (!obj.CheckAction(v.getContext(), "30008", SCR_ACTIONS.open.getValue())) {
@@ -555,7 +646,7 @@ public class JalMasterActivity extends FragmentActivity {
 
 
                } else if (position == 10) {
-                   final String pass = DB.GetValue(JalMasterActivity.this, "Tab_Password", "Password", "PassNo = 1");
+                   /*final String pass = DB.GetValue(JalMasterActivity.this, "Tab_Password", "Password", "PassNo = 1");
                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(JalMasterActivity.this);
                    alertDialog.setTitle(DB.GetValue(JalMasterActivity.this, "Tab_Password", "PassDesc", "PassNo = 1"));
 
@@ -594,8 +685,9 @@ public class JalMasterActivity extends FragmentActivity {
                            });
 
                    alertDialog.show();
-
-
+*/
+                   Intent k = new Intent(JalMasterActivity.this, ItemCostActivity.class);
+                   startActivity(k);
                } else if (position == 100) {
                    Intent k = new Intent(v.getContext(), NotificationActivity.class);
                    startActivity(k);
@@ -641,7 +733,7 @@ public class JalMasterActivity extends FragmentActivity {
 
                        // Intent k = new Intent(v.getContext(), CustomerReturnQtyActivity.class);
                        ComInfo.DocType = 2;
-                       Intent k  = new Intent(v.getContext(),Sale_InvoiceActivity.class);
+                       Intent k  = new Intent(v.getContext(), Sale_ReturnActivity.class);
                        startActivity(k);
                    }
 
@@ -1096,6 +1188,14 @@ public class JalMasterActivity extends FragmentActivity {
             startActivity(i);
         }
         return;
+    }
+    public void ShwoMancard(View view) {
+       /* DetailCardMan exampleDialog = new DetailCardMan();
+        exampleDialog.show(getSupportFragmentManager(), "dialog");*/
+
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        DetailCardMan detailCardMan = new  DetailCardMan();
+        detailCardMan.show( fragmentManager , null);
     }
 }
 

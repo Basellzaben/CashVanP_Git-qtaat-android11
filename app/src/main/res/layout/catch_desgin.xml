@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RR1"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:layoutDirection="rtl"
+    android:orientation="horizontal"
+    android:weightSum="5">
+
+    <Methdes.MyTextView
+        android:id="@+id/catchCustName"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="اسم العميل"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="14sp" />
+    <Methdes.MyTextView
+        android:id="@+id/catchVType"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="18sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/catchAmt"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="المبلغ"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="18sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/catchChaq"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="المبلغ-شيك"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="14sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/catchDate"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="التاريخ "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="18sp" />
+
+
+
+
+
+
+
+</LinearLayout>

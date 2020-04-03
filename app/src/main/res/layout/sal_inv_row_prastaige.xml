@@ -55,7 +55,7 @@
                     android:layout_weight="4.66" />
 
                 <TextView
-                    android:id="@+id/tv_Price"
+                    android:id="@+id/tv_Price2"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:text="TextView"

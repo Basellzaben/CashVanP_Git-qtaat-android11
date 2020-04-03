@@ -4,35 +4,30 @@ package com.cds_jo.GalaxySalesApp;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,12 +45,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Deptf;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Deptf_adapter;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Invf;
@@ -64,23 +57,15 @@ import com.cds_jo.GalaxySalesApp.assist.Cls_Po_Item_List_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.File;
-import java.security.PrivateKey;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.StringTokenizer;
 
 import Methdes.MyTextView;
-
-import static android.content.ContentValues.TAG;
 
 
 public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickListener {
@@ -570,7 +555,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
             }
         });
 
-        ListView lst_Promotion = (ListView) form.findViewById(R.id.lst_Promotion);
+        ListView lst_Promotion = (ListView) form.findViewById(R.id.lst_Bill_Info);
 
         String q = "Select  distinct * from Offers_Hdr ";
         Cursor c1 = sqlHandler.selectQuery(q);
@@ -776,6 +761,17 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
 
         }
         window.setGravity(Gravity.TOP | Gravity.LEFT);
+        if (getDialog() != null) {
+            getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        return true;
+                    }
+                    return false;
+                }
+            });
+        }
         return form;
     }
 

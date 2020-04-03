@@ -7,6 +7,26 @@ public class Cls_UsedCodes {
 
    String Status;
 
+    public String getNewValue() {
+        return NewValue;
+    }
+
+    public void setNewValue(String newValue) {
+        NewValue = newValue;
+    }
+
+    String NewValue;
+
+    public String getTr_Desc() {
+        return Tr_Desc;
+    }
+
+    public void setTr_Desc(String tr_Desc) {
+        Tr_Desc = tr_Desc;
+    }
+
+    String Tr_Desc;
+
     public String getUserNo() {
         return UserNo;
     }
@@ -86,7 +106,26 @@ public class Cls_UsedCodes {
     String CustomerNo;
     String ItemNo;
     String Tr_Date;
-    String Tr_Time ;
+    String Tr_Time;
+
+    public String getBouncePercent() {
+        return BouncePercent;
+    }
+
+    public void setBouncePercent(String bouncePercent) {
+        BouncePercent = bouncePercent;
+    }
+
+    public String getDiscountPercent() {
+        return DiscountPercent;
+    }
+
+    public void setDiscountPercent(String discountPercent) {
+        DiscountPercent = discountPercent;
+    }
+
+    String BouncePercent;
+    String DiscountPercent ;
 
 
 

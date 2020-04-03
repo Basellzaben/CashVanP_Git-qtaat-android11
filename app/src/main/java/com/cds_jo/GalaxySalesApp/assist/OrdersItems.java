@@ -47,6 +47,7 @@ import android.widget.Toast;
 import com.cds_jo.GalaxySalesApp.*;
 import com.cds_jo.GalaxySalesApp.PostTransActions.PostSalesOrder;
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesOrder;
+import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -114,7 +115,7 @@ public class OrdersItems extends FragmentActivity {
     ListView listView;
     private ImageView Img_Menu;
     GetPermession obj;
-    String SCR_CODE = "30005";
+
     MyTextView tv_TaxStatus, tv_CustStatus;
     String CustTaxStatus;
     ArrayList<AlertChoiceItem> itemList;
@@ -130,7 +131,9 @@ public class OrdersItems extends FragmentActivity {
     SimpleDateFormat sdf;
     MyTextView tv_CatDesc,     tv_Allow_Amt,tv_CellingException  ;
     MyTextView tv_PromotionStatus,tv_Celing,tv_CustTotal;
-
+    String SCR_NO ="11003";
+    EditText  et_OrdeNo ;
+            TextView tv_acc   ;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -580,6 +583,11 @@ public class OrdersItems extends FragmentActivity {
                 alertDialog.show();
 
             }
+
+            et_OrdeNo =(EditText)findViewById(R.id.et_OrdeNo);
+            tv_acc =(TextView)findViewById(R.id.tv_acc);
+
+            InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.open.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
         } catch (Exception ex) {
             Toast.makeText(this, ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
@@ -1987,7 +1995,7 @@ public class OrdersItems extends FragmentActivity {
     public void btn_print(View view) {
 
 
-        if (!obj.CheckAction(this, SCR_CODE, SCR_ACTIONS.Print.getValue())) {
+        if (!obj.CheckAction(this, SCR_NO, SCR_ACTIONS.Print.getValue())) {
             com.cds_jo.GalaxySalesApp.ViewDialog alert = new com.cds_jo.GalaxySalesApp.ViewDialog();
             alert.showDialog(OrdersItems.this, "نأسف أنت لا تملك صلاحية الطباعة", "طلب البيع");
           //  return;
@@ -2028,11 +2036,6 @@ public class OrdersItems extends FragmentActivity {
 
         startActivity(k);
 
-
-
-
-
-
     }
 
     public void Save_Recod_Po() {
@@ -2066,13 +2069,13 @@ public class OrdersItems extends FragmentActivity {
 
 
         if (IsNew == true) {
-            if (!obj.CheckAction(this, SCR_CODE, SCR_ACTIONS.Insert.getValue())) {
+            if (!obj.CheckAction(this, SCR_NO, SCR_ACTIONS.Insert.getValue())) {
                 com.cds_jo.GalaxySalesApp.ViewDialog alert = new com.cds_jo.GalaxySalesApp.ViewDialog();
                 alert.showDialog(OrdersItems.this, "نأسف أنت لا تملك صلاحية الحفظ", "طلب البيع");
                 return;
             }
         } else {
-            if (!obj.CheckAction(this, SCR_CODE, SCR_ACTIONS.Modify.getValue())) {
+            if (!obj.CheckAction(this, SCR_NO, SCR_ACTIONS.Modify.getValue())) {
                 com.cds_jo.GalaxySalesApp.ViewDialog alert = new com.cds_jo.GalaxySalesApp.ViewDialog();
                 alert.showDialog(OrdersItems.this, "نأسف أنت لا تملك صلاحية التعديل", "طلب البيع");
                 return;
@@ -2253,6 +2256,11 @@ public class OrdersItems extends FragmentActivity {
             UpDateMaxOrderNo();
             DeleteAllPromotions();
             Gf_Calc_Promotion();
+            if(IsNew){
+                InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+            }else{
+                InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Modify.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+            }
             IsNew = false;
             //UpDateMaxOrderNo();
             //contactList.clear();
@@ -2847,7 +2855,7 @@ public class OrdersItems extends FragmentActivity {
 
     public void Delete_Record_PO() {
 
-        if (!obj.CheckAction(this, SCR_CODE, SCR_ACTIONS.Delete.getValue())) {
+        if (!obj.CheckAction(this, SCR_NO, SCR_ACTIONS.Delete.getValue())) {
             com.cds_jo.GalaxySalesApp.ViewDialog alert = new com.cds_jo.GalaxySalesApp.ViewDialog();
             alert.showDialog(OrdersItems.this, "نأسف أنت لا تملك صلاحية الحذف", "طلب البيع");
             return;
@@ -2870,6 +2878,7 @@ public class OrdersItems extends FragmentActivity {
         contactList.clear();
         GetMaxPONo();
         showList(0);
+        InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Delete.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
         IsNew = true;
         /*   new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Good job!")
@@ -2909,13 +2918,16 @@ public class OrdersItems extends FragmentActivity {
 
 
     public void btn_share(View view) {
+
+            InsertLogTrans insertLogTrans=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+
         if (ComInfo.ComNo == 4) {
             return;
         }
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
 
         final String DocNo = pono.getText().toString();
-        if (!obj.CheckAction(this, SCR_CODE, SCR_ACTIONS.Share.getValue())) {
+        if (!obj.CheckAction(this, SCR_NO+"", SCR_ACTIONS.Share.getValue())) {
             com.cds_jo.GalaxySalesApp.ViewDialog alert = new com.cds_jo.GalaxySalesApp.ViewDialog();
             alert.showDialog(OrdersItems.this, "نأسف أنت لا تملك صلاحية الاعتماد", "طلب البيع");
             return;
@@ -3434,13 +3446,9 @@ public class OrdersItems extends FragmentActivity {
     }
 
     public void btn_Delete_Item(final View view) {
-
-
         position = lv_Items.getPositionForView(view);
         registerForContextMenu(view);
         openContextMenu(view);
-
-
     }
 
     public void UpdateQty(String qty) {
@@ -3448,7 +3456,6 @@ public class OrdersItems extends FragmentActivity {
         CalcTotal();
         showList(1);
     }
-
     ///////////////////////////////////////////////////
     private void Gf_Calc_Promotion() {
         //ResetPromotion();a

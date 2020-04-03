@@ -29,6 +29,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,7 +44,10 @@ import com.cds_jo.GalaxySalesApp.ManLocation.AutoPostLocation;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 import com.cds_jo.GalaxySalesApp.assist.ESCPSample3;
 
+import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
+import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
+import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -91,6 +95,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     Drawable greenProgressbar;
     RelativeLayout.LayoutParams lp;
     MyTextView tv_VisitWeekNm;
+    EditText tv_Note;
+    TextView tv_x , tv_y, tv_Loc ;
     // Minimum time fluctuation for next update (in milliseconds)
     private static final long TIME = 30000;
     // Minimum distance fluctuation for next update (in meters)
@@ -99,12 +105,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     // Declaring a Location Manager
     protected LocationManager mLocationManager;
     GetPermession UserPermission;
-
+   String SCR_NO="11001";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.n_activity_main);
-
+        InsertLogTrans obj=new InsertLogTrans(MainActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),"","","");
+        hideSoftKeyboard();
+          tv_x = (TextView) findViewById(R.id.tv_x);
+          tv_y = (TextView) findViewById(R.id.tv_y);
+          tv_Loc = (TextView) findViewById(R.id.tv_Loc);
         ComInfo.ComNo = Integer.parseInt(DB.GetValue(this, "ComanyInfo", "CompanyID", "1=1").replaceAll("[^\\d.]", ""));
         RoundList = new ArrayList<Cls_SaleManDailyRound>();
         RoundList.clear();
@@ -120,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         tv_VisitWeekNm = (MyTextView) findViewById(R.id.tv_VisitWeekNm);
         TrDate = (TextView) findViewById(R.id.et_Date);
         TrDate.setText(currentDateandTime);
+        tv_Note=(EditText) findViewById(R.id.tv_Note);
 
         Calendar c = Calendar.getInstance();
         dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
@@ -153,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Fragment frag = new Header_Frag();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.Frag1, frag).commit();
-
+        //Toast.makeText(this, sharedPreferences.getString("UserID", ""),Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -367,8 +378,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void btn_SearchCust(View v) {
-
-        if (ComInfo.ComNo == 1) {
+      if (ComInfo.ComNo == Companies.beutyLine.getValue() || ComInfo.ComNo == 1){
+        Bundle bundle = new Bundle();
+        bundle.putString("Scr", "Gps");
+        FragmentManager Manager = getFragmentManager();
+        Select_Customer obj = new Select_Customer();
+        obj.setArguments(bundle);
+        obj.show(Manager, null);
+    }else if (ComInfo.ComNo > 1) {
 
 
             Button create, show, setting;
@@ -420,13 +437,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     });
 
             alertDialog.show();
-        } else if (ComInfo.ComNo == Companies.beutyLine.getValue()){
-            Bundle bundle = new Bundle();
-            bundle.putString("Scr", "Gps");
-            FragmentManager Manager = getFragmentManager();
-            Select_Customer obj = new Select_Customer();
-            obj.setArguments(bundle);
-            obj.show(Manager, null);
+
 
         } else {
 
@@ -453,7 +464,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void hideSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isActive()) {
-            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            imm.toggleSoftInput(0, InputMethodManager.RESULT_HIDDEN);
         }
     }
 
@@ -487,6 +498,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         cv.put("Closed", "0");
         cv.put("Posted", "-1");
         cv.put("OrderNo", OrderNo);
+        cv.put("Note", tv_Note.getText().toString());
+        cv.put("X_Lat", tv_x.getText().toString());
+        cv.put("Y_Long", tv_y.getText().toString());
+        cv.put("Loct", tv_Loc.getText().toString());
 
         final String CusNm = CustNm.getText().toString();
         final String CusNo = CustNo.getText().toString();
@@ -507,7 +522,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             editor.putString("InvCount", "0");
             editor.putString("V_OrderNo", OrderNo);
             editor.commit();
-
+            InsertLogTrans obj=new InsertLogTrans(MainActivity.this,SCR_NO , SCR_ACTIONS.StartVisit.getValue(),OrderNo, CustNo.getText().toString(),"");
             alertDialog.setMessage("عملية بداية الجولة تمت بنجاح، رقم الزيارة :" + OrderNo);
             alertDialog.setIcon(R.drawable.tick);
             StartRound.setVisibility(View.INVISIBLE);
@@ -519,7 +534,42 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
            /* if(ComInfo.ComNo==4) {
                 stopService(new Intent(MainActivity.this,AutoPostLocation.class));
             }*/
+
+            stopService(new Intent(MainActivity.this,AutoPostLocation.class));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            String currentDateandTime = sdf.format(new Date());
+
+
+            String Amt ;
             Msg = DB.GetValue(MainActivity.this, "CustomersMsg", "msg", "  SaleManFlg ='2' and  Cusno=" + CustNo.getText().toString()).toString();
+            //  Tr_date custNo Amt orderDate
+
+          //  Amt=DB.GetValue(MainActivity.this, "InvoicePaymentSchedule", "sum( cast( Amt as float))", "  Tr_date ='"+currentDateandTime +"' and  custNo='" + CustNo.getText().toString()+"'").toString();
+//sum( cast( Amt as float))  AS no
+
+            String query = "SELECT   ifnull(Amt,'0')  AS no  , ifnull(New_Amt,'0') as New_Amt " +
+                    "  ,ifnull(SupervisorNutes,' ') as SupervisorNutes ,ifnull(New_Tr_date,' ') as New_Tr_date " +
+                    " FROM InvoicePaymentSchedule Where ( Tr_date ='"+currentDateandTime +"' or New_Tr_date ='"+ currentDateandTime +"' )and  custNo='" + CustNo.getText().toString()+"'";
+            Cursor c1 = sqlHandler.selectQuery(query);
+
+
+            if (c1 != null && c1.getCount() != 0) {
+                c1.moveToFirst();
+                if (Msg.toString().length() > 2) {
+                    Msg = Msg +"\r\n"  +"  يوجد دفعات مستحقة "+"القيمة الأصلية" +":"+     c1.getString(c1.getColumnIndex("no"));
+                    Msg=Msg   +"\r\n"  + "تعديل القيمة من المشرف " +":"+     c1.getString(c1.getColumnIndex("New_Amt"));
+                    Msg=Msg   +"\r\n"  + "تعديل التاريخ من المشرف " +":"+     c1.getString(c1.getColumnIndex("New_Tr_date"));
+                    Msg=Msg   +"\r\n"  + "ملاحظات  المشرف " +":"+     c1.getString(c1.getColumnIndex("SupervisorNutes"));
+                }else {
+                    Msg =  "  يوجد دفعات مستحقة "+"القيمة" +":"+ c1.getString(c1.getColumnIndex("no"));
+                    Msg=Msg   +"\r\n"  + "تعديل القيمة من المشرف " +":"+     c1.getString(c1.getColumnIndex("New_Amt"));
+                    Msg=Msg   +"\r\n"  + "تعديل التاريخ من المشرف " +":"+     c1.getString(c1.getColumnIndex("New_Tr_date"));
+                    Msg=Msg   +"\r\n"  + "ملاحظات  المشرف " +":"+     c1.getString(c1.getColumnIndex("SupervisorNutes"));
+                }
+            }
+
+
+
 
 
         } else {
@@ -565,6 +615,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if (c1 != null && c1.getCount() != 0) {
             c1.moveToFirst();
             max = c1.getString(c1.getColumnIndex("no"));
+            c1.close();
         }
 
         //max = (intToString(Integer.valueOf(max), 7));
@@ -608,13 +659,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         TextView Custadd = (TextView) findViewById(R.id.tv_Loc);
         TrDate = (TextView) findViewById(R.id.et_Date);
         et_EndTime = (TextView) findViewById(R.id.et_EndTime);
-
+        tv_Note=(EditText) findViewById(R.id.tv_Note);
 
         ContentValues cv = new ContentValues();
 
         cv.put("Tr_Data", TrDate.getText().toString());
         cv.put("End_Time", et_EndTime.getText().toString());
         cv.put("Closed", "1");
+        cv.put("Note", tv_Note.getText().toString());
 
 
         long i;
@@ -631,18 +683,22 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             editor.putString("CustNm", "");
             editor.putString("CustAdd", "");
             editor.putString("V_OrderNo", "-1");
+            editor.putString("Note", "");
             editor.commit();
 
             alertDialog.setMessage("نهاية الجولة تمت بنجاح");
             alertDialog.setIcon(R.drawable.tick);
             noti.cancel(this);
-
+            InsertLogTrans obj=new InsertLogTrans(MainActivity.this,SCR_NO , SCR_ACTIONS.EndVisit.getValue(),OrderNo, CustNo.getText().toString(),"");
 
             DoNew();
+            SharManVisits();
+            stopService(new Intent(MainActivity.this, AutoPostLocation.class));
+            startService(new Intent(MainActivity.this, AutoPostLocation.class));
         } else {
 
             alertDialog.setMessage("عملية  الحفظ لم تتم ");
-            alertDialog.setIcon(R.drawable.delete);
+            alertDialog.setIcon(R.drawable.error_new);
         }
 
 
@@ -666,6 +722,102 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
     }
+    public void SharManVisits() {
+
+        //sqlHandler=new SqlHandler(this);
+
+        final Handler _handler = new Handler();
+        String query = "select  distinct no,ManNo, CusNo, DayNum ,Tr_Data ,Start_Time,End_Time, Duration,OrderNo " +
+                "  ,Note,  X_Lat,Y_Long,Loct from SaleManRounds   where Posted = -1";
+        Cursor c1 = sqlHandler.selectQuery(query);
+        ArrayList<Cls_SaleManDailyRound> RoundList;
+        RoundList = new ArrayList<Cls_SaleManDailyRound>();
+        RoundList.clear();
+
+        //query = " delete from   SaleManRounds   ";
+        // sqlHandler.executeQuery(query);
+        Cls_SaleManDailyRound cls_saleManDailyRound;
+
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                do {
+                    cls_saleManDailyRound = new Cls_SaleManDailyRound();
+                    cls_saleManDailyRound.setNo(c1.getString(c1
+                            .getColumnIndex("no")));
+                    cls_saleManDailyRound.setManNo(c1.getString(c1
+                            .getColumnIndex("ManNo")));
+                    cls_saleManDailyRound.setCusNo(c1.getString(c1
+                            .getColumnIndex("CusNo")));
+                    cls_saleManDailyRound.setDayNum(c1.getString(c1
+                            .getColumnIndex("DayNum")));
+                    cls_saleManDailyRound.setTr_Data(c1.getString(c1
+                            .getColumnIndex("Tr_Data")));
+                    cls_saleManDailyRound.setStart_Time(c1.getString(c1
+                            .getColumnIndex("Start_Time")));
+                    cls_saleManDailyRound.setEnd_Time(c1.getString(c1
+                            .getColumnIndex("End_Time")));
+
+                    cls_saleManDailyRound.setDuration(c1.getString(c1
+                            .getColumnIndex("Duration")));
+
+                    cls_saleManDailyRound.setOrderNo(c1.getString(c1
+                            .getColumnIndex("OrderNo")));
+
+                    cls_saleManDailyRound.setNote(c1.getString(c1
+                            .getColumnIndex("Note")));
+
+
+                    cls_saleManDailyRound.setX_Lat(c1.getString(c1
+                            .getColumnIndex("X_Lat")));
+
+
+                    cls_saleManDailyRound.setY_Long(c1.getString(c1
+                            .getColumnIndex("Y_Long")));
+
+
+                    cls_saleManDailyRound.setLoct(c1.getString(c1
+                            .getColumnIndex("Loct")));
+
+
+
+                    RoundList.add(cls_saleManDailyRound);
+
+                } while (c1.moveToNext());
+
+            }
+            c1.close();
+        }
+        final String json = new Gson().toJson(RoundList);
+
+        Calendar c = Calendar.getInstance();
+        final int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+
+        //  final Handler _handler = new Handler();
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CallWebServices ws = new CallWebServices(MainActivity.this);
+                ws.SaveManVisits(json);
+                try {
+                    if (We_Result.ID > 0) {
+                        String query = " Update  SaleManRounds  set Posted=1  where Posted = '-1'";
+                        sqlHandler.executeQuery(query);
+                        _handler.post(new Runnable() {
+                            public void run() {
+
+                            }
+                        });
+
+                        query = " delete from   SaleManRounds   where Posted =1 and  DayNum < " + dayOfWeek;
+                        sqlHandler.executeQuery(query);
+                    }
+                } catch (final Exception e) {
+                }
+            }
+        }).start();
+    }
 
     public void Set_Cust(String No, String Nm) {
         TextView CustNm = (TextView) findViewById(R.id.tv_CustName);
@@ -673,8 +825,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         acc.setText(No);
         CustNm.setText(Nm);
         acc.setError(null);
+        HidKeybad();
     }
-
+    private  void HidKeybad(){
+        try{
+            if (this.getCurrentFocus() != null) {
+                InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+            this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        }catch (Exception ex){}
+    }
     public void GetCustomer() {
 
         final TextView tv_x = (TextView) findViewById(R.id.tv_x);
@@ -882,6 +1043,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         et_EndTime = (TextView) findViewById(R.id.et_EndTime);
         et_EndTime.setText("");
+        tv_Note.setText("");
         Getlocation();
 
     }
@@ -894,7 +1056,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
         sqlHandler = new SqlHandler(this);
-        String query = "SELECT  SaleManRounds.no   , SaleManRounds.CusNo ,Customers.name ,Tr_Data,DayNum,Start_Time  " +
+        String query = "SELECT  SaleManRounds.no ,SaleManRounds.Note  , SaleManRounds.CusNo,SaleManRounds.Note ,Customers.name ,Tr_Data,DayNum,Start_Time  " +
                 "FROM SaleManRounds Left join Customers on Customers.no =SaleManRounds.CusNo  where Closed = 0";
         Cursor c1 = sqlHandler.selectQuery(query);
 
@@ -905,6 +1067,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         StartRound = (RelativeLayout) findViewById(R.id.btnStartRound);
         et_EndTime = (TextView) findViewById(R.id.et_EndTime);
         TextView tv_Duration = (TextView) findViewById(R.id.tv_Duration);
+
         tv_Duration.setText("");
         EndRound.setVisibility(View.INVISIBLE);
         StartRound.setVisibility(View.VISIBLE);
@@ -915,6 +1078,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             CustNm.setText(c1.getString(c1.getColumnIndex("name")));
             TrDate.setText(c1.getString(c1.getColumnIndex("Tr_Data")));
             et_StartTime.setText(c1.getString(c1.getColumnIndex("Start_Time")));
+            tv_Note.setText(c1.getString(c1.getColumnIndex("Note")));
+
             et_Day.setText(GetDayName(Integer.valueOf(c1.getString(c1.getColumnIndex("DayNum")))));
             EndRound.setVisibility(View.VISIBLE);
             StartRound.setVisibility(View.INVISIBLE);
@@ -948,148 +1113,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void btn_delete(View view) {
-
-
         sqlHandler.Delete("SaleManRounds", "");
-
-
-    }
-
-    public void btn_Share(View view) {
-
-
-        sqlHandler = new SqlHandler(this);
-        String query = "  select  no,ManNo, CusNo, DayNum ,Tr_Data ,Start_Time,End_Time, Duration from SaleManRounds   where Posted = -1";
-        Cursor c1 = sqlHandler.selectQuery(query);
-        RoundList.clear();
-
-        //query = " delete from   SaleManRounds   ";
-        // sqlHandler.executeQuery(query);
-
-        if (c1 != null && c1.getCount() != 0) {
-            if (c1.moveToFirst()) {
-                do {
-                    Cls_SaleManDailyRound cls_saleManDailyRound = new Cls_SaleManDailyRound();
-                    cls_saleManDailyRound.setNo(c1.getString(c1
-                            .getColumnIndex("no")));
-                    cls_saleManDailyRound.setManNo(c1.getString(c1
-                            .getColumnIndex("ManNo")));
-                    cls_saleManDailyRound.setCusNo(c1.getString(c1
-                            .getColumnIndex("CusNo")));
-                    cls_saleManDailyRound.setDayNum(c1.getString(c1
-                            .getColumnIndex("DayNum")));
-                    cls_saleManDailyRound.setTr_Data(c1.getString(c1
-                            .getColumnIndex("Tr_Data")));
-                    cls_saleManDailyRound.setStart_Time(c1.getString(c1
-                            .getColumnIndex("Start_Time")));
-                    cls_saleManDailyRound.setEnd_Time(c1.getString(c1
-                            .getColumnIndex("End_Time")));
-
-                    cls_saleManDailyRound.setDuration(c1.getString(c1
-                            .getColumnIndex("Duration")));
-                    RoundList.add(cls_saleManDailyRound);
-
-                } while (c1.moveToNext());
-
-            }
-            c1.close();
-        }
-        final String json = new Gson().toJson(RoundList);
-
-        Calendar c = Calendar.getInstance();
-        dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        loadingdialog = ProgressDialog.show(MainActivity.this, "الرجاء الانتظار ...", "العمل جاري على ترحيل زيارات المندوب", true);
-        loadingdialog.setCancelable(false);
-        loadingdialog.setCanceledOnTouchOutside(false);
-        loadingdialog.show();
-        final Handler _handler = new Handler();
-
-
-        // Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                CallWebServices ws = new CallWebServices(MainActivity.this);
-                ws.SaveManVisits(json);
-                try {
-
-                    if (We_Result.ID > 0) {
-
-                        String query = " Update  SaleManRounds  set Posted=1  where Posted = '-1'";
-                        sqlHandler.executeQuery(query);
-
-                        query = " delete from   SaleManRounds   where Posted =1 and  DayNum < " + dayOfWeek;
-                        sqlHandler.executeQuery(query);
-
-
-                        _handler.post(new Runnable() {
-                            public void run() {
-                                AlertDialog alertDialog = new AlertDialog.Builder(
-                                        MainActivity.this).create();
-                                alertDialog.setTitle("ترحيل زيارات المندوب ");
-                                alertDialog.setMessage("تمت عملية ترحيل زيارات العميل بنجاح");
-                                alertDialog.setIcon(R.drawable.tick);
-                                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                });
-                                loadingdialog.dismiss();
-                                alertDialog.show();
-                                alertDialog.show();
-
-                            }
-                        });
-                    } else {
-
-                        loadingdialog.dismiss();
-                        _handler.post(new Runnable() {
-                            public void run() {
-                                AlertDialog alertDialog = new AlertDialog.Builder(
-                                        MainActivity.this).create();
-                                if (We_Result.ID == 0) {
-                                    alertDialog.setMessage("لا يوجد زيارات غير مرحلة");
-
-                                } else {
-                                    alertDialog.setMessage("عملية الترحيل لم تتم بنجاح " + "    ");
-
-                                }
-
-                                alertDialog.setTitle(" عملية الترحيل لم تتم بنجاح" + "   " + We_Result.ID + "");
-                                //  alertDialog.setMessage(We_Result.Msg.toString());
-                                alertDialog.setIcon(R.drawable.tick);
-                                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                });
-                                alertDialog.show();
-
-                                alertDialog.setIcon(R.drawable.delete);
-                            }
-                        });
-                    }
-
-                } catch (final Exception e) {
-                    loadingdialog.dismiss();
-                    _handler.post(new Runnable() {
-                        public void run() {
-                            AlertDialog alertDialog = new AlertDialog.Builder(
-                                    MainActivity.this).create();
-                            alertDialog.setTitle("فشل في عمليه الاتصال");
-                            alertDialog.setMessage(e.getMessage().toString());
-                            alertDialog.setIcon(R.drawable.tick);
-                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-
-                            alertDialog.show();
-                        }
-                    });
-                }
-            }
-        }).start();
     }
 
     public void btm_delete(View view) {
@@ -1099,7 +1123,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         sqlHandler.executeQuery(query);
 
     }
-
     public void Save_Cust_Location(View view) {
         if (ComInfo.ComNo == 4) {
             if (!UserPermission.CheckAction(this, "30024", SCR_ACTIONS.Insert.getValue())) {
@@ -1114,7 +1137,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         } else {
 
 
-            if (ComInfo.ComNo == Companies.Ukrania.getValue() ||   (ComInfo.ComNo == Companies.beutyLine.getValue())) {
+            if (ComInfo.ComNo == Companies.Ukrania.getValue() ||   (ComInfo.ComNo == Companies.beutyLine.getValue()) || ComInfo.ComNo == Companies.Ma8bel.getValue()) {
                 SaveCustLocation();
             } else {
                 //    if (ComInfo.ComNo == 1 || ComInfo.ComNo==4) {
@@ -1168,7 +1191,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             SaveCustLocation();
         }*/
     }
-
     private void SaveCustLocation() {
         final TextView tv_x = (TextView) findViewById(R.id.tv_x);
         final TextView tv_y = (TextView) findViewById(R.id.tv_y);
@@ -1243,7 +1265,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
+                SharcustLocation();
             }
         });
 
@@ -1251,6 +1273,71 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         alertDialog.show();
 
 
+    }
+
+    public void SharcustLocation() {
+
+        //sqlHandler=new SqlHandler(this);
+
+        final Handler _handler = new Handler();
+        String query = "  select distinct CusNo ,Lat ,Long ,Address, date, UserID from CustLocation   where posted = -1";
+        Cursor c1 = sqlHandler.selectQuery(query);
+        ArrayList<Cls_CustLocation> objlist;
+        objlist = new ArrayList<Cls_CustLocation>();
+        objlist.clear();
+
+
+        if (c1 != null && c1.getCount() > 0) {
+            if (c1.moveToFirst()) {
+                do {
+                    Cls_CustLocation obj = new Cls_CustLocation();
+                    obj.setCusNo(c1.getString(c1
+                            .getColumnIndex("CusNo")));
+                    obj.setLat(c1.getString(c1
+                            .getColumnIndex("Lat")));
+                    obj.setLong(c1.getString(c1
+                            .getColumnIndex("Long")));
+                    obj.setAddress(c1.getString(c1
+                            .getColumnIndex("Address")));
+                    obj.setDate(c1.getString(c1
+                            .getColumnIndex("date")));
+                    obj.setUserID(c1.getString(c1
+                            .getColumnIndex("UserID")));
+                    obj.setPosted("-1");
+
+                    objlist.add(obj);
+
+                } while (c1.moveToNext());
+
+            }
+            c1.close();
+        }
+        final String json = new Gson().toJson(objlist);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                CallWebServices ws = new CallWebServices(MainActivity.this);
+                ws.SaveCustLocation(json);
+                try {
+                    if (We_Result.ID > 0) {
+                        String query = " Update  CustLocation  set Posted='1'  where Posted = '-1'";
+                        sqlHandler.executeQuery(query);
+                        _handler.post(new Runnable() {
+                            public void run() {
+
+
+
+                            }
+                        });
+
+
+                    }
+                } catch (final Exception e) {
+
+                }
+            }
+        }).start();
     }
 
     public String GetMaxPONo() {
@@ -1443,4 +1530,5 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }).start();
 
     }
+
 }

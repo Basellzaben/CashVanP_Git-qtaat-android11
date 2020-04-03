@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:weightSum="5">
+        <Methdes.MyTextView
+            android:layout_width="0dp"
+            android:id="@+id/type"
+            android:gravity="center"
+            android:textColor="@color/Black11"
+
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            ></Methdes.MyTextView>
+        <Methdes.MyTextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/sales"
+            android:gravity="center"
+            android:textColor="@color/Black11"
+
+            android:text="sadas"
+            android:layout_height="match_parent"
+            ></Methdes.MyTextView>
+
+        <Methdes.MyTextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/Ret"
+            android:textColor="@color/Black11"
+
+            android:gravity="center"
+
+            android:layout_height="match_parent"
+            ></Methdes.MyTextView>
+        <Methdes.MyTextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/Ret2"
+            android:gravity="center"
+            android:textColor="@color/Black11"
+
+            android:text="asdasd"
+            android:layout_height="match_parent"
+            ></Methdes.MyTextView>
+
+        <Methdes.MyTextView
+            android:id="@+id/Ret1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+
+            android:gravity="center"
+            android:text="asdasd"
+            android:textColor="@color/Black11"></Methdes.MyTextView>
+
+        <Methdes.MyTextView
+            android:id="@+id/hRet1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+
+            android:gravity="right"
+            android:paddingRight="2dp"
+            android:text="%"
+            android:textColor="@color/Black11"></Methdes.MyTextView>
+    </LinearLayout>
+
+</RelativeLayout>

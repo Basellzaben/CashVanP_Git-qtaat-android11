@@ -10,7 +10,15 @@ public class Cls_Check {
     String CheckNo ;
     String CheckDate ;
     String BankNo ;
+    String allowday;
 
+    public void setallowday(String allowday) {
+        allowday = allowday;
+    }
+
+    public String getallowday() {
+        return allowday;
+    }
     public String getBankName() {
         return BankName;
     }

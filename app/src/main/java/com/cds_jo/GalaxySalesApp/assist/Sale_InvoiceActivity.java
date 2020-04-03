@@ -66,11 +66,14 @@ import com.cds_jo.GalaxySalesApp.NewLoginActivity;
 import com.cds_jo.GalaxySalesApp.PopEnterActQty;
 import com.cds_jo.GalaxySalesApp.PopEnterInvoiceHeaderDiscount;
 import com.cds_jo.GalaxySalesApp.PopSal_Inv_Select_Items;
+import com.cds_jo.GalaxySalesApp.PopSal_return_Select_Items;
 import com.cds_jo.GalaxySalesApp.PopShowCustLastTrans;
 import com.cds_jo.GalaxySalesApp.Pop_Confirm_New;
+import com.cds_jo.GalaxySalesApp.Pop_Payments_method;
 import com.cds_jo.GalaxySalesApp.PostTransActions.PostSalesInvoice;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.RecvVoucherActivity;
+import com.cds_jo.GalaxySalesApp.SCR_ACTIONS;
 import com.cds_jo.GalaxySalesApp.Sal_Inv_SearchActivity;
 import com.cds_jo.GalaxySalesApp.SearchManBalanceQty;
 import com.cds_jo.GalaxySalesApp.Select_Cash_Customer;
@@ -79,8 +82,10 @@ import com.cds_jo.GalaxySalesApp.Select_Drivers;
 import com.cds_jo.GalaxySalesApp.SqlDbHelper;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.cds_jo.GalaxySalesApp.UpdateDataToMobileActivity;
+import com.cds_jo.GalaxySalesApp.VisitImges;
 import com.cds_jo.GalaxySalesApp.We_Result;
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesInvoice;
+import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 import com.cds_jo.GalaxySalesApp.cls_Tab_Sales;
 import com.google.gson.Gson;
 import com.sun.mail.imap.Quota;
@@ -139,6 +144,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
     String f, Result;
     long PostResult = 0;
     CheckBox IncludeTax_Flag;
+    CheckBox chk_cus_name;
     private ImageView Img_Menu;
     private SimpleSideDrawer mNav;
     CharSequence[] values = {"رمز تحقق ", "طلب موافقة المشرف"};
@@ -152,6 +158,9 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
     MyTextView tv_HeaderDscount;
     double FinalDiscountpercent=0.0,FinalDiscountAmt ;
     String   FinalDiscountType="0" ;// 1 نسبة    2 مبلغ
+    Button btn_Payment;
+    String SCR_NO="11002";
+    private static final String DIALOG_DATE = "date";
     private void HiddenHdrDiscount() {
         int flg;
         flg = Integer.parseInt(DB.GetValue(this, "ComanyInfo", "EnbleHdrDiscount", "1=1"));
@@ -321,11 +330,12 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
     ListView listView;
     android.support.v7.app.AlertDialog alertDialog2;
     EditText   et_OrdeNo;
-
+    TextView tv_acc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_sale__invoice);
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         this.setTitle(sharedPreferences.getString("CompanyNm", "") + "/" + sharedPreferences.getString("Address", ""));
         // setContentView(R.layout.activity_sale__invoice);
@@ -359,6 +369,9 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         IncludeTax_Flag = (CheckBox) findViewById(R.id.chk_Tax_Include);
         IncludeTax_Flag.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
 
+        chk_cus_name = (CheckBox) findViewById(R.id.chk_cus_name);
+        chk_cus_name.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
+
         lvCustomList = (ListView) findViewById(R.id.LstvItems);
         sqlHandler = new SqlHandler(this);
         ComInfo.ComNo = Integer.parseInt(DB.GetValue(this, "ComanyInfo", "CompanyID", "1=1"));
@@ -380,14 +393,15 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
         CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
         chk_Type.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
-        if (ComInfo.ComNo == 2) {
+        if (ComInfo.ComNo == 2  ) {
             chk_Type.setChecked(true);
             IncludeTax_Flag.setChecked(false);
             IncludeTax_Flag.setVisibility(View.INVISIBLE);
         }
+
         fill_Offers_Group();
 
-
+        //btn_Payment=(Button) findViewById(R.id.Lytbutton);
         offer_groups_Effict_List = new ArrayList<Cls_Offers_Groups>();
         offer_groups_Effict_List.clear();
 
@@ -404,7 +418,24 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
                     mNav.toggleLeftDrawer();
                 }
+
+
             });
+
+        //btn_Payment.setOnClickListener(new View.OnClickListener() {
+
+           /* public void btn_Payment(View v) {
+                FragmentManager fm = getFragmentManager();
+                Pop_Payments_method dialog = new Pop_Payments_method();
+                //dialog.show(fm, DIALOG_DATE);
+            }*/
+        //});
+
+      /*  FragmentManager Frag_manger = getFragmentManager();
+        Pop_Payments_method Payment_dialog = new Pop_Payments_method();
+        Payment_dialog.show(Frag_manger, null);*/
+
+
 
        /* }catch (Exception ex ){
             Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
@@ -504,7 +535,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
 
-        TextView accno = (TextView) findViewById(R.id.tv_acc);
+        final TextView accno = (TextView) findViewById(R.id.tv_acc);
         accno.setText(sharedPreferences.getString("CustNo", ""));
         CustNm.setText(sharedPreferences.getString("CustNm", ""));
 
@@ -608,7 +639,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             c1.close();
         }
 
-        if (ComInfo.ComNo == 3) {
+        if (ComInfo.ComNo == 3   ) {
             chk_Type.setChecked(true);
             IncludeTax_Flag.setChecked(false);
             chk_showTax.setChecked(true);
@@ -622,12 +653,12 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
 
-
-        FragmentManager Manager =   getFragmentManager();
-        PopShowCustLastTrans popShowOffers = new PopShowCustLastTrans();
-        popShowOffers.setArguments(bundle);
-       //popShowOffers.show(Manager, null);
-
+        if (ComInfo.ComNo == 1) {
+            FragmentManager Manager = getFragmentManager();
+            PopShowCustLastTrans popShowOffers = new PopShowCustLastTrans();
+            popShowOffers.setArguments(bundle);
+            popShowOffers.show(Manager, null);
+        }
 
         DriverNm  = (MyTextView) mNav.findViewById(R.id.tv_DriverNm);
           tv_NetTotal  = (TextView) mNav.findViewById(R.id.tv_NetTotal);
@@ -692,6 +723,27 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
             }
         });
+
+        LinearLayout  LytPayment = (LinearLayout)mNav.findViewById(R.id.Lytbutton);
+        LytPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                    EditText Order = (EditText) findViewById(R.id.et_OrdeNo);
+                    tv_NetTotal  = (TextView) mNav.findViewById(R.id.tv_NetTotal);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Scr", "Sale_Inv");
+                    bundle.putString("OrderNo", Order.getText().toString());
+                    bundle.putString("custNo", accno.getText().toString());
+                    bundle.putString("Net_Total", tv_NetTotal.getText().toString());
+                    FragmentManager Manager = getFragmentManager();
+                    Pop_Payments_method obj = new Pop_Payments_method();
+                    obj.setArguments(bundle);
+                    obj.show(Manager, null);
+
+            }
+        });
+
         ServerDate = DB.GetValue(this, "ServerDateTime", "ServerDate", "1=1");
 
         sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
@@ -714,6 +766,20 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             alertDialog.show();
 
         }
+        if (ComInfo.ComNo == Companies.beutyLine.getValue() ) {
+
+            IncludeTax_Flag.setChecked(false);
+            IncludeTax_Flag.setVisibility(View.INVISIBLE);
+
+             chk_showTax.setChecked(true);
+            chk_showTax.setVisibility(View.INVISIBLE);
+
+            chk_cus_name.setChecked(true);
+
+        }
+        chk_cus_name.setChecked(true);
+          tv_acc = (TextView)findViewById(R.id.tv_acc);
+          InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.open.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
     }
     public  void InsertDiscount(String DiscountAmt , String DiscountType){
@@ -1974,6 +2040,13 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
 
         if (i > 0) {
+            if(IsNew){
+
+                InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+
+            }else{
+                InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Modify.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+            }
             UpDateMaxOrderNo();
             //DoPrint = 1;
             DeleteAllPromotions();
@@ -2706,6 +2779,8 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         CheckBox chk_hdr_disc = (CheckBox) findViewById(R.id.chk_hdr_disc);
         chk_hdr_disc.setChecked(false);
 
+        InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Delete.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+
 
         IsNew = true;
         AlertDialog alertDialog = new AlertDialog.Builder(
@@ -2797,6 +2872,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
                     Toast.makeText(this, "لا يمكن استرجاع الحساب", Toast.LENGTH_SHORT).show();
                 }
+                tv_HeaderDscount  = (MyTextView) mNav.findViewById(R.id.tv_HeaderDscount);
 
                 tv_HeaderDscount.setText(c1.getString(c1.getColumnIndex("hdr_dis_per"))+"%");
                 accno.setText(c1.getString(c1.getColumnIndex("acc")));
@@ -2911,6 +2987,8 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
     public void btn_print(View view) {
         ImageButton imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
+        InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Print.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+
 
         //DoPrint = 1;
         if (IsChange == true) {
@@ -2927,15 +3005,40 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
     private void DoPrint(View view) {
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
+        TextView tv_acc = (TextView) findViewById(R.id.tv_acc);
         CheckBox chk_showTax = (CheckBox) findViewById(R.id.chk_showTax);
-
+         chk_cus_name = (CheckBox) findViewById(R.id.chk_cus_name);
         Intent k;
         if (ComInfo.ComNo == Companies.bristage.getValue()) {
             k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity_Prestaige.class);
          } else if (ComInfo.ComNo == Companies.Arabian.getValue()) {
             k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity_Tab_10.class);
          } else if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
-            k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity_Tab_10.class);
+            String q;
+
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                String CHECK_IMG = DB.GetValue(this, "Customers", "CloseVisitWithoutimg", "no='" + tv_acc.getText() + "'");
+                if (CHECK_IMG.equalsIgnoreCase("0")) {
+                    q = "Select * from VisitImagesHdr where V_OrderNo='" + sharedPreferences.getString("V_OrderNo", "0") + "'";
+                    Cursor c = sqlHandler.selectQuery(q);
+                    if (c != null && c.getCount() > 0) {
+                        c.close();
+                    } else {
+                        AlertDialog alertDialog = new AlertDialog.Builder(
+                                this).create();
+                        alertDialog.setTitle("المجرة الدولية");
+                        alertDialog.setMessage("لا يمكن طباعة الفاتورة دون اخذ صور");
+                        alertDialog.setIcon(R.drawable.error_new);
+                        alertDialog.setButton("موافق ", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                GotoVisitImage();
+                            }
+                        });
+                        alertDialog.show();
+                        return;
+                    }
+                }
+            k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity_Line.class);
         }else if (ComInfo.ComNo == Companies.Ukrania.getValue()) {
             k = new Intent(this, Xprinter_SalesInvoice.class);
         } else {
@@ -2948,11 +3051,19 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         } else {
             k.putExtra("ShowTax", "0");
         }
+        if (chk_cus_name.isChecked()== true) {
+            k.putExtra("name", "1");
+        } else {
+            k.putExtra("name", "0");
+        }
         DoPrint = 0;
         startActivity(k);
        // btn_new(view);
     }
-
+private  void GotoVisitImage(){
+    Intent  v = new Intent(this, VisitImges.class);
+    startActivity(v);
+}
     public void btn_new(View view) {
         // RemoveAnmation();
         ImageButton imageButton8 = (ImageButton) findViewById(R.id.imageButton8);
@@ -4275,6 +4386,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     public void btn_share(View view) {
+        InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
         final SqlHandler sql_Handler = new SqlHandler(this);
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
         final String Doc_No = pono.getText().toString();

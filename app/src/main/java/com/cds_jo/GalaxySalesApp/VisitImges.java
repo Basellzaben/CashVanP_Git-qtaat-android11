@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -374,24 +375,85 @@ public class VisitImges extends AppCompatActivity {
     private  void SetTitle( String Desc){
 
     }
+
     private void selectImage() {
+
         if(CustNo.getText().toString().equalsIgnoreCase("")){
             com.cds_jo.GalaxySalesApp.ViewDialog alert = new com.cds_jo.GalaxySalesApp.ViewDialog();
             alert.showDialog(VisitImges.this, "لا يمكن اضافة الصور دون فتح الجولة", "صور الجولة");
             return;
         }
 
+        try {
+            //   image_path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp_image.jpg";
+            image_path=  "//sdcard/Android/Cv_Images/tmp_image.jpg" ;
+            File img = new File(image_path);
+            Uri uri = Uri.fromFile(img);
 
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, REQUEST_CAMERA);
+            // Uri  uri = FileProvider.getUriForFile(CusfCard.this, BuildConfig.APPLICATION_ID + ".provider",img);
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            startActivityForResult(intent, 2);
+        }
+        catch (Exception ex){
+            Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
+        }
     }
+    String image_path;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode==Activity.RESULT_OK) {
-            onCaptureImageResult(data);
+        if (  resultCode == Activity.RESULT_OK) {
+
+            Bitmap bmp = BitmapFactory.decodeFile(image_path);
+            SaveImageFromCammera(bmp);
+
         }
+
+      /*  if(resultCode==Activity.RESULT_OK) {
+            onCaptureImageResult(data);
+        }*/
+    }
+    private  void SaveImageFromCammera(Bitmap b){
+        sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        currentDate = sdf.format(new Date());
+        sdf = new SimpleDateFormat("hh:mm:ss ", Locale.ENGLISH);
+        currentDateandTime = sdf.format(new Date());
+        // Bitmap thumbnail =  b.createScaledBitmap(b, 2000, 1000, false);
+
+
+
+
+        DIRECTORY = "//sdcard/Android/Cv_Images/VisitsImages/"+OrderNo.getText()+"/";
+        File sd = Environment.getExternalStorageDirectory();
+        StoredPath = DIRECTORY  +System.currentTimeMillis()+".png";
+        String folder_main = "/Android/Cv_Images/VisitsImages/"+OrderNo.getText();
+
+        File f ;
+        f = new File(Environment.getExternalStorageDirectory(), folder_main);
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        File destination = new  File(StoredPath);
+
+        FileOutputStream fo;
+        try {
+            destination.createNewFile();
+            fo = new FileOutputStream(destination);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, fo);
+            fo.flush();
+            fo.close();
+
+        } catch (FileNotFoundException e) {
+
+        } catch (IOException e) {
+
+        }
+
+        SaveRecord();
+        EnterDesc();
+        ShowList();
     }
     private void onCaptureImageResult(Intent data) {
 
@@ -669,8 +731,9 @@ return  Desc;
         }).start();
     }
     public void btn_share(View view) {
+        Toast.makeText(this,"",Toast.LENGTH_LONG).show();
         String CustomerNo,OrderDate,UserNo,Visit_OrderNo,Order_No  ;
-        CustomerNo=OrderDate=UserNo=Visit_OrderNo=Order_No = ImageTime=ImageDesc="";
+         CustomerNo=OrderDate=UserNo=Visit_OrderNo=Order_No = ImageTime=ImageDesc="";
 
 
         String query = " SELECT  Distinct  CustNo,OrderNo,Tr_Date,UserNo,V_OrderNo  " +
@@ -722,7 +785,7 @@ return  Desc;
 
         String q = "SELECT Distinct *  from  VisitImagesHdr where   Posted >0 AND   OrderNo ='" +OrderNo.getText().toString() + "'";
         Cursor c1 = sqlHandler.selectQuery(q);
-        if (c1 != null && c1.getCount() != 0) {
+     /*   if (c1 != null && c1.getCount() != 0) {
 
             AlertDialog alertDialog = new AlertDialog.Builder(
                     this).create();
@@ -733,10 +796,10 @@ return  Desc;
                 public void onClick(DialogInterface dialog, int which) {
                 }
             });
-            alertDialog.show();
+           // alertDialog.show();
             c1.close();
-            return;
-        } else {
+          //  return;
+        } else {*/
 
 
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -760,7 +823,7 @@ return  Desc;
 
 
             alertDialog.show();
-        }
+        //}
     }
     public void Delete_Record_PO() {
         String query = "Delete from  VisitImagesHdr where OrderNo ='" + OrderNo.getText().toString() + "'";

@@ -18,7 +18,13 @@ public enum SCR_ACTIONS {
     FinallApproval (12),
     DeleteRow(13),
     Agree (14),
-    Payment(15);
+    Payment(15),
+    Checkin(16),
+    CheckOut(17),
+    StartVisit(18),
+    EndVisit(19);
+
+
 
     private final int value;
     SCR_ACTIONS(int type)

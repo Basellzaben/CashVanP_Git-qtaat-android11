@@ -95,7 +95,7 @@
                 android:textSize="20dp" />
 
             <Methdes.MyTextView
-                android:id="@+id/tv_tot"
+                android:id="@+id/tv_Bill"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="1dp"

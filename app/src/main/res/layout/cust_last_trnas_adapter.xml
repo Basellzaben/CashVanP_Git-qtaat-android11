@@ -51,7 +51,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
 
-        android:layout_weight="0.8"
+        android:layout_weight="0.7"
         android:gravity="center"
         android:text="DayCount"
         android:textColor="#000"
@@ -64,7 +64,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
 
-        android:layout_weight="0.7"
+        android:layout_weight="0.8"
         android:gravity="center"
         android:text="Amt"
         android:textColor="#000"

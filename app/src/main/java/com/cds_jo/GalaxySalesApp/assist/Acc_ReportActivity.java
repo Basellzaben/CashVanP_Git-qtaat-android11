@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,9 +28,11 @@ import com.cds_jo.GalaxySalesApp.Companies;
 import com.cds_jo.GalaxySalesApp.DB;
 import com.cds_jo.GalaxySalesApp.JalMasterActivity;
 import com.cds_jo.GalaxySalesApp.R;
+import com.cds_jo.GalaxySalesApp.SCR_ACTIONS;
 import com.cds_jo.GalaxySalesApp.Select_Customer;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.cds_jo.GalaxySalesApp.We_Result;
+import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,6 +42,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -48,6 +54,7 @@ import header.Header_Frag;
 
 public class Acc_ReportActivity extends AppCompatActivity {
     ListView items_Lsit;
+    String SCR_NO="11005";
     public ProgressDialog loadingdialog;
     SqlHandler sqlHandler;
     TextView CheqBal;
@@ -64,6 +71,7 @@ public class Acc_ReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.n_ee);
+        InsertLogTrans obj=new InsertLogTrans(Acc_ReportActivity.this,SCR_NO ,SCR_ACTIONS.open.getValue(),"","-1","");
 
         cls_acc_reportsList = new ArrayList<Cls_Acc_Report>();
          SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -121,6 +129,9 @@ public class Acc_ReportActivity extends AppCompatActivity {
 
         FromDate.setText("01/01/"+currentYear);
         ToDate.setText("31/12/"+currentYear);
+
+
+
         SimpleDateFormat sdf_currentDate = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         String currentDate = sdf_currentDate.format(new Date());
         ToDate.setText(currentDate);
@@ -335,7 +346,7 @@ public class Acc_ReportActivity extends AppCompatActivity {
                     cls_acc_report.setRate("العملة المقابلة");
                     cls_acc_report.setCred("الدائن");
                     cls_acc_report.setDept("المدين");
-                    cls_acc_report.setBb("رصيد بداية مدة");
+                    cls_acc_report.setBb("رصيد إفتتاحي");
                     cls_acc_report.setDes(" البيــــــــان");
                     cls_acc_report.setDate("التاريــخ");
                     cls_acc_report.setCur_no("العملة");
@@ -608,17 +619,28 @@ public class Acc_ReportActivity extends AppCompatActivity {
         acc.setText(No);
         CustNm.setText(Nm);
         CustNm.setError(null);
-
+        HidKeybad();
          //onProgressUpdate();
 
     }
-
+    private  void HidKeybad(){
+        try{
+            if (this.getCurrentFocus() != null) {
+                InputMethodManager inputManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+            this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        }catch (Exception ex){}
+    }
     public void btn_back(View view) {
         Intent k = new Intent(this,JalMasterActivity.class);
         startActivity(k);
     }
 
     public void btn_GetData(View view) {
+        TextView acc = (TextView)findViewById(R.id.tv_acc);
+        InsertLogTrans obj=new InsertLogTrans(Acc_ReportActivity.this,SCR_NO , SCR_ACTIONS.Report.getValue(),"",acc.getText().toString(),"");
+
         onProgressUpdate();
     }
 

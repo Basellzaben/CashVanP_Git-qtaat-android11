@@ -12,80 +12,116 @@
         android:layout_gravity="center_horizontal"
         android:background="@color/Blue"
         android:orientation="horizontal"
-        android:weightSum="4">
+        android:weightSum="8">
 
-        <FrameLayout
-            android:id="@+id/Frag1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <Methdes.MyTextView
+            android:id="@+id/tv_Daylbl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="اليوم "
+            android:textColor="#fff"
+            android:textSize="18sp" />
 
-        </FrameLayout>
+        <Methdes.MyTextView
+            android:id="@+id/tv_DayNm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:gravity="center"
+            android:text=" "
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/textView7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="التاريخ"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:gravity="center"
+            android:text=" "
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/tv_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="من الساعة"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/tv_FromTime"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:gravity="center"
+            android:text="00:00"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/textView11"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="إلى ساعة"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/tv_ToTime"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:gravity="center"
+            android:text="23:59"
+            android:textColor="#000"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/dd1"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center_horizontal"
-        android:background="#fff"
-        android:gravity="right"
-        android:layoutDirection="ltr"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="250dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="215dp"
-            android:background="@mipmap/row2"
-            android:gravity="center">
-
-            <Methdes.MyTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="Google Map"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#fff" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="right"
-            android:background="@mipmap/row1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Methdes.MyTextView
-                android:id="@+id/textView4"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="@string/Main_Page"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#fff" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/Img_Menu"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@mipmap/icon_menu"
-            android:visibility="invisible" />
-
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layoutDirection="ltr"
         android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="50dp"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="300dp"
@@ -119,24 +155,8 @@
                     android:id="@+id/items_Lsit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="50dp" />
+                    android:layout_marginBottom="60dp" />
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                class="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="50dp"
-                android:layout_weight="1" />
         </LinearLayout>
 
     </LinearLayout>
@@ -145,17 +165,48 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="-50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/Pink"
+            android:onClick="btn_Normal"
+            android:text="NORMAL"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/Green"
+            android:onClick="btn_Satellite"
+            android:text="SATELLITE"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/ColorPrimary"
+            android:onClick="btn_Hybrid"
+            android:text="HYBRID"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/button43"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/Blue"
             android:onClick="BtnBack"
             android:text="رجــــــــــــــــــــوع"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 

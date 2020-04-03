@@ -1,17 +1,20 @@
 package com.cds_jo.GalaxySalesApp;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,6 +52,8 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
         form = inflater.inflate(R.layout.activity_select__customer, container, false);
 
         getDialog().setTitle("Galaxy International Group");
+        Window window = getDialog().getWindow();
+        window.setGravity(Gravity.TOP|Gravity.CENTER);
 
         // Get the SearchView and set the searchable configuration
         btn_filter_search =(ImageView) form.findViewById(R.id.brn_seachAcc);

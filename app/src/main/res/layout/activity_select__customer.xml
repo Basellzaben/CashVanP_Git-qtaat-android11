@@ -12,47 +12,47 @@
         android:layout_alignParentStart="true">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:background="@color/Footer_Menu"
             android:gravity="right|center"
+            android:orientation="vertical"
             android:paddingRight="20dp"
-            android:layout_height="60dp">
+            android:visibility="gone">
 
             <Methdes.MyTextView
-                android:text="البحث في العملاء"
+                android:id="@+id/textView253"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView253"
+                android:text="البحث في العملاء"
                 android:textColor="#fff"
                 android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:padding="10dp"
-            android:layout_height="70dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_cir_white_fill_black"
-                android:padding="5dp">
+                android:orientation="horizontal"
+                android:padding="1dp">
 
                 <ImageView
                     android:id="@+id/brn_seachAcc"
-                    android:src="@mipmap/ic_search"
-                    android:padding="10dp"
-                    android:onClick="btn_filter"
                     android:layout_width="45dp"
-                    android:layout_height="45dp" />
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:onClick="btn_filter"
+                    android:src="@mipmap/ic_search" />
 
                 <EditText
+                    android:id="@+id/et_Search_filter"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/et_Search_filter"
                     android:layout_weight="1"
                     android:background="#fff" />
 
@@ -65,11 +65,11 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
                 android:id="@+id/RR1"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
                 android:background="@color/Gray1"
-                android:layout_height="60dp">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -82,13 +82,13 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.7"
                         android:gravity="center"
                         android:paddingLeft="5dp"
                         android:text="رقم العميل"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#000"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
                     <Methdes.MyTextView
                         android:id="@+id/tv_nm"
@@ -100,20 +100,21 @@
                         android:text="اسم العميل"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#000"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
                     <Methdes.MyTextView
                         android:id="@+id/myTextView6"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0"
                         android:gravity="center"
                         android:paddingLeft="5dp"
                         android:text="المنطقة"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#000"
-                        android:textSize="22sp" />
+                        android:textSize="18sp"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 

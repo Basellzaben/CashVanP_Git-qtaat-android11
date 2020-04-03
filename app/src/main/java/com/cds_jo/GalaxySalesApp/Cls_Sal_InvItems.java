@@ -29,25 +29,22 @@ public class Cls_Sal_InvItems {
     String OrderNo;
     String Unite;
     String proType;
+    String Damaged;
+    String Note;
+    String weight;
 
     public String getWeight() {
         return weight;
     }
-
     public void setWeight(String weight) {
         this.weight = weight;
     }
-
-    String weight;
     public String getProType() {
         return proType;
     }
-
     public void setProType(String proType) {
         this.proType = proType;
     }
-
-
     public String getOperand() {
         return Operand;
     }
@@ -198,6 +195,19 @@ public class Cls_Sal_InvItems {
     public String getQty() {
         return qty;
     }
+    public void setDamaged(String Damaged) {
+        this.Damaged = Damaged;
+    }
+    public String getDamaged() {
+        return Damaged;
+    }
+    public void setNote(String Note) {
+        this.Note = Note;
+    }
+    public String getNote() {
+        return Note;
+    }
+
 
 
 

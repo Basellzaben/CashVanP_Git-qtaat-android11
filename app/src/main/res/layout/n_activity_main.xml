@@ -321,10 +321,9 @@
                             android:onClick="Save_Cust_Location">
 
                             <Methdes.MyTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="39dp"
+                                android:layout_centerInParent="true"
                                 android:text="حفظ موقع العميل"
                                 android:textColor="@color/White" />
                         </RelativeLayout>
@@ -500,17 +499,14 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:weightSum="2">
+                    android:weightSum="3">
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:weightSum="2"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="25dp"
-                        android:layout_marginBottom="30dp">
+                        android:weightSum="2">
 
                         <TextView
                             android:layout_width="0dp"
@@ -531,6 +527,38 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.6"
+                            android:gravity="right|center" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:weightSum="2">
+                       <!-- android:layout_marginTop="10dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginBottom="30dp"-->
+
+
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:ems="10"
+                            android:id="@+id/tv_Note"
+                            android:layout_weight="1.6"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:layout_margin="5dp"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginBottom="30dp"
+                            android:gravity="center"
+                            android:textColor="#000" />
+
+                        <Methdes.MyTextView
+                            android:text="الملاحظات"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.4"
                             android:gravity="right|center" />
                     </LinearLayout>
 

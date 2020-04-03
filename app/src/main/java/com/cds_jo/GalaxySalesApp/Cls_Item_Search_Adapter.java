@@ -50,10 +50,10 @@ public class Cls_Item_Search_Adapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.itemsearchrow, null);
 
         }
-        TextView name = (TextView) convertView.findViewById(R.id.tv_name);
+        Methdes.MyTextView name = (Methdes.MyTextView) convertView.findViewById(R.id.tv_name);
         name.setText(cls_item_search.getName());
 
-        TextView no = (TextView) convertView.findViewById(R.id.tv_no);
+        Methdes.MyTextView no = (Methdes.MyTextView) convertView.findViewById(R.id.tv_no);
         no.setText(cls_item_search.getNo());
 
 

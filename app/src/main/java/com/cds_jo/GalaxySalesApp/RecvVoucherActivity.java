@@ -45,9 +45,11 @@ import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img;
 
  import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img_GoodSystem;
  import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img_Tab10;
+ import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
  import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
  import com.cds_jo.GalaxySalesApp.assist.PrintReport_TSC;
  import com.cds_jo.GalaxySalesApp.assist.PrintReport_Zepra520;
+ import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
  import com.google.gson.Gson;
 
  import org.apache.commons.lang3.math.NumberUtils;
@@ -75,8 +77,9 @@ public class RecvVoucherActivity extends AppCompatActivity {
     private int year, month, day;
     public int FlgDate = 0;
     long PostResult=0 ;
-
-
+    String SCR_NO="11004";
+    EditText et_OrdeNo;
+    TextView tv_acc;
     ArrayList<Cls_Check> ChecklList;
         Boolean IsNew;
     EditText  Cash ;
@@ -172,6 +175,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
             try {
                 setContentView(R.layout.view_recv_voucher_n);
+
             }
             catch ( Exception ex ){
                 Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
@@ -356,6 +360,9 @@ public class RecvVoucherActivity extends AppCompatActivity {
             }
 
         });
+        et_OrdeNo=(EditText)findViewById(R.id.et_OrdeNo);
+        tv_acc=(TextView)findViewById(R.id.tv_acc);
+        InsertLogTrans obj=new InsertLogTrans(RecvVoucherActivity.this,SCR_NO , SCR_ACTIONS.open.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
         Fragment frag=new Header_Frag();
         android.support.v4.app.FragmentManager fragmentManager=getSupportFragmentManager();
@@ -673,6 +680,8 @@ public class RecvVoucherActivity extends AppCompatActivity {
                 this).create();
       alertDialog.setTitle("سند القبض");
         if (i > 0) {
+            InsertLogTrans obj=new InsertLogTrans(RecvVoucherActivity.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+
             alertDialog.setMessage(" تمت عملية الحفظ بنجاح");
             alertDialog.setIcon(R.drawable.tick);
            /* GetMaxRecNo();
@@ -683,7 +692,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
             Count = (SToD(Count)+1) + "";
             editor.putString("PayCount",Count);
             editor.commit();*/
-            //IsNew = false;
+            IsNew = false;
 
         } else {
             alertDialog.setMessage("عملية الحفظ لم تتم ");
@@ -1222,7 +1231,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
 
 
         ListView listCheck = (ListView) findViewById(R.id.lstCheck);
-         Cls_Check cls_check_obj = new Cls_Check();
+        Cls_Check cls_check_obj = new Cls_Check();
         cls_check_obj.setSer(Integer.valueOf(listCheck.getCount() + 1));
         cls_check_obj.setCheckNo(CheckNo);
         cls_check_obj.setCheckDate(Check_Data);
@@ -1393,6 +1402,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
 
     }
     public void btn_print(View view) {
+        InsertLogTrans obj=new InsertLogTrans(RecvVoucherActivity.this,SCR_NO , SCR_ACTIONS.Print.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
         Intent k = new Intent(this, Convert_RecVouch_To_Img.class);
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
@@ -1465,6 +1475,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
         DoNew();
     }
     public void btn_share(View view) {
+        InsertLogTrans obj=new InsertLogTrans(RecvVoucherActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
         if(IsNew==true){
             AlertDialog alertDialog = new AlertDialog.Builder(
@@ -1617,7 +1628,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
         bundle.putString("Scr", "po");
 
         FragmentManager Manager =  getFragmentManager();
-        PopAddCheck obj = new PopAddCheck();
+        PopAddCheck2 obj = new PopAddCheck2();
         obj.setArguments(bundle);
         obj.show(Manager, null);
     }

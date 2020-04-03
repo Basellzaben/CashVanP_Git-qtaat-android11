@@ -84,7 +84,7 @@
 
             <Methdes.MyTextView
                 android:layout_height="fill_parent"
-                android:id="@+id/tv_tot"
+                android:id="@+id/tv_Bill"
                 android:textColor="#000"
                 android:gravity="center"
                 android:layout_weight="0.9"

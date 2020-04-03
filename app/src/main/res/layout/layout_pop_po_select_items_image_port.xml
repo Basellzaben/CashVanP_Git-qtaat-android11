@@ -456,7 +456,7 @@
                     android:visibility="invisible">
 
                     <ListView
-                        android:id="@+id/lst_Promotion"
+                        android:id="@+id/lst_Bill_Info"
                         android:layout_width="0dp"
                         android:layout_height="0dp" />
                 </LinearLayout>

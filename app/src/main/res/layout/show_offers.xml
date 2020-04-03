@@ -338,7 +338,7 @@
                         android:textSize="20sp" />
 
                     <view
-                        android:id="@+id/tv_Amt"
+                        android:id="@+id/tv_Type"
                         class="Methdes.MyTextView"
                         id="@+id/view17"
                         layout_width="match_parent"

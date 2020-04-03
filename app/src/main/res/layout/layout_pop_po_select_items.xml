@@ -454,7 +454,7 @@
                     android:orientation="horizontal">
 
                     <ListView
-                        android:id="@+id/lst_Promotion"
+                        android:id="@+id/lst_Bill_Info"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" />
                 </LinearLayout>

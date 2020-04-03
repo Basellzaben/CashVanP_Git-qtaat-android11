@@ -32,6 +32,8 @@ public class ItemCostActivity extends AppCompatActivity {
         items_Lsit.setAdapter(null);
         float Qty ,Cost;
         Qty= Cost=  0 ;
+
+
         try {
             JSONObject js = new JSONObject(text[0]);
             JSONArray js_bill_no= js.getJSONArray("bill_no");

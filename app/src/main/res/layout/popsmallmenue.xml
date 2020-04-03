@@ -4,10 +4,10 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="300dp">
+        android:minWidth="300dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,16 +36,24 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
 
             <ImageButton
+                android:id="@+id/btn_return"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/jal12" />
+
+            <ImageButton
                 android:id="@+id/btn_Acc"
-                android:src="@mipmap/acc"
-                android:scaleType="fitXY" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/acc" />
 
             <ImageButton
                 android:id="@+id/btn_invoice"
@@ -55,24 +63,33 @@
                 android:src="@mipmap/invoice" />
 
             <ImageButton
+                android:id="@+id/btn_rec"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/btn_rec"
-                android:src="@mipmap/rec_mony"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                android:src="@mipmap/rec_mony" />
 
             <ImageButton
+                android:id="@+id/btn_order"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:id="@+id/btn_order"
-                android:src="@mipmap/purshase"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                android:src="@mipmap/purshase" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView107"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="مردود مبيعات"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000" />
 
             <Methdes.MyTextView
                 android:id="@+id/textView101"
@@ -113,20 +130,20 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="400dp"
-            android:layout_alignParentBottom="true"
+            android:layout_width="500dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/listview_border"
             android:gravity="center_horizontal"
-            android:background="@drawable/listview_border" >
+            android:orientation="horizontal">
 
             <Button
+                android:id="@+id/button22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="     رجــــــــــــــوع       "
-                android:id="@+id/button22"
+                android:background="@drawable/listview_border"
                 android:onClick="btn_back"
-                android:background="@drawable/listview_border" />
+                android:text="     رجــــــــــــــوع       " />
         </LinearLayout>
 
     </LinearLayout>

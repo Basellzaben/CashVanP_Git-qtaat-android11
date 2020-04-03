@@ -80,6 +80,7 @@ public class Convert_ManSummery_To_Img extends Fragment {
         ed_date.setText(" التاريـخ  : " + currentDateandTime);
 
         TextView tv_SalesCount = (TextView) v.findViewById(R.id.tv_SalesCount);
+        TextView tv_SalesCount_Cash = (TextView) v.findViewById(R.id.tv_SalesCount_Cash);
         TextView tv_PayCashCount = (TextView) v.findViewById(R.id.tv_PayCashCount);
         TextView tv_SalesOrdersCount = (TextView) v.findViewById(R.id.tv_SalesOrdersCount);
         TextView tv_PayCheckCount = (TextView) v.findViewById(R.id.tv_PayCheckCount);
@@ -129,7 +130,7 @@ public class Convert_ManSummery_To_Img extends Fragment {
         }
 
 
-        q = "Select  ifnull(count(Seq),0)  as Seq  from  Sal_invoice_Hdr s   where  UserID='" + sharedPreferences.getString("UserID", "") + "' " +
+        q = "Select  ifnull(count(Seq),0)  as Seq  from  Sal_invoice_Hdr s   where  UserID='" + sharedPreferences.getString("UserID", "") + "'  and inovice_type='-1'" +
                 "  and  s.date ='" + currentDateandTime + "'";
 
         c1 = sqlHandler.selectQuery(q);
@@ -143,6 +144,29 @@ public class Convert_ManSummery_To_Img extends Fragment {
         } else {
             tv_SalesCount.setText("0");
         }
+
+
+      q = "Select  ifnull(count(Seq),0)  as Seq  from  Sal_invoice_Hdr s   where  UserID='" + sharedPreferences.getString("UserID", "") + "'  and inovice_type='0'" +
+                "  and  s.date ='" + currentDateandTime + "'";
+
+        c1 = sqlHandler.selectQuery(q);
+
+
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                tv_SalesCount_Cash.setText(c1.getString(c1.getColumnIndex("Seq")));
+            }
+            c1.close();
+        } else {
+            tv_SalesCount_Cash.setText("0");
+        }
+
+
+
+
+
+
+
 
 
         q = "Select      ifnull( sum(ifnull( RecVoucher.Cash,0.000)),0.000) as Cash , ifnull( sum(ifnull( RecVoucher.CheckTotal,0.000)),0.000) as CheckTotal            from RecVoucher   " +
@@ -458,7 +482,7 @@ public class Convert_ManSummery_To_Img extends Fragment {
             PrintReport_TSC obj = new PrintReport_TSC(getActivity(),
                     getActivity(), lay, 520, 1);
            // obj.DoPrint();
-            obj.DoPrint1();
+            obj.DoPrint();
 
 
         }else {
