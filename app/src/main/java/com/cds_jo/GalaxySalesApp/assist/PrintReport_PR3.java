@@ -44,7 +44,7 @@ public class PrintReport_PR3 {
                     View _ReportView, int _PageWidth, float _ImageCountFactor) {
         context = _context;
         Activity = _Activity;
-
+//hjj
         BPrinter_MAC_ID = "B8:69:C2:25:49:42";
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(_context);
         BPrinter_MAC_ID =sharedPreferences.getString("AddressBT", "");
