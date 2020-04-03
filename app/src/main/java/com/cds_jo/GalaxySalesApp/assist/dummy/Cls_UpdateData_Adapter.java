@@ -19,7 +19,7 @@ import Methdes.MyTextView;
 
 import static com.cds_jo.GalaxySalesApp.R.id.RR1;
 
-//sdsddsadsada000
+//Zain0001
 public class Cls_UpdateData_Adapter extends BaseAdapter {
     Context context;
     ArrayList<Cls_UpdateData> cls_updateDatas;
