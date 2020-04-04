@@ -68,7 +68,7 @@ public class CustomerInformationFragment extends Fragment {
             Custumer_discount=(MyTextView)v.findViewById(R.id.Custumer_discount);
             discount_percentage=(MyTextView)v.findViewById(R.id.discount_percentage);
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            CustAcc = sharedPreferences.getString("UserID", "");
+            CustAcc = sharedPreferences.getString("CustNo", "");
             sqlHandler =new SqlHandler(getActivity());
             showData();
         return v;

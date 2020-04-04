@@ -1,8 +1,10 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +35,7 @@ public class CustomerCatchFraq extends Fragment {
         // Required empty public constructor
     }
 
-
+    String CustAcc,UserID;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +44,11 @@ public class CustomerCatchFraq extends Fragment {
             View v = inflater.inflate(R.layout.fragment_customer_catch_fraq, container, false);
             listView = (ListView) v.findViewById(R.id.lst_acc);
             list = new ArrayList<>();
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            CustAcc = sharedPreferences.getString("CustNo", "");
+            UserID = sharedPreferences.getString("UserID", "");
+
             getData();
             return v;
         }
@@ -55,7 +62,7 @@ public class CustomerCatchFraq extends Fragment {
 
 
                 CallWebServices ws = new CallWebServices(getActivity());
-                ws.GET_CustReportCatch("123");
+                ws.GET_CustReportCatch(CustAcc);
                 try {
                     Integer i;
                     JSONObject js = new JSONObject(We_Result.Msg);

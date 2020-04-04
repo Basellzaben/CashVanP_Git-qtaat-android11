@@ -1,7 +1,9 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +31,7 @@ public class CustomerBillFrag extends Fragment {
     cls_BillC cls_billC;
     List<cls_Bill> listDataHeader;
     HashMap<List<cls_Bill>, List<cls_BillC>> listDataChild;
-
+String CustAcc,UserID;
     public CustomerBillFrag() {
         // Required empty public constructor
     }
@@ -42,6 +44,9 @@ public class CustomerBillFrag extends Fragment {
         View v = inflater.inflate(R.layout.fragment_customer_bill, container, false);
 
         expListView = (ExpandableListView) v.findViewById(R.id.lst_acc);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        CustAcc = sharedPreferences.getString("CustNo", "");
+        UserID = sharedPreferences.getString("UserID", "");
         getData();
         listAdapter = new CustomerBillAdabter(getActivity(), listDataHeader, listDataChild);
 
@@ -59,7 +64,7 @@ public class CustomerBillFrag extends Fragment {
 
 
                 CallWebServices ws = new CallWebServices(getActivity());
-                ws.GET_CustReportBill("11041000011");
+                ws.GET_CustReportBill(CustAcc);
                 try {
                     Integer i;
                     Integer j;

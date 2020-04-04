@@ -1,9 +1,11 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,12 +33,10 @@ import java.util.Locale;
  * A simple {@link Fragment} subclass.
  */
 public class CustomerAccReportFrag extends Fragment {
-    TextView Ball ;
-    TextView CusTop;
-    TextView NetBall;
+
     ListView items_Lsit;
     DecimalFormat Per;
-    String   CUST_NET_BAL ="";
+    String CustAcc,FromDate,ToDate,UserID,  CUST_NET_BAL ="";
     ArrayList<Cls_Acc_Report> cls_acc_reportsList;
 
     public CustomerAccReportFrag() {
@@ -45,13 +47,23 @@ public class CustomerAccReportFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v= inflater.inflate(R.layout.fragment_customer_acc_report, container, false);
-        Ball = (TextView)v.findViewById(R.id.Ball);
-        CusTop = (TextView)v.findViewById(R.id.tv_CusTop);
-        NetBall = (TextView)v.findViewById(R.id.NetBall);
+
+
+
         items_Lsit = (ListView) v.findViewById(R.id.lst_acc);
         cls_acc_reportsList = new ArrayList<Cls_Acc_Report>();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        CustAcc = sharedPreferences.getString("CustNo", "");
+        UserID = sharedPreferences.getString("UserID", "");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy", Locale.ENGLISH);
+        String currentYear = sdf.format(new Date());
+
+        FromDate="01/01/"+currentYear;
+        ToDate="31/12/"+currentYear;
+        showData();
         return v;
     }
     public void showData(){
@@ -69,9 +81,7 @@ public class CustomerAccReportFrag extends Fragment {
 
         cls_acc_reportsList.clear();
 
-        Ball.setText("");
-        CusTop.setText("");
-        NetBall.setText("");
+
 
 
         Locale locale ;
@@ -87,7 +97,7 @@ public class CustomerAccReportFrag extends Fragment {
             public void run() {
 
                 CallWebServices ws  = new CallWebServices(getActivity());
-                ws.GetAccReportSummary("123");
+                ws.CallReport(CustAcc,FromDate,ToDate,UserID);
 
 
                 try {
@@ -196,9 +206,7 @@ public class CustomerAccReportFrag extends Fragment {
                         public void run() {
 
 
-                            Ball.setText(txtBall);
-                            CusTop.setText(txtCusTop);
-                            NetBall.setText(txtNetBall);
+
 
                             Cls_Acc_Report cls_acc_report1 = new Cls_Acc_Report();
                             cls_acc_report1 = new Cls_Acc_Report();
@@ -216,7 +224,7 @@ public class CustomerAccReportFrag extends Fragment {
 
                             cls_acc_reportsList.add(cls_acc_report1);
 
-                            Cls_Acc_Report_Adapter cls_acc_report_adapter = new Cls_Acc_Report_Adapter(
+                            Cls_Acc_Repor_custSummery_Adapter cls_acc_report_adapter = new Cls_Acc_Repor_custSummery_Adapter(
                                     getActivity(), cls_acc_reportsList);
 
                             items_Lsit.setAdapter(cls_acc_report_adapter);

@@ -28,124 +28,15 @@
             android:layout_height="match_parent">
 
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="0"
-                android:background="@color/Gray3"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:weightSum="3">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="25dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/NetBall"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="1.2"
-                        android:background="@drawable/btn_cir_white_fill_black"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:gravity="center"
-                        android:text="رصيد نهائي :"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="25dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:id="@+id/Ball"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/btn_cir_white_fill_black"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="رصيد العميل"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-
-
-
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="25dp"
-                    android:layout_weight="1"
-                    android:gravity="right|center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_CheqBal"
-                        android:layout_width="0dp"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="2"
-                        android:background="@drawable/btn_cir_white_fill_black"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.8"
-                        android:gravity="center"
-                        android:text="اسم العميل"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="0"
                 android:background="@color/Black11"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
+                android:layoutDirection="rtl"
+                android:paddingLeft="0dp"
                 android:weightSum="8">
+
                 <Methdes.MyTextView
                     android:id="@+id/tv_date"
                     android:layout_width="0dp"
@@ -153,11 +44,13 @@
                     android:layout_marginLeft="0.5dp"
                     android:layout_marginRight="0.5dp"
                     android:layout_weight="0.8"
+                    android:background="@drawable/btn_cir_white_fill_black"
                     android:gravity="center"
                     android:text="التاريخ"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:textSize="14sp" />
+
                 <Methdes.MyTextView
                     android:id="@+id/tv_cur_no"
                     android:layout_width="0dp"
@@ -165,10 +58,11 @@
                     android:layout_marginLeft="0.5dp"
                     android:layout_marginRight="0.5dp"
                     android:layout_weight="0.7"
+                    android:background="@drawable/btn_cir_white_fill_black"
                     android:gravity="center"
                     android:text="العملة"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <Methdes.MyTextView
@@ -178,10 +72,11 @@
                     android:layout_marginLeft="0.5dp"
                     android:layout_marginRight="0.5dp"
                     android:layout_weight="1.8"
+                    android:background="@drawable/btn_cir_white_fill_black"
                     android:gravity="center"
                     android:text="البيان"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <Methdes.MyTextView
@@ -191,10 +86,11 @@
                     android:layout_marginLeft="0.5dp"
                     android:layout_marginRight="0.5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
                     android:gravity="center"
                     android:text="رصيد بداية المده"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:textSize="14sp" />
 
                 <Methdes.MyTextView
@@ -204,10 +100,11 @@
                     android:layout_marginLeft="0.5dp"
                     android:layout_marginRight="0.5dp"
                     android:layout_weight="0.8"
+                    android:background="@drawable/btn_cir_white_fill_black"
                     android:gravity="center"
                     android:text="المدين "
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <Methdes.MyTextView
@@ -216,11 +113,12 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="0.5dp"
                     android:layout_marginRight="0.5dp"
-                    android:layout_weight="0.8"
+                    android:layout_weight="0.9"
+                    android:background="@drawable/btn_cir_white_fill_black"
                     android:gravity="center"
                     android:text="الدائن"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
                 <Methdes.MyTextView
@@ -229,24 +127,27 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="0.5dp"
                     android:layout_marginRight="0.5dp"
-                    android:layout_weight="0.9"
+                    android:layout_weight="1
+"
+                    android:background="@drawable/btn_cir_white_fill_black"
                     android:gravity="center"
                     android:text="العملة المقابة"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:textSize="15sp" />
 
                 <Methdes.MyTextView
                     android:id="@+id/tv_tot"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="0.5dp"
-                    android:layout_marginRight="0.5dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
                     android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
                     android:gravity="center"
                     android:text="الرصيد"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:textSize="18sp" />
 
 
@@ -260,17 +161,17 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="10dp"
+                    android:padding="0dp"
                     android:background="@color/Main_Gray">
 
                     <ListView
-                        android:layout_width="match_parent"
                         android:id="@+id/lst_acc"
-                        android:smoothScrollbar="true"
-                        android:stackFromBottom="false"
-                        android:scrollingCache="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:listSelector="@null"
-                        android:layout_height="match_parent" />
+                        android:scrollingCache="false"
+                        android:smoothScrollbar="true"
+                        android:stackFromBottom="false" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -30,17 +30,6 @@ public class CustomerSummaryAct extends FragmentActivity {
         mTabLayout = (TabLayout)findViewById(R.id.tab_layout);
 
 
-
-
-
-
-
-
-        /*mViewPager = (ViewPager) findViewById(R.id.container);
-        setupViewPager(mViewPager);*/
-
-
-
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
