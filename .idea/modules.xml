@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CashVan Package2020.iml" filepath="$PROJECT_DIR$/CashVan Package2020.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CashVanPackage_git.iml" filepath="$PROJECT_DIR$/CashVanPackage_git.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

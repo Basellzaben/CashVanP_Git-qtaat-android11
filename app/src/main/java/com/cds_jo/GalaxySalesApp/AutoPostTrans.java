@@ -50,7 +50,7 @@ import java.util.TimerTask;
 public class AutoPostTrans extends Service {
     public AutoPostTrans() {
     }
-
+//
     public long INTERVAL = 12000;//300000;//10000;//60000;//variable for execute services every 1 minute
     private Handler mHandler = new Handler(); // run on another Thread to avoid crash
     private Timer mTimer = null; // timer handling

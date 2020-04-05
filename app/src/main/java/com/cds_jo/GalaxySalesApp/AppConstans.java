@@ -3,6 +3,9 @@ package com.cds_jo.GalaxySalesApp;
 /**
  * Created by Hp on 11/10/2016.
  */
+
+
+//
 public class AppConstans {
     public static final String[] IMAGEURLS={
             "http://www.caretofun.net/wp-content/uploads/2015/07/beautiful-girl-profile-caretofun.net-9.jpg",

@@ -13,7 +13,7 @@ public class AlertChoiceItem {
     public String getFlg() {
         return Flg;
     }
-
+//
     public void setFlg(String flg) {
         Flg = flg;
     }

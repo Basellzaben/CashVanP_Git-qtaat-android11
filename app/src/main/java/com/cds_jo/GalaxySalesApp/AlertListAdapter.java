@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Methdes.MyTextView;
-
+//
 
 public class AlertListAdapter  extends BaseAdapter{
     ArrayList<AlertChoiceItem> mData;
