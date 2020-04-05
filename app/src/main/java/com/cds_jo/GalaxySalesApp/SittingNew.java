@@ -39,7 +39,7 @@ import port.bluetooth.BluetoothConnectMenu;
 
 
 public class SittingNew extends FragmentActivity {
-    EditText Sal_inv ,Payments,PrepQty,SalesOrder,ReturnQty,CustCash , PostDelay ,TransQtySerial,Visits;
+    EditText Sal_inv ,Payments,PrepQty,SalesOrder,ReturnQty,CustCash , PostDelay ,TransQtySerial,Visits,et_Web;
     SqlHandler sqlHandler;
     Button btn_Delete , button25,ButtonConnectBT;
     private View dialogView;
@@ -92,7 +92,7 @@ public class SittingNew extends FragmentActivity {
         TransQtySerial= (EditText)findViewById(R.id.ed_TransSerial);
         Visits= (EditText)findViewById(R.id.et_Visit);
         EditText  AddressBT = (EditText)findViewById(R.id.EditTextAddressBT);
-
+        et_Web= (EditText)findViewById(R.id.et_Web);
 
         EditText     IP = (EditText)findViewById(R.id.et_IP);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -121,8 +121,8 @@ public class SittingNew extends FragmentActivity {
         editor.putString("ServerIP", IP.getText().toString().trim());
         editor.putString("AddressBT", AddressBT.getText().toString().trim());
 
+        editor.putString("WebSideLink", et_Web.getText().toString().trim());
         editor.commit();
-
 
 
         ContentValues cv = new ContentValues();
