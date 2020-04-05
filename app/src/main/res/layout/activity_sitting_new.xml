@@ -10,67 +10,67 @@
 
 
     <!--<LinearLayout-->
-        <!--android:id="@+id/LinearLayout03"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:paddingLeft="20dp"-->
-        <!--android:paddingTop="5dp"-->
-        <!--android:paddingRight="20dp"-->
-        <!--android:paddingBottom="5dp"-->
-        <!--android:weightSum="5">-->
-        <!--&lt;!&ndash; Divide | EditText | Button | &ndash;&gt;-->
-        <!--<TextView-->
-            <!--android:id="@+id/textView252"-->
-            <!--android:layout_width="230dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:text="Printer MAC ID"-->
-            <!--android:textColor="#000"-->
-            <!--android:textSize="20sp" />-->
+    <!--android:id="@+id/LinearLayout03"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="20dp"-->
+    <!--android:paddingTop="5dp"-->
+    <!--android:paddingRight="20dp"-->
+    <!--android:paddingBottom="5dp"-->
+    <!--android:weightSum="5">-->
+    <!--&lt;!&ndash; Divide | EditText | Button | &ndash;&gt;-->
+    <!--<TextView-->
+    <!--android:id="@+id/textView252"-->
+    <!--android:layout_width="230dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
+    <!--android:text="Printer MAC ID"-->
+    <!--android:textColor="#000"-->
+    <!--android:textSize="20sp" />-->
 
-        <!--<EditText-->
-            <!--android:id="@+id/EditTextAddressBT"-->
-            <!--android:layout_width="200dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@drawable/btn_cir_white_fill_black"-->
-            <!--android:hint="00:00:00:00:00:"-->
-            <!--android:inputType="text"-->
-            <!--android:maxLength="17"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:paddingRight="10dp" />-->
+    <!--<EditText-->
+    <!--android:id="@+id/EditTextAddressBT"-->
+    <!--android:layout_width="200dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@drawable/btn_cir_white_fill_black"-->
+    <!--android:hint="00:00:00:00:00:"-->
+    <!--android:inputType="text"-->
+    <!--android:maxLength="17"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp" />-->
 
-        <!--<Button-->
-            <!--android:id="@+id/ButtonConnectBT"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@color/Footer_Menu"-->
-            <!--android:text="توصيل الطابعة"-->
-            <!--android:textSize="20sp"-->
-            <!--android:visibility="invisible" />-->
+    <!--<Button-->
+    <!--android:id="@+id/ButtonConnectBT"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@color/Footer_Menu"-->
+    <!--android:text="توصيل الطابعة"-->
+    <!--android:textSize="20sp"-->
+    <!--android:visibility="invisible" />-->
 
-        <!--&lt;!&ndash;<Button&ndash;&gt;-->
-        <!--&lt;!&ndash;android:id="@+id/buttonSB"&ndash;&gt;-->
-        <!--&lt;!&ndash;style="@style/ButtonText"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_width="150dp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_marginLeft="10dp"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:text="@string/sb"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:visibility="invisible" />&ndash;&gt;-->
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/buttonSB"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="@style/ButtonText"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="150dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginLeft="10dp"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:text="@string/sb"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:visibility="invisible" />&ndash;&gt;-->
 
-        <!--<ImageButton-->
-            <!--android:id="@+id/imageView31"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:onClick="btn_bluetooth"-->
-            <!--android:padding="0dp"-->
-            <!--android:scaleType="fitXY"-->
-            <!--android:src="@drawable/search" />-->
+    <!--<ImageButton-->
+    <!--android:id="@+id/imageView31"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:onClick="btn_bluetooth"-->
+    <!--android:padding="0dp"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:src="@drawable/search" />-->
 
 
     <!--</LinearLayout>-->
@@ -132,32 +132,65 @@
     </LinearLayout>
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
-
-        <TextView
-            android:id="@+id/textView83"
-            android:layout_width="230dp"
+        android:weightSum="2"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Server Static IP"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#000"
-            android:textIsSelectable="false"
-            android:textSize="20dp" />
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
 
-        <EditText
-            android:id="@+id/et_IP"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:background="@drawable/btn_cir_white_fill_black"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            <TextView
+                android:id="@+id/textView83"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="Server Static IP"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:gravity="center"
+
+                android:textIsSelectable="false"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/et_IP"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/textView830"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="Add Web Link"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:gravity="center"
+                android:textIsSelectable="false"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/et_Web"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -279,7 +312,7 @@
         android:paddingTop="5dp">
 
         <Methdes.MyTextView
-            android:id="@+id/textView148"
+            android:id="@+id/textView149"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:text="بداية تسلسل طلب تجهيز مواد"
@@ -297,7 +330,7 @@
             android:paddingRight="10dp" />
 
         <TextView
-            android:id="@+id/textView159"
+            android:id="@+id/textView1509"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

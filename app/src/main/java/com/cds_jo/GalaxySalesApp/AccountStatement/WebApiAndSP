@@ -1,0 +1,132 @@
+
+كشف حساب تفصيلي
+
+     [WebMethod(EnableSession = true)]
+        [System.Xml.Serialization.XmlInclude(typeof(Acc_Report))]
+        [System.Web.Script.Services.ScriptMethod(UseHttpGet = true, ResponseFormat = System.Web.Script.Services.ResponseFormat.Xml)]
+        public Acc_Report GET_CustReportAccountStatement(String AccNo)
+        {
+            Acc_Report acc_r = new Acc_Report();
+
+            JavaScriptSerializer ser = new JavaScriptSerializer();
+
+
+            SqlParameter[] parm = new SqlParameter[1];
+            parm[0] = new SqlParameter("@AccNo", AccNo);
+
+
+            DataSet ds;
+            try
+            {
+                ds = DB_Functions.Fill_DataSet(new DB_Conn(ConnStr.GIACC, ""), "SP_GatMobileAccountStatement", parm);
+
+
+                DataTable dt = new DataTable();
+
+                string[] cusname = null;
+                string[] bill = null;
+                string[] Item_Name = null;
+                string[] A_Qty = null;
+                string[] price = null;
+                string[] Bonus = null;
+                string[] SumWithOutTax = null;
+
+
+
+                dt = ds.Tables[0];
+
+                if ((dt != null) && (dt.Rows.Count > 0))
+                {
+
+                    cusname = new string[dt.Rows.Count];
+                    bill = new string[dt.Rows.Count];
+                    Item_Name = new string[dt.Rows.Count];
+                    A_Qty = new string[dt.Rows.Count];
+                    price = new string[dt.Rows.Count];
+                    Bonus = new string[dt.Rows.Count];
+                    SumWithOutTax = new string[dt.Rows.Count];
+
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+
+                        cusname[i] = Convert.ToString(dt.Rows[i]["cusname"]);
+                        bill[i] = Convert.ToString(dt.Rows[i]["bill"]);
+                        Item_Name[i] = Convert.ToString(dt.Rows[i]["Item_Name"]);
+                        A_Qty[i] = Convert.ToString(dt.Rows[i]["A_Qty"]);
+                        price[i] = Convert.ToString(dt.Rows[i]["price"]);
+                        Bonus[i] = Convert.ToString(dt.Rows[i]["Bonus"]);
+                        SumWithOutTax[i] = Convert.ToString(dt.Rows[i]["SumWithOutTax"]);
+
+
+
+
+
+                    }
+                }
+
+                var jsondata = new
+                {
+                    cusname = cusname,
+                    bill = bill,
+                    Item_Name = Item_Name,
+                    A_Qty = A_Qty,
+                    price = price,
+                    Bonus = Bonus,
+                    SumWithOutTax = SumWithOutTax,
+
+                };
+
+                acc_r.ID = cusname.LongLength;
+                acc_r.Msg = ser.Serialize(jsondata);
+                return acc_r;
+            }
+
+            catch (Exception ex)
+            {
+                acc_r.ID = -1;
+                acc_r.Msg = ex.Message;
+                return acc_r;
+            }
+
+
+        }
+
+        /////////////////////////////////////////////////////////////////
+
+        USE [GI_ACC99ِِِA]
+        GO
+        /****** Object:  StoredProcedure [dbo].[SP_GatMobileAccountStatement]    Script Date: 04/05/2020 13:31:32 ******/
+        SET ANSI_NULLS ON
+        GO
+        SET QUOTED_IDENTIFIER ON
+        GO
+        create
+          Procedure [dbo].[SP_GatMobileAccountStatement](
+         @AccNo As NVARCHAR(20)
+
+        )
+
+        As
+        BEGIN
+        Set DATEFORMAT DMY
+
+        --set @AccNo = -9999999999999999999999
+         SELECT DISTINCT
+                             billf1.cusname as name,billf1.bill
+                               ,invf.Item_Name,billf2.A_Qty,billf2.price,billf2.Bonus,billf2.SumWithOutTax
+        FROM         billf1
+         --INNER JOIN billf2 ON billf1.trans_no = billf2.trans_no
+                              LEFT OUTER JOIN
+                              billf2 ON billf2.trans_no = billf1.trans_no
+                         INNER JOIN
+                              invf ON billf2.item_no = invf.Item_No
+        WHERE     (billf1.cus = @AccNo)-- AND (transf1.V_Type = 2)
+
+
+
+
+
+
+
+        END

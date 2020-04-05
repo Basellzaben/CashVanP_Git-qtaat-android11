@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/R_Back">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="2dp"
+        android:layoutDirection="locale"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+
+
+
+        <Methdes.MyTextView
+            android:id="@+id/textView218"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/Black11"
+            android:gravity="center"
+            android:text="رقم الفاتورة"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+        <Methdes.MyTextView
+            android:id="@+id/textView217"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="2"
+            android:background="@color/Black11"
+            android:gravity="center"
+            android:text="اسم المادة"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+        <Methdes.MyTextView
+            android:id="@+id/textView222"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/Black11"
+            android:gravity="center"
+            android:paddingRight="5dp"
+            android:text="الكمية"
+            android:textColor="#fff"
+            android:textSize="13sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/textView220"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/Black11"
+            android:gravity="center"
+            android:paddingRight="10dp"
+            android:text="السعر"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/textView219"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/Black11"
+            android:gravity="center"
+            android:text="البونص"
+            android:textAlignment="gravity"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/myTextView1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft=".9dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/Black11"
+            android:gravity="center"
+            android:text="المجوع"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#fff"
+            android:textSize="13sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/textView221"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_weight="1"
+            android:background="@color/Black11"
+            android:gravity="center"
+            android:paddingRight="5dp"
+            android:text="ملاحظات "
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.8"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/k"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>
+
+
