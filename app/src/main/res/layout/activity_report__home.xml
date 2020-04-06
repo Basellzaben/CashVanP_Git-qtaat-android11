@@ -249,6 +249,15 @@
     android:layout_height="match_parent"
     android:id="@+id/listView1"
     />
+            <ExpandableListView
+                android:layout_width="match_parent"
+                android:id="@+id/lst_acc"
+                android:smoothScrollbar="true"
+                android:stackFromBottom="false"
+                android:visibility="gone"
+                android:scrollingCache="false"
+                android:listSelector="@null"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </LinearLayout>

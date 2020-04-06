@@ -10,10 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.cds_jo.GalaxySalesApp.CustomerSummary.CustomerManVisitAdabter;
+import com.cds_jo.GalaxySalesApp.CustomerSummary.cls_Bill;
+import com.cds_jo.GalaxySalesApp.CustomerSummary.cls_BillC;
 import com.cds_jo.GalaxySalesApp.CustomerSummary.cls_ManVisit;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.We_Result;
@@ -24,6 +27,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 public class Report_Home extends AppCompatActivity {
     Cls_Listtitle obj;
@@ -39,6 +44,9 @@ public class Report_Home extends AppCompatActivity {
     listtitleadapter listtitleadapter;
     ArrayList<Cls_Listtitle>  cls_listtitles = new ArrayList<Cls_Listtitle>();
     ArrayList<cls_VisitingInformation>  vlist;
+    List<cls_sales> listDataHeader;
+    ExpandableListView lst_acc;
+    HashMap<List<cls_sales>, List<cls_salesC>> listDataChild;
     final Handler _handler = new Handler();
 
 
@@ -80,6 +88,7 @@ public class Report_Home extends AppCompatActivity {
         cls_listtitles.clear();
         listView=(ListView)findViewById(R.id.LV);
         listView1=(ListView)findViewById(R.id.listView1);
+        lst_acc=(ExpandableListView) findViewById(R.id.lst_acc);
         et_fromDate=(EditText) findViewById(R.id.et_fromDate);
         et_Todate=(EditText)findViewById(R.id.et_Todate);
         imgFrom = (ImageView) findViewById(R.id.imgFrom);
@@ -103,7 +112,15 @@ public class Report_Home extends AppCompatActivity {
                 int x=Integer.parseInt(obj.getNo());
                 if(x==1)
                 {
+                    listView1.setVisibility(View.VISIBLE);
+                    lst_acc.setVisibility(View.GONE);
                     getVisitingInformation();
+                }
+                else if(x==2||x==3||x==4)
+                {
+                    listView1.setVisibility(View.GONE);
+                    lst_acc.setVisibility(View.VISIBLE);
+                    getdata();
                 }
 
 
@@ -128,7 +145,73 @@ public class Report_Home extends AppCompatActivity {
 
     }
 
-        private  void FillList(){
+    private void getdata() {
+        listDataHeader = new ArrayList<cls_sales>();
+        listDataChild = new HashMap<List<cls_sales>, List<cls_salesC>>();
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+
+
+
+                CallWebServices ws = new CallWebServices(Report_Home.this);
+                ws.GET_CustReportBill("");
+                try {
+                    Integer i;
+                    Integer j;
+                    String sn="";
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray js_Custname = js.getJSONArray("Custname");
+                    JSONArray ManName = js.getJSONArray("ManName");
+                    JSONArray TransDate = js.getJSONArray("TransDate");
+                    JSONArray NetTotal = js.getJSONArray("NetTotal");
+                    JSONArray Total = js.getJSONArray("Total");
+                    JSONArray TaxTotal = js.getJSONArray("TaxTotal");
+                    JSONArray OrderNo = js.getJSONArray("OrderNo");
+                    JSONArray Item_Name = js.getJSONArray("Item_Name");
+                    JSONArray OrgPrice = js.getJSONArray("OrgPrice");
+                    JSONArray price = js.getJSONArray("price");
+                    JSONArray Qty = js.getJSONArray("Qty");
+                    JSONArray Bounce = js.getJSONArray("Bounce");
+                    JSONArray Dis_Amt = js.getJSONArray("Dis_Amt");
+                    JSONArray UnitName = js.getJSONArray("UnitName");
+                    JSONArray is_Damage = js.getJSONArray("is_Damage");
+
+
+                    //  cls_selingRequest = new cls_SelingRequest();
+                    //  cls_selingRequestC = new cls_SelingRequestC();
+                    for (i = 0; i < js_Custname.length(); i++)
+                    {
+                        sn=OrderNo.get(i).toString();
+                        List<cls_salesC> q = new ArrayList<cls_salesC>();
+                        for (j = 0; j < js_Custname.length(); j++)
+                        {
+
+                            if(OrderNo.get(j).toString()==sn)
+                            {
+                                q.add(new cls_salesC(Item_Name.get(j).toString(),OrgPrice.get(j).toString(),price.get(j).toString(),Qty.get(j).toString(),Bounce.get(j).toString(),UnitName.get(j).toString()));
+                                if(j==0)
+                                {
+                                    listDataHeader.add(new cls_sales(js_Custname.get(j).toString(),ManName.get(j).toString(),TransDate.get(j).toString(),NetTotal.get(j).toString(),Total.get(j).toString(),TaxTotal.get(j).toString(),OrderNo.get(j).toString(),Dis_Amt.get(j).toString(),is_Damage.get(j).toString()));
+
+                                }
+
+                            }
+                        }
+                        listDataChild.put(listDataHeader, q);
+
+                    }
+
+                } catch (final Exception e) {
+
+                }
+
+            }
+        };
+        thread.start();
+    }
+
+    private  void FillList(){
              obj=new  Cls_Listtitle ();
             obj.setTitle("معلومات الزيارة");
             obj.setNo("1");
