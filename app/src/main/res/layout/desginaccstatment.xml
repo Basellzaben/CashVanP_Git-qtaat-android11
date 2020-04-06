@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RR"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:layoutDirection="rtl"
+    android:orientation="horizontal"
+    android:weightSum="7">
+
+    <Methdes.MyTextView
+        android:id="@+id/orderno"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="اسم العميل"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="14sp" />
+    <Methdes.MyTextView
+        android:id="@+id/Item_Name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="2"
+        android:gravity="center"
+
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="14sp" />
+
+
+    <Methdes.MyTextView
+        android:id="@+id/Qty"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="المبلغ-شيك"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="14sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/Price"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="التاريخ "
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="14sp" />
+
+    <Methdes.MyTextView
+        android:id="@+id/Bouns"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="14sp" />
+    <Methdes.MyTextView
+        android:id="@+id/sum"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0.5dp"
+        android:layout_marginRight="0.5dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceSmall"
+
+        android:textSize="13sp" />
+
+
+
+
+
+
+
+</LinearLayout>

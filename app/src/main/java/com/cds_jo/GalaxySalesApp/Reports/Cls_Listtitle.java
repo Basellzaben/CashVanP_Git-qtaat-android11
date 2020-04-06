@@ -11,4 +11,14 @@ public class Cls_Listtitle {
 
     String Title;
 
+    public String getNo() {
+        return No;
+    }
+
+    public void setNo(String no) {
+        No = no;
+    }
+
+    String No;
+
 }
