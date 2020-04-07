@@ -4234,5 +4234,100 @@ return    We_Result.ID;
 
     }
 
+    public void GET_CustReportAccountStatement(String AccNo) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+
+        SoapObject request = new SoapObject(NAMESPACE, "GET_CustReportAccountStatement");
+
+        PropertyInfo parm_AccNo = new PropertyInfo();
+
+        parm_AccNo.setName("AccNo");
+
+        parm_AccNo.setValue(AccNo);
+        parm_AccNo.setType(String.class);
+
+
+
+        // Add the property to request object
+        request.addProperty(parm_AccNo);
+
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GET_CustReportAccountStatement", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+
+
+
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        //Return resTxt to calling object
+
+    }
+    public void getCountry() {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GetAreas");
+
+
+
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GetAreas", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+
+
+    }
 
 }

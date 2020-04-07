@@ -1,6 +1,7 @@
 package com.cds_jo.GalaxySalesApp.Reports;
 
 import android.app.DatePickerDialog;
+import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -8,17 +9,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.cds_jo.GalaxySalesApp.ComInfo;
 import com.cds_jo.GalaxySalesApp.CustomerSummary.CustomerManVisitAdabter;
 import com.cds_jo.GalaxySalesApp.CustomerSummary.cls_Bill;
 import com.cds_jo.GalaxySalesApp.CustomerSummary.cls_BillC;
 import com.cds_jo.GalaxySalesApp.CustomerSummary.cls_ManVisit;
 import com.cds_jo.GalaxySalesApp.R;
+import com.cds_jo.GalaxySalesApp.Select_Cash_Customer;
+import com.cds_jo.GalaxySalesApp.Select_Customer;
 import com.cds_jo.GalaxySalesApp.We_Result;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 
@@ -34,7 +40,7 @@ public class Report_Home extends AppCompatActivity {
     Cls_Listtitle obj;
     ImageView imgFrom,imgTo;
     ListView listView,listView1;
-    EditText et_Man;
+    EditText et_Man,editText5;
     public int FlgDate = 0;
     EditText et_fromDate;
     cls_VisitingInformation  cls_VisitingInformation;
@@ -99,6 +105,7 @@ public class Report_Home extends AppCompatActivity {
         listView1=(ListView)findViewById(R.id.listView1);
         lst_acc=(ExpandableListView) findViewById(R.id.lst_acc);
         et_fromDate=(EditText) findViewById(R.id.et_fromDate);
+        editText5=(EditText) findViewById(R.id.editText5);
         et_Todate=(EditText)findViewById(R.id.et_Todate);
         imgFrom = (ImageView) findViewById(R.id.imgFrom);
         imgTo = (ImageView) findViewById(R.id.imgTo);
@@ -176,7 +183,24 @@ public class Report_Home extends AppCompatActivity {
         });
 
     }
+    public void Set_Cust(String No, String Nm) {
 
+        editText5.setText(Nm);
+        editText5.setError(null);
+    }
+    public void btn_searchCustomer(View view) {
+
+
+                Bundle bundle = new Bundle();
+                bundle.putString("Scr", "Sale_Inv");
+                FragmentManager Manager = getFragmentManager();
+                Select_Customer obj = new Select_Customer();
+                obj.setArguments(bundle);
+                obj.show(Manager, null);
+
+
+
+    }
     private void getnet_profit() {
         Thread thread = new Thread() {
             @Override

@@ -94,6 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:onClick="showCust"
                     android:background="@drawable/btn_cir_white_fill_black"
                     android:ems="10"
                     android:inputType="textPersonName"
