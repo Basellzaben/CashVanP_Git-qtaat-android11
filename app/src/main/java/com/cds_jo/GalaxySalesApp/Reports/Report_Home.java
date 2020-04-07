@@ -39,11 +39,20 @@ public class Report_Home extends AppCompatActivity {
     EditText et_fromDate;
     cls_VisitingInformation  cls_VisitingInformation;
     EditText et_Todate;
+    cls_DelegateInformation cls_delegateInformation;
     String UserID;
+    DelegateInformation_Adapter delegateInformation_adapter;
     VisitingInformationAdapter visitingInformationAdapter;
+    achievement_rate_Adapter achievement_rate_adapter;
+    Receipt_Adapter receipt_adapter;
+    net_profit_Adapter net_profit_adapter;
     listtitleadapter listtitleadapter;
     ArrayList<Cls_Listtitle>  cls_listtitles = new ArrayList<Cls_Listtitle>();
     ArrayList<cls_VisitingInformation>  vlist;
+    ArrayList<cls_DelegateInformation>  Dlist;
+    ArrayList<cls_Receipt>  Rlist;
+    ArrayList<cls_achievement_rate>  ARlist;
+    ArrayList<cls_net_profit>  NPlist;
     List<cls_sales> listDataHeader;
     ExpandableListView lst_acc;
     HashMap<List<cls_sales>, List<cls_salesC>> listDataChild;
@@ -108,6 +117,7 @@ public class Report_Home extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 vlist = new ArrayList<cls_VisitingInformation>();
+                Rlist = new ArrayList<cls_Receipt>();
                 obj =cls_listtitles.get(position);
                 int x=Integer.parseInt(obj.getNo());
                 if(x==1)
@@ -122,8 +132,30 @@ public class Report_Home extends AppCompatActivity {
                     lst_acc.setVisibility(View.VISIBLE);
                     getdata();
                 }
-
-
+                else if(x==5)
+                {
+                    listView1.setVisibility(View.VISIBLE);
+                    lst_acc.setVisibility(View.GONE);
+                    getreceipt();
+                }
+                else if(x==6)
+                {
+                    listView1.setVisibility(View.VISIBLE);
+                    lst_acc.setVisibility(View.GONE);
+                    getDelegateInformation();
+                }
+                else if(x==7)
+                {
+                    listView1.setVisibility(View.VISIBLE);
+                    lst_acc.setVisibility(View.GONE);
+                    getachievement_rate();
+                }
+                else if(x==8)
+                {
+                    listView1.setVisibility(View.VISIBLE);
+                    lst_acc.setVisibility(View.GONE);
+                    getnet_profit();
+                }
             }
         });
 
@@ -143,6 +175,215 @@ public class Report_Home extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getnet_profit() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+
+
+                CallWebServices ws = new CallWebServices(Report_Home.this);
+                ws.GET_CustReportManVisit("11041000011");
+                try {
+                    Integer i;
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray SalesAmt = js.getJSONArray("SalesAmt");
+                    JSONArray PaymentAmt = js.getJSONArray("PaymentAmt");
+
+
+
+                    cls_net_profit cls_net_profit= new cls_net_profit();
+
+                    for (i = 0; i < PaymentAmt.length(); i++) {
+                        cls_net_profit.setSalesAmt(SalesAmt.get(i).toString());
+                        cls_net_profit.setPaymentAmt(PaymentAmt.get(i).toString());
+
+
+
+
+                        NPlist.add(cls_net_profit);
+                    }
+                    _handler.post(new Runnable() {
+                        public void run() {
+
+                            net_profit_adapter = new net_profit_Adapter(Report_Home.this, NPlist);
+                            listView1.setAdapter(net_profit_adapter);
+                        }
+                    });
+
+                } catch (final Exception e) {
+
+                }
+
+            }
+        };
+        thread.start();
+
+    }
+
+    private void getachievement_rate() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+
+
+                CallWebServices ws = new CallWebServices(Report_Home.this);
+                ws.GET_CustReportManVisit("11041000011");
+                try {
+                    Integer i;
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray TotQtyTarqet = js.getJSONArray("TotQtyTarqet");
+                    JSONArray TotAmtTarqet = js.getJSONArray("TotAmtTarqet");
+
+
+
+                    cls_achievement_rate cls_achievement_rate= new cls_achievement_rate();
+
+                    for (i = 0; i < TotAmtTarqet.length(); i++) {
+                        cls_achievement_rate.setTotQtyTarqet(TotQtyTarqet.get(i).toString());
+                        cls_achievement_rate.setTotAmtTarqet(TotAmtTarqet.get(i).toString());
+
+
+
+
+                        ARlist.add(cls_achievement_rate);
+                    }
+                    _handler.post(new Runnable() {
+                        public void run() {
+
+                            achievement_rate_adapter = new achievement_rate_Adapter(Report_Home.this, ARlist);
+                            listView1.setAdapter(receipt_adapter);
+                        }
+                    });
+
+                } catch (final Exception e) {
+
+                }
+
+            }
+        };
+        thread.start();
+    }
+
+    private void getDelegateInformation() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+
+
+                CallWebServices ws = new CallWebServices(Report_Home.this);
+                ws.GET_CustReportManVisit("11041000011");
+                try {
+                    Integer i;
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray ManNo1 = js.getJSONArray("ManNo1");
+                    JSONArray ManNm = js.getJSONArray("ManNm");
+                    JSONArray CheckIn = js.getJSONArray("CheckIn");
+                    JSONArray checkOut = js.getJSONArray("checkOut");
+                    JSONArray Payemnt = js.getJSONArray("Payemnt");
+                    JSONArray Sales = js.getJSONArray("Sales");
+                    JSONArray returnsSales= js.getJSONArray("returnsSales");
+                    JSONArray SalesOrders = js.getJSONArray("SalesOrders");
+                    JSONArray Precent= js.getJSONArray("Precent");
+
+                    cls_delegateInformation = new cls_DelegateInformation();
+                    cls_delegateInformation.setManNo1("رقم المندوب");
+                    cls_delegateInformation.setManNm("اسم المندوب");
+                    cls_delegateInformation.setCheckIn("بداية دوام");
+                    cls_delegateInformation.setCheckOut("نهاية دوام");
+                    cls_delegateInformation.setPayemnt("القبوضات");
+                    cls_delegateInformation.setSales("المبيعات");
+
+                    cls_delegateInformation.setReturnsSales("المرتجعات");
+                    cls_delegateInformation.setSalesOrders("طلبات البيع");
+                    cls_delegateInformation.setPrecent("النسبة");
+                    for (i = 0; i < ManNo1.length(); i++) {
+                        cls_delegateInformation.setManNo1(ManNo1.get(i).toString());
+                        cls_delegateInformation.setManNm(ManNm.get(i).toString());
+                        cls_delegateInformation.setCheckIn(CheckIn.get(i).toString());
+                        cls_delegateInformation.setCheckOut(checkOut.get(i).toString());
+                        cls_delegateInformation.setPayemnt(Payemnt.get(i).toString());
+                        cls_delegateInformation.setSales(Sales.get(i).toString());
+
+                        cls_delegateInformation.setReturnsSales(returnsSales.get(i).toString());
+                        cls_delegateInformation.setSalesOrders(SalesOrders.get(i).toString());
+                        cls_delegateInformation.setPrecent(Precent.get(i).toString());
+
+                        Dlist.add(cls_delegateInformation);
+                    }
+                    _handler.post(new Runnable() {
+                        public void run() {
+
+                            delegateInformation_adapter = new DelegateInformation_Adapter(Report_Home.this, Dlist);
+                            listView1.setAdapter(delegateInformation_adapter);
+                        }
+                    });
+
+                } catch (final Exception e) {
+
+                }
+
+            }
+        };
+        thread.start();
+    }
+
+    private void getreceipt() {
+
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+
+
+                CallWebServices ws = new CallWebServices(Report_Home.this);
+                ws.GET_CustReportManVisit("11041000011");
+                try {
+                    Integer i;
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray OrderNo = js.getJSONArray("OrderNo");
+                    JSONArray Date = js.getJSONArray("Date");
+                    JSONArray Amt = js.getJSONArray("Amt");
+                    JSONArray Cash = js.getJSONArray("Cash");
+                    JSONArray CheckTotal = js.getJSONArray("CheckTotal");
+                    JSONArray notes = js.getJSONArray("notes");
+
+
+                    cls_Receipt cls_receipt= new cls_Receipt();
+                    cls_receipt.setOrderNo("رقم القبض");
+                    cls_receipt.setDate("تاريخ القبض");
+                    cls_receipt.setAmt("مبلغ القبض");
+                    cls_receipt.setCash("المبلغ النقدي");
+                    cls_receipt.setCheckTotal("مبلغ الشيكات");
+                    cls_receipt.setNotes("ملاحظات");
+
+                    for (i = 0; i < OrderNo.length(); i++) {
+                        cls_receipt.setOrderNo(OrderNo.get(i).toString());
+                        cls_receipt.setDate(Date.get(i).toString());
+                        cls_receipt.setAmt(Amt.get(i).toString());
+                        cls_receipt.setCash(Cash.get(i).toString());
+                        cls_receipt.setCheckTotal(CheckTotal.get(i).toString());
+                        cls_receipt.setNotes(notes.get(i).toString());
+
+
+
+                        Rlist.add(cls_receipt);
+                    }
+                    _handler.post(new Runnable() {
+                        public void run() {
+
+                            receipt_adapter = new Receipt_Adapter(Report_Home.this, Rlist);
+                            listView1.setAdapter(receipt_adapter);
+                        }
+                    });
+
+                } catch (final Exception e) {
+
+                }
+
+            }
+        };
+        thread.start();
     }
 
     private void getdata() {
