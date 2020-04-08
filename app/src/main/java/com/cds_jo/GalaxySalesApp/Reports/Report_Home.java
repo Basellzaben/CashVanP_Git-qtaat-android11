@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,12 +37,14 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import Methdes.MyTextView;
+
 public class Report_Home extends AppCompatActivity {
     String ManNo,CustNo,CoutNo;
     Cls_Listtitle obj;
     ImageView imgFrom,imgTo;
     ListView listView,listView1;
-    EditText et_Man,editText5;
+    EditText et_Man,editText5,ezditText5;
     public int FlgDate = 0;
     EditText et_fromDate;
     cls_VisitingInformation  cls_VisitingInformation;
@@ -64,7 +67,10 @@ public class Report_Home extends AppCompatActivity {
     ExpandableListView lst_acc;
     HashMap<List<cls_sales>, List<cls_salesC>> listDataChild;
     final Handler _handler = new Handler();
-
+    LinearLayout VisitingInformation;
+    LinearLayout receipt;
+    LinearLayout DelegateInformation;
+    LinearLayout Data;
 
     public static String intToString(int num, int digits) {
         String output = Integer.toString(num);
@@ -111,11 +117,14 @@ public class Report_Home extends AppCompatActivity {
         imgFrom = (ImageView) findViewById(R.id.imgFrom);
         imgTo = (ImageView) findViewById(R.id.imgTo);
         et_Man=(EditText)findViewById(R.id.et_Man);
+        ezditText5=(EditText)findViewById(R.id.ezditText5);
+
+        receipt=(LinearLayout)findViewById(R.id.receipt);
+        DelegateInformation=(LinearLayout)findViewById(R.id.DelegateInformation);
+        VisitingInformation=(LinearLayout)findViewById(R.id.VisitingInformation);
+        Data=(LinearLayout)findViewById(R.id.Data);
 
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Report_Home.this);
-        UserID = sharedPreferences.getString("UserID", "");
-        et_Man.setText(UserID);
 
         FillList();
         listtitleadapter = new listtitleadapter(Report_Home.this, cls_listtitles);
@@ -130,36 +139,68 @@ public class Report_Home extends AppCompatActivity {
                 int x=Integer.parseInt(obj.getNo());
                 if(x==1)
                 {
+                    //VisitingInformation.setWeightSum((float) 10);
+                    //MyTextView Is_damge = (MyTextView) convertView.findViewById(R.id.Is_damge);
+//                    Is_damge.setVisibility(View.VISIBLE);
+//                    Is_damge.setText(cls_bill.getIs_Damage());
+                    VisitingInformation.setVisibility(View.VISIBLE);
+                    receipt.setVisibility(View.GONE);
+                    Data.setVisibility(View.GONE);
+                    DelegateInformation.setVisibility(View.GONE);
                     listView1.setVisibility(View.VISIBLE);
+
                     lst_acc.setVisibility(View.GONE);
                     getVisitingInformation();
                 }
                 else if(x==2||x==3||x==4)
+                {if(x==4)
                 {
+                    Data.setWeightSum((float) 10);
+                    MyTextView Is_damge = (MyTextView) findViewById(R.id.Is_damge);
+                    Is_damge.setVisibility(View.VISIBLE);
+
+                }
+
+                    VisitingInformation.setVisibility(View.GONE);
+                    receipt.setVisibility(View.GONE);
+                    Data.setVisibility(View.VISIBLE);
+                    DelegateInformation.setVisibility(View.GONE);
                     listView1.setVisibility(View.GONE);
                     lst_acc.setVisibility(View.VISIBLE);
                     getdata();
                 }
                 else if(x==5)
-                {
+                {      VisitingInformation.setVisibility(View.GONE);
+                    receipt.setVisibility(View.VISIBLE);
+                    Data.setVisibility(View.GONE);
+                    DelegateInformation.setVisibility(View.GONE);
                     listView1.setVisibility(View.VISIBLE);
                     lst_acc.setVisibility(View.GONE);
                     getreceipt();
                 }
                 else if(x==6)
-                {
+                {      VisitingInformation.setVisibility(View.GONE);
+                    receipt.setVisibility(View.GONE);
+                    Data.setVisibility(View.GONE);
+                    DelegateInformation.setVisibility(View.VISIBLE);
                     listView1.setVisibility(View.VISIBLE);
                     lst_acc.setVisibility(View.GONE);
                     getDelegateInformation();
                 }
                 else if(x==7)
-                {
+                {      VisitingInformation.setVisibility(View.GONE);
+                    receipt.setVisibility(View.GONE);
+                    Data.setVisibility(View.GONE);
+                    DelegateInformation.setVisibility(View.GONE);
                     listView1.setVisibility(View.VISIBLE);
                     lst_acc.setVisibility(View.GONE);
                     getachievement_rate();
                 }
                 else if(x==8)
-                {
+                { VisitingInformation.setVisibility(View.GONE);
+                    receipt.setVisibility(View.GONE);
+                    Data.setVisibility(View.GONE);
+                    DelegateInformation.setVisibility(View.GONE);
                     listView1.setVisibility(View.VISIBLE);
                     lst_acc.setVisibility(View.GONE);
                     getnet_profit();
@@ -191,15 +232,15 @@ public class Report_Home extends AppCompatActivity {
     }
     public void Set_Country(String No, String Nm) {
         CoutNo=No;
-        editText5.setText(Nm);
-        editText5.setError(null);
+        et_Man.setText(Nm);
+        et_Man.setError(null);
     }
     public void Set_Man(String No, String Nm) {
         ManNo=No;
-        editText5.setText(Nm);
-        editText5.setError(null);
+        ezditText5.setText(Nm);
+        ezditText5.setError(null);
     }
-    public void btn_searchCustomer(View view) {
+    public void showCust(View view) {
 
 
                 Bundle bundle = new Bundle();
@@ -349,16 +390,7 @@ public class Report_Home extends AppCompatActivity {
                     JSONArray Precent= js.getJSONArray("Precent");
 
                     cls_delegateInformation = new cls_DelegateInformation();
-                    cls_delegateInformation.setManNo1("رقم المندوب");
-                    cls_delegateInformation.setManNm("اسم المندوب");
-                    cls_delegateInformation.setCheckIn("بداية دوام");
-                    cls_delegateInformation.setCheckOut("نهاية دوام");
-                    cls_delegateInformation.setPayemnt("القبوضات");
-                    cls_delegateInformation.setSales("المبيعات");
 
-                    cls_delegateInformation.setReturnsSales("المرتجعات");
-                    cls_delegateInformation.setSalesOrders("طلبات البيع");
-                    cls_delegateInformation.setPrecent("النسبة");
                     for (i = 0; i < ManNo1.length(); i++) {
                         cls_delegateInformation.setManNo1(ManNo1.get(i).toString());
                         cls_delegateInformation.setManNm(ManNm.get(i).toString());
@@ -411,12 +443,7 @@ public class Report_Home extends AppCompatActivity {
 
 
                     cls_Receipt cls_receipt= new cls_Receipt();
-                    cls_receipt.setOrderNo("رقم القبض");
-                    cls_receipt.setDate("تاريخ القبض");
-                    cls_receipt.setAmt("مبلغ القبض");
-                    cls_receipt.setCash("المبلغ النقدي");
-                    cls_receipt.setCheckTotal("مبلغ الشيكات");
-                    cls_receipt.setNotes("ملاحظات");
+
 
                     for (i = 0; i < OrderNo.length(); i++) {
                         cls_receipt.setOrderNo(OrderNo.get(i).toString());
