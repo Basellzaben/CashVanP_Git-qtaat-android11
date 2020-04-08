@@ -53,6 +53,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_cir_white_fill_black"
                     android:ems="10"
+                    android:onClick="getMan"
                     android:inputType="textPersonName"
                     android:text=" " />
             </LinearLayout>
@@ -142,6 +143,7 @@
                     android:layout_weight="1.3"
                     android:background="@drawable/btn_cir_white_fill_black"
                     android:ems="10"
+                    android:onClick="getCountry"
                     android:inputType="textPersonName"
                     android:text=" " />
 

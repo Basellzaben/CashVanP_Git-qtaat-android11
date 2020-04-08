@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Report_Home extends AppCompatActivity {
+    String ManNo,CustNo,CoutNo;
     Cls_Listtitle obj;
     ImageView imgFrom,imgTo;
     ListView listView,listView1;
@@ -184,7 +185,17 @@ public class Report_Home extends AppCompatActivity {
 
     }
     public void Set_Cust(String No, String Nm) {
-
+        CustNo=No;
+        editText5.setText(Nm);
+        editText5.setError(null);
+    }
+    public void Set_Country(String No, String Nm) {
+        CoutNo=No;
+        editText5.setText(Nm);
+        editText5.setError(null);
+    }
+    public void Set_Man(String No, String Nm) {
+        ManNo=No;
         editText5.setText(Nm);
         editText5.setError(null);
     }
@@ -192,11 +203,37 @@ public class Report_Home extends AppCompatActivity {
 
 
                 Bundle bundle = new Bundle();
-                bundle.putString("Scr", "Sale_Inv");
+                bundle.putString("Scr", "Rep_Cust");
                 FragmentManager Manager = getFragmentManager();
                 Select_Customer obj = new Select_Customer();
                 obj.setArguments(bundle);
                 obj.show(Manager, null);
+
+
+
+    }
+    public void getCountry(View view) {
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Scr", "Rep_Cout");
+        FragmentManager Manager = getFragmentManager();
+        Select_Country obj = new Select_Country();
+        obj.setArguments(bundle);
+        obj.show(Manager, null);
+
+
+
+    }
+    public void getMan(View view) {
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Scr", "Rep_Man");
+        FragmentManager Manager = getFragmentManager();
+        Select_Man obj = new Select_Man();
+        obj.setArguments(bundle);
+        obj.show(Manager, null);
 
 
 

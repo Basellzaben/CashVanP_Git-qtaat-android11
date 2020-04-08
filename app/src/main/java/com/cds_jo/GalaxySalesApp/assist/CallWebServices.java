@@ -4293,7 +4293,7 @@ return    We_Result.ID;
 
         We_Result.Msg="";
         We_Result.ID =-1;
-        SoapObject request = new SoapObject(NAMESPACE, "GetAreas");
+        SoapObject request = new SoapObject(NAMESPACE, "getCountry");
 
 
 
@@ -4307,7 +4307,7 @@ return    We_Result.ID;
         Object  response =null;
         try {
 
-            androidHttpTransport.call("http://tempuri.org/GetAreas", envelope);
+            androidHttpTransport.call("http://tempuri.org/getCountry", envelope);
             SoapObject result  = (SoapObject) envelope.getResponse();
             We_Result.Msg =  result.getProperty("Msg").toString();
             We_Result.ID = Long.parseLong(result.getProperty("ID").toString());

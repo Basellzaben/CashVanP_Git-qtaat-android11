@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 124;
+    private static final int LASTUPDATE = 125;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -81,7 +81,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
     int DB_VERVSION;
 
     CheckBox chk_PaymentSchudel,chk_cust, chk_banks, chk_Items, chk_Unites, Chk_Items_Unites, Chk_Curf, Chk_deptf, Chk_Users, Chk_Drivers, Chk_CustLastTrans;
-    CheckBox Chk_TransQty, chk_Pro, chkCompany, chkCashCust, chk_Item_cat, chk_Cust_Cat, chk_Serial, chk_LastPrice, Chk_Msg, Chk_Batch;
+    CheckBox Chk_TransQty, chk_Pro, chkCompany, chkCashCust, chk_Item_cat, chk_Cust_Cat, chk_Serial, chk_LastPrice, Chk_Msg, Chk_Batch,chk_country;
     CheckBox Chk_Post_Inv, Chk_Post_Payments, chk_po_post, Chk_Code, chk_Stores, chk_Gift, chk_OfferGroups;
 
     private void filllist(String str, int f, int c) {
@@ -1359,6 +1359,10 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             sqlHandler.executeQuery("Alter Table manf  Add COLUMN  Email text null ");
         } catch (SQLException e) {
         }
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Country" +
+                    "( no integer primary key autoincrement,CountryNo text null , CountryName null " );
+        } catch (SQLException e) {}
 
     }
 
@@ -1454,7 +1458,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_Stores = (CheckBox) findViewById(R.id.chk_Stores);
         chk_Gift = (CheckBox) findViewById(R.id.chk_Gift);
         chk_OfferGroups = (CheckBox) findViewById(R.id.chk_OfferGroups);
-
+        chk_country  = (CheckBox) findViewById(R.id.chk_country);
 
         chk_PaymentSchudel.setChecked(true);
         chk_cust.setChecked(true);
@@ -1485,7 +1489,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_Stores.setChecked(false);
         chk_Gift.setChecked(true);
         chk_OfferGroups.setChecked(true);
-
+        chk_country.setChecked(true);
 
         chk_Serial.setEnabled(false);
         chk_Gift.setEnabled(false);
@@ -1521,6 +1525,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_po_post.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_Gift.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_OfferGroups.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
+        chk_country.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
 
         chkall.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chkall.setText("  اختيار الكل");
@@ -1596,6 +1601,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             chk_Stores.setChecked(true);
             chk_Gift.setChecked(true);
             chk_OfferGroups.setChecked(true);
+            chk_country.setChecked(true);
 
         } else {
             chkall.setText("  اختيار الكل");
@@ -1626,6 +1632,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             Chk_Msg.setChecked(false);
             Chk_Batch.setChecked(false);
             chk_Stores.setChecked(false);
+            chk_country.setChecked(false);
         /*    chk_Gift.setChecked(false);
             chk_OfferGroups.setChecked(false);*/
 
@@ -1943,6 +1950,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         final CheckBox Chk_Msg = (CheckBox) findViewById(R.id.Chk_Msg);
         final CheckBox Chk_Batch = (CheckBox) findViewById(R.id.Chk_Batch);
         final CheckBox chk_Stores = (CheckBox) findViewById(R.id.chk_Stores);
+        final CheckBox chk_country = (CheckBox) findViewById(R.id.chk_country);
 
 
 
@@ -2362,7 +2370,101 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                 }
             }).start();
 
-        } else if (Chk_Msg.isChecked()) {
+        }
+        else if (chk_country.isChecked()) {
+
+            final Handler _handler = new Handler();
+            tv = new TextView(getApplicationContext());
+            lp = new RelativeLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+            tv.setLayoutParams(lp);
+            tv.setLayoutParams(lp);
+            tv.setPadding(10, 15, 10, 15);
+            tv.setGravity(Gravity.CENTER);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+            tv.setTextColor(Color.WHITE);
+            tv.setBackgroundColor(Color.BLUE);
+            tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
+
+            final ProgressDialog progressDialog;
+            progressDialog = new ProgressDialog(UpdateDataToMobileActivity.this);
+            progressDialog.setProgressStyle(progressDialog.STYLE_HORIZONTAL);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setProgress(0);
+            progressDialog.setMax(100);
+            progressDialog.setMessage("  الرجاء الانتظار ..." + "  العمل جاري على نسخ البيانات  ");
+            tv.setText("المناطق");
+            progressDialog.setCustomTitle(tv);
+            progressDialog.setProgressDrawable(greenProgressbar);
+            progressDialog.show();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    CallWebServices ws = new CallWebServices(UpdateDataToMobileActivity.this);
+                    ws.getCountry();
+                    try {
+                        Integer i;
+                        String q;
+
+                        if (We_Result.ID>0) {
+                            JSONObject js = new JSONObject(We_Result.Msg);
+                            JSONArray Name = js.getJSONArray("Name");
+                            JSONArray No = js.getJSONArray("No");
+
+
+                            q = "Delete from Country";
+                            sqlHandler.executeQuery(q);
+                            q = " delete from sqlite_sequence where name='Country'";
+                            sqlHandler.executeQuery(q);
+
+                            for (i = 0; i < Name.length(); i++) {
+                                q = "INSERT INTO Country(CountryNo,CountryName) values ('"
+                                        + Name.get(i).toString()
+                                        + "','" + No.get(i).toString()
+
+                                        + "')";
+                                sqlHandler.executeQuery(q);
+                                progressDialog.setMax(No.length());
+                                progressDialog.incrementProgressBy(1);
+                                if (progressDialog.getProgress() == progressDialog.getMax()) {
+                                    progressDialog.dismiss();
+                                }
+                            }
+                            final int total = i;
+                            _handler.post(new Runnable() {
+                                public void run() {
+                                    filllist("المناطق", 1, total);
+                                    Chk_Batch.setChecked(false);
+                                    progressDialog.dismiss();
+                                    Do_Trans_From_Server();
+                                }
+                            });
+                        }else{
+                            _handler.post(new Runnable() {
+                                public void run() {
+                                    filllist("المناطق", 0, 0);
+                                    Chk_Batch.setChecked(false);
+                                    progressDialog.dismiss();
+                                    Do_Trans_From_Server();
+                                }
+                            });
+                        }
+                    } catch (final Exception e) {
+                        progressDialog.dismiss();
+                        _handler.post(new Runnable() {
+                            public void run() {
+                                filllist("تاريخ الصلاحية", 0, 0);
+                                Chk_Batch.setChecked(false);
+                                Do_Trans_From_Server();
+                            }
+                        });
+                    }
+                }
+            }).start();
+
+        }
+        else if (Chk_Msg.isChecked()) {
 
             final Handler _handler = new Handler();
             tv = new TextView(getApplicationContext());
