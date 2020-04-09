@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.ComInfo;
 import com.cds_jo.GalaxySalesApp.CustomerSummary.CustomerManVisitAdabter;
@@ -38,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import Methdes.MyTextView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Report_Home extends AppCompatActivity {
     String ManNo,CustNo,CoutNo;
@@ -133,10 +135,62 @@ public class Report_Home extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(et_Man.getText().toString().equals(""))
+                {
+                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                            //.setCustomImage(R.mipmap.icon_delete)
+                            .setContentText("يجب أختيار المندوب")
+                            .setConfirmText("رجــــوع")
+                            .show();
+                    et_Man.setError("required!");
+                    et_Man.requestFocus();
+                    return;
+                } else if(editText5.getText().toString().equals(""))
+                {
+                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                            //.setCustomImage(R.mipmap.icon_delete)
+                            .setContentText("يجب أختيار العميل")
+                            .setConfirmText("رجــــوع")
+                            .show();
+                    editText5.setError("required!");
+                    editText5.requestFocus();
+                    return;
+                }else if(ezditText5.getText().toString().equals(""))
+                {
+                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                            //.setCustomImage(R.mipmap.icon_delete)
+                            .setContentText("يجب أختيار المنطفة")
+                            .setConfirmText("رجــــوع")
+                            .show();
+                    ezditText5.setError("required!");
+                    ezditText5.requestFocus();
+                    return;
+                }else if(et_fromDate.getText().toString().equals(""))
+                {
+                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                            //.setCustomImage(R.mipmap.icon_delete)
+                            .setContentText("يجب أدخال تاريخ بداية الفترة")
+                            .setConfirmText("رجــــوع")
+                            .show();
+                    et_fromDate.setError("required!");
+                    et_fromDate.requestFocus();
+                    return;
+                }else if(et_Todate.getText().toString().equals(""))
+                {
+                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                            //.setCustomImage(R.mipmap.icon_delete)
+                            .setContentText("يجب أدخال تاريخ نهاية الفترة")
+                            .setConfirmText("رجــــوع")
+                            .show();
+                    et_Todate.setError("required!");
+                    et_Todate.requestFocus();
+                    return;
+                }
                 vlist = new ArrayList<cls_VisitingInformation>();
                 Rlist = new ArrayList<cls_Receipt>();
                 obj =cls_listtitles.get(position);
                 int x=Integer.parseInt(obj.getNo());
+                ReportId.Id=x;
                 if(x==1)
                 {
                     //VisitingInformation.setWeightSum((float) 10);
@@ -286,8 +340,9 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_CustReportManVisit("11041000011");
+                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
                 try {
+                    if (We_Result.ID>0){
                     Integer i;
                     JSONObject js = new JSONObject(We_Result.Msg);
                     JSONArray SalesAmt = js.getJSONArray("SalesAmt");
@@ -312,7 +367,11 @@ public class Report_Home extends AppCompatActivity {
                             net_profit_adapter = new net_profit_Adapter(Report_Home.this, NPlist);
                             listView1.setAdapter(net_profit_adapter);
                         }
-                    });
+                    });}
+                    else
+                    {
+                        Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
+                    }
 
                 } catch (final Exception e) {
 
@@ -331,33 +390,35 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_CustReportManVisit("11041000011");
+                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
                 try {
-                    Integer i;
-                    JSONObject js = new JSONObject(We_Result.Msg);
-                    JSONArray TotQtyTarqet = js.getJSONArray("TotQtyTarqet");
-                    JSONArray TotAmtTarqet = js.getJSONArray("TotAmtTarqet");
+                    if(We_Result.ID>0) {
+                        Integer i;
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray TotQtyTarqet = js.getJSONArray("TotQtyTarqet");
+                        JSONArray TotAmtTarqet = js.getJSONArray("TotAmtTarqet");
 
 
+                        cls_achievement_rate cls_achievement_rate = new cls_achievement_rate();
 
-                    cls_achievement_rate cls_achievement_rate= new cls_achievement_rate();
-
-                    for (i = 0; i < TotAmtTarqet.length(); i++) {
-                        cls_achievement_rate.setTotQtyTarqet(TotQtyTarqet.get(i).toString());
-                        cls_achievement_rate.setTotAmtTarqet(TotAmtTarqet.get(i).toString());
-
+                        for (i = 0; i < TotAmtTarqet.length(); i++) {
+                            cls_achievement_rate.setTotQtyTarqet(TotQtyTarqet.get(i).toString());
+                            cls_achievement_rate.setTotAmtTarqet(TotAmtTarqet.get(i).toString());
 
 
-
-                        ARlist.add(cls_achievement_rate);
-                    }
-                    _handler.post(new Runnable() {
-                        public void run() {
-
-                            achievement_rate_adapter = new achievement_rate_Adapter(Report_Home.this, ARlist);
-                            listView1.setAdapter(receipt_adapter);
+                            ARlist.add(cls_achievement_rate);
                         }
-                    });
+                        _handler.post(new Runnable() {
+                            public void run() {
+
+                                achievement_rate_adapter = new achievement_rate_Adapter(Report_Home.this, ARlist);
+                                listView1.setAdapter(receipt_adapter);
+                            }
+                        });
+                    } else
+                    {
+                        Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
+                    }
 
                 } catch (final Exception e) {
 
@@ -375,44 +436,50 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_CustReportManVisit("11041000011");
+                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
                 try {
-                    Integer i;
-                    JSONObject js = new JSONObject(We_Result.Msg);
-                    JSONArray ManNo1 = js.getJSONArray("ManNo1");
-                    JSONArray ManNm = js.getJSONArray("ManNm");
-                    JSONArray CheckIn = js.getJSONArray("CheckIn");
-                    JSONArray checkOut = js.getJSONArray("checkOut");
-                    JSONArray Payemnt = js.getJSONArray("Payemnt");
-                    JSONArray Sales = js.getJSONArray("Sales");
-                    JSONArray returnsSales= js.getJSONArray("returnsSales");
-                    JSONArray SalesOrders = js.getJSONArray("SalesOrders");
-                    JSONArray Precent= js.getJSONArray("Precent");
+                    if(We_Result.ID>0) {
 
-                    cls_delegateInformation = new cls_DelegateInformation();
 
-                    for (i = 0; i < ManNo1.length(); i++) {
-                        cls_delegateInformation.setManNo1(ManNo1.get(i).toString());
-                        cls_delegateInformation.setManNm(ManNm.get(i).toString());
-                        cls_delegateInformation.setCheckIn(CheckIn.get(i).toString());
-                        cls_delegateInformation.setCheckOut(checkOut.get(i).toString());
-                        cls_delegateInformation.setPayemnt(Payemnt.get(i).toString());
-                        cls_delegateInformation.setSales(Sales.get(i).toString());
+                        Integer i;
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray ManNo1 = js.getJSONArray("ManNo1");
+                        JSONArray ManNm = js.getJSONArray("ManNm");
+                        JSONArray CheckIn = js.getJSONArray("CheckIn");
+                        JSONArray checkOut = js.getJSONArray("checkOut");
+                        JSONArray Payemnt = js.getJSONArray("Payemnt");
+                        JSONArray Sales = js.getJSONArray("Sales");
+                        JSONArray returnsSales = js.getJSONArray("returnsSales");
+                        JSONArray SalesOrders = js.getJSONArray("SalesOrders");
+                        JSONArray Precent = js.getJSONArray("Precent");
 
-                        cls_delegateInformation.setReturnsSales(returnsSales.get(i).toString());
-                        cls_delegateInformation.setSalesOrders(SalesOrders.get(i).toString());
-                        cls_delegateInformation.setPrecent(Precent.get(i).toString());
+                        cls_delegateInformation = new cls_DelegateInformation();
 
-                        Dlist.add(cls_delegateInformation);
-                    }
-                    _handler.post(new Runnable() {
-                        public void run() {
+                        for (i = 0; i < ManNo1.length(); i++) {
+                            cls_delegateInformation.setManNo1(ManNo1.get(i).toString());
+                            cls_delegateInformation.setManNm(ManNm.get(i).toString());
+                            cls_delegateInformation.setCheckIn(CheckIn.get(i).toString());
+                            cls_delegateInformation.setCheckOut(checkOut.get(i).toString());
+                            cls_delegateInformation.setPayemnt(Payemnt.get(i).toString());
+                            cls_delegateInformation.setSales(Sales.get(i).toString());
 
-                            delegateInformation_adapter = new DelegateInformation_Adapter(Report_Home.this, Dlist);
-                            listView1.setAdapter(delegateInformation_adapter);
+                            cls_delegateInformation.setReturnsSales(returnsSales.get(i).toString());
+                            cls_delegateInformation.setSalesOrders(SalesOrders.get(i).toString());
+                            cls_delegateInformation.setPrecent(Precent.get(i).toString());
+
+                            Dlist.add(cls_delegateInformation);
                         }
-                    });
+                        _handler.post(new Runnable() {
+                            public void run() {
 
+                                delegateInformation_adapter = new DelegateInformation_Adapter(Report_Home.this, Dlist);
+                                listView1.setAdapter(delegateInformation_adapter);
+                            }
+                        });
+                    } else
+                    {
+                        Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
+                    }
                 } catch (final Exception e) {
 
                 }
@@ -430,41 +497,44 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_CustReportManVisit("11041000011");
+                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
                 try {
-                    Integer i;
-                    JSONObject js = new JSONObject(We_Result.Msg);
-                    JSONArray OrderNo = js.getJSONArray("OrderNo");
-                    JSONArray Date = js.getJSONArray("Date");
-                    JSONArray Amt = js.getJSONArray("Amt");
-                    JSONArray Cash = js.getJSONArray("Cash");
-                    JSONArray CheckTotal = js.getJSONArray("CheckTotal");
-                    JSONArray notes = js.getJSONArray("notes");
+                    if(We_Result.ID>0) {
+                        Integer i;
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray OrderNo = js.getJSONArray("OrderNo");
+                        JSONArray Date = js.getJSONArray("Date");
+                        JSONArray Amt = js.getJSONArray("Amt");
+                        JSONArray Cash = js.getJSONArray("Cash");
+                        JSONArray CheckTotal = js.getJSONArray("CheckTotal");
+                        JSONArray notes = js.getJSONArray("notes");
 
 
-                    cls_Receipt cls_receipt= new cls_Receipt();
+                        cls_Receipt cls_receipt = new cls_Receipt();
 
 
-                    for (i = 0; i < OrderNo.length(); i++) {
-                        cls_receipt.setOrderNo(OrderNo.get(i).toString());
-                        cls_receipt.setDate(Date.get(i).toString());
-                        cls_receipt.setAmt(Amt.get(i).toString());
-                        cls_receipt.setCash(Cash.get(i).toString());
-                        cls_receipt.setCheckTotal(CheckTotal.get(i).toString());
-                        cls_receipt.setNotes(notes.get(i).toString());
+                        for (i = 0; i < OrderNo.length(); i++) {
+                            cls_receipt.setOrderNo(OrderNo.get(i).toString());
+                            cls_receipt.setDate(Date.get(i).toString());
+                            cls_receipt.setAmt(Amt.get(i).toString());
+                            cls_receipt.setCash(Cash.get(i).toString());
+                            cls_receipt.setCheckTotal(CheckTotal.get(i).toString());
+                            cls_receipt.setNotes(notes.get(i).toString());
 
 
-
-                        Rlist.add(cls_receipt);
-                    }
-                    _handler.post(new Runnable() {
-                        public void run() {
-
-                            receipt_adapter = new Receipt_Adapter(Report_Home.this, Rlist);
-                            listView1.setAdapter(receipt_adapter);
+                            Rlist.add(cls_receipt);
                         }
-                    });
+                        _handler.post(new Runnable() {
+                            public void run() {
 
+                                receipt_adapter = new Receipt_Adapter(Report_Home.this, Rlist);
+                                listView1.setAdapter(receipt_adapter);
+                            }
+                        });
+                    } else
+                    {
+                        Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
+                    }
                 } catch (final Exception e) {
 
                 }
@@ -484,53 +554,55 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_CustReportBill("");
+                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
                 try {
-                    Integer i;
-                    Integer j;
-                    String sn="";
-                    JSONObject js = new JSONObject(We_Result.Msg);
-                    JSONArray js_Custname = js.getJSONArray("Custname");
-                    JSONArray ManName = js.getJSONArray("ManName");
-                    JSONArray TransDate = js.getJSONArray("TransDate");
-                    JSONArray NetTotal = js.getJSONArray("NetTotal");
-                    JSONArray Total = js.getJSONArray("Total");
-                    JSONArray TaxTotal = js.getJSONArray("TaxTotal");
-                    JSONArray OrderNo = js.getJSONArray("OrderNo");
-                    JSONArray Item_Name = js.getJSONArray("Item_Name");
-                    JSONArray OrgPrice = js.getJSONArray("OrgPrice");
-                    JSONArray price = js.getJSONArray("price");
-                    JSONArray Qty = js.getJSONArray("Qty");
-                    JSONArray Bounce = js.getJSONArray("Bounce");
-                    JSONArray Dis_Amt = js.getJSONArray("Dis_Amt");
-                    JSONArray UnitName = js.getJSONArray("UnitName");
-                    JSONArray is_Damage = js.getJSONArray("is_Damage");
+                    if (We_Result.ID>0) {
 
 
-                    //  cls_selingRequest = new cls_SelingRequest();
-                    //  cls_selingRequestC = new cls_SelingRequestC();
-                    for (i = 0; i < js_Custname.length(); i++)
-                    {
-                        sn=OrderNo.get(i).toString();
-                        List<cls_salesC> q = new ArrayList<cls_salesC>();
-                        for (j = 0; j < js_Custname.length(); j++)
-                        {
+                        Integer i;
+                        Integer j;
+                        String sn = "";
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray js_Custname = js.getJSONArray("Custname");
+                        JSONArray ManName = js.getJSONArray("ManName");
+                        JSONArray TransDate = js.getJSONArray("TransDate");
+                        JSONArray NetTotal = js.getJSONArray("NetTotal");
+                        JSONArray Total = js.getJSONArray("Total");
+                        JSONArray TaxTotal = js.getJSONArray("TaxTotal");
+                        JSONArray OrderNo = js.getJSONArray("OrderNo");
+                        JSONArray Item_Name = js.getJSONArray("Item_Name");
+                        JSONArray OrgPrice = js.getJSONArray("OrgPrice");
+                        JSONArray price = js.getJSONArray("price");
+                        JSONArray Qty = js.getJSONArray("Qty");
+                        JSONArray Bounce = js.getJSONArray("Bounce");
+                        JSONArray Dis_Amt = js.getJSONArray("Dis_Amt");
+                        JSONArray UnitName = js.getJSONArray("UnitName");
+                        JSONArray is_Damage = js.getJSONArray("is_Damage");
 
-                            if(OrderNo.get(j).toString()==sn)
-                            {
-                                q.add(new cls_salesC(Item_Name.get(j).toString(),OrgPrice.get(j).toString(),price.get(j).toString(),Qty.get(j).toString(),Bounce.get(j).toString(),UnitName.get(j).toString()));
-                                if(j==0)
-                                {
-                                    listDataHeader.add(new cls_sales(js_Custname.get(j).toString(),ManName.get(j).toString(),TransDate.get(j).toString(),NetTotal.get(j).toString(),Total.get(j).toString(),TaxTotal.get(j).toString(),OrderNo.get(j).toString(),Dis_Amt.get(j).toString(),is_Damage.get(j).toString()));
+
+                        //  cls_selingRequest = new cls_SelingRequest();
+                        //  cls_selingRequestC = new cls_SelingRequestC();
+                        for (i = 0; i < js_Custname.length(); i++) {
+                            sn = OrderNo.get(i).toString();
+                            List<cls_salesC> q = new ArrayList<cls_salesC>();
+                            for (j = 0; j < js_Custname.length(); j++) {
+
+                                if (OrderNo.get(j).toString() == sn) {
+                                    q.add(new cls_salesC(Item_Name.get(j).toString(), OrgPrice.get(j).toString(), price.get(j).toString(), Qty.get(j).toString(), Bounce.get(j).toString(), UnitName.get(j).toString()));
+                                    if (j == 0) {
+                                        listDataHeader.add(new cls_sales(js_Custname.get(j).toString(), ManName.get(j).toString(), TransDate.get(j).toString(), NetTotal.get(j).toString(), Total.get(j).toString(), TaxTotal.get(j).toString(), OrderNo.get(j).toString(), Dis_Amt.get(j).toString(), is_Damage.get(j).toString()));
+
+                                    }
 
                                 }
-
                             }
+                            listDataChild.put(listDataHeader, q);
+
                         }
-                        listDataChild.put(listDataHeader, q);
-
+                    } else
+                    {
+                        Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
                     }
-
                 } catch (final Exception e) {
 
                 }
@@ -591,53 +663,57 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_CustReportManVisit("11041000011");
+                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
                 try {
-                    Integer i;
-                    JSONObject js = new JSONObject(We_Result.Msg);
-                    JSONArray js_Custname = js.getJSONArray("Custname");
-                    JSONArray js_ManName = js.getJSONArray("ManName");
-                    JSONArray js_Tr_Data = js.getJSONArray("Tr_Data");
-                    JSONArray js_DayNm = js.getJSONArray("DayNm");
-                    JSONArray Start_Time = js.getJSONArray("Start_Time");
-                    JSONArray js_End_Time = js.getJSONArray("End_Time");
-                    JSONArray js_Duration= js.getJSONArray("Duration");
-                    JSONArray js_Visit_Note = js.getJSONArray("Visit_Note");
-                    JSONArray js_StreatNm= js.getJSONArray("StreatNm");
+                    if(We_Result.ID>0) {
+                        Integer i;
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray js_Custname = js.getJSONArray("Custname");
+                        JSONArray js_ManName = js.getJSONArray("ManName");
+                        JSONArray js_Tr_Data = js.getJSONArray("Tr_Data");
+                        JSONArray js_DayNm = js.getJSONArray("DayNm");
+                        JSONArray Start_Time = js.getJSONArray("Start_Time");
+                        JSONArray js_End_Time = js.getJSONArray("End_Time");
+                        JSONArray js_Duration = js.getJSONArray("Duration");
+                        JSONArray js_Visit_Note = js.getJSONArray("Visit_Note");
+                        JSONArray js_StreatNm = js.getJSONArray("StreatNm");
 
-                      cls_VisitingInformation = new cls_VisitingInformation();
-                    cls_VisitingInformation.setCustname("أسم العميل");
-                    cls_VisitingInformation.setManName("اسم المندوب");
-                    cls_VisitingInformation.setTr_Data("تاريخ الزيارة");
-                    cls_VisitingInformation.setDayNm("اليوم");
-                    cls_VisitingInformation.setStart_Time("وقت البداية");
-                    cls_VisitingInformation.setEnd_Time("وقت النهاية");
+                        cls_VisitingInformation = new cls_VisitingInformation();
+                        cls_VisitingInformation.setCustname("أسم العميل");
+                        cls_VisitingInformation.setManName("اسم المندوب");
+                        cls_VisitingInformation.setTr_Data("تاريخ الزيارة");
+                        cls_VisitingInformation.setDayNm("اليوم");
+                        cls_VisitingInformation.setStart_Time("وقت البداية");
+                        cls_VisitingInformation.setEnd_Time("وقت النهاية");
 
-                    cls_VisitingInformation.setDuration("المدة");
-                    cls_VisitingInformation.setVisit_Note("ملاحظات");
-                    cls_VisitingInformation.setStreatNm("اسم المنطقة");
-                    for (i = 0; i < js_Custname.length(); i++) {
-                        cls_VisitingInformation.setCustname(js_Custname.get(i).toString());
-                        cls_VisitingInformation.setManName(js_ManName.get(i).toString());
-                        cls_VisitingInformation.setTr_Data(js_Tr_Data.get(i).toString());
-                        cls_VisitingInformation.setDayNm(js_DayNm.get(i).toString());
-                        cls_VisitingInformation.setStart_Time(Start_Time.get(i).toString());
-                        cls_VisitingInformation.setEnd_Time(js_End_Time.get(i).toString());
+                        cls_VisitingInformation.setDuration("المدة");
+                        cls_VisitingInformation.setVisit_Note("ملاحظات");
+                        cls_VisitingInformation.setStreatNm("اسم المنطقة");
+                        for (i = 0; i < js_Custname.length(); i++) {
+                            cls_VisitingInformation.setCustname(js_Custname.get(i).toString());
+                            cls_VisitingInformation.setManName(js_ManName.get(i).toString());
+                            cls_VisitingInformation.setTr_Data(js_Tr_Data.get(i).toString());
+                            cls_VisitingInformation.setDayNm(js_DayNm.get(i).toString());
+                            cls_VisitingInformation.setStart_Time(Start_Time.get(i).toString());
+                            cls_VisitingInformation.setEnd_Time(js_End_Time.get(i).toString());
 
-                        cls_VisitingInformation.setDuration(js_Duration.get(i).toString());
-                        cls_VisitingInformation.setVisit_Note(js_Visit_Note.get(i).toString());
-                        cls_VisitingInformation.setStreatNm(js_StreatNm.get(i).toString());
+                            cls_VisitingInformation.setDuration(js_Duration.get(i).toString());
+                            cls_VisitingInformation.setVisit_Note(js_Visit_Note.get(i).toString());
+                            cls_VisitingInformation.setStreatNm(js_StreatNm.get(i).toString());
 
-                        vlist.add(cls_VisitingInformation);
-                    }
-                    _handler.post(new Runnable() {
-                        public void run() {
-
-                            visitingInformationAdapter = new VisitingInformationAdapter(Report_Home.this, vlist);
-                            listView1.setAdapter(visitingInformationAdapter);
+                            vlist.add(cls_VisitingInformation);
                         }
-                    });
+                        _handler.post(new Runnable() {
+                            public void run() {
 
+                                visitingInformationAdapter = new VisitingInformationAdapter(Report_Home.this, vlist);
+                                listView1.setAdapter(visitingInformationAdapter);
+                            }
+                        });
+                    } else
+                    {
+                        Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
+                    }
                 } catch (final Exception e) {
 
                 }

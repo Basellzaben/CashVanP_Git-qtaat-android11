@@ -75,13 +75,13 @@ public class SalesBillAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.desginreportbill, null);
         }
 
-
-         LinearLayout RR=(LinearLayout)convertView.findViewById(R.id.RR);
-        RR.setWeightSum((float) 10);
-        MyTextView Is_damge = (MyTextView) convertView.findViewById(R.id.Is_damge);
-        Is_damge.setVisibility(View.VISIBLE);
-        Is_damge.setText(cls_bill.getIs_Damage());
-
+        if(ReportId.Id==4) {
+            LinearLayout RR = (LinearLayout) convertView.findViewById(R.id.RR);
+            RR.setWeightSum((float) 10);
+            MyTextView Is_damge = (MyTextView) convertView.findViewById(R.id.Is_damge);
+            Is_damge.setVisibility(View.VISIBLE);
+            Is_damge.setText(cls_bill.getIs_Damage());
+        }
         MyTextView B_CustName = (MyTextView) convertView.findViewById(R.id.B_CustName);
         B_CustName.setText(cls_bill.getCustname());
 
