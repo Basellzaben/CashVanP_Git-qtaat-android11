@@ -2435,7 +2435,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                             _handler.post(new Runnable() {
                                 public void run() {
                                     filllist("المناطق", 1, total);
-                                    Chk_Batch.setChecked(false);
+                                    chk_country.setChecked(false);
                                     progressDialog.dismiss();
                                     Do_Trans_From_Server();
                                 }
@@ -2444,7 +2444,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                             _handler.post(new Runnable() {
                                 public void run() {
                                     filllist("المناطق", 0, 0);
-                                    Chk_Batch.setChecked(false);
+                                    chk_country.setChecked(false);
                                     progressDialog.dismiss();
                                     Do_Trans_From_Server();
                                 }
@@ -2454,8 +2454,8 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         _handler.post(new Runnable() {
                             public void run() {
-                                filllist("تاريخ الصلاحية", 0, 0);
-                                Chk_Batch.setChecked(false);
+                                filllist("المناطق", 0, 0);
+                                chk_country.setChecked(false);
                                 Do_Trans_From_Server();
                             }
                         });

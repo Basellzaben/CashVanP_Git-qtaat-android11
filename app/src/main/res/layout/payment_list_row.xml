@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <Methdes.MyTextView
-                android:id="@+id/tv_Type"
+                android:id="@+id/tv_Amt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -33,7 +33,7 @@
                 android:textSize="16sp" />
 
             <Methdes.MyTextView
-                android:id="@+id/tv_fromdate"
+                android:id="@+id/tv_Date"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

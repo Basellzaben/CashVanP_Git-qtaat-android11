@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.n_activity_main);
-        InsertLogTrans obj=new InsertLogTrans(MainActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),"","","");
+        InsertLogTrans obj=new InsertLogTrans(MainActivity.this,SCR_NO , SCR_ACTIONS.open.getValue(),"","","");
         hideSoftKeyboard();
           tv_x = (TextView) findViewById(R.id.tv_x);
           tv_y = (TextView) findViewById(R.id.tv_y);

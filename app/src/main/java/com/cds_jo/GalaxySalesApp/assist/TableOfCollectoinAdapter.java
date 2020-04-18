@@ -64,10 +64,12 @@ public class TableOfCollectoinAdapter extends BaseAdapter {
 
         MyTextView tv_AmtI123 = (MyTextView) convertView.findViewById(R.id.tv_totInv);
         tv_AmtI123.setText(clsTableOfCollection.getInoviceAmt());
+
+
         MyTextView new_Amt = (MyTextView) convertView.findViewById(R.id.newAmt);
         new_Amt.setText(clsTableOfCollection.getNewAmt());
 
-        MyTextView tv_Amt = (MyTextView) convertView.findViewById(R.id.tv_Amt);
+        MyTextView tv_Amt = (MyTextView) convertView.findViewById(R.id.tv_Type);
         tv_Amt.setText(clsTableOfCollection.getAmt());
 
         MyTextView tv_Notes = (MyTextView) convertView.findViewById(R.id.tv_Notes123);

@@ -4386,7 +4386,7 @@ private  void GotoVisitImage(){
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     public void btn_share(View view) {
-        InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+       InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
         final SqlHandler sql_Handler = new SqlHandler(this);
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
         final String Doc_No = pono.getText().toString();

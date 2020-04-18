@@ -38,6 +38,7 @@ import com.cds_jo.GalaxySalesApp.Pop_Man_Vac;
 import com.cds_jo.GalaxySalesApp.QuestneerActivity;
 import com.cds_jo.GalaxySalesApp.R;
 
+import com.cds_jo.GalaxySalesApp.Reports.Report_Home;
 import com.cds_jo.GalaxySalesApp.ScheduleManActivity;
 
 import com.cds_jo.GalaxySalesApp.Tracking.MapsActivity;
@@ -46,6 +47,7 @@ import com.cds_jo.GalaxySalesApp.TransferQty;
 import com.cds_jo.GalaxySalesApp.UpdateDataToMobileActivity;
 import com.cds_jo.GalaxySalesApp.VisitImges;
 
+import com.cds_jo.GalaxySalesApp.WebPage.WebPageAct;
 import com.cds_jo.GalaxySalesApp.assist.ManAttenActivity;
 import com.cds_jo.GalaxySalesApp.assist.Monthly_Items_AmountAct;
 import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
@@ -111,10 +113,7 @@ public class Setting_List_Adapter extends BaseAdapter {
 
 
                 if (position == 0) {
-                  //  Intent intent = new Intent(context.getApplicationContext(), imgtest.class);
-                  Intent intent = new Intent(context.getApplicationContext(), CusfCard.class);
-                    // Intent intent = new Intent(context.getApplicationContext(), RR3Printer.class);
-
+                Intent intent = new Intent(context.getApplicationContext(), CusfCard.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
                     ((Activity) context).finish();
@@ -337,8 +336,8 @@ public class Setting_List_Adapter extends BaseAdapter {
 
                 } else if (position == 15) {
 
-                    //Intent intent = new Intent(context.getApplicationContext(), MapsActivity.class);
-                    Intent intent = new Intent(context.getApplicationContext(), CustomerSummaryAct.class);
+                   Intent intent = new Intent(context.getApplicationContext(), MapsActivity.class);
+
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
                     ((Activity) context).finish();
@@ -346,7 +345,7 @@ public class Setting_List_Adapter extends BaseAdapter {
                 } else if (position == 16) {
 
 
-                    Intent intent = new Intent(context.getApplicationContext(), ManBalanceQtyActivity.class);
+                    Intent intent = new Intent(context.getApplicationContext(), CustomerSummaryAct.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
                     ((Activity) context).finish();
@@ -355,7 +354,7 @@ public class Setting_List_Adapter extends BaseAdapter {
                 } else if (position == 17) {
 
 
-                    Intent intent = new Intent(context.getApplicationContext(), ManSummeryActivity.class);
+                    Intent intent = new Intent(context.getApplicationContext(), WebPageAct.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
                     ((Activity) context).finish();
@@ -364,7 +363,20 @@ public class Setting_List_Adapter extends BaseAdapter {
 //                        context.startActivity(k);
 
 
-                } else if (position == 19) {
+
+            } else if (position == 18) {
+
+
+                Intent intent = new Intent(context.getApplicationContext(), Report_Home.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
+                ((Activity) context).finish();
+
+//                        Intent k = new Intent(v.getContext(),ManSummeryActivity.class);
+//                        context.startActivity(k);
+
+
+            } else if (position == 19) {
 
 //                        Intent k = new Intent(v.getContext(),DoctorReportActivity.class);
 //                        context.startActivity(k);

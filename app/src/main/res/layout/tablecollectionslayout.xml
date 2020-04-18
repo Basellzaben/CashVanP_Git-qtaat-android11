@@ -23,7 +23,7 @@
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#000"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/tv_orderno123"
@@ -34,7 +34,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#000"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/tv_TR_date123"
@@ -47,7 +47,7 @@
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#000"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/tv_totInv"
@@ -56,7 +56,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#000"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/tv_Type"
@@ -68,7 +68,7 @@
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#000"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/newAmt"
@@ -78,7 +78,7 @@
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#000"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
 
         <Methdes.MyTextView
@@ -90,7 +90,7 @@
             android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#000"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/tv_old_date123"
@@ -100,7 +100,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#000"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/tv_new_date123"
@@ -110,7 +110,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#000"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/SupervisorNutes123"
@@ -120,7 +120,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#000"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 </LinearLayout>

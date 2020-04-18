@@ -218,6 +218,25 @@ public class Header_Frag extends Fragment {
         itme.setTitle(arr[15]);
         itme.setImg(R.mipmap.see3);
         myList_Setting.add(itme);
+
+
+        itme=new Main_List_Itme();
+        itme.setTitle(arr[16]);
+        itme.setImg(R.mipmap.see3);
+        myList_Setting.add(itme);
+
+
+        itme=new Main_List_Itme();
+        itme.setTitle(arr[17]);
+        itme.setImg(R.mipmap.see3);
+        myList_Setting.add(itme);
+
+
+        itme=new Main_List_Itme();
+        itme.setTitle(arr[18]);
+        itme.setImg(R.mipmap.see3);
+        myList_Setting.add(itme);
+
     }
   ///////////////////////////////////////////////////////////////////////////////////////////////////
 

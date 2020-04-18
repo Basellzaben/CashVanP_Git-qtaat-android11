@@ -104,6 +104,10 @@
             android:name=".assist.Convert_TransQty_To_Img"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".WebPage.WebPageAct"
+            android:screenOrientation="landscape" />
+
+        <activity
             android:name=".assist.Convert_ccReportTo_ImgActivity"
             android:screenOrientation="landscape" />
         <activity
@@ -147,6 +151,11 @@
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".ManBalanceQtyActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+        <activity
+            android:name=".Reports.Report_Home"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity

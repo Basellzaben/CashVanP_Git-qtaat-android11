@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.R;
 
@@ -29,7 +30,7 @@ public class WebPageAct extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         final String webLink = sharedPreferences.getString("WebSideLink", "");
-
+Toast.makeText(this,webLink,Toast.LENGTH_LONG).show();
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(webLink);
