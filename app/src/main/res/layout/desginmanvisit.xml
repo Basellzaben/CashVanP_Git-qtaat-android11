@@ -3,6 +3,7 @@
     android:id="@+id/RR"
     android:layout_width="fill_parent"
     android:layout_height="40dp"
+    android:background="#fff"
     android:layoutDirection="rtl"
     android:orientation="horizontal"
     android:weightSum="7">
@@ -13,12 +14,14 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="0.5dp"
         android:layout_marginRight="0.5dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="center"
         android:text="اسم العميل"
         android:textAppearance="?android:attr/textAppearanceSmall"
 
-        android:textSize="14sp" />
+        android:textColor="#000"
+        android:textSize="18sp" />
+
     <Methdes.MyTextView
         android:id="@+id/day"
         android:layout_width="0dp"
@@ -30,7 +33,8 @@
 
         android:textAppearance="?android:attr/textAppearanceSmall"
 
-        android:textSize="14sp" />
+        android:textColor="#000"
+        android:textSize="18sp" />
 
 
     <Methdes.MyTextView
@@ -44,7 +48,8 @@
         android:text="المبلغ-شيك"
         android:textAppearance="?android:attr/textAppearanceSmall"
 
-        android:textSize="14sp" />
+        android:textColor="#000"
+        android:textSize="18sp" />
 
     <Methdes.MyTextView
         android:id="@+id/end"
@@ -57,7 +62,8 @@
         android:text="التاريخ "
         android:textAppearance="?android:attr/textAppearanceSmall"
 
-        android:textSize="14sp" />
+        android:textColor="#000"
+        android:textSize="18sp" />
 
     <Methdes.MyTextView
         android:id="@+id/date"
@@ -69,24 +75,21 @@
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceSmall"
 
-        android:textSize="14sp" />
+        android:textColor="#000"
+        android:textSize="18sp" />
+
     <Methdes.MyTextView
         android:id="@+id/Note"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="0.5dp"
         android:layout_marginRight="0.5dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:gravity="center"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"
-
-        android:textSize="13sp" />
-
-
-
-
-
+        android:textColor="#000"
+        android:textSize="18sp" />
 
 
 </LinearLayout>

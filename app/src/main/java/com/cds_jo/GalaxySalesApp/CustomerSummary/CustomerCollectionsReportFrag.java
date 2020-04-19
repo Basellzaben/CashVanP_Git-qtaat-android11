@@ -1,8 +1,10 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ public class CustomerCollectionsReportFrag extends Fragment {
     ArrayList<cls_CustomerOfCollection> TList;
     CustomerCollectoinAdapter adapter;
     ListView lv;
+    String CustAcc ;
     final Handler _handler = new Handler();
 
 
@@ -40,6 +43,8 @@ public class CustomerCollectionsReportFrag extends Fragment {
         View v= inflater.inflate(R.layout.fragment_customer_collections_report, container, false);
 
         lv=(ListView)v.findViewById(R.id.k) ;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        CustAcc = sharedPreferences.getString("CustNo", "");
         getData();
 
         return v;
@@ -52,7 +57,7 @@ public class CustomerCollectionsReportFrag extends Fragment {
             public void run() {
 
                 CallWebServices ws = new CallWebServices(getActivity());
-                ws.GET_CustReportCollections("11041000011");
+                ws.GET_CustReportCollections(CustAcc);
                 try {
 
                     JSONObject js = new JSONObject(We_Result.Msg);

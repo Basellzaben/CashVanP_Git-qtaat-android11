@@ -3,6 +3,7 @@
     android:id="@+id/RR1"
     android:layout_width="fill_parent"
     android:layout_height="40dp"
+    android:background="#fff"
     android:layoutDirection="rtl"
     android:orientation="horizontal"
     android:weightSum="5">
@@ -17,8 +18,9 @@
         android:gravity="center"
         android:text="اسم العميل"
         android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000"
+        android:textSize="16sp" />
 
-        android:textSize="14sp" />
     <Methdes.MyTextView
         android:id="@+id/catchVType"
         android:layout_width="0dp"
@@ -27,9 +29,8 @@
         android:layout_marginRight="0.5dp"
         android:layout_weight="1"
         android:gravity="center"
-
         android:textAppearance="?android:attr/textAppearanceSmall"
-
+        android:textColor="#000"
         android:textSize="18sp" />
 
     <Methdes.MyTextView
@@ -43,6 +44,7 @@
         android:text="المبلغ"
         android:textAppearance="?android:attr/textAppearanceSmall"
 
+        android:textColor="#000"
         android:textSize="18sp" />
 
     <Methdes.MyTextView
@@ -56,6 +58,7 @@
         android:text="المبلغ-شيك"
         android:textAppearance="?android:attr/textAppearanceSmall"
 
+        android:textColor="#000"
         android:textSize="14sp" />
 
     <Methdes.MyTextView
@@ -69,12 +72,8 @@
         android:text="التاريخ "
         android:textAppearance="?android:attr/textAppearanceSmall"
 
+        android:textColor="#000"
         android:textSize="18sp" />
-
-
-
-
-
 
 
 </LinearLayout>

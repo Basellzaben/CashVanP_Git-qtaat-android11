@@ -1,7 +1,9 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +28,9 @@ public class CustomerSalesPayoffReportFrag extends Fragment {
 
     CustomerSalesPayoffAdabter listAdapter;
     ExpandableListView expListView;
-    cls_SalesPayoff cls_salesPayoff;
-    cls_SalesPayoffC cls_salesPayoffC;
+   String CustAcc;
     List<cls_SalesPayoff> listDataHeader;
+
     HashMap<List<cls_SalesPayoff>, List<cls_SalesPayoffC>> listDataChild;
     public CustomerSalesPayoffReportFrag() {
         // Required empty public constructor
@@ -42,6 +44,8 @@ public class CustomerSalesPayoffReportFrag extends Fragment {
         {View v= inflater.inflate(R.layout.fragment_customer_sales_payoff_report, container, false);
 
             expListView = (ExpandableListView) v.findViewById(R.id.lst_acc);
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            CustAcc = sharedPreferences.getString("CustNo", "");
             getData();
             listAdapter = new CustomerSalesPayoffAdabter(getActivity(), listDataHeader, listDataChild);
 
@@ -58,7 +62,7 @@ public class CustomerSalesPayoffReportFrag extends Fragment {
 
 
                     CallWebServices ws = new CallWebServices(getActivity());
-                    ws.GET_CustReportSalesPayoff("11041000011");
+                    ws.GET_CustReportSalesPayoff(CustAcc);
                     try {
                         Integer i;
                         Integer j;
@@ -78,7 +82,6 @@ public class CustomerSalesPayoffReportFrag extends Fragment {
                         JSONArray js_Sales_No = js.getJSONArray("TotalTax");
                         JSONArray js_cluse = js.getJSONArray("cluse");
 
-
                         //  cls_selingRequest = new cls_SelingRequest();
                         //  cls_selingRequestC = new cls_SelingRequestC();
                         for (i = 0; i < js_Name.length(); i++)
@@ -92,15 +95,12 @@ public class CustomerSalesPayoffReportFrag extends Fragment {
                                     q.add(new cls_SalesPayoffC(js_price.get(j).toString(),js_Bonus.get(j).toString(),js_totalwithtax.get(j).toString(),js_A_Qty.get(j).toString(),js_Item_Name.get(j).toString()));
                                     if(j==0)
                                     {
-
                                         listDataHeader.add(new cls_SalesPayoff(js_Date.get(j).toString(),js_Dec.get(j).toString(),js_doc.get(j).toString(),js_Name.get(j).toString(),js_Tot.get(j).toString(),js_item_no.get(j).toString(),js_totalwithtax.get(j).toString(),js_cluse.get(j).toString(),js_Sales_No.get(j).toString()));
-
                                     }
 
                                 }
                             }
                             listDataChild.put(listDataHeader, q);
-
                         }
 
                     } catch (final Exception e) {
