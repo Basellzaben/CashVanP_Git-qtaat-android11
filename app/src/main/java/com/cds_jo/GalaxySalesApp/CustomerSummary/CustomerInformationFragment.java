@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import com.cds_jo.GalaxySalesApp.R;
@@ -78,11 +79,9 @@ public class CustomerInformationFragment extends Fragment {
 
             final Handler _handler = new Handler();
 
-            Thread thread = new Thread() {
+            final Thread thread = new Thread() {
                 @Override
                 public void run() {
-
-
                     CallWebServices ws = new CallWebServices(getActivity());
                     ws.GET_CustReportInformationCust(CustAcc);
                     try {
@@ -92,7 +91,7 @@ public class CustomerInformationFragment extends Fragment {
                         JSONArray js_email = js.getJSONArray("email");
                         JSONArray js_Date = js.getJSONArray("date");
                         JSONArray js_mob = js.getJSONArray("mob");
-                        JSONArray js_Man = js.getJSONArray("Man");
+                        JSONArray js_Man = js.getJSONArray("SMan");
                         JSONArray js_No = js.getJSONArray("No");
                         JSONArray js_AllowinvoiceWithFlag= js.getJSONArray("AllowinvoiceWithFlag");
                         JSONArray js_TaxSts = js.getJSONArray("TaxSts");
@@ -208,6 +207,7 @@ public class CustomerInformationFragment extends Fragment {
                         sqlHandler.executeQuery("Update Customers set =Latitude'" + Js_Latitude + "' ,Longitude='" + js_Longitude + "' where no='" + CustAcc + "'");
 
                     } catch (final Exception e) {
+
 
                     }
 
