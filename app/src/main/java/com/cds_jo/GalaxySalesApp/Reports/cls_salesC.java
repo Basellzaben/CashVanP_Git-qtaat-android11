@@ -6,7 +6,6 @@ public class cls_salesC {
     String price = null;
     String Qty = null;
     String Bounce = null;
-
     String UnitName = null;
 
     public cls_salesC(String item_Name, String orgPrice, String price, String qty, String bounce, String unitName) {

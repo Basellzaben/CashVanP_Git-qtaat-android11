@@ -65,7 +65,7 @@ public class Report_Home extends AppCompatActivity {
     ArrayList<cls_Receipt>  Rlist;
     ArrayList<cls_achievement_rate>  ARlist;
     ArrayList<cls_net_profit>  NPlist;
-    List<cls_sales> listDataHeader;
+    ArrayList<cls_sales> listDataHeader;
     ExpandableListView lst_acc;
     HashMap<List<cls_sales>, List<cls_salesC>> listDataChild;
     final Handler _handler = new Handler();
@@ -73,6 +73,7 @@ public class Report_Home extends AppCompatActivity {
     LinearLayout receipt;
     LinearLayout DelegateInformation;
     LinearLayout Data;
+    int  x ;
 
     public static String intToString(int num, int digits) {
         String output = Integer.toString(num);
@@ -189,25 +190,24 @@ public class Report_Home extends AppCompatActivity {
                 vlist = new ArrayList<cls_VisitingInformation>();
                 Rlist = new ArrayList<cls_Receipt>();
                 obj =cls_listtitles.get(position);
-                int x=Integer.parseInt(obj.getNo());
+                 x=Integer.parseInt(obj.getNo());
                 ReportId.Id=x;
+                VisitingInformation.setVisibility(View.VISIBLE);
+                receipt.setVisibility(View.GONE);
+                Data.setVisibility(View.GONE);
+                DelegateInformation.setVisibility(View.GONE);
+                lst_acc.setVisibility(View.GONE);
                 if(x==1)
                 {
-                    //VisitingInformation.setWeightSum((float) 10);
-                    //MyTextView Is_damge = (MyTextView) convertView.findViewById(R.id.Is_damge);
-//                    Is_damge.setVisibility(View.VISIBLE);
-//                    Is_damge.setText(cls_bill.getIs_Damage());
                     VisitingInformation.setVisibility(View.VISIBLE);
-                    receipt.setVisibility(View.GONE);
-                    Data.setVisibility(View.GONE);
-                    DelegateInformation.setVisibility(View.GONE);
+
                     listView1.setVisibility(View.VISIBLE);
 
-                    lst_acc.setVisibility(View.GONE);
                     getVisitingInformation();
                 }
                 else if(x==2||x==3||x==4)
-                {if(x==4)
+                {
+                    if(x==4)
                 {
                     Data.setWeightSum((float) 10);
                     MyTextView Is_damge = (MyTextView) findViewById(R.id.Is_damge);
@@ -215,12 +215,9 @@ public class Report_Home extends AppCompatActivity {
 
                 }
 
-                    VisitingInformation.setVisibility(View.GONE);
-                    receipt.setVisibility(View.GONE);
-                    Data.setVisibility(View.VISIBLE);
-                    DelegateInformation.setVisibility(View.GONE);
-                    listView1.setVisibility(View.GONE);
-                    lst_acc.setVisibility(View.VISIBLE);
+                    VisitingInformation.setVisibility(View.VISIBLE);
+                    listView1.setVisibility(View.VISIBLE);
+
                     getdata();
                 }
                 else if(x==5)
@@ -340,7 +337,7 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
+                ws.GET_Report_Home("-1","-1","-1","-1","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if (We_Result.ID>0){
                     Integer i;
@@ -390,7 +387,7 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
+                ws.GET_Report_Home("-1","-1","-1","-1","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if(We_Result.ID>0) {
                         Integer i;
@@ -436,7 +433,7 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
+                ws.GET_Report_Home("-1","-1","-1","-1","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if(We_Result.ID>0) {
 
@@ -497,7 +494,7 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
+                ws.GET_Report_Home("-1","-1","-1","-1","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if(We_Result.ID>0) {
                         Integer i;
@@ -554,7 +551,14 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
+                if (x==2) {
+                    ws.GET_Report_Home("-1", "-1", "2", "-1", "01-01-2020", "01-01-2021", "-1", "-1", "-1");
+                }else if(x==3){
+                    ws.GET_Report_Home("-1", "-1", "3", "-1", "01-01-2020", "01-01-2021", "-1", "-1", "-1");
+                }else if(x==4){
+                    ws.GET_Report_Home("-1", "-1", "4", "-1", "01-01-2020", "01-01-2021", "-1", "-1", "-1");
+
+                }
                 try {
                     if (We_Result.ID>0) {
 
@@ -578,27 +582,18 @@ public class Report_Home extends AppCompatActivity {
                         JSONArray Dis_Amt = js.getJSONArray("Dis_Amt");
                         JSONArray UnitName = js.getJSONArray("UnitName");
                         JSONArray is_Damage = js.getJSONArray("is_Damage");
-
-
-                        //  cls_selingRequest = new cls_SelingRequest();
-                        //  cls_selingRequestC = new cls_SelingRequestC();
                         for (i = 0; i < js_Custname.length(); i++) {
-                            sn = OrderNo.get(i).toString();
-                            List<cls_salesC> q = new ArrayList<cls_salesC>();
-                            for (j = 0; j < js_Custname.length(); j++) {
-
-                                if (OrderNo.get(j).toString() == sn) {
-                                    q.add(new cls_salesC(Item_Name.get(j).toString(), OrgPrice.get(j).toString(), price.get(j).toString(), Qty.get(j).toString(), Bounce.get(j).toString(), UnitName.get(j).toString()));
-                                    if (j == 0) {
-                                        listDataHeader.add(new cls_sales(js_Custname.get(j).toString(), ManName.get(j).toString(), TransDate.get(j).toString(), NetTotal.get(j).toString(), Total.get(j).toString(), TaxTotal.get(j).toString(), OrderNo.get(j).toString(), Dis_Amt.get(j).toString(), is_Damage.get(j).toString()));
-
-                                    }
-
-                                }
-                            }
-                            listDataChild.put(listDataHeader, q);
-
+                          listDataHeader.add(new cls_sales(js_Custname.get(i).toString(), ManName.get(i).toString(), TransDate.get(i).toString(), NetTotal.get(i).toString(), Total.get(i).toString(), TaxTotal.get(i).toString(), OrderNo.get(i).toString(), Dis_Amt.get(i).toString(), is_Damage.get(i).toString()));
                         }
+                        _handler.post(new Runnable() {
+                            public void run() {
+
+                                SalesAdapter adapter = new SalesAdapter(Report_Home.this, listDataHeader);
+                                listView1.setAdapter(adapter);
+                            }
+                        });
+
+
                     } else
                     {
                         Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
@@ -614,7 +609,7 @@ public class Report_Home extends AppCompatActivity {
 
     private  void FillList(){
              obj=new  Cls_Listtitle ();
-            obj.setTitle("معلومات الزيارة");
+            obj.setTitle("الجولات تفصيلي");
             obj.setNo("1");
             cls_listtitles.add( obj);
 
@@ -663,7 +658,8 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
+               // ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
+                ws.GET_Report_Home("-1","-1","1","-1","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if(We_Result.ID>0) {
                         Integer i;
@@ -685,11 +681,12 @@ public class Report_Home extends AppCompatActivity {
                         cls_VisitingInformation.setDayNm("اليوم");
                         cls_VisitingInformation.setStart_Time("وقت البداية");
                         cls_VisitingInformation.setEnd_Time("وقت النهاية");
-
                         cls_VisitingInformation.setDuration("المدة");
                         cls_VisitingInformation.setVisit_Note("ملاحظات");
                         cls_VisitingInformation.setStreatNm("اسم المنطقة");
+                        vlist.add(cls_VisitingInformation);
                         for (i = 0; i < js_Custname.length(); i++) {
+                            cls_VisitingInformation=  new cls_VisitingInformation();
                             cls_VisitingInformation.setCustname(js_Custname.get(i).toString());
                             cls_VisitingInformation.setManName(js_ManName.get(i).toString());
                             cls_VisitingInformation.setTr_Data(js_Tr_Data.get(i).toString());

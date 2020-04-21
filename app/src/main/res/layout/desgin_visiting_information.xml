@@ -2,117 +2,132 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RR"
     android:layout_width="fill_parent"
-    android:layout_height="40dp"
+    android:layout_height="wrap_content"
     android:layoutDirection="rtl"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:weightSum="12.6">
 
-    <Methdes.MyTextView
-        android:id="@+id/CustName"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1.8"
-        android:gravity="center"
-        android:text="اسم العميل"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+    <LinearLayout
+        android:id="@+id/RR1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
 
-        android:textSize="12sp" />
-    <Methdes.MyTextView
-        android:id="@+id/Man_Name"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        <Methdes.MyTextView
+            android:id="@+id/CustName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.3"
+            android:gravity="center"
+            android:text="اسم العميل"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="16sp" />
 
-        android:layout_weight="1.8"
-        android:gravity="center"
-        android:text="المبلغ-شيك"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        <Methdes.MyTextView
+            android:id="@+id/Man_Name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
 
-        android:textSize="12sp" />
-    <Methdes.MyTextView
-        android:id="@+id/Tr_Data"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+            android:layout_weight="2.3"
+            android:gravity="center"
+            android:text="المبلغ-شيك"
+            android:textAppearance="?android:attr/textAppearanceSmall"
 
-        android:layout_weight="1.3"
-        android:gravity="center"
-        android:text="16/05/2020 "
-        android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="16sp" />
 
-        android:textSize="12sp" />
-    <Methdes.MyTextView
-        android:id="@+id/day"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        <Methdes.MyTextView
+            android:id="@+id/Tr_Data"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
 
-        android:layout_weight="1.2"
-        android:gravity="center"
+            android:layout_weight="1.3"
+            android:gravity="center"
+            android:text="16/05/2020 "
+            android:textAppearance="?android:attr/textAppearanceSmall"
 
-        android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="16sp" />
 
-        android:textSize="14sp" />
+        <Methdes.MyTextView
+            android:id="@+id/day"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
 
+            android:layout_weight="1.2"
+            android:gravity="center"
 
-    <Methdes.MyTextView
-        android:id="@+id/start"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
 
-        android:layout_weight="1.2"
-        android:gravity="center"
-        android:text="المبلغ-شيك"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-
-        android:textSize="12sp" />
-
-    <Methdes.MyTextView
-        android:id="@+id/end"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-
-        android:layout_weight="1.2"
-        android:gravity="center"
-        android:text="التاريخ "
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
+            android:textColor="#000"
+            android:textSize="16sp" />
 
 
-    <Methdes.MyTextView
-        android:id="@+id/Duration"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        <Methdes.MyTextView
+            android:id="@+id/start"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
 
-        android:layout_weight="1.1"
-        android:gravity="center"
-        android:text="15:20"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="المبلغ-شيك"
+            android:textAppearance="?android:attr/textAppearanceSmall"
 
-        android:textSize="12sp" />
-    <Methdes.MyTextView
-        android:id="@+id/Note"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+            android:textColor="#000"
+            android:textSize="16sp" />
 
-        android:layout_weight="2"
-        android:gravity="center"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        <Methdes.MyTextView
+            android:id="@+id/end"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
 
-        android:textSize="12sp" />
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="التاريخ "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000"
+            android:textSize="16sp" />
 
-    <Methdes.MyTextView
-        android:id="@+id/StreatNm"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        <Methdes.MyTextView
+            android:id="@+id/Duration"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
 
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="التاريخ "
-        android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_weight="1.1"
+            android:gravity="center"
+            android:text="15:20"
 
-        android:textSize="12sp" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
 
+            android:textColor="#000"
+            android:textSize="16sp" />
 
+        <Methdes.MyTextView
+            android:id="@+id/Note"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
 
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceSmall"
 
+            android:textColor="#000"
+            android:textSize="16sp" />
 
+        <Methdes.MyTextView
+            android:id="@+id/StreatNm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="التاريخ "
+            android:textAppearance="?android:attr/textAppearanceSmall"
+
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </LinearLayout>

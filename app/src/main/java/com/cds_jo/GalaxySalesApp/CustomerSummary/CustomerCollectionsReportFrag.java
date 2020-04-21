@@ -59,7 +59,6 @@ public class CustomerCollectionsReportFrag extends Fragment {
                 CallWebServices ws = new CallWebServices(getActivity());
                 ws.GET_CustReportCollections(CustAcc);
                 try {
-
                     JSONObject js = new JSONObject(We_Result.Msg);
                     JSONArray name = js.getJSONArray("name");
                     JSONArray Tr_date = js.getJSONArray("Date");

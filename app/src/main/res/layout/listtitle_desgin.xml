@@ -10,13 +10,13 @@
     <Methdes.MyTextView
         android:id="@+id/contact_name"
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:background="@drawable/btn_cir_white_fill_black"
-        android:text="sadsadsad"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        />
+        android:background="@drawable/btn_cir_white_fill_black"
+        android:gravity="center"
+        android:text="sadsadsad"
+        android:textColor="#000"
+        android:textSize="25sp" />
 
 
 

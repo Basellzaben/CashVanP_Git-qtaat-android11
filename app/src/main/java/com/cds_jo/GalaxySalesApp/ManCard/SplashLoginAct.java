@@ -26,7 +26,7 @@ public class SplashLoginAct extends AppCompatActivity {
                 startActivity(new Intent(SplashLoginAct.this, StartUpActivity.class));
                 finish();
             }
-        }, secondsDelayed * 5000);
+        }, secondsDelayed * 2000);
 
     }
 }
