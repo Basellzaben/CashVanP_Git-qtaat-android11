@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -69,7 +70,7 @@ public class Report_Home extends AppCompatActivity {
     ExpandableListView lst_acc;
     HashMap<List<cls_sales>, List<cls_salesC>> listDataChild;
     final Handler _handler = new Handler();
-    LinearLayout VisitingInformation;
+
     LinearLayout receipt;
     LinearLayout DelegateInformation;
     LinearLayout Data;
@@ -124,7 +125,7 @@ public class Report_Home extends AppCompatActivity {
 
         receipt=(LinearLayout)findViewById(R.id.receipt);
         DelegateInformation=(LinearLayout)findViewById(R.id.DelegateInformation);
-        VisitingInformation=(LinearLayout)findViewById(R.id.VisitingInformation);
+
         Data=(LinearLayout)findViewById(R.id.Data);
 
 
@@ -192,14 +193,15 @@ public class Report_Home extends AppCompatActivity {
                 obj =cls_listtitles.get(position);
                  x=Integer.parseInt(obj.getNo());
                 ReportId.Id=x;
-                VisitingInformation.setVisibility(View.VISIBLE);
+
                 receipt.setVisibility(View.GONE);
                 Data.setVisibility(View.GONE);
                 DelegateInformation.setVisibility(View.GONE);
                 lst_acc.setVisibility(View.GONE);
+                listView1.setAdapter(null);
                 if(x==1)
                 {
-                    VisitingInformation.setVisibility(View.VISIBLE);
+
 
                     listView1.setVisibility(View.VISIBLE);
 
@@ -215,22 +217,18 @@ public class Report_Home extends AppCompatActivity {
 
                 }
 
-                    VisitingInformation.setVisibility(View.VISIBLE);
+
                     listView1.setVisibility(View.VISIBLE);
 
                     getdata();
                 }
                 else if(x==5)
-                {      VisitingInformation.setVisibility(View.GONE);
-                    receipt.setVisibility(View.VISIBLE);
-                    Data.setVisibility(View.GONE);
-                    DelegateInformation.setVisibility(View.GONE);
-                    listView1.setVisibility(View.VISIBLE);
-                    lst_acc.setVisibility(View.GONE);
+                {
+
                     getreceipt();
                 }
                 else if(x==6)
-                {      VisitingInformation.setVisibility(View.GONE);
+                {
                     receipt.setVisibility(View.GONE);
                     Data.setVisibility(View.GONE);
                     DelegateInformation.setVisibility(View.VISIBLE);
@@ -239,7 +237,7 @@ public class Report_Home extends AppCompatActivity {
                     getDelegateInformation();
                 }
                 else if(x==7)
-                {      VisitingInformation.setVisibility(View.GONE);
+                {
                     receipt.setVisibility(View.GONE);
                     Data.setVisibility(View.GONE);
                     DelegateInformation.setVisibility(View.GONE);
@@ -248,7 +246,7 @@ public class Report_Home extends AppCompatActivity {
                     getachievement_rate();
                 }
                 else if(x==8)
-                { VisitingInformation.setVisibility(View.GONE);
+                {
                     receipt.setVisibility(View.GONE);
                     Data.setVisibility(View.GONE);
                     DelegateInformation.setVisibility(View.GONE);
@@ -275,6 +273,32 @@ public class Report_Home extends AppCompatActivity {
             }
         });
 
+
+        listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                cls_sales o = (cls_sales) listView1.getItemAtPosition(position);
+                showDtl(o.getOrderNo(),o.getOrderType(),o.getNetTotal()+"");
+            }
+        });
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+    private  void showDtl(String DocNo , String OrderType,String Amt){
+
+
+
+            Bundle bundle = new Bundle();
+            bundle.putString("Scr", "po");
+            bundle.putString("DocNo", DocNo);
+            bundle.putString("OrderType", OrderType);
+            bundle.putString("Amt", Amt);
+            FragmentManager Manager = getFragmentManager();
+            PopShowInvoiceDtl obj = new PopShowInvoiceDtl();
+            obj.setArguments(bundle);
+            obj.show(Manager, null);
+
+
     }
     public void Set_Cust(String No, String Nm) {
         CustNo=No;
@@ -292,8 +316,6 @@ public class Report_Home extends AppCompatActivity {
         ezditText5.setError(null);
     }
     public void showCust(View view) {
-
-
                 Bundle bundle = new Bundle();
                 bundle.putString("Scr", "Rep_Cust");
                 FragmentManager Manager = getFragmentManager();
@@ -494,7 +516,7 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Home("-1","-1","-1","-1","01-01-2020","01-01-2021","-1","-1","-1");
+                ws.GET_Report_Payments("-1","-1","5","-1","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if(We_Result.ID>0) {
                         Integer i;
@@ -505,18 +527,23 @@ public class Report_Home extends AppCompatActivity {
                         JSONArray Cash = js.getJSONArray("Cash");
                         JSONArray CheckTotal = js.getJSONArray("CheckTotal");
                         JSONArray notes = js.getJSONArray("notes");
+                        JSONArray CustName = js.getJSONArray("CustName");
+                        JSONArray manName = js.getJSONArray("manName");
 
 
-                        cls_Receipt cls_receipt = new cls_Receipt();
+                        cls_Receipt cls_receipt;
 
 
                         for (i = 0; i < OrderNo.length(); i++) {
+                            cls_receipt = new cls_Receipt();
                             cls_receipt.setOrderNo(OrderNo.get(i).toString());
                             cls_receipt.setDate(Date.get(i).toString());
                             cls_receipt.setAmt(Amt.get(i).toString());
                             cls_receipt.setCash(Cash.get(i).toString());
                             cls_receipt.setCheckTotal(CheckTotal.get(i).toString());
                             cls_receipt.setNotes(notes.get(i).toString());
+                            cls_receipt.setCustnm(CustName.get(i).toString());
+                            cls_receipt.setManName(manName.get(i).toString());
 
 
                             Rlist.add(cls_receipt);
@@ -551,14 +578,15 @@ public class Report_Home extends AppCompatActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                if (x==2) {
-                    ws.GET_Report_Home("-1", "-1", "2", "-1", "01-01-2020", "01-01-2021", "-1", "-1", "-1");
+                   if (x==2) {
+                    ws.GET_Report_Home_TransHeader("-1", "-1", "11", "-1", "01-01-2020", "01-01-2021", "-1", "-1", "-1");
                 }else if(x==3){
-                    ws.GET_Report_Home("-1", "-1", "3", "-1", "01-01-2020", "01-01-2021", "-1", "-1", "-1");
-                }else if(x==4){
-                    ws.GET_Report_Home("-1", "-1", "4", "-1", "01-01-2020", "01-01-2021", "-1", "-1", "-1");
+                    ws.GET_Report_Home_TransHeader("-1","-1","10","-1","01-01-2020","01-01-2021","-1","-1","-1");
 
+                }else if(x==4){
+                     ws.GET_Report_Home_TransHeader("-1","-1","12","-1","01-01-2020","01-01-2021","-1","-1","-1");
                 }
+
                 try {
                     if (We_Result.ID>0) {
 
@@ -574,16 +602,14 @@ public class Report_Home extends AppCompatActivity {
                         JSONArray Total = js.getJSONArray("Total");
                         JSONArray TaxTotal = js.getJSONArray("TaxTotal");
                         JSONArray OrderNo = js.getJSONArray("OrderNo");
-                        JSONArray Item_Name = js.getJSONArray("Item_Name");
-                        JSONArray OrgPrice = js.getJSONArray("OrgPrice");
-                        JSONArray price = js.getJSONArray("price");
-                        JSONArray Qty = js.getJSONArray("Qty");
-                        JSONArray Bounce = js.getJSONArray("Bounce");
-                        JSONArray Dis_Amt = js.getJSONArray("Dis_Amt");
-                        JSONArray UnitName = js.getJSONArray("UnitName");
-                        JSONArray is_Damage = js.getJSONArray("is_Damage");
+                        JSONArray disc_Total = js.getJSONArray("disc_Total");
+                        JSONArray OrderType = js.getJSONArray("OrderType");
+
+
+                        listDataHeader.add(new cls_sales("أسم العميل", "أسم المندوب", "التاريخ", "المجموع النهائي", "المجموع ", "الضريبة", "رقم الحركة", "الخصم", "تالف"));
+
                         for (i = 0; i < js_Custname.length(); i++) {
-                          listDataHeader.add(new cls_sales(js_Custname.get(i).toString(), ManName.get(i).toString(), TransDate.get(i).toString(), NetTotal.get(i).toString(), Total.get(i).toString(), TaxTotal.get(i).toString(), OrderNo.get(i).toString(), Dis_Amt.get(i).toString(), is_Damage.get(i).toString()));
+                          listDataHeader.add(new cls_sales(js_Custname.get(i).toString(), ManName.get(i).toString(), TransDate.get(i).toString(), NetTotal.get(i).toString(), Total.get(i).toString(), TaxTotal.get(i).toString(), OrderNo.get(i).toString(), disc_Total.get(i).toString(), OrderType.get(i).toString()   ));
                         }
                         _handler.post(new Runnable() {
                             public void run() {

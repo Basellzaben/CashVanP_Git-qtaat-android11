@@ -85,8 +85,7 @@ public class VisitingInformationAdapter  extends BaseAdapter {
 
         if(position==0)
         {
-            RR.setBackgroundColor(context.getResources().getColor(R.color.Black11));
-
+            RR.setBackgroundColor(context.getResources().getColor(R.color.blue123));
             name.setTextColor(Color.WHITE);
             Man_Name.setTextColor(Color.WHITE);
             start.setTextColor(Color.WHITE);
@@ -101,11 +100,30 @@ public class VisitingInformationAdapter  extends BaseAdapter {
        else if(position%2==0)
         {
             RR.setBackgroundColor(context.getResources().getColor(R.color.Gray2));
+            name.setTextColor(Color.BLACK);
+            Man_Name.setTextColor(Color.BLACK);
+            start.setTextColor(Color.BLACK);
+            end.setTextColor(Color.BLACK);
+            day.setTextColor(Color.BLACK);
+            note.setTextColor(Color.BLACK);
+            Duration.setTextColor(Color.BLACK);
+            StreatNm.setTextColor(Color.BLACK);
+            Tr_Data.setTextColor(Color.BLACK);
         }
 
         else
         {
             RR.setBackgroundColor(Color.WHITE);
+
+            name.setTextColor(Color.BLACK);
+            Man_Name.setTextColor(Color.BLACK);
+            start.setTextColor(Color.BLACK);
+            end.setTextColor(Color.BLACK);
+            day.setTextColor(Color.BLACK);
+            note.setTextColor(Color.BLACK);
+            Duration.setTextColor(Color.BLACK);
+            StreatNm.setTextColor(Color.BLACK);
+            Tr_Data.setTextColor(Color.BLACK);
         }
 
         return convertView;

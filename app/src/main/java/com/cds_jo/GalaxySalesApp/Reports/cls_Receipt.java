@@ -8,6 +8,24 @@ public class cls_Receipt {
     String CheckTotal = null;
     String notes = null;
 
+    public String getCustnm() {
+        return Custnm;
+    }
+
+    public void setCustnm(String custnm) {
+        Custnm = custnm;
+    }
+
+    public String getManName() {
+        return ManName;
+    }
+
+    public void setManName(String manName) {
+        ManName = manName;
+    }
+
+    String Custnm = null;
+    String ManName = null;
     public String getOrderNo() {
         return OrderNo;
     }

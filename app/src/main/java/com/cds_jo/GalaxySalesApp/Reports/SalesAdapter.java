@@ -57,54 +57,68 @@ public class SalesAdapter extends BaseAdapter {
         MyTextView Man_Name = (MyTextView) convertView.findViewById(R.id.Man_Name);
         Man_Name.setText(cls_customerCatch.getManName());
 
-       /* MyTextView start = (MyTextView) convertView.findViewById(R.id.start);
-        start.setText(cls_customerCatch.getStart_Time());
+       MyTextView orderno = (MyTextView) convertView.findViewById(R.id.orderno);
+        orderno.setText(cls_customerCatch.getOrderNo());
 
-        MyTextView end = (MyTextView) convertView.findViewById(R.id.end);
-        end.setText(cls_customerCatch.getEnd_Time());
+        MyTextView TransDate = (MyTextView) convertView.findViewById(R.id.TransDate);
+        TransDate.setText(cls_customerCatch.getTransDate());
 
-        MyTextView day = (MyTextView) convertView.findViewById(R.id.day);
-        day.setText(cls_customerCatch.getDayNm());
-
-
-        MyTextView note = (MyTextView) convertView.findViewById(R.id.Note);
-        note.setText(cls_customerCatch.getVisit_Note());
+        MyTextView NetTotal = (MyTextView) convertView.findViewById(R.id.NetTotal);
+        NetTotal.setText(cls_customerCatch.getNetTotal());
 
 
-        MyTextView Duration = (MyTextView) convertView.findViewById(R.id.Duration);
-        Duration.setText(cls_customerCatch.getDuration());
-
-        MyTextView StreatNm = (MyTextView) convertView.findViewById(R.id.StreatNm);
-        StreatNm.setText(cls_customerCatch.getStreatNm());
+        MyTextView TaxTotal = (MyTextView) convertView.findViewById(R.id.TaxTotal);
+        TaxTotal.setText(cls_customerCatch.getTaxTotal());
 
 
-        MyTextView Tr_Data = (MyTextView) convertView.findViewById(R.id.Tr_Data);
-        Tr_Data.setText(cls_customerCatch.getTr_Data());*/
+        MyTextView Dis_Amt = (MyTextView) convertView.findViewById(R.id.Dis_Amt);
+        Dis_Amt.setText(cls_customerCatch.getDis_Amt());
+
+        MyTextView Total = (MyTextView) convertView.findViewById(R.id.Total);
+        Total.setText(cls_customerCatch.getTotal());
+
+
 
 
         if(position==0)
         {
-            RR.setBackgroundColor(context.getResources().getColor(R.color.Black11));
+            RR.setBackgroundColor(context.getResources().getColor(R.color.blue123));
 
             name.setTextColor(Color.WHITE);
             Man_Name.setTextColor(Color.WHITE);
-          /*  start.setTextColor(Color.WHITE);
-            end.setTextColor(Color.WHITE);
-            day.setTextColor(Color.WHITE);
-            note.setTextColor(Color.WHITE);
-            Duration.setTextColor(Color.WHITE);
-            StreatNm.setTextColor(Color.WHITE);
-            Tr_Data.setTextColor(Color.WHITE);*/
+            orderno.setTextColor(Color.WHITE);
+            TransDate.setTextColor(Color.WHITE);
+            NetTotal.setTextColor(Color.WHITE);
+            TaxTotal.setTextColor(Color.WHITE);
+            Dis_Amt.setTextColor(Color.WHITE);
+            Total.setTextColor(Color.WHITE);
+
         }
 
        else if(position%2==0)
         {
             RR.setBackgroundColor(context.getResources().getColor(R.color.Gray2));
+            name.setTextColor(Color.BLACK);
+            Man_Name.setTextColor(Color.BLACK);
+            orderno.setTextColor(Color.BLACK);
+            TransDate.setTextColor(Color.BLACK);
+            NetTotal.setTextColor(Color.BLACK);
+            TaxTotal.setTextColor(Color.BLACK);
+            Dis_Amt.setTextColor(Color.BLACK);
+            Total.setTextColor(Color.BLACK);
         }
 
         else
         {
             RR.setBackgroundColor(Color.WHITE);
+            name.setTextColor(Color.BLACK);
+            Man_Name.setTextColor(Color.BLACK);
+            orderno.setTextColor(Color.BLACK);
+            TransDate.setTextColor(Color.BLACK);
+            NetTotal.setTextColor(Color.BLACK);
+            TaxTotal.setTextColor(Color.BLACK);
+            Dis_Amt.setTextColor(Color.BLACK);
+            Total.setTextColor(Color.BLACK);
         }
 
         return convertView;

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RR"
     android:layout_width="fill_parent"
-    android:layout_height="40dp"
+    android:layout_height="wrap_content"
     android:layoutDirection="rtl"
     android:orientation="vertical"
     android:weightSum="9">
@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@id/RR1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="60dp"
         android:orientation="horizontal">
 
         <Methdes.MyTextView
@@ -23,19 +23,16 @@
             android:text="اسم العميل"
             android:textAppearance="?android:attr/textAppearanceSmall"
 
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/Man_Name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-
             android:layout_weight="1.5"
             android:gravity="center"
-
             android:textAppearance="?android:attr/textAppearanceSmall"
-
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/orderno"
@@ -46,20 +43,17 @@
             android:gravity="center"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceSmall"
-
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/TransDate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
             android:gravity="center"
             android:text="المبلغ-شيك"
             android:textAppearance="?android:attr/textAppearanceSmall"
-
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/Is_damge"
@@ -69,9 +63,35 @@
             android:gravity="center"
             android:text="المبلغ-شيك"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="14sp"
-
+            android:textSize="16sp"
             android:visibility="gone" />
+
+        <Methdes.MyTextView
+            android:id="@+id/Total"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="16sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/TaxTotal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="16sp" />
+
+        <Methdes.MyTextView
+            android:id="@+id/Dis_Amt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="16sp" />
 
         <Methdes.MyTextView
             android:id="@+id/NetTotal"
@@ -80,41 +100,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall"
-
-            android:textSize="14sp" />
-
-        <Methdes.MyTextView
-            android:id="@+id/TaxTotal"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-
-            android:textSize="14sp" />
-
-        <Methdes.MyTextView
-            android:id="@+id/Dis_Amt"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-
-            android:textSize="14sp" />
-
-        <Methdes.MyTextView
-            android:id="@+id/Total"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
 
     </LinearLayout>
