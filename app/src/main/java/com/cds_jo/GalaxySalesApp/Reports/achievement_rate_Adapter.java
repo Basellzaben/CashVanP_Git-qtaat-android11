@@ -48,13 +48,13 @@ public class achievement_rate_Adapter extends BaseAdapter {
         }
 
 
-        MyTextView TotQtyTarqet = (MyTextView) convertView.findViewById(R.id.TotQtyTarqet);
-        TotQtyTarqet.setText(cls_customerCatch.getTotQtyTarqet()+"%");
+      /*  MyTextView TotQtyTarqet = (MyTextView) convertView.findViewById(R.id.TotQtyTarqet);
+        TotQtyTarqet.setText(cls_customerCatch.getManNo() );
 
 
         MyTextView TotAmtTarqet = (MyTextView) convertView.findViewById(R.id.TotAmtTarqet);
-        TotAmtTarqet.setText(cls_customerCatch.getTotAmtTarqet()+"%");
-
+        TotAmtTarqet.setText(cls_customerCatch.getManName() );
+*/
 
         return convertView;
     }

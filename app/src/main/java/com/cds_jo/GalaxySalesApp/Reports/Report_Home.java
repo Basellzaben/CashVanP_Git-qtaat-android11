@@ -229,21 +229,12 @@ public class Report_Home extends AppCompatActivity {
                 }
                 else if(x==6)
                 {
-                    receipt.setVisibility(View.GONE);
-                    Data.setVisibility(View.GONE);
-                    DelegateInformation.setVisibility(View.VISIBLE);
-                    listView1.setVisibility(View.VISIBLE);
-                    lst_acc.setVisibility(View.GONE);
-                    getDelegateInformation();
+                   RouteScore();
                 }
                 else if(x==7)
                 {
-                    receipt.setVisibility(View.GONE);
-                    Data.setVisibility(View.GONE);
-                    DelegateInformation.setVisibility(View.GONE);
-                    listView1.setVisibility(View.VISIBLE);
-                    lst_acc.setVisibility(View.GONE);
-                    getachievement_rate();
+                    getManSummery();
+
                 }
                 else if(x==8)
                 {
@@ -402,29 +393,42 @@ public class Report_Home extends AppCompatActivity {
 
     }
 
-    private void getachievement_rate() {
+    private void RouteScore() {
         Thread thread = new Thread() {
             @Override
             public void run() {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Home("-1","-1","-1","-1","01-01-2020","01-01-2021","-1","-1","-1");
+                ws.GET_Report_Home_RouteScore("-1","-1","13","-1","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if(We_Result.ID>0) {
                         Integer i;
                         JSONObject js = new JSONObject(We_Result.Msg);
-                        JSONArray TotQtyTarqet = js.getJSONArray("TotQtyTarqet");
-                        JSONArray TotAmtTarqet = js.getJSONArray("TotAmtTarqet");
+                        JSONArray js_ManNo = js.getJSONArray("ManNo");
+                        JSONArray js_ManName = js.getJSONArray("ManName");
+                        JSONArray js_Tr_Date = js.getJSONArray("Tr_Date");
+                        JSONArray js_TotalCust = js.getJSONArray("TotalCust");
+                        JSONArray js_Visited = js.getJSONArray("Visited");
+                        JSONArray js_VisitPrecent = js.getJSONArray("VisitPrecent");
+                        JSONArray js_SuccVisit = js.getJSONArray("SuccVisit");
+                        JSONArray js_SuccPercent = js.getJSONArray("SuccPercent");
+                        JSONArray js_Score = js.getJSONArray("Score");
 
 
                         cls_achievement_rate cls_achievement_rate = new cls_achievement_rate();
 
-                        for (i = 0; i < TotAmtTarqet.length(); i++) {
-                            cls_achievement_rate.setTotQtyTarqet(TotQtyTarqet.get(i).toString());
-                            cls_achievement_rate.setTotAmtTarqet(TotAmtTarqet.get(i).toString());
-
-
+                        for (i = 0; i < js_ManNo.length(); i++) {
+                            cls_achievement_rate = new cls_achievement_rate();
+                            cls_achievement_rate.setManName(js_ManNo.get(i).toString());
+                            cls_achievement_rate.setManName(js_ManName.get(i).toString());
+                            cls_achievement_rate.setTr_Date(js_Tr_Date.get(i).toString());
+                            cls_achievement_rate.setTotalCust(js_TotalCust.get(i).toString());
+                            cls_achievement_rate.setVisited(js_Visited.get(i).toString());
+                            cls_achievement_rate.setVisitPrecent(js_VisitPrecent.get(i).toString());
+                            cls_achievement_rate.setSuccVisit(js_SuccVisit.get(i).toString());
+                            cls_achievement_rate.setVisitPrecent(js_SuccPercent.get(i).toString());
+                            cls_achievement_rate.setScore(js_Score.get(i).toString());
                             ARlist.add(cls_achievement_rate);
                         }
                         _handler.post(new Runnable() {
@@ -440,7 +444,12 @@ public class Report_Home extends AppCompatActivity {
                     }
 
                 } catch (final Exception e) {
+                    _handler.post(new Runnable() {
+                        public void run() {
 
+                            Toast.makeText(Report_Home.this,   e.getMessage().toString(),Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
 
             }
@@ -448,21 +457,17 @@ public class Report_Home extends AppCompatActivity {
         thread.start();
     }
 
-    private void getDelegateInformation() {
+    private void getManSummery() {
         Thread thread = new Thread() {
             @Override
             public void run() {
-
-
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Home("-1","-1","-1","-1","01-01-2020","01-01-2021","-1","-1","-1");
+                ws.GET_Report_Home_RouteActivity("-1","-1","6","-1","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if(We_Result.ID>0) {
-
-
                         Integer i;
                         JSONObject js = new JSONObject(We_Result.Msg);
-                        JSONArray ManNo1 = js.getJSONArray("ManNo1");
+                        JSONArray ManNo = js.getJSONArray("ManNo");
                         JSONArray ManNm = js.getJSONArray("ManNm");
                         JSONArray CheckIn = js.getJSONArray("CheckIn");
                         JSONArray checkOut = js.getJSONArray("checkOut");
@@ -471,17 +476,18 @@ public class Report_Home extends AppCompatActivity {
                         JSONArray returnsSales = js.getJSONArray("returnsSales");
                         JSONArray SalesOrders = js.getJSONArray("SalesOrders");
                         JSONArray Precent = js.getJSONArray("Precent");
+                        JSONArray NewCustomers = js.getJSONArray("NewCustomers");
 
                         cls_delegateInformation = new cls_DelegateInformation();
 
-                        for (i = 0; i < ManNo1.length(); i++) {
-                            cls_delegateInformation.setManNo1(ManNo1.get(i).toString());
+                        for (i = 0; i < ManNo.length(); i++) {
+                            cls_delegateInformation = new cls_DelegateInformation();
+                            cls_delegateInformation.setManNo1(ManNo.get(i).toString());
                             cls_delegateInformation.setManNm(ManNm.get(i).toString());
                             cls_delegateInformation.setCheckIn(CheckIn.get(i).toString());
                             cls_delegateInformation.setCheckOut(checkOut.get(i).toString());
                             cls_delegateInformation.setPayemnt(Payemnt.get(i).toString());
                             cls_delegateInformation.setSales(Sales.get(i).toString());
-
                             cls_delegateInformation.setReturnsSales(returnsSales.get(i).toString());
                             cls_delegateInformation.setSalesOrders(SalesOrders.get(i).toString());
                             cls_delegateInformation.setPrecent(Precent.get(i).toString());
@@ -500,7 +506,12 @@ public class Report_Home extends AppCompatActivity {
                         Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
                     }
                 } catch (final Exception e) {
+                    _handler.post(new Runnable() {
+                        public void run() {
 
+                            Toast.makeText(Report_Home.this,   e.getMessage().toString(),Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
 
             }
@@ -660,19 +671,16 @@ public class Report_Home extends AppCompatActivity {
             cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
-            obj.setTitle("تيست");
+            obj.setTitle("نسبة الجولات");
             obj.setNo("6");
             cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
-            obj.setTitle("تيست");
+            obj.setTitle("ملخص المندوب");
             obj.setNo("7");
             cls_listtitles.add( obj);
 
-            obj=new  Cls_Listtitle ();
-            obj.setTitle("تيست");
-            obj.setNo("8");
-            cls_listtitles.add( obj);
+
 
 
         }
