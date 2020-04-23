@@ -18,7 +18,7 @@ public class CustomerCollectoinAdapter  extends BaseAdapter {
     Context context;
     ArrayList<cls_CustomerOfCollection1> cls_checks;
 
-
+//1
     public CustomerCollectoinAdapter(Context context, ArrayList<cls_CustomerOfCollection1> list) {
 
         this.context = context;
