@@ -2,17 +2,21 @@ package com.cds_jo.GalaxySalesApp.Reports;
 
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,8 +25,18 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.Select_Customer;
+import com.cds_jo.GalaxySalesApp.SmanChart.BarChartItem;
+import com.cds_jo.GalaxySalesApp.SmanChart.ChartItem;
+import com.cds_jo.GalaxySalesApp.SmanChart.Cls_Monthly_Items_Amount;
 import com.cds_jo.GalaxySalesApp.We_Result;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
+import com.cds_jo.GalaxySalesApp.assist.QuantitiesFragment;
+import com.cds_jo.GalaxySalesApp.assist.getDataSer;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
@@ -65,7 +79,7 @@ public class Report_Home extends AppCompatActivity {
      MyTextView ReportTitle;
     HashMap<List<cls_sales>, List<cls_salesC>> listDataChild;
     final Handler _handler = new Handler();
-
+    ArrayList<ChartItem_Report> ChartList;
 
     int  x , Flg;
 
@@ -117,7 +131,7 @@ public class Report_Home extends AppCompatActivity {
         ezditText5=(EditText)findViewById(R.id.ezditText5);
         ReportTitle=(MyTextView) findViewById(R.id.ReportTitle);
 
-
+        ChartList = new ArrayList<>();
 
         FillList();
         listtitleadapter = new listtitleadapter(Report_Home.this, cls_listtitles);
@@ -170,7 +184,10 @@ public class Report_Home extends AppCompatActivity {
                 {
                  SalesValues();
                 }
-
+                else if(x==9)
+                {
+                    ShowChart();
+                }
 
             }
         });
@@ -675,8 +692,137 @@ public class Report_Home extends AppCompatActivity {
 
 
 
-    }
 
+        obj=new  Cls_Listtitle ();
+        obj.setTitle("أعلى الأصناف مبيعا- كمية");
+        obj.setFlg("1");
+        obj.setNo("9");
+        cls_listtitles.add( obj);
+
+
+        obj=new  Cls_Listtitle ();
+        obj.setTitle("أقل الأصناف مبيعا - كمية");
+        obj.setFlg("2");
+        obj.setNo("9");
+        cls_listtitles.add( obj);
+
+
+        obj=new  Cls_Listtitle ();
+        obj.setTitle("أعلى الأصناف مبيعا- مبلغ");
+        obj.setFlg("3");
+        obj.setNo("9");
+        cls_listtitles.add( obj);
+
+
+        obj=new  Cls_Listtitle ();
+        obj.setTitle("أقل الأصناف مبيعا- مبلغ");
+        obj.setFlg("4");
+        obj.setNo("9");
+        cls_listtitles.add( obj);
+
+
+    }
+    private void ShowChart() {
+        ChartList.clear();
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+
+
+                CallWebServices ws = new CallWebServices(Report_Home.this);
+                ws.GET_Report_Home_SalesValues("-1","-1","14",Flg+"","01-01-2020","01-01-2021","-1","-1","-1");
+                try {
+                    if(We_Result.ID>0) {
+                        Integer i;
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray js_Item_No = js.getJSONArray("Item_No");
+                        JSONArray js_Item_Name= js.getJSONArray("Item_Name");
+                        JSONArray js_Tr_Value = js.getJSONArray("Tr_Value");
+
+
+                        Cls_SalesValues obj  = new Cls_SalesValues();
+
+
+
+                       // for (i = 0; i < js_Item_No.length(); i++) {
+                        for (i = 0; i < 5; i++) {
+                            obj=  new Cls_SalesValues();
+                            obj.setItem_No(js_Item_No.get(i).toString());
+                            obj.setItem_Name(js_Item_Name.get(i).toString());
+                            obj.setTr_Value(js_Tr_Value.get(i).toString());
+                            SalesValuesList.add(obj);
+                        }
+                        _handler.post(new Runnable() {
+                            public void run() {
+                                ChartList.add(new BarChartItem_Report(generateDataBar(SalesValuesList),Report_Home.this,SalesValuesList));
+
+                                ChartDataAdapter cda = new ChartDataAdapter(Report_Home.this, ChartList);
+                                listView1.setAdapter(cda);
+
+/* SalesValues_Adapter adapter = new SalesValues_Adapter(Report_Home.this, SalesValuesList);
+                                listView1.setAdapter(adapter);*/
+
+
+                            }
+                        });
+                    } else
+                    {
+                        Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
+                    }
+                } catch (final Exception e) {
+
+                }
+
+            }
+        };
+        thread.start();
+    }
+    private BarData generateDataBar (List<Cls_SalesValues> objects){
+
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+       for (int i = 0; i < objects.size(); i++) {
+            Cls_SalesValues obj = objects.get(i);
+            float r= Float.parseFloat(obj.getTr_Value());
+            entries.add(new BarEntry(i, r));
+        }
+
+        BarDataSet d = new BarDataSet(entries,"Amount");
+
+        d.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        // d.setHighLightAlpha(255);
+        d.setValueTextSize(25f);
+
+        BarData cd = new BarData(d);
+
+        cd.setBarWidth(0.9f);
+        return cd;
+    }
+    private class ChartDataAdapter extends ArrayAdapter<ChartItem_Report> {
+
+        ChartDataAdapter(Context context, List<ChartItem_Report> objects) {
+            super(context, 0, objects);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+            //noinspection ConstantConditions
+            return getItem(position).getView(position, convertView, getContext());
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            // return the views type
+            ChartItem_Report ci = getItem(position);
+            return ci != null ? ci.getItemType() : 0;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 3; // we have 3 different item-types
+        }
+    }
     private void SalesValues() {
         Thread thread = new Thread() {
             @Override
@@ -712,6 +858,7 @@ public class Report_Home extends AppCompatActivity {
 
                                 SalesValues_Adapter adapter = new SalesValues_Adapter(Report_Home.this, SalesValuesList);
                                 listView1.setAdapter(adapter);
+
                             }
                         });
                     } else
