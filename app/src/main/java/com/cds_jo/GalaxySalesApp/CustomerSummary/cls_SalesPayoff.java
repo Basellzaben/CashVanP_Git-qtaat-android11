@@ -1,97 +1,117 @@
-package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
-public class cls_SalesPayoff{
-    String date ;
-    String Dec ;
-    String DocNo;
-    String name ;
-    String Tot ;
-    String item_no ;
-    String totalwithtax ;
-    String cluse ;
-    String TotalTax ;
+        package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
-    public cls_SalesPayoff(String date, String dec, String docNo, String name, String tot, String item_no, String totalwithtax, String cluse, String totalTax) {
-        this.date = date;
-        Dec = dec;
-        DocNo = docNo;
-        this.name = name;
-        Tot = tot;
-        this.item_no = item_no;
-        this.totalwithtax = totalwithtax;
-        this.cluse = cluse;
-        TotalTax = totalTax;
-    }
+        public class cls_SalesPayoff {
+        String date;
+        String Dec;
+        String Des;
+        String name;
+        String Tot;
+        String item_no;
+        String totalwithtax;
+        String cluse;
 
-    public String getDate() {
+        String price;
+        String Bonus;
+        String A_Qty;
+        String Item_Name;
+
+        public String getDes() {
+        return Des;
+        }
+
+        public void setDes(String des) {
+        Des = des;
+        }
+
+        public String getDate() {
         return date;
-    }
+        }
 
-    public void setDate(String date) {
+        public void setDate(String date) {
         this.date = date;
-    }
+        }
 
-    public String getDec() {
+        public String getDec() {
         return Dec;
-    }
+        }
 
-    public void setDec(String dec) {
+        public void setDec(String dec) {
         Dec = dec;
-    }
+        }
 
-    public String getDocNo() {
-        return DocNo;
-    }
-
-    public void setDocNo(String docNo) {
-        DocNo = docNo;
-    }
-
-    public String getName() {
+        public String getName() {
         return name;
-    }
+        }
 
-    public void setName(String name) {
+        public void setName(String name) {
         this.name = name;
-    }
+        }
 
-    public String getTot() {
+        public String getTot() {
         return Tot;
-    }
+        }
 
-    public void setTot(String tot) {
+        public void setTot(String tot) {
         Tot = tot;
-    }
+        }
 
-    public String getItem_no() {
+        public String getItem_no() {
         return item_no;
-    }
+        }
 
-    public void setItem_no(String item_no) {
+        public void setItem_no(String item_no) {
         this.item_no = item_no;
-    }
+        }
 
-    public String getTotalwithtax() {
+        public String getTotalwithtax() {
         return totalwithtax;
-    }
+        }
 
-    public void setTotalwithtax(String totalwithtax) {
+        public void setTotalwithtax(String totalwithtax) {
         this.totalwithtax = totalwithtax;
-    }
+        }
 
-    public String getCluse() {
+        public String getCluse() {
         return cluse;
-    }
+        }
 
-    public void setCluse(String cluse) {
+        public void setCluse(String cluse) {
         this.cluse = cluse;
-    }
+        }
 
-    public String getTotalTax() {
-        return TotalTax;
-    }
 
-    public void setTotalTax(String totalTax) {
-        TotalTax = totalTax;
-    }
-}
+
+        public String getPrice() {
+        return price;
+        }
+
+        public void setPrice(String price) {
+        this.price = price;
+        }
+
+        public String getBonus() {
+        return Bonus;
+        }
+
+        public void setBonus(String bonus) {
+        Bonus = bonus;
+        }
+
+        public String getA_Qty() {
+        return A_Qty;
+        }
+
+        public void setA_Qty(String a_Qty) {
+        A_Qty = a_Qty;
+        }
+
+        public String getItem_Name() {
+        return Item_Name;
+        }
+
+        public void setItem_Name(String item_Name) {
+        Item_Name = item_Name;
+        }
+        }
+
