@@ -70,7 +70,7 @@ public class CustomerCollectionsReportFrag extends Fragment {
                     JSONArray InoviceAmt = js.getJSONArray("InoviceAmt");
                     JSONArray Notes = js.getJSONArray("Notes");
                     JSONArray SupervisorNutes = js.getJSONArray("SupervisorNutes");
-                    JSONArray newAmt = js.getJSONArray("NewAmt");
+                    JSONArray newAmt = js.getJSONArray("NewAmt");//
                     JSONArray orderDate = js.getJSONArray("Order_date");
                     cls_customerOfCollection1=new cls_CustomerOfCollection1();
                     for (int i = 0; i < NameCust.length(); i++) {
