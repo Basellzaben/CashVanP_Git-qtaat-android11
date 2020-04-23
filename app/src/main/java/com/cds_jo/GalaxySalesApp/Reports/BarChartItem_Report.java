@@ -31,7 +31,7 @@ public class BarChartItem_Report extends ChartItem_Report {
 
     @Override
     public int getItemType() {
-        return TYPE_BARCHART;
+        return TYPE_LINECHART;
     }
 
     @SuppressLint("InflateParams")
@@ -77,7 +77,7 @@ public class BarChartItem_Report extends ChartItem_Report {
         xAxis.setDrawAxisLine(true);
 
         XAxis a = holder.chart.getXAxis();
-        a.setPosition(XAxis.XAxisPosition.BOTTOM);
+        a.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
         a.setDrawLabels(true);
         a.setGranularity(1f);
         a.setLabelRotationAngle(+50);
@@ -109,7 +109,7 @@ public class BarChartItem_Report extends ChartItem_Report {
 
         // do not forget to refresh the chart
 //        holder.chart.invalidate();
-        holder.chart.animateY(700);
+        holder.chart.animateY(500);
 
         return convertView;
     }

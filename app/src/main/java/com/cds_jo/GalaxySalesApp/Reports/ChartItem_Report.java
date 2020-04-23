@@ -7,7 +7,7 @@ import com.github.mikephil.charting.data.ChartData;
 
 public abstract class ChartItem_Report {
 
-    static final int TYPE_BARCHART = 0;
+  //  static final int TYPE_BARCHART = 0;
     static final int TYPE_LINECHART = 1;
     static final int TYPE_PIECHART = 2;
 
