@@ -15,7 +15,7 @@ import com.cds_jo.GalaxySalesApp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- */
+ 1*/
 public class ItemSalesPayoff  extends AppCompatDialogFragment {
     cls_ItemBillAdapter adabter;
     ListView lv;
