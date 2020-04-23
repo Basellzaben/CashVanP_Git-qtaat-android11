@@ -1,8 +1,10 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ public class CustomerSalesPayoffReportFrag extends Fragment {
 
     CustomerSalesPayoffAdabter listAdapter;
     ListView expListView;
+    String CustAcc;
     cls_SalesPayoff cls_salesPayoff;
     cls_SalesPayoffC cls_salesPayoffC;
     List<cls_SalesPayoff> listDataHeader;
@@ -46,6 +49,9 @@ public class CustomerSalesPayoffReportFrag extends Fragment {
         {View v= inflater.inflate(R.layout.fragment_customer_sales_payoff_report, container, false);
 
             expListView = (ListView) v.findViewById(R.id.lst_acc);
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            CustAcc = sharedPreferences.getString("CustNo", "");
             getData();
             expListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -84,7 +90,7 @@ public class CustomerSalesPayoffReportFrag extends Fragment {
 
 
                 CallWebServices ws = new CallWebServices(getActivity());
-                ws.GET_CustReportSalesPayoff("11041000011");
+                ws.GET_CustReportSalesPayoff(CustAcc);
                 try {
                     Integer i;
                     Integer j;
