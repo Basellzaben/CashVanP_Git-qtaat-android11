@@ -16,10 +16,10 @@ import Methdes.MyTextView;
 public class CustomerCollectoinAdapter  extends BaseAdapter {
 
     Context context;
-    ArrayList<cls_CustomerOfCollection> cls_checks;
+    ArrayList<cls_CustomerOfCollection1> cls_checks;
 
 
-    public CustomerCollectoinAdapter(Context context, ArrayList<cls_CustomerOfCollection> list) {
+    public CustomerCollectoinAdapter(Context context, ArrayList<cls_CustomerOfCollection1> list) {
 
         this.context = context;
         cls_checks = list;
@@ -45,16 +45,17 @@ public class CustomerCollectoinAdapter  extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup arg2) {
-        final cls_CustomerOfCollection  clsTableOfCollection = cls_checks.get(position);
+        final cls_CustomerOfCollection1 clsTableOfCollection = cls_checks.get(position);
 
         if (convertView == null) {
 
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.tablecollectionslayout, null);
+            convertView = inflater.inflate(R.layout.tolayout, null);
 
         }
-
+        MyTextView tv_custNo = (MyTextView) convertView.findViewById(R.id.tv_new_date123);
+        tv_custNo.setText(clsTableOfCollection.getNewTr_date());
 
         MyTextView tv_CustName = (MyTextView) convertView.findViewById(R.id.tv_custName123);
         tv_CustName.setText(clsTableOfCollection.getNameCust());
@@ -64,18 +65,25 @@ public class CustomerCollectoinAdapter  extends BaseAdapter {
 
         MyTextView tv_AmtI123 = (MyTextView) convertView.findViewById(R.id.tv_totInv);
         tv_AmtI123.setText(clsTableOfCollection.getInoviceAmt());
+
+
         MyTextView new_Amt = (MyTextView) convertView.findViewById(R.id.newAmt);
         new_Amt.setText(clsTableOfCollection.getNewAmt());
 
-        MyTextView tv_Amt = (MyTextView) convertView.findViewById(R.id.tv_Amt);
+        MyTextView tv_Amt = (MyTextView) convertView.findViewById(R.id.tv_Type);
         tv_Amt.setText(clsTableOfCollection.getAmt());
 
         MyTextView tv_Notes = (MyTextView) convertView.findViewById(R.id.tv_Notes123);
         tv_Notes.setText(clsTableOfCollection.getNotes());
 
         MyTextView tv_TR_date = (MyTextView) convertView.findViewById(R.id.tv_TR_date123);
-        tv_TR_date.setText(clsTableOfCollection.getTr_date());
+        tv_TR_date.setText(clsTableOfCollection.getOrder_date());
 
+        MyTextView tv_old_date = (MyTextView) convertView.findViewById(R.id.tv_old_date123);
+        tv_old_date.setText(clsTableOfCollection.getDate());
+
+        MyTextView SupervisorNutes = (MyTextView) convertView.findViewById(R.id.SupervisorNutes123);
+        SupervisorNutes.setText(clsTableOfCollection.getSupervisorNutes());
 
 
 

@@ -142,9 +142,9 @@
                     android:padding="10dp"
                     android:background="@color/Main_Gray">
 
-                    <ExpandableListView
+                    <ListView
                         android:layout_width="match_parent"
-                        android:id="@+id/lst_acc"
+                        android:id="@+id/lv"
                         android:smoothScrollbar="true"
                         android:stackFromBottom="false"
                         android:scrollingCache="false"

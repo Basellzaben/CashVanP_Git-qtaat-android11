@@ -22,8 +22,9 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class CustomerCollectionsReportFrag extends Fragment {
-    ArrayList<cls_CustomerOfCollection> TList;
+    ArrayList<cls_CustomerOfCollection1> TList;
     CustomerCollectoinAdapter adapter;
+    cls_CustomerOfCollection1 cls_customerOfCollection1;
     ListView lv;
     final Handler _handler = new Handler();
 
@@ -56,15 +57,33 @@ public class CustomerCollectionsReportFrag extends Fragment {
                 try {
 
                     JSONObject js = new JSONObject(We_Result.Msg);
-                    JSONArray name = js.getJSONArray("name");
-                    JSONArray Tr_date = js.getJSONArray("Date");
-                    JSONArray orderNo = js.getJSONArray("OrderNo");
+                    JSONArray NameCust = js.getJSONArray("NameCust");
+                    JSONArray  Date = js.getJSONArray("Date");
+                    JSONArray new_Tr_date = js.getJSONArray("NewTr_date");
+                    JSONArray custNo = js.getJSONArray("CustNo");
+                    JSONArray orderNo = js.getJSONArray("orderNo");
                     JSONArray Amt = js.getJSONArray("Amt");
-                    JSONArray Cash = js.getJSONArray("Cash");
-                    JSONArray Notes = js.getJSONArray("notes");
-                    JSONArray newAmt = js.getJSONArray("CheckTotal");
-                    for (int i = 0; i < name.length(); i++) {
-                        TList.add(new cls_CustomerOfCollection(name.get(i).toString(), Tr_date.get(i).toString(), orderNo.get(i).toString(), Amt.get(i).toString(),newAmt.get(i).toString(),Cash.get(i).toString(), Notes.get(i).toString()));
+                    JSONArray InoviceAmt = js.getJSONArray("InoviceAmt");
+                    JSONArray Notes = js.getJSONArray("Notes");
+                    JSONArray SupervisorNutes = js.getJSONArray("SupervisorNutes");
+                    JSONArray newAmt = js.getJSONArray("NewAmt");
+                    JSONArray orderDate = js.getJSONArray("Order_date");
+                    cls_customerOfCollection1=new cls_CustomerOfCollection1();
+                    for (int i = 0; i < NameCust.length(); i++) {
+
+                        cls_customerOfCollection1.setAmt(Amt.get(i).toString());
+                        cls_customerOfCollection1.setNameCust(NameCust.get(i).toString());
+                        cls_customerOfCollection1.setDate(Date.get(i).toString());
+                        cls_customerOfCollection1.setNewTr_date(new_Tr_date.get(i).toString());
+                        cls_customerOfCollection1.setCustNo(custNo.get(i).toString());
+                        cls_customerOfCollection1.setOrderNo(orderNo.get(i).toString());
+                        cls_customerOfCollection1.setInoviceAmt(InoviceAmt.get(i).toString());
+                        cls_customerOfCollection1.setNotes(Notes.get(i).toString());
+                        cls_customerOfCollection1.setSupervisorNutes(SupervisorNutes.get(i).toString());
+                        cls_customerOfCollection1.setNewAmt(newAmt.get(i).toString());
+                        cls_customerOfCollection1.setOrder_date(orderDate.get(i).toString());
+                        TList.add(cls_customerOfCollection1);
+
                     }
                     _handler.post(new Runnable() {
                         public void run() {

@@ -6,13 +6,15 @@ public class cls_SalesPayoffC {
     String totalwithtax ;
     String A_Qty ;
     String Item_Name ;
+    String Dec ;
 
-    public cls_SalesPayoffC(String price, String bonus, String totalwithtax, String a_Qty, String item_Name) {
-        this.price = price;
-        Bonus = bonus;
-        this.totalwithtax = totalwithtax;
-        A_Qty = a_Qty;
-        Item_Name = item_Name;
+
+    public String getDec() {
+        return Dec;
+    }
+
+    public void setDec(String dec) {
+        Dec = dec;
     }
 
     public String getPrice() {
