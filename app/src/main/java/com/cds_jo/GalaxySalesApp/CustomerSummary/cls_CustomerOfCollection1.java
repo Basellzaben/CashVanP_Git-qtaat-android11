@@ -1,5 +1,5 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
-
+//1
 public class cls_CustomerOfCollection1 {
     String NameCust;
     String NewTr_date;
