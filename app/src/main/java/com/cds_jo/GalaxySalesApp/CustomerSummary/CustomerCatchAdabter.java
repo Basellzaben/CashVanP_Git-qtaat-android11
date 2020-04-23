@@ -59,11 +59,12 @@ public class CustomerCatchAdabter extends BaseAdapter {
 
         MyTextView Name = (MyTextView) convertView.findViewById(R.id.catchCustName);
         Name.setText(cls_customerCatch.getCustName());
+
         MyTextView type = (MyTextView) convertView.findViewById(R.id.catchVType);
-        type.setText(cls_customerCatch.getDate());
+        type.setText(cls_customerCatch.getVType());
 
         MyTextView chaq = (MyTextView) convertView.findViewById(R.id.catchChaq);
-        chaq.setText(cls_customerCatch.getCustName());
+        chaq.setText(cls_customerCatch.getChaq());
 
 
 

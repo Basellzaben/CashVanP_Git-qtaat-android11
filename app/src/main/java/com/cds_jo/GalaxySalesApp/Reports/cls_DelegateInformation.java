@@ -11,6 +11,17 @@ public class cls_DelegateInformation {
     String SalesOrders = null;
     String Precent = null;
 
+    public String getNewCustomers() {
+        return NewCustomers;
+    }
+
+    public void setNewCustomers(String newCustomers) {
+        NewCustomers = newCustomers;
+    }
+
+    String NewCustomers =null;
+
+
     public String getManNo1() {
         return ManNo1;
     }

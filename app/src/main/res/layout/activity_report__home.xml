@@ -5,13 +5,16 @@
     android:layout_height="match_parent"
     android:layoutDirection="rtl"
     android:orientation="vertical"
+    android:padding="2dp"
     android:weightSum="3"
     tools:context=".Reports.Report_Home">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
         android:layout_weight="0.2"
+        android:background="@color/blue123"
         android:orientation="horizontal"
         android:weightSum="4">
 
@@ -53,8 +56,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/btn_cir_white_fill_black"
                     android:ems="10"
-                    android:onClick="getMan"
                     android:inputType="textPersonName"
+                    android:onClick="getMan"
                     android:text=" " />
             </LinearLayout>
         </LinearLayout>
@@ -95,10 +98,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:onClick="showCust"
                     android:background="@drawable/btn_cir_white_fill_black"
                     android:ems="10"
                     android:inputType="textPersonName"
+                    android:onClick="showCust"
                     android:text=" " />
 
             </LinearLayout>
@@ -143,8 +146,8 @@
                     android:layout_weight="1.3"
                     android:background="@drawable/btn_cir_white_fill_black"
                     android:ems="10"
-                    android:onClick="getCountry"
                     android:inputType="textPersonName"
+                    android:onClick="getCountry"
                     android:text=" " />
 
             </LinearLayout>
@@ -157,6 +160,7 @@
             android:layout_weight="1.59"
             android:orientation="horizontal"
             android:weightSum="2.3">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -172,6 +176,7 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/calender" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -188,6 +193,7 @@
                     android:inputType="textPersonName"
                     android:text="01/01/2020" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -202,6 +208,7 @@
                     android:scaleType="fitXY"
                     android:src="@drawable/calender" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -247,16 +254,17 @@
             android:layout_height="match_parent"
             android:layout_weight="1.8"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/receipt"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:visibility="gone"
                 android:background="@color/blue123"
-
                 android:layoutDirection="rtl"
 
                 android:orientation="horizontal"
+
+                android:visibility="gone"
                 android:weightSum="9.3">
 
                 <Methdes.MyTextView
@@ -265,44 +273,47 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1.8"
                     android:gravity="center"
-                    android:textColor="@color/White"
                     android:text="رقم القبض"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/White"
                     android:textSize="15sp" />
+
                 <Methdes.MyTextView
                     android:id="@+id/Date"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textColor="@color/White"
-
                     android:layout_weight="1.8"
+
                     android:gravity="center"
                     android:text="تاريخ القبض"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/White"
 
                     android:textSize="15sp" />
+
                 <Methdes.MyTextView
                     android:id="@+id/Amt"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textColor="@color/White"
-
                     android:layout_weight="1.3"
+
                     android:gravity="center"
                     android:text="مبلغ القبض "
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/White"
 
                     android:textSize="15sp" />
+
                 <Methdes.MyTextView
                     android:id="@+id/Cash"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textColor="@color/White"
-                    android:text="المبلغ النقدي"
                     android:layout_weight="1.3"
                     android:gravity="center"
-
+                    android:text="المبلغ النقدي"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+
+                    android:textColor="@color/White"
 
                     android:textSize="15sp" />
 
@@ -311,12 +322,12 @@
                     android:id="@+id/CheckTotal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textColor="@color/White"
-
                     android:layout_weight="1.1"
+
                     android:gravity="center"
                     android:text="مبلغ الشيكات"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/White"
 
                     android:textSize="15sp" />
 
@@ -324,27 +335,25 @@
                     android:id="@+id/notes"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textSize="15sp"
                     android:layout_weight="2"
-                    android:textColor="@color/White"
-
                     android:gravity="center"
                     android:text="ملاحظات "
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-
-
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/White"
+                    android:textSize="15sp" />
 
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/DelegateInformation"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:visibility="gone"
                 android:background="@color/blue123"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:weightSum="11.6">
 
                 <Methdes.MyTextView
@@ -357,6 +366,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/White"
                     android:textSize="15sp" />
+
                 <Methdes.MyTextView
                     android:id="@+id/Man_Name"
                     android:layout_width="0dp"
@@ -368,6 +378,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/White"
                     android:textSize="15sp" />
+
                 <Methdes.MyTextView
                     android:id="@+id/CheckIn"
                     android:layout_width="0dp"
@@ -378,7 +389,8 @@
                     android:text="بداية دوام "
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/White"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp" />
+
                 <Methdes.MyTextView
                     android:id="@+id/checkOut"
                     android:layout_width="0dp"
@@ -386,7 +398,7 @@
 
                     android:layout_weight="1.3"
                     android:gravity="center"
-android:text="نهاية دوام"
+                    android:text="نهاية دوام"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/White"
                     android:textSize="15sp" />
@@ -408,12 +420,12 @@ android:text="نهاية دوام"
                     android:id="@+id/Sales"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textColor="@color/White"
-                    android:textSize="15sp"
                     android:layout_weight="1.2"
                     android:gravity="center"
                     android:text="المبيعات "
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/White"
+                    android:textSize="15sp" />
 
 
                 <Methdes.MyTextView
@@ -427,6 +439,7 @@ android:text="نهاية دوام"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/White"
                     android:textSize="15sp" />
+
                 <Methdes.MyTextView
                     android:id="@+id/SalesOrders"
                     android:layout_width="0dp"
@@ -452,262 +465,47 @@ android:text="نهاية دوام"
                     android:textSize="15sp" />
 
 
-
-
-
-
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/VisitingInformation"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:background="@color/blue123"
-                android:visibility="gone"
-                android:layoutDirection="rtl"
-                android:orientation="horizontal"
-                android:weightSum="12.6">
-
-                <Methdes.MyTextView
-                    android:id="@+id/CustName"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.8"
-                    android:gravity="center"
-                    android:text="أسم العميل"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp" />
-                <Methdes.MyTextView
-                    android:id="@+id/Man_Name1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="1.8"
-                    android:gravity="center"
-                    android:text="اسم المندوب"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp"  />
-                <Methdes.MyTextView
-                    android:id="@+id/Tr_Data"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="1.3"
-                    android:gravity="center"
-                    android:text="تاريخ الزيارة "
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp"  />
-                <Methdes.MyTextView
-                    android:id="@+id/day"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="اليوم"
-                    android:layout_weight="1.2"
-                    android:gravity="center"
-
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp"  />
 
 
-                <Methdes.MyTextView
-                    android:id="@+id/start"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="1.2"
-                    android:gravity="center"
-                    android:text="وقت البداية"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp"  />
-
-                <Methdes.MyTextView
-                    android:id="@+id/end"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/White"
-                    android:textSize="14sp"
-                    android:layout_weight="1.2"
-                    android:gravity="center"
-                    android:text="وقت النهاية "
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
-
-
-                <Methdes.MyTextView
-                    android:id="@+id/Duration"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="1.1"
-                    android:gravity="center"
-                    android:text="المدة"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp"  />
-                <Methdes.MyTextView
-                    android:id="@+id/Note"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:text="ملاحظات"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp" />
-
-                <Methdes.MyTextView
-                    android:id="@+id/StreatNm"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="اسم المنطقة "
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="11sp"  />
-
-
-
-
-
-
-            </LinearLayout>
             <LinearLayout
                 android:id="@+id/Data"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:visibility="gone"
+                android:layout_height="match_parent"
                 android:background="@color/blue123"
                 android:layoutDirection="rtl"
-                android:orientation="horizontal"
+                android:orientation="vertical"
+                android:visibility="visible"
                 android:weightSum="9">
 
-                <Methdes.MyTextView
-                    android:id="@+id/B_CustName"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:orientation="horizontal">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/ReportTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="#000"
+                        android:textSize="25sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="horizontal">
 
-                    android:layout_weight="1.5"
-                    android:gravity="center"
-                    android:text="إسم العميل"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp" />
-                <Methdes.MyTextView
-                    android:id="@+id/Man_Name2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-android:text="أسم المندوب"
-                    android:layout_weight="1.5"
-                    android:gravity="center"
-
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp" />
-
-                <Methdes.MyTextView
-                    android:id="@+id/orderno"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="رقم الفاتورة"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp" />
-
-                <Methdes.MyTextView
-                    android:id="@+id/TransDate"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="تاريخ الحركة"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp" />
-                <Methdes.MyTextView
-                    android:id="@+id/Is_damge"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="تالف"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp" />
-
-                <Methdes.MyTextView
-                    android:id="@+id/NetTotal"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="المجوع قبل الضريبة"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="10sp" />
-
-                <Methdes.MyTextView
-                    android:id="@+id/TaxTotal"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-android:text="قيمة الضريبة"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp" />
-                <Methdes.MyTextView
-                    android:id="@+id/Dis_Amt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-android:text="قيمة الخصم"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="15sp" />
-                <Methdes.MyTextView
-                    android:id="@+id/Total"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-android:text="المجموع بعد الضريبة"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/White"
-                    android:textSize="10sp" />
-
-
-
-
-
+                    <ListView
+                        android:id="@+id/listView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
 
             </LinearLayout>
-
-<ListView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/listView1"
-    />
-            <ExpandableListView
-                android:layout_width="match_parent"
-                android:id="@+id/lst_acc"
-                android:smoothScrollbar="true"
-                android:stackFromBottom="false"
-                android:visibility="gone"
-                android:scrollingCache="false"
-                android:listSelector="@null"
-                android:layout_height="match_parent" />
 
         </LinearLayout>
 
@@ -717,22 +515,24 @@ android:text="المجموع بعد الضريبة"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
+        android:background="@color/blue123"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="Do_Whatsapp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button48"
-                android:background="#00FF00"
-                android:layout_margin="3dp"
                 android:layout_width="wrap_content"
-                android:drawableStart="@drawable/iconwhatsapp"
                 android:layout_height="wrap_content"
+                android:layout_margin="3dp"
                 android:layout_weight="1"
+                android:background="@color/Green"
+                android:drawableStart="@drawable/iconwhatsapp"
                 android:text="ارسال عبر واتس اب" />
         </LinearLayout>
 
@@ -745,11 +545,11 @@ android:text="المجموع بعد الضريبة"
             <Button
                 android:id="@+id/button49"
                 android:layout_width="wrap_content"
-                android:drawableStart="@drawable/ic_email_black_24dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
-                android:background="#B23121"
                 android:layout_weight="1"
+                android:background="@color/Pink"
+                android:drawableStart="@drawable/ic_email_black_24dp"
                 android:text="ارسال عبر الايميل" />
         </LinearLayout>
 

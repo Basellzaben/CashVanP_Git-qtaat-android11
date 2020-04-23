@@ -40,7 +40,8 @@ public class CallWebServices  {
         //URL = "http://92.253.93.52:3755/CV.asmx";
         //URL = "http://192.168.1.148/GIWS/CV.asmx";
         //URL = "http://10.0.1.166/GIWS/CV.asmx"; //Galaxy1
-          URL = "http://192.168.8.100:82/CV.asmx"; //Galaxy2
+          URL = "http://192.168.8.101:82/CV.asmx"; //Galaxy2
+        //  URL = "http://192.168.43.36:82/CV.asmx"; //Galaxy2
 
       //  URL = "http://192.168.8.100:82/CV.asmx";[
        //   URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
@@ -4131,9 +4132,7 @@ return    We_Result.ID;
         SoapObject request = new SoapObject(NAMESPACE, "GET_CustReportCollections");
 
         PropertyInfo parm_AccNo = new PropertyInfo();
-
         parm_AccNo.setName("AccNo");
-
         parm_AccNo.setValue(AccNo);
         parm_AccNo.setType(String.class);
 
@@ -4289,61 +4288,6 @@ return    We_Result.ID;
         //Return resTxt to calling object
 
     }
-    public void GatTableCollections_Cust(String AccNo) {
-
-        We_Result.Msg="";
-        We_Result.ID =-1;
-
-        SoapObject request = new SoapObject(NAMESPACE, "GatTableCollections_Cust");
-
-        PropertyInfo parm_AccNo = new PropertyInfo();
-
-        parm_AccNo.setName("AccNo");
-
-        parm_AccNo.setValue(AccNo);
-        parm_AccNo.setType(String.class);
-
-
-
-        // Add the property to request object
-        request.addProperty(parm_AccNo);
-
-
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-                SoapEnvelope.VER11);
-        envelope.dotNet=true;
-
-        envelope.setOutputSoapObject(request);
-
-        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-
-        try {
-
-            androidHttpTransport.call("http://tempuri.org/GatTableCollections_Cust", envelope);
-            SoapObject result  = (SoapObject) envelope.getResponse();
-            We_Result.Msg =  result.getProperty("Msg").toString();
-            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
-
-
-
-        } catch (NullPointerException   en){
-            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
-            We_Result.ID = Long.parseLong("-404");
-
-
-        } catch (EOFException eof ){
-            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
-            We_Result.ID = Long.parseLong("-404");
-
-        }
-        catch (Exception e) {
-            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
-            We_Result.ID = Long.parseLong("-404");
-
-        }
-        //Return resTxt to calling object
-
-    }
     public void getCountry() {
 
         We_Result.Msg="";
@@ -4384,11 +4328,558 @@ return    We_Result.ID;
 
 
     }
-    public void GET_Report_Home(String CustNo1, int ManNo, int Op, int Flg, String FromDate1, String ToDate1, String VisitOrderNo, String TransOrderNo,int Country) {
+    public void GET_Report_Home(String Cust_No, String Man_No, String Op, String Flg, String FromDate, String ToDate, String VisitOrderNo, String TransOrderNo,String Country) {
 
         We_Result.Msg="";
         We_Result.ID =-1;
         SoapObject request = new SoapObject(NAMESPACE, "GET_Report_Home");
+
+
+        PropertyInfo parm_CustNo1 = new PropertyInfo();
+        parm_CustNo1.setName("Cust_No");
+        parm_CustNo1.setValue(Cust_No);
+        parm_CustNo1.setType(String.class);
+        request.addProperty(parm_CustNo1);
+
+
+
+
+        PropertyInfo parm_ManNo= new PropertyInfo();
+        parm_ManNo.setName("Man_No");
+        parm_ManNo.setValue(Man_No);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+
+        PropertyInfo parm_Op = new PropertyInfo();
+        parm_Op.setName("Op");
+        parm_Op.setValue(Op);
+        parm_Op.setType(String.class);
+        request.addProperty(parm_Op);
+
+
+        PropertyInfo parm_Flg = new PropertyInfo();
+        parm_Flg.setName("Flg");
+        parm_Flg.setValue(Flg);
+        parm_Flg.setType(String.class);
+        request.addProperty(parm_Flg);
+
+
+        PropertyInfo parm_FromDate1 = new PropertyInfo();
+        parm_FromDate1.setName("FromDate");
+        parm_FromDate1.setValue(FromDate);
+        parm_FromDate1.setType(String.class);
+        request.addProperty(parm_FromDate1);
+
+        PropertyInfo parm_ToDate1 = new PropertyInfo();
+        parm_ToDate1.setName("ToDate");
+        parm_ToDate1.setValue(ToDate  );
+        parm_ToDate1.setType(String.class);
+        request.addProperty(parm_ToDate1);
+
+        PropertyInfo parm_VisitOrderNo = new PropertyInfo();
+        parm_VisitOrderNo.setName("VisitOrderNo");
+        parm_VisitOrderNo.setValue(VisitOrderNo);
+        parm_VisitOrderNo.setType(String.class);
+        request.addProperty(parm_VisitOrderNo);
+
+        PropertyInfo parm_TransOrderNo = new PropertyInfo();
+        parm_TransOrderNo.setName("TransOrderNo");
+        parm_TransOrderNo.setValue(TransOrderNo);
+        parm_TransOrderNo.setType(String.class);
+        request.addProperty(parm_TransOrderNo);
+
+        PropertyInfo parm_Country = new PropertyInfo();
+        parm_Country.setName("Country");
+        parm_Country.setValue(Country);
+        parm_Country.setType(String.class);
+        request.addProperty(parm_Country);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GET_Report_Home", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+
+
+    }
+    public void GET_Report_Home_RouteActivity(String Cust_No, String Man_No, String Op, String Flg, String FromDate, String ToDate, String VisitOrderNo, String TransOrderNo,String Country) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GET_Report_Home_RouteActivity");
+
+
+        PropertyInfo parm_CustNo1 = new PropertyInfo();
+        parm_CustNo1.setName("Cust_No");
+        parm_CustNo1.setValue(Cust_No);
+        parm_CustNo1.setType(String.class);
+        request.addProperty(parm_CustNo1);
+
+
+
+
+        PropertyInfo parm_ManNo= new PropertyInfo();
+        parm_ManNo.setName("Man_No");
+        parm_ManNo.setValue(Man_No);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+
+        PropertyInfo parm_Op = new PropertyInfo();
+        parm_Op.setName("Op");
+        parm_Op.setValue(Op);
+        parm_Op.setType(String.class);
+        request.addProperty(parm_Op);
+
+
+        PropertyInfo parm_Flg = new PropertyInfo();
+        parm_Flg.setName("Flg");
+        parm_Flg.setValue(Flg);
+        parm_Flg.setType(String.class);
+        request.addProperty(parm_Flg);
+
+
+        PropertyInfo parm_FromDate1 = new PropertyInfo();
+        parm_FromDate1.setName("FromDate");
+        parm_FromDate1.setValue(FromDate);
+        parm_FromDate1.setType(String.class);
+        request.addProperty(parm_FromDate1);
+
+        PropertyInfo parm_ToDate1 = new PropertyInfo();
+        parm_ToDate1.setName("ToDate");
+        parm_ToDate1.setValue(ToDate  );
+        parm_ToDate1.setType(String.class);
+        request.addProperty(parm_ToDate1);
+
+        PropertyInfo parm_VisitOrderNo = new PropertyInfo();
+        parm_VisitOrderNo.setName("VisitOrderNo");
+        parm_VisitOrderNo.setValue(VisitOrderNo);
+        parm_VisitOrderNo.setType(String.class);
+        request.addProperty(parm_VisitOrderNo);
+
+        PropertyInfo parm_TransOrderNo = new PropertyInfo();
+        parm_TransOrderNo.setName("TransOrderNo");
+        parm_TransOrderNo.setValue(TransOrderNo);
+        parm_TransOrderNo.setType(String.class);
+        request.addProperty(parm_TransOrderNo);
+
+        PropertyInfo parm_Country = new PropertyInfo();
+        parm_Country.setName("Country");
+        parm_Country.setValue(Country);
+        parm_Country.setType(String.class);
+        request.addProperty(parm_Country);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GET_Report_Home_RouteActivity", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+
+
+    }
+    public void GET_Report_Home_RouteScore(String Cust_No, String Man_No, String Op, String Flg, String FromDate, String ToDate, String VisitOrderNo, String TransOrderNo,String Country) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GET_Report_Home_RouteScore");
+
+
+        PropertyInfo parm_CustNo1 = new PropertyInfo();
+        parm_CustNo1.setName("Cust_No");
+        parm_CustNo1.setValue(Cust_No);
+        parm_CustNo1.setType(String.class);
+        request.addProperty(parm_CustNo1);
+
+
+
+
+        PropertyInfo parm_ManNo= new PropertyInfo();
+        parm_ManNo.setName("Man_No");
+        parm_ManNo.setValue(Man_No);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+
+        PropertyInfo parm_Op = new PropertyInfo();
+        parm_Op.setName("Op");
+        parm_Op.setValue(Op);
+        parm_Op.setType(String.class);
+        request.addProperty(parm_Op);
+
+
+        PropertyInfo parm_Flg = new PropertyInfo();
+        parm_Flg.setName("Flg");
+        parm_Flg.setValue(Flg);
+        parm_Flg.setType(String.class);
+        request.addProperty(parm_Flg);
+
+
+        PropertyInfo parm_FromDate1 = new PropertyInfo();
+        parm_FromDate1.setName("FromDate");
+        parm_FromDate1.setValue(FromDate);
+        parm_FromDate1.setType(String.class);
+        request.addProperty(parm_FromDate1);
+
+        PropertyInfo parm_ToDate1 = new PropertyInfo();
+        parm_ToDate1.setName("ToDate");
+        parm_ToDate1.setValue(ToDate  );
+        parm_ToDate1.setType(String.class);
+        request.addProperty(parm_ToDate1);
+
+        PropertyInfo parm_VisitOrderNo = new PropertyInfo();
+        parm_VisitOrderNo.setName("VisitOrderNo");
+        parm_VisitOrderNo.setValue(VisitOrderNo);
+        parm_VisitOrderNo.setType(String.class);
+        request.addProperty(parm_VisitOrderNo);
+
+        PropertyInfo parm_TransOrderNo = new PropertyInfo();
+        parm_TransOrderNo.setName("TransOrderNo");
+        parm_TransOrderNo.setValue(TransOrderNo);
+        parm_TransOrderNo.setType(String.class);
+        request.addProperty(parm_TransOrderNo);
+
+        PropertyInfo parm_Country = new PropertyInfo();
+        parm_Country.setName("Country");
+        parm_Country.setValue(Country);
+        parm_Country.setType(String.class);
+        request.addProperty(parm_Country);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GET_Report_Home_RouteScore", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+
+
+    }
+    public void GET_Report_Payments(String Cust_No, String Man_No, String Op, String Flg, String FromDate, String ToDate, String VisitOrderNo, String TransOrderNo,String Country) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GET_Report_Payments");
+
+
+        PropertyInfo parm_CustNo1 = new PropertyInfo();
+        parm_CustNo1.setName("Cust_No");
+        parm_CustNo1.setValue(Cust_No);
+        parm_CustNo1.setType(String.class);
+        request.addProperty(parm_CustNo1);
+
+
+
+
+        PropertyInfo parm_ManNo= new PropertyInfo();
+        parm_ManNo.setName("Man_No");
+        parm_ManNo.setValue(Man_No);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+
+        PropertyInfo parm_Op = new PropertyInfo();
+        parm_Op.setName("Op");
+        parm_Op.setValue(Op);
+        parm_Op.setType(String.class);
+        request.addProperty(parm_Op);
+
+
+        PropertyInfo parm_Flg = new PropertyInfo();
+        parm_Flg.setName("Flg");
+        parm_Flg.setValue(Flg);
+        parm_Flg.setType(String.class);
+        request.addProperty(parm_Flg);
+
+
+        PropertyInfo parm_FromDate1 = new PropertyInfo();
+        parm_FromDate1.setName("FromDate");
+        parm_FromDate1.setValue(FromDate);
+        parm_FromDate1.setType(String.class);
+        request.addProperty(parm_FromDate1);
+
+        PropertyInfo parm_ToDate1 = new PropertyInfo();
+        parm_ToDate1.setName("ToDate");
+        parm_ToDate1.setValue(ToDate  );
+        parm_ToDate1.setType(String.class);
+        request.addProperty(parm_ToDate1);
+
+        PropertyInfo parm_VisitOrderNo = new PropertyInfo();
+        parm_VisitOrderNo.setName("VisitOrderNo");
+        parm_VisitOrderNo.setValue(VisitOrderNo);
+        parm_VisitOrderNo.setType(String.class);
+        request.addProperty(parm_VisitOrderNo);
+
+        PropertyInfo parm_TransOrderNo = new PropertyInfo();
+        parm_TransOrderNo.setName("TransOrderNo");
+        parm_TransOrderNo.setValue(TransOrderNo);
+        parm_TransOrderNo.setType(String.class);
+        request.addProperty(parm_TransOrderNo);
+
+        PropertyInfo parm_Country = new PropertyInfo();
+        parm_Country.setName("Country");
+        parm_Country.setValue(Country);
+        parm_Country.setType(String.class);
+        request.addProperty(parm_Country);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GET_Report_Payments", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+
+
+    }
+    public void GET_Report_Home_Sales_Details(String Cust_No, String Man_No, String Op, String Flg, String FromDate, String ToDate, String VisitOrderNo, String TransOrderNo,String Country) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GET_Report_Home_Sales_Details");
+
+
+        PropertyInfo parm_CustNo1 = new PropertyInfo();
+        parm_CustNo1.setName("Cust_No");
+        parm_CustNo1.setValue(Cust_No);
+        parm_CustNo1.setType(String.class);
+        request.addProperty(parm_CustNo1);
+
+
+
+
+        PropertyInfo parm_ManNo= new PropertyInfo();
+        parm_ManNo.setName("Man_No");
+        parm_ManNo.setValue(Man_No);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+
+        PropertyInfo parm_Op = new PropertyInfo();
+        parm_Op.setName("Op");
+        parm_Op.setValue(Op);
+        parm_Op.setType(String.class);
+        request.addProperty(parm_Op);
+
+
+        PropertyInfo parm_Flg = new PropertyInfo();
+        parm_Flg.setName("Flg");
+        parm_Flg.setValue(Flg);
+        parm_Flg.setType(String.class);
+        request.addProperty(parm_Flg);
+
+
+        PropertyInfo parm_FromDate1 = new PropertyInfo();
+        parm_FromDate1.setName("FromDate");
+        parm_FromDate1.setValue(FromDate);
+        parm_FromDate1.setType(String.class);
+        request.addProperty(parm_FromDate1);
+
+        PropertyInfo parm_ToDate1 = new PropertyInfo();
+        parm_ToDate1.setName("ToDate");
+        parm_ToDate1.setValue(ToDate  );
+        parm_ToDate1.setType(String.class);
+        request.addProperty(parm_ToDate1);
+
+        PropertyInfo parm_VisitOrderNo = new PropertyInfo();
+        parm_VisitOrderNo.setName("VisitOrderNo");
+        parm_VisitOrderNo.setValue(VisitOrderNo);
+        parm_VisitOrderNo.setType(String.class);
+        request.addProperty(parm_VisitOrderNo);
+
+        PropertyInfo parm_TransOrderNo = new PropertyInfo();
+        parm_TransOrderNo.setName("TransOrderNo");
+        parm_TransOrderNo.setValue(TransOrderNo);
+        parm_TransOrderNo.setType(String.class);
+        request.addProperty(parm_TransOrderNo);
+
+        PropertyInfo parm_Country = new PropertyInfo();
+        parm_Country.setName("Country");
+        parm_Country.setValue(Country);
+        parm_Country.setType(String.class);
+        request.addProperty(parm_Country);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GET_Report_Home_Sales_Details", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+
+
+    }
+    public void GET_Report_Home_TransHeader(String Cust_No, String Man_No, String Op, String Flg, String FromDate, String ToDate, String VisitOrderNo, String TransOrderNo,String Country) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GET_Report_Home_Trans_Header");
+
+
+        PropertyInfo parm_CustNo1 = new PropertyInfo();
+        parm_CustNo1.setName("Cust_No");
+        parm_CustNo1.setValue(Cust_No);
+        parm_CustNo1.setType(String.class);
+        request.addProperty(parm_CustNo1);
+
+
+
+
+        PropertyInfo parm_ManNo= new PropertyInfo();
+        parm_ManNo.setName("Man_No");
+        parm_ManNo.setValue(Man_No);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+
+        PropertyInfo parm_Op = new PropertyInfo();
+        parm_Op.setName("Op");
+        parm_Op.setValue(Op);
+        parm_Op.setType(String.class);
+        request.addProperty(parm_Op);
+
+
+        PropertyInfo parm_Flg = new PropertyInfo();
+        parm_Flg.setName("Flg");
+        parm_Flg.setValue(Flg);
+        parm_Flg.setType(String.class);
+        request.addProperty(parm_Flg);
+
+
+        PropertyInfo parm_FromDate1 = new PropertyInfo();
+        parm_FromDate1.setName("FromDate");
+        parm_FromDate1.setValue(FromDate);
+        parm_FromDate1.setType(String.class);
+        request.addProperty(parm_FromDate1);
+
+        PropertyInfo parm_ToDate1 = new PropertyInfo();
+        parm_ToDate1.setName("ToDate");
+        parm_ToDate1.setValue(ToDate  );
+        parm_ToDate1.setType(String.class);
+        request.addProperty(parm_ToDate1);
+
+        PropertyInfo parm_VisitOrderNo = new PropertyInfo();
+        parm_VisitOrderNo.setName("VisitOrderNo");
+        parm_VisitOrderNo.setValue(VisitOrderNo);
+        parm_VisitOrderNo.setType(String.class);
+        request.addProperty(parm_VisitOrderNo);
+
+        PropertyInfo parm_TransOrderNo = new PropertyInfo();
+        parm_TransOrderNo.setName("TransOrderNo");
+        parm_TransOrderNo.setValue(TransOrderNo);
+        parm_TransOrderNo.setType(String.class);
+        request.addProperty(parm_TransOrderNo);
+
+        PropertyInfo parm_Country = new PropertyInfo();
+        parm_Country.setName("Country");
+        parm_Country.setValue(Country);
+        parm_Country.setType(String.class);
+        request.addProperty(parm_Country);
+
 
 
 
@@ -4402,7 +4893,109 @@ return    We_Result.ID;
         Object  response =null;
         try {
 
-            androidHttpTransport.call("http://tempuri.org/GET_Report_Home", envelope);
+            androidHttpTransport.call("http://tempuri.org/GET_Report_Home_Trans_Header", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+
+
+    }
+    public void GET_Report_Home_SalesValues(String Cust_No, String Man_No, String Op, String Flg, String FromDate, String ToDate, String VisitOrderNo, String TransOrderNo,String Country) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GET_Report_Home_SalesValues");
+
+
+        PropertyInfo parm_CustNo1 = new PropertyInfo();
+        parm_CustNo1.setName("Cust_No");
+        parm_CustNo1.setValue(Cust_No);
+        parm_CustNo1.setType(String.class);
+        request.addProperty(parm_CustNo1);
+
+
+
+
+        PropertyInfo parm_ManNo= new PropertyInfo();
+        parm_ManNo.setName("Man_No");
+        parm_ManNo.setValue(Man_No);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+
+        PropertyInfo parm_Op = new PropertyInfo();
+        parm_Op.setName("Op");
+        parm_Op.setValue(Op);
+        parm_Op.setType(String.class);
+        request.addProperty(parm_Op);
+
+
+        PropertyInfo parm_Flg = new PropertyInfo();
+        parm_Flg.setName("Flg");
+        parm_Flg.setValue(Flg);
+        parm_Flg.setType(String.class);
+        request.addProperty(parm_Flg);
+
+
+        PropertyInfo parm_FromDate1 = new PropertyInfo();
+        parm_FromDate1.setName("FromDate");
+        parm_FromDate1.setValue(FromDate);
+        parm_FromDate1.setType(String.class);
+        request.addProperty(parm_FromDate1);
+
+        PropertyInfo parm_ToDate1 = new PropertyInfo();
+        parm_ToDate1.setName("ToDate");
+        parm_ToDate1.setValue(ToDate  );
+        parm_ToDate1.setType(String.class);
+        request.addProperty(parm_ToDate1);
+
+        PropertyInfo parm_VisitOrderNo = new PropertyInfo();
+        parm_VisitOrderNo.setName("VisitOrderNo");
+        parm_VisitOrderNo.setValue(VisitOrderNo);
+        parm_VisitOrderNo.setType(String.class);
+        request.addProperty(parm_VisitOrderNo);
+
+        PropertyInfo parm_TransOrderNo = new PropertyInfo();
+        parm_TransOrderNo.setName("TransOrderNo");
+        parm_TransOrderNo.setValue(TransOrderNo);
+        parm_TransOrderNo.setType(String.class);
+        request.addProperty(parm_TransOrderNo);
+
+        PropertyInfo parm_Country = new PropertyInfo();
+        parm_Country.setName("Country");
+        parm_Country.setValue(Country);
+        parm_Country.setType(String.class);
+        request.addProperty(parm_Country);
+
+
+
+
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GET_Report_Home_SalesValues", envelope);
             SoapObject result  = (SoapObject) envelope.getResponse();
             We_Result.Msg =  result.getProperty("Msg").toString();
             We_Result.ID = Long.parseLong(result.getProperty("ID").toString());

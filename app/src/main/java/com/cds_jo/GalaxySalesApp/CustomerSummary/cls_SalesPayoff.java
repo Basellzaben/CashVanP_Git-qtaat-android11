@@ -1,26 +1,26 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
-public class cls_SalesPayoff {
-    String date;
-    String Dec;
-    String Des;
-    String name;
-    String Tot;
-    String item_no;
-    String totalwithtax;
-    String cluse;
+public class cls_SalesPayoff{
+    String date ;
+    String Dec ;
+    String DocNo;
+    String name ;
+    String Tot ;
+    String item_no ;
+    String totalwithtax ;
+    String cluse ;
+    String TotalTax ;
 
-    String price;
-    String Bonus;
-    String A_Qty;
-    String Item_Name;
-
-    public String getDes() {
-        return Des;
-    }
-
-    public void setDes(String des) {
-        Des = des;
+    public cls_SalesPayoff(String date, String dec, String docNo, String name, String tot, String item_no, String totalwithtax, String cluse, String totalTax) {
+        this.date = date;
+        Dec = dec;
+        DocNo = docNo;
+        this.name = name;
+        Tot = tot;
+        this.item_no = item_no;
+        this.totalwithtax = totalwithtax;
+        this.cluse = cluse;
+        TotalTax = totalTax;
     }
 
     public String getDate() {
@@ -37,6 +37,14 @@ public class cls_SalesPayoff {
 
     public void setDec(String dec) {
         Dec = dec;
+    }
+
+    public String getDocNo() {
+        return DocNo;
+    }
+
+    public void setDocNo(String docNo) {
+        DocNo = docNo;
     }
 
     public String getName() {
@@ -79,37 +87,11 @@ public class cls_SalesPayoff {
         this.cluse = cluse;
     }
 
-
-
-    public String getPrice() {
-        return price;
+    public String getTotalTax() {
+        return TotalTax;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getBonus() {
-        return Bonus;
-    }
-
-    public void setBonus(String bonus) {
-        Bonus = bonus;
-    }
-
-    public String getA_Qty() {
-        return A_Qty;
-    }
-
-    public void setA_Qty(String a_Qty) {
-        A_Qty = a_Qty;
-    }
-
-    public String getItem_Name() {
-        return Item_Name;
-    }
-
-    public void setItem_Name(String item_Name) {
-        Item_Name = item_Name;
+    public void setTotalTax(String totalTax) {
+        TotalTax = totalTax;
     }
 }

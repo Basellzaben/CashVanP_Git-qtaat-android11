@@ -1,10 +1,12 @@
 package com.cds_jo.GalaxySalesApp.Reports;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 
 import com.cds_jo.GalaxySalesApp.R;
 
@@ -76,8 +78,53 @@ public class DelegateInformation_Adapter  extends BaseAdapter {
 
 
         MyTextView Precent = (MyTextView) convertView.findViewById(R.id.Precent);
-        Precent.setText(cls_customerCatch.getPrecent());
+        Precent.setText(cls_customerCatch.getNewCustomers());
 
+
+
+        LinearLayout RR=(LinearLayout)convertView.findViewById(R.id.RR);
+        if(position==0)
+        {
+            RR.setBackgroundColor(context.getResources().getColor(R.color.blue123));
+            manNo.setTextColor(Color.WHITE);
+            Man_Name.setTextColor(Color.WHITE);
+            CheckIn.setTextColor(Color.WHITE);
+            checkOut.setTextColor(Color.WHITE);
+            Payemnt.setTextColor(Color.WHITE);
+            Sales.setTextColor(Color.WHITE);
+            returnsSales.setTextColor(Color.WHITE);
+            SalesOrders.setTextColor(Color.WHITE);
+            Precent.setTextColor(Color.WHITE);
+
+        }
+
+        else if(position%2==0)
+        {
+            RR.setBackgroundColor(context.getResources().getColor(R.color.Gray2));
+            manNo.setTextColor(Color.BLACK);
+            Man_Name.setTextColor(Color.BLACK);
+            CheckIn.setTextColor(Color.BLACK);
+            checkOut.setTextColor(Color.BLACK);
+            Payemnt.setTextColor(Color.BLACK);
+            Sales.setTextColor(Color.BLACK);
+            returnsSales.setTextColor(Color.BLACK);
+            SalesOrders.setTextColor(Color.BLACK);
+            Precent.setTextColor(Color.BLACK);
+        }
+
+        else
+        {
+            RR.setBackgroundColor(Color.WHITE);
+            manNo.setTextColor(Color.BLACK);
+            Man_Name.setTextColor(Color.BLACK);
+            CheckIn.setTextColor(Color.BLACK);
+            checkOut.setTextColor(Color.BLACK);
+            Payemnt.setTextColor(Color.BLACK);
+            Sales.setTextColor(Color.BLACK);
+            returnsSales.setTextColor(Color.BLACK);
+            SalesOrders.setTextColor(Color.BLACK);
+            Precent.setTextColor(Color.BLACK);
+        }
         return convertView;
     }
 }

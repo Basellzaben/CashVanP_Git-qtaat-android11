@@ -205,12 +205,12 @@
 
         <Methdes.MyTextView
             android:id="@+id/textView131"
-            android:layout_width="150dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:text="بداية تسلسل الفواتير"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#000"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/et_Sal_inv"
@@ -259,11 +259,12 @@
 
         <Methdes.MyTextView
             android:id="@+id/textView137"
-            android:layout_width="150dp"            android:layout_height="wrap_content"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
             android:text="بداية تسلسل سندات القبض"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#000"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/et_Payments"
@@ -312,7 +313,7 @@
 
         <Methdes.MyTextView
             android:id="@+id/textView149"
-            android:layout_width="150dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:text="بداية تسلسل طلب تجهيز مواد"
             android:textAppearance="?android:attr/textAppearanceSmall"

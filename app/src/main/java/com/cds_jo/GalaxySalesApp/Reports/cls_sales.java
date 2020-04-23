@@ -11,7 +11,17 @@ public class cls_sales {
     String Dis_Amt = null;
     String is_Damage;
 
-    public cls_sales(String custname, String manName, String transDate, String netTotal, String total, String taxTotal, String orderNo, String dis_Amt, String is_Damage) {
+    public String getOrderType() {
+        return OrderType;
+    }
+
+    public void setOrderType(String orderType) {
+        OrderType = orderType;
+    }
+
+    String OrderType;
+
+    public cls_sales(String custname, String manName, String transDate, String netTotal, String total, String taxTotal, String orderNo, String dis_Amt, String Order_Type) {
         Custname = custname;
         ManName = manName;
         TransDate = transDate;
@@ -20,7 +30,8 @@ public class cls_sales {
         TaxTotal = taxTotal;
         OrderNo = orderNo;
         Dis_Amt = dis_Amt;
-        this.is_Damage = is_Damage;
+        is_Damage="";
+        OrderType = Order_Type;
     }
 
     public String getCustname() {

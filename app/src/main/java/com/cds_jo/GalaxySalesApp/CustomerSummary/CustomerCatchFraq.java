@@ -74,6 +74,8 @@ public class CustomerCatchFraq extends Fragment {
 
                     cls_customerCatch = new cls_CustomerCatch();
                     for (i = 0; i < js_Name.length(); i++) {
+                        cls_customerCatch = new cls_CustomerCatch();
+                        cls_customerCatch = new cls_CustomerCatch();
                         cls_customerCatch.setCustName(js_Name.get(i).toString());
                         cls_customerCatch.setVType(js_Type.get(i).toString());
                         cls_customerCatch.setAmt(js_Amt.get(i).toString());

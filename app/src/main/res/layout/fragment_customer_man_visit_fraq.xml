@@ -28,28 +28,29 @@
             android:layout_height="match_parent">
 
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="0"
                 android:background="@color/Black11"
+                android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
                 android:weightSum="7">
+
                 <Methdes.MyTextView
                     android:id="@+id/tv_date"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="0.5dp"
                     android:layout_marginRight="0.5dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:gravity="center"
                     android:text="اسم العميل"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#fff"
                     android:textSize="14sp" />
+
                 <Methdes.MyTextView
                     android:id="@+id/tv_cur_no"
                     android:layout_width="0dp"
@@ -103,14 +104,13 @@
                     android:textSize="18sp" />
 
 
-
                 <Methdes.MyTextView
                     android:id="@+id/tv_dept1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="0.5dp"
                     android:layout_marginRight="0.5dp"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:text="البيان "
                     android:textAppearance="?android:attr/textAppearanceSmall"

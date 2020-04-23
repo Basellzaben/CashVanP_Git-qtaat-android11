@@ -6,9 +6,41 @@ public class cls_salesC {
     String price = null;
     String Qty = null;
     String Bounce = null;
-
     String UnitName = null;
 
+    public String getDiscount() {
+        return Discount;
+    }
+
+    public void setDiscount(String discount) {
+        Discount = discount;
+    }
+
+    String Discount = null;
+
+
+    public String getItemno() {
+        return Itemno;
+    }
+
+    public void setItemno(String itemno) {
+        Itemno = itemno;
+    }
+
+    public String getLineTotal() {
+        return LineTotal;
+    }
+
+    public void setLineTotal(String lineTotal) {
+        LineTotal = lineTotal;
+    }
+
+    String Itemno = null;
+    String LineTotal = null;
+    public cls_salesC()
+    {
+
+    }
     public cls_salesC(String item_Name, String orgPrice, String price, String qty, String bounce, String unitName) {
         Item_Name = item_Name;
         OrgPrice = orgPrice;

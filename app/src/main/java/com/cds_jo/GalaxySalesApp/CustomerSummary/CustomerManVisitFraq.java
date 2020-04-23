@@ -1,8 +1,10 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 public class CustomerManVisitFraq extends Fragment {
 
     cls_ManVisit cls_manVisit;
+    String CustAcc ;
     CustomerManVisitAdabter adabter;
     ListView listView;
     ArrayList<cls_ManVisit> list;
@@ -42,6 +45,8 @@ public class CustomerManVisitFraq extends Fragment {
 
         listView =(ListView)v.findViewById(R.id.lst_acc);
         list=new ArrayList<>();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        CustAcc = sharedPreferences.getString("CustNo", "");
         getData();
         return v;
     }
@@ -52,7 +57,7 @@ public class CustomerManVisitFraq extends Fragment {
 
 
                 CallWebServices ws = new CallWebServices(getActivity());
-                ws.GET_CustReportManVisit("11041000011");
+                ws.GET_CustReportManVisit(CustAcc);
                 try {
                     Integer i;
                     JSONObject js = new JSONObject(We_Result.Msg);
@@ -66,6 +71,7 @@ public class CustomerManVisitFraq extends Fragment {
 
                     cls_manVisit = new cls_ManVisit();
                     for (i = 0; i < js_Name.length(); i++) {
+                        cls_manVisit = new cls_ManVisit();
                         cls_manVisit.setName(js_Name.get(i).toString());
                         cls_manVisit.setStart(js_Start_Time.get(i).toString());
                         cls_manVisit.setDay(js_DayNum.get(i).toString());
