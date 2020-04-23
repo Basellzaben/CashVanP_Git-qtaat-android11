@@ -21,4 +21,14 @@ public class Cls_Listtitle {
 
     String No;
 
+    public String getFlg() {
+        return flg;
+    }
+
+    public void setFlg(String flg) {
+        this.flg = flg;
+    }
+
+    String flg;
+
 }

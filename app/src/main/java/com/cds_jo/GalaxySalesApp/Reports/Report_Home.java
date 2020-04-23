@@ -2,45 +2,39 @@ package com.cds_jo.GalaxySalesApp.Reports;
 
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
-import android.content.SharedPreferences;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cds_jo.GalaxySalesApp.ComInfo;
-import com.cds_jo.GalaxySalesApp.CustomerSummary.CustomerManVisitAdabter;
-import com.cds_jo.GalaxySalesApp.CustomerSummary.cls_Bill;
-import com.cds_jo.GalaxySalesApp.CustomerSummary.cls_BillC;
-import com.cds_jo.GalaxySalesApp.CustomerSummary.cls_ManVisit;
 import com.cds_jo.GalaxySalesApp.R;
-import com.cds_jo.GalaxySalesApp.Select_Cash_Customer;
 import com.cds_jo.GalaxySalesApp.Select_Customer;
 import com.cds_jo.GalaxySalesApp.We_Result;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import Methdes.MyTextView;
-import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 public class Report_Home extends AppCompatActivity {
     String ManNo,CustNo,CoutNo;
@@ -61,20 +55,19 @@ public class Report_Home extends AppCompatActivity {
     net_profit_Adapter net_profit_adapter;
     listtitleadapter listtitleadapter;
     ArrayList<Cls_Listtitle>  cls_listtitles = new ArrayList<Cls_Listtitle>();
+    ArrayList<Cls_SalesValues>  SalesValuesList;
     ArrayList<cls_VisitingInformation>  vlist;
     ArrayList<cls_DelegateInformation>  Dlist;
     ArrayList<cls_Receipt>  Rlist;
     ArrayList<cls_achievement_rate>  ARlist;
     ArrayList<cls_net_profit>  NPlist;
     ArrayList<cls_sales> listDataHeader;
-    ExpandableListView lst_acc;
+     MyTextView ReportTitle;
     HashMap<List<cls_sales>, List<cls_salesC>> listDataChild;
     final Handler _handler = new Handler();
 
-    LinearLayout receipt;
-    LinearLayout DelegateInformation;
-    LinearLayout Data;
-    int  x ;
+
+    int  x , Flg;
 
     public static String intToString(int num, int digits) {
         String output = Integer.toString(num);
@@ -114,7 +107,7 @@ public class Report_Home extends AppCompatActivity {
         cls_listtitles.clear();
         listView=(ListView)findViewById(R.id.LV);
         listView1=(ListView)findViewById(R.id.listView1);
-        lst_acc=(ExpandableListView) findViewById(R.id.lst_acc);
+
         et_fromDate=(EditText) findViewById(R.id.et_fromDate);
         editText5=(EditText) findViewById(R.id.editText5);
         et_Todate=(EditText)findViewById(R.id.et_Todate);
@@ -122,11 +115,7 @@ public class Report_Home extends AppCompatActivity {
         imgTo = (ImageView) findViewById(R.id.imgTo);
         et_Man=(EditText)findViewById(R.id.et_Man);
         ezditText5=(EditText)findViewById(R.id.ezditText5);
-
-        receipt=(LinearLayout)findViewById(R.id.receipt);
-        DelegateInformation=(LinearLayout)findViewById(R.id.DelegateInformation);
-
-        Data=(LinearLayout)findViewById(R.id.Data);
+        ReportTitle=(MyTextView) findViewById(R.id.ReportTitle);
 
 
 
@@ -137,94 +126,35 @@ public class Report_Home extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(et_Man.getText().toString().equals(""))
-                {
-                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                            //.setCustomImage(R.mipmap.icon_delete)
-                            .setContentText("يجب أختيار المندوب")
-                            .setConfirmText("رجــــوع")
-                            .show();
-                    et_Man.setError("required!");
-                    et_Man.requestFocus();
-                    return;
-                } else if(editText5.getText().toString().equals(""))
-                {
-                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                            //.setCustomImage(R.mipmap.icon_delete)
-                            .setContentText("يجب أختيار العميل")
-                            .setConfirmText("رجــــوع")
-                            .show();
-                    editText5.setError("required!");
-                    editText5.requestFocus();
-                    return;
-                }else if(ezditText5.getText().toString().equals(""))
-                {
-                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                            //.setCustomImage(R.mipmap.icon_delete)
-                            .setContentText("يجب أختيار المنطفة")
-                            .setConfirmText("رجــــوع")
-                            .show();
-                    ezditText5.setError("required!");
-                    ezditText5.requestFocus();
-                    return;
-                }else if(et_fromDate.getText().toString().equals(""))
-                {
-                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                            //.setCustomImage(R.mipmap.icon_delete)
-                            .setContentText("يجب أدخال تاريخ بداية الفترة")
-                            .setConfirmText("رجــــوع")
-                            .show();
-                    et_fromDate.setError("required!");
-                    et_fromDate.requestFocus();
-                    return;
-                }else if(et_Todate.getText().toString().equals(""))
-                {
-                    new SweetAlertDialog(Report_Home.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
-                            //.setCustomImage(R.mipmap.icon_delete)
-                            .setContentText("يجب أدخال تاريخ نهاية الفترة")
-                            .setConfirmText("رجــــوع")
-                            .show();
-                    et_Todate.setError("required!");
-                    et_Todate.requestFocus();
-                    return;
-                }
-                vlist = new ArrayList<cls_VisitingInformation>();
-                Rlist = new ArrayList<cls_Receipt>();
-                obj =cls_listtitles.get(position);
-                 x=Integer.parseInt(obj.getNo());
-                ReportId.Id=x;
 
-                receipt.setVisibility(View.GONE);
-                Data.setVisibility(View.GONE);
-                DelegateInformation.setVisibility(View.GONE);
-                lst_acc.setVisibility(View.GONE);
+                SalesValuesList = new ArrayList<Cls_SalesValues>();
+                vlist = new ArrayList<cls_VisitingInformation>();
+                ARlist = new ArrayList<cls_achievement_rate>();
+                Dlist = new ArrayList<cls_DelegateInformation>();
+                Rlist = new ArrayList<cls_Receipt>();
+
+
+
+                obj =cls_listtitles.get(position);
+
+                 x=Integer.parseInt(obj.getNo());
+                 Flg=Integer.parseInt(obj.getFlg());
+                 ReportId.Id=x;
+                 ReportTitle.setText(  obj.getTitle().toString());
+
+
                 listView1.setAdapter(null);
                 if(x==1)
                 {
-
-
-                    listView1.setVisibility(View.VISIBLE);
-
-                    getVisitingInformation();
+                   listView1.setVisibility(View.VISIBLE);
+                   getVisitingInformation();
                 }
                 else if(x==2||x==3||x==4)
                 {
-                    if(x==4)
-                {
-                    Data.setWeightSum((float) 10);
-                    MyTextView Is_damge = (MyTextView) findViewById(R.id.Is_damge);
-                    Is_damge.setVisibility(View.VISIBLE);
-
-                }
-
-
-                    listView1.setVisibility(View.VISIBLE);
-
-                    getdata();
+                getdata();
                 }
                 else if(x==5)
                 {
-
                     getreceipt();
                 }
                 else if(x==6)
@@ -238,13 +168,10 @@ public class Report_Home extends AppCompatActivity {
                 }
                 else if(x==8)
                 {
-                    receipt.setVisibility(View.GONE);
-                    Data.setVisibility(View.GONE);
-                    DelegateInformation.setVisibility(View.GONE);
-                    listView1.setVisibility(View.VISIBLE);
-                    lst_acc.setVisibility(View.GONE);
-                    getnet_profit();
+                 SalesValues();
                 }
+
+
             }
         });
 
@@ -268,8 +195,12 @@ public class Report_Home extends AppCompatActivity {
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                cls_sales o = (cls_sales) listView1.getItemAtPosition(position);
-                showDtl(o.getOrderNo(),o.getOrderType(),o.getNetTotal()+"");
+
+                if ((x == 2 || x == 3 || x == 4) && position>0 ){
+
+                    cls_sales o = (cls_sales) listView1.getItemAtPosition(position);
+                    showDtl(o.getOrderNo(), o.getOrderType(), o.getNetTotal() + "");
+                }
             }
         });
 
@@ -418,24 +349,34 @@ public class Report_Home extends AppCompatActivity {
 
                         cls_achievement_rate cls_achievement_rate = new cls_achievement_rate();
 
+                        cls_achievement_rate.setManNo("رقم المندوب");
+                        cls_achievement_rate.setManName("اسم المندوب");
+                        cls_achievement_rate.setTr_Date("التاريخ");
+                        cls_achievement_rate.setTotalCust("عدد عملاء الجولة");
+                        cls_achievement_rate.setVisited("عدد الجولات ");
+                        cls_achievement_rate.setVisitPrecent("النسبة");
+                        cls_achievement_rate.setSuccVisit("الجولات الناجحة");
+                        cls_achievement_rate.setSuccPercent("نسبة الجولات الناجحة");
+                        cls_achievement_rate.setScore("النسبة النهائية");
+                        ARlist.add(cls_achievement_rate);
+
                         for (i = 0; i < js_ManNo.length(); i++) {
                             cls_achievement_rate = new cls_achievement_rate();
-                            cls_achievement_rate.setManName(js_ManNo.get(i).toString());
+                            cls_achievement_rate.setManNo(js_ManNo.get(i).toString());
                             cls_achievement_rate.setManName(js_ManName.get(i).toString());
                             cls_achievement_rate.setTr_Date(js_Tr_Date.get(i).toString());
                             cls_achievement_rate.setTotalCust(js_TotalCust.get(i).toString());
                             cls_achievement_rate.setVisited(js_Visited.get(i).toString());
                             cls_achievement_rate.setVisitPrecent(js_VisitPrecent.get(i).toString());
                             cls_achievement_rate.setSuccVisit(js_SuccVisit.get(i).toString());
-                            cls_achievement_rate.setVisitPrecent(js_SuccPercent.get(i).toString());
+                            cls_achievement_rate.setSuccPercent(js_SuccPercent.get(i).toString());
                             cls_achievement_rate.setScore(js_Score.get(i).toString());
                             ARlist.add(cls_achievement_rate);
                         }
                         _handler.post(new Runnable() {
                             public void run() {
-
                                 achievement_rate_adapter = new achievement_rate_Adapter(Report_Home.this, ARlist);
-                                listView1.setAdapter(receipt_adapter);
+                                listView1.setAdapter(achievement_rate_adapter);
                             }
                         });
                     } else
@@ -446,7 +387,6 @@ public class Report_Home extends AppCompatActivity {
                 } catch (final Exception e) {
                     _handler.post(new Runnable() {
                         public void run() {
-
                             Toast.makeText(Report_Home.this,   e.getMessage().toString(),Toast.LENGTH_LONG).show();
                         }
                     });
@@ -468,19 +408,30 @@ public class Report_Home extends AppCompatActivity {
                         Integer i;
                         JSONObject js = new JSONObject(We_Result.Msg);
                         JSONArray ManNo = js.getJSONArray("ManNo");
-                        JSONArray ManNm = js.getJSONArray("ManNm");
+                        JSONArray ManNm = js.getJSONArray("ManName");
                         JSONArray CheckIn = js.getJSONArray("CheckIn");
                         JSONArray checkOut = js.getJSONArray("checkOut");
-                        JSONArray Payemnt = js.getJSONArray("Payemnt");
-                        JSONArray Sales = js.getJSONArray("Sales");
-                        JSONArray returnsSales = js.getJSONArray("returnsSales");
-                        JSONArray SalesOrders = js.getJSONArray("SalesOrders");
-                        JSONArray Precent = js.getJSONArray("Precent");
+                        JSONArray Payemnt = js.getJSONArray("Payments");
+                        JSONArray Sales = js.getJSONArray("SalesAmt");
+                        JSONArray returnsSales = js.getJSONArray("SalesReturn");
+                        JSONArray SalesOrders = js.getJSONArray("OrdersAmt");
                         JSONArray NewCustomers = js.getJSONArray("NewCustomers");
 
                         cls_delegateInformation = new cls_DelegateInformation();
+                        cls_delegateInformation.setManNo1("رقم المندوب");
+                        cls_delegateInformation.setManNm("اسم المندوب");
+                        cls_delegateInformation.setCheckIn("بداية الدوام");
+                        cls_delegateInformation.setCheckOut("نهاية الدوام");
+                        cls_delegateInformation.setPayemnt("القبوضات");
+                        cls_delegateInformation.setSales("المبيعات");
+                        cls_delegateInformation.setReturnsSales("المرتجعات");
+                        cls_delegateInformation.setSalesOrders("طلبات البيع");
+                        cls_delegateInformation.setPrecent("العملاء الجدد");
+
+                        Dlist.add(cls_delegateInformation);
 
                         for (i = 0; i < ManNo.length(); i++) {
+
                             cls_delegateInformation = new cls_DelegateInformation();
                             cls_delegateInformation.setManNo1(ManNo.get(i).toString());
                             cls_delegateInformation.setManNm(ManNm.get(i).toString());
@@ -490,7 +441,7 @@ public class Report_Home extends AppCompatActivity {
                             cls_delegateInformation.setSales(Sales.get(i).toString());
                             cls_delegateInformation.setReturnsSales(returnsSales.get(i).toString());
                             cls_delegateInformation.setSalesOrders(SalesOrders.get(i).toString());
-                            cls_delegateInformation.setPrecent(Precent.get(i).toString());
+                            cls_delegateInformation.setPrecent(NewCustomers.get(i).toString());
 
                             Dlist.add(cls_delegateInformation);
                         }
@@ -503,7 +454,13 @@ public class Report_Home extends AppCompatActivity {
                         });
                     } else
                     {
-                        Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
+                        _handler.post(new Runnable() {
+                            public void run() {
+
+                                Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
                     }
                 } catch (final Exception e) {
                     _handler.post(new Runnable() {
@@ -645,46 +602,130 @@ public class Report_Home extends AppCompatActivity {
     }
 
     private  void FillList(){
-             obj=new  Cls_Listtitle ();
+            obj=new  Cls_Listtitle ();
             obj.setTitle("الجولات تفصيلي");
+            obj.setFlg("-1");
             obj.setNo("1");
             cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
             obj.setTitle("طلبات البيع");
+            obj.setFlg("-1");
             obj.setNo("2");
             cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
             obj.setTitle("فواتير المبيعات");
+            obj.setFlg("-1");
             obj.setNo("3");
             cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
             obj.setTitle("المرتجعات");
+            obj.setFlg("-1");
             obj.setNo("4");
             cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
             obj.setTitle("سندات القبض");
+            obj.setFlg("-1");
             obj.setNo("5");
             cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
             obj.setTitle("نسبة الجولات");
+            obj.setFlg("-1");
             obj.setNo("6");
             cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
             obj.setTitle("ملخص المندوب");
+            obj.setFlg("-1");
             obj.setNo("7");
             cls_listtitles.add( obj);
 
 
 
+            obj=new  Cls_Listtitle ();
+            obj.setTitle("أعلى الأصناف مبيعا- كمية");
+            obj.setFlg("1");
+            obj.setNo("8");
+            cls_listtitles.add( obj);
 
-        }
 
+            obj=new  Cls_Listtitle ();
+            obj.setTitle("أقل الأصناف مبيعا - كمية");
+             obj.setFlg("2");
+            obj.setNo("8");
+            cls_listtitles.add( obj);
+
+
+            obj=new  Cls_Listtitle ();
+            obj.setTitle("أعلى الأصناف مبيعا- مبلغ");
+            obj.setFlg("3");
+            obj.setNo("8");
+            cls_listtitles.add( obj);
+
+
+            obj=new  Cls_Listtitle ();
+            obj.setTitle("أقل الأصناف مبيعا- مبلغ");
+            obj.setFlg("4");
+            obj.setNo("8");
+            cls_listtitles.add( obj);
+
+
+
+    }
+
+    private void SalesValues() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+
+
+                CallWebServices ws = new CallWebServices(Report_Home.this);
+                ws.GET_Report_Home_SalesValues("-1","-1","14",Flg+"","01-01-2020","01-01-2021","-1","-1","-1");
+                try {
+                    if(We_Result.ID>0) {
+                        Integer i;
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray js_Item_No = js.getJSONArray("Item_No");
+                        JSONArray js_Item_Name= js.getJSONArray("Item_Name");
+                        JSONArray js_Tr_Value = js.getJSONArray("Tr_Value");
+
+
+                        Cls_SalesValues obj  = new Cls_SalesValues();
+                        obj.setItem_No("رقم المادة");
+                        obj.setItem_Name("اسم المادة");
+                        obj.setTr_Value("القيمة");
+
+                        SalesValuesList.add(obj);
+                        for (i = 0; i < js_Item_No.length(); i++) {
+                            obj=  new Cls_SalesValues();
+                            obj.setItem_No(js_Item_No.get(i).toString());
+                            obj.setItem_Name(js_Item_Name.get(i).toString());
+                            obj.setTr_Value(js_Tr_Value.get(i).toString());
+                            SalesValuesList.add(obj);
+                        }
+                        _handler.post(new Runnable() {
+                            public void run() {
+
+                                SalesValues_Adapter adapter = new SalesValues_Adapter(Report_Home.this, SalesValuesList);
+                                listView1.setAdapter(adapter);
+                            }
+                        });
+                    } else
+                    {
+                        Toast.makeText(Report_Home.this,"لا يوجد بيانات",Toast.LENGTH_LONG).show();
+                    }
+                } catch (final Exception e) {
+
+                }
+
+            }
+        };
+        thread.start();
+    }
     private void getVisitingInformation() {
         Thread thread = new Thread() {
             @Override
@@ -752,5 +793,66 @@ public class Report_Home extends AppCompatActivity {
             }
         };
         thread.start();
+    }
+
+    public void Do_Whatsapp(View view) {
+
+        StoreImage();
+        openWhatsApp();
+    }
+    private void openWhatsApp() {
+        File imageFileToShare = new File("//sdcard/z1.jpg");
+        Uri uri2 = Uri.fromFile(imageFileToShare);
+        String toNumber = "+962785381939";
+        toNumber="+962" +"785381939";
+        toNumber = toNumber.replace("+", "").replace(" ", "");
+        Intent shareIntent = new Intent("android.intent.action.MAIN");
+        shareIntent.setAction(Intent.ACTION_SEND);
+        String ExtraText;
+        ExtraText = "Galaxy Sales App";
+        shareIntent.putExtra(Intent.EXTRA_TEXT, ExtraText);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri2);
+        shareIntent.setType("image/jpg");
+        shareIntent.setPackage("com.whatsapp");
+        shareIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        try {
+
+            startActivity(shareIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getBaseContext(), "Sharing tools have not been installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    private  void StoreImage(){
+        LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
+
+        Bitmap b = loadBitmapFromView(lay);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String filename = "z1.jpg";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            out.flush();
+            out.close();
+            //  bitmap.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    public static Bitmap loadBitmapFromView(View v) {
+
+        v.measure(View.MeasureSpec.makeMeasureSpec(v.getLayoutParams().width,
+                View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(
+                v.getLayoutParams().height, View.MeasureSpec.UNSPECIFIED));
+        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
     }
 }

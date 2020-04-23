@@ -1,7 +1,7 @@
 package com.cds_jo.GalaxySalesApp.Reports;
 
 public class cls_achievement_rate {
-   String  ManNo;
+    String  ManNo;
     String ManName;
     String Tr_Date;
     String TotalCust;
