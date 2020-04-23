@@ -88,7 +88,7 @@ public class CustomerCollectionsReportFrag extends Fragment {
                         cls_customerOfCollection1.setOrder_date(orderDate.get(i).toString());
                         TList.add(cls_customerOfCollection1);
 //**
-                    }
+                    }//
                     _handler.post(new Runnable() {
                         public void run() {
 
