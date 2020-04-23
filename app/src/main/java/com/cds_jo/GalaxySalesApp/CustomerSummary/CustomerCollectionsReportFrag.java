@@ -1,10 +1,8 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +26,6 @@ public class CustomerCollectionsReportFrag extends Fragment {
     CustomerCollectoinAdapter adapter;
     cls_CustomerOfCollection1 cls_customerOfCollection1;
     ListView lv;
-    String CustAcc ;
     final Handler _handler = new Handler();
 
 
@@ -44,8 +41,6 @@ public class CustomerCollectionsReportFrag extends Fragment {
         View v= inflater.inflate(R.layout.fragment_customer_collections_report, container, false);
 
         lv=(ListView)v.findViewById(R.id.k) ;
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        CustAcc = sharedPreferences.getString("CustNo", "");
         getData();
 
         return v;
@@ -58,8 +53,9 @@ public class CustomerCollectionsReportFrag extends Fragment {
             public void run() {
 
                 CallWebServices ws = new CallWebServices(getActivity());
-                ws.GET_CustReportCollections(CustAcc);
+                ws.GET_CustReportCollections("11041000011");
                 try {
+
                     JSONObject js = new JSONObject(We_Result.Msg);
                     JSONArray NameCust = js.getJSONArray("NameCust");
                     JSONArray  Date = js.getJSONArray("Date");
@@ -70,11 +66,11 @@ public class CustomerCollectionsReportFrag extends Fragment {
                     JSONArray InoviceAmt = js.getJSONArray("InoviceAmt");
                     JSONArray Notes = js.getJSONArray("Notes");
                     JSONArray SupervisorNutes = js.getJSONArray("SupervisorNutes");
-                    JSONArray newAmt = js.getJSONArray("NewAmt");//
+                    JSONArray newAmt = js.getJSONArray("NewAmt");
                     JSONArray orderDate = js.getJSONArray("Order_date");
                     cls_customerOfCollection1=new cls_CustomerOfCollection1();
                     for (int i = 0; i < NameCust.length(); i++) {
-//**
+
                         cls_customerOfCollection1.setAmt(Amt.get(i).toString());
                         cls_customerOfCollection1.setNameCust(NameCust.get(i).toString());
                         cls_customerOfCollection1.setDate(Date.get(i).toString());
@@ -87,8 +83,8 @@ public class CustomerCollectionsReportFrag extends Fragment {
                         cls_customerOfCollection1.setNewAmt(newAmt.get(i).toString());
                         cls_customerOfCollection1.setOrder_date(orderDate.get(i).toString());
                         TList.add(cls_customerOfCollection1);
-//**
-                    }//
+
+                    }
                     _handler.post(new Runnable() {
                         public void run() {
 
