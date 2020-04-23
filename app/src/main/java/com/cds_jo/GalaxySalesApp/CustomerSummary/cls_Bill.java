@@ -1,27 +1,19 @@
 package com.cds_jo.GalaxySalesApp.CustomerSummary;
 
 public class cls_Bill {
-    String date ;
-    String Dec ;
+    String date;
+    String Dec;
     String SumWithOutTax;
-    String name ;
-    String Tot ;
-    String item_no ;
-    String totalwithtax ;
-    String bill ;
-    String cluse ;
-
-    public cls_Bill(String date, String dec, String sumWithOutTax, String name, String tot, String item_no, String totalwithtax, String bill, String cluse) {
-        this.date = date;
-        Dec = dec;
-        SumWithOutTax = sumWithOutTax;
-        this.name = name;
-        Tot = tot;
-        this.item_no = item_no;
-        this.totalwithtax = totalwithtax;
-        this.bill = bill;
-        this.cluse = cluse;
-    }
+    String name;
+    String Tot;
+    String item_no;
+    String totalwithtax;
+    String bill;
+    String cluse;
+    String price;
+    String Bonus;
+    String A_Qty;
+    String Item_Name;
 
     public String getDate() {
         return date;
@@ -79,11 +71,11 @@ public class cls_Bill {
         this.totalwithtax = totalwithtax;
     }
 
-    public String getbill() {
+    public String getBill() {
         return bill;
     }
 
-    public void setSales_No(String bill) {
+    public void setBill(String bill) {
         this.bill = bill;
     }
 
@@ -93,5 +85,37 @@ public class cls_Bill {
 
     public void setCluse(String cluse) {
         this.cluse = cluse;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getBonus() {
+        return Bonus;
+    }
+
+    public void setBonus(String bonus) {
+        Bonus = bonus;
+    }
+
+    public String getA_Qty() {
+        return A_Qty;
+    }
+
+    public void setA_Qty(String a_Qty) {
+        A_Qty = a_Qty;
+    }
+
+    public String getItem_Name() {
+        return Item_Name;
+    }
+
+    public void setItem_Name(String item_Name) {
+        Item_Name = item_Name;
     }
 }

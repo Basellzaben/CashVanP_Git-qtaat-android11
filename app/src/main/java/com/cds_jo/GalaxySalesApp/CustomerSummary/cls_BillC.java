@@ -8,15 +8,7 @@ public class cls_BillC {
     String Item_Name ;
     String bill ;
 
-    public cls_BillC(String price, String bonus, String totalwithtax, String a_Qty, String item_Name, String bill) {
-        this.price = price;
-        Bonus = bonus;
-        this.totalwithtax = totalwithtax;
-        A_Qty = a_Qty;
-        Item_Name = item_Name;
-       this.bill = bill;
-    }
-
+  
     public String getPrice() {
         return price;
     }
