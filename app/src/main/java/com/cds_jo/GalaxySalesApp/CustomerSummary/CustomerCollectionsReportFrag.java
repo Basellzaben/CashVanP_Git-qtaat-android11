@@ -74,7 +74,7 @@ public class CustomerCollectionsReportFrag extends Fragment {
                     JSONArray orderDate = js.getJSONArray("Order_date");
                     cls_customerOfCollection1=new cls_CustomerOfCollection1();
                     for (int i = 0; i < NameCust.length(); i++) {
-
+//**
                         cls_customerOfCollection1.setAmt(Amt.get(i).toString());
                         cls_customerOfCollection1.setNameCust(NameCust.get(i).toString());
                         cls_customerOfCollection1.setDate(Date.get(i).toString());
