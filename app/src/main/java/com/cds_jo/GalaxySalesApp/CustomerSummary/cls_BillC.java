@@ -8,7 +8,7 @@ public class cls_BillC {
     String Item_Name ;
     String bill ;
 
-  
+
     public String getPrice() {
         return price;
     }

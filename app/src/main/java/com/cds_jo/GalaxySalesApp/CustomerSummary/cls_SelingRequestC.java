@@ -8,15 +8,7 @@ public class cls_SelingRequestC {
     String Item_Name ;
     String Sales_No ;
 
-    public cls_SelingRequestC(String price, String bonus, String tot, String a_Qty, String item_Name, String sales_No) {
-        this.price = price;
-        Bonus = bonus;
-        Tot = tot;
-        A_Qty = a_Qty;
-        Item_Name = item_Name;
-        Sales_No = sales_No;
-    }
-
+    
     public String getSales_No() {
         return Sales_No;
     }

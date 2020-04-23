@@ -10,17 +10,43 @@ public class cls_SelingRequest {
     String TaxPerc ;
     String Sales_No ;
     String day ;
+    String price ;
+    String Bonus ;
 
-    public cls_SelingRequest(String date, String dec, String taxNo, String name, String tot, String item_no, String taxPerc, String sales_No, String day) {
-        this.date = date;
-        Dec = dec;
-        TaxNo = taxNo;
-        this.name = name;
-        Tot = tot;
-        this.item_no = item_no;
-        TaxPerc = taxPerc;
-        Sales_No = sales_No;
-        this.day = day;
+    String A_Qty ;
+    String Item_Name ;
+
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getBonus() {
+        return Bonus;
+    }
+
+    public void setBonus(String bonus) {
+        Bonus = bonus;
+    }
+
+    public String getA_Qty() {
+        return A_Qty;
+    }
+
+    public void setA_Qty(String a_Qty) {
+        A_Qty = a_Qty;
+    }
+
+    public String getItem_Name() {
+        return Item_Name;
+    }
+
+    public void setItem_Name(String item_Name) {
+        Item_Name = item_Name;
     }
 
     public String getDate() {
