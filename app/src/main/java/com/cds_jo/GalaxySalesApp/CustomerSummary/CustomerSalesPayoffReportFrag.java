@@ -108,19 +108,18 @@ public class CustomerSalesPayoffReportFrag extends Fragment {
                     //  cls_selingRequestC = new cls_SelingRequestC();
                     cls_salesPayoff = new cls_SalesPayoff();
                     for (i = 0; i < js_Name.length(); i++) {
+                        cls_salesPayoff = new cls_SalesPayoff();
                         cls_salesPayoff.setName(js_Name.get(i).toString());
                         cls_salesPayoff.setDec(js_Dec.get(i).toString());
                         cls_salesPayoff.setTotalwithtax(js_totalwithtax.get(i).toString());
                         cls_salesPayoff.setTot(js_Tot.get(i).toString());
                         cls_salesPayoff.setItem_Name(js_Item_Name.get(i).toString());
-
                         cls_salesPayoff.setDate(js_Date.get(i).toString());
                         cls_salesPayoff.setItem_no(js_item_no.get(i).toString());
                         cls_salesPayoff.setA_Qty(js_A_Qty.get(i).toString());
                         cls_salesPayoff.setPrice(js_price.get(i).toString());
                         cls_salesPayoff.setBonus(js_Bonus.get(i).toString());
                         cls_salesPayoff.setDes(note.get(i).toString());
-
                         cls_salesPayoff.setDate(js_cluse.get(i).toString());
                         listDataHeader.add(cls_salesPayoff);
                     }
