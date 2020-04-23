@@ -1,8 +1,10 @@
 package com.cds_jo.GalaxySalesApp.Reports;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,6 +12,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.cds_jo.GalaxySalesApp.JalMasterActivity;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.Select_Customer;
 import com.cds_jo.GalaxySalesApp.SmanChart.BarChartItem;
@@ -50,7 +55,7 @@ import java.util.List;
 import Methdes.MyTextView;
 
 
-public class Report_Home extends AppCompatActivity {
+public class Report_Home extends FragmentActivity {
     String ManNo,CustNo,CoutNo;
     Cls_Listtitle obj;
     ImageView imgFrom,imgTo;
@@ -721,6 +726,20 @@ public class Report_Home extends AppCompatActivity {
         cls_listtitles.add( obj);
 
 
+        obj=new  Cls_Listtitle ();
+        obj.setTitle("الهدف الشهري مبالغ");
+        obj.setFlg("5");
+        obj.setNo("9");
+        cls_listtitles.add( obj);
+
+
+        obj=new  Cls_Listtitle ();
+        obj.setTitle("الهدف الشهري-كميات");
+        obj.setFlg("6");
+        obj.setNo("9");
+        cls_listtitles.add( obj);
+
+
     }
     private void ShowChart() {
         ChartList.clear();
@@ -798,6 +817,21 @@ public class Report_Home extends AppCompatActivity {
         cd.setBarWidth(0.9f);
         return cd;
     }
+
+    public void btn_Back(View view) {
+        Intent i  = new Intent(this, JalMasterActivity.class);
+        startActivity(i);
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i  = new Intent(this, JalMasterActivity.class);
+        startActivity(i);
+
+
+    }
     private class ChartDataAdapter extends ArrayAdapter<ChartItem_Report> {
 
         ChartDataAdapter(Context context, List<ChartItem_Report> objects) {
@@ -815,12 +849,12 @@ public class Report_Home extends AppCompatActivity {
         public int getItemViewType(int position) {
             // return the views type
             ChartItem_Report ci = getItem(position);
-            return ci != null ? ci.getItemType() : 0;
+            return 1;//ci != null ? ci.getItemType() :1;
         }
 
         @Override
         public int getViewTypeCount() {
-            return 3; // we have 3 different item-types
+            return 2; // we have 3 different item-types
         }
     }
     private void SalesValues() {
@@ -945,7 +979,7 @@ public class Report_Home extends AppCompatActivity {
     public void Do_Whatsapp(View view) {
 
         StoreImage();
-        openWhatsApp();
+         openWhatsApp();
     }
     private void openWhatsApp() {
         File imageFileToShare = new File("//sdcard/z1.jpg");
@@ -971,23 +1005,28 @@ public class Report_Home extends AppCompatActivity {
         }
     }
     private  void StoreImage(){
-        LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
 
-        Bitmap b = loadBitmapFromView(lay);
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        String filename = "z1.jpg";
-        File sd = Environment.getExternalStorageDirectory();
-        File dest = new File(sd, filename);
 
-        try {
-            FileOutputStream out = new FileOutputStream(dest);
-            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
-            out.flush();
-            out.close();
-            //  bitmap.recycle();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+      try {
+          LinearLayout lay = (LinearLayout) findViewById(R.id.Data);
+
+          Bitmap b = loadBitmapFromView(lay);
+          ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+          String filename = "z1.jpg";
+          File sd = Environment.getExternalStorageDirectory();
+          File dest = new File(sd, filename);
+
+          try {
+              FileOutputStream out = new FileOutputStream(dest);
+              b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+              out.flush();
+              out.close();
+              //  bitmap.recycle();
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+      }catch (Exception e ){}
+
 
     }
     public static Bitmap loadBitmapFromView(View v) {

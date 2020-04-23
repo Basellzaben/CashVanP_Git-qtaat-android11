@@ -232,7 +232,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.6"
+        android:layout_weight="2.4"
         android:orientation="horizontal"
         android:weightSum="2">
 
@@ -304,7 +304,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.4"
         android:background="@color/blue123"
         android:orientation="horizontal">
 
@@ -312,19 +312,19 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="Do_Whatsapp"
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button48"
+
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/button_dark"
-                android:drawableStart="@drawable/iconwhatsapp"
-                android:text="ارسال عبر واتس اب"
-                android:textColor="#000" />
+                android:onClick="Do_Whatsapp"
+                android:text="الواتس اب"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -336,12 +336,12 @@
             <Button
                 android:id="@+id/button49"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="3dp"
                 android:layout_weight="1"
-                android:background="@color/blue_btn_bg_pressed_color"
-                android:drawableStart="@drawable/ic_email_black_24dp"
-                android:text="ارسال عبر الايميل" />
+                android:text="ارسال عبر الايميل"
+                android:textColor="#000"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -353,9 +353,12 @@
             <Button
                 android:id="@+id/button50"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:onClick="btn_Back"
+                android:text="القائمة الرئيسية"
+                android:textColor="#000"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
