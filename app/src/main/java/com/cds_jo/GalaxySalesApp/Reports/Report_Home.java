@@ -821,10 +821,14 @@ public class Report_Home extends FragmentActivity {
             Cls_SalesValues c=cnt.get(i);
             values1 = new ArrayList<>();
             values1.add(new Entry(i,Float.parseFloat(c.getTr_Value())));
+            values1.add(new Entry(++i,Float.parseFloat(c.getTr_Value())));
+            values1.add(new Entry(++i,Float.parseFloat(c.getTr_Value())));
             LineDataSet d1 = new LineDataSet(values1, c.getItem_Name());
             d1.setLineWidth(2.5f);
             d1.setCircleRadius(4.5f);
             d1.setHighLightColor(Color.rgb(244+i, 117+i, 117+i));
+            d1.setColor(ColorTemplate.VORDIPLOM_COLORS[i]);
+            d1.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[i]);
             d1.setDrawValues(false);
             sets.add(d1);
         }
