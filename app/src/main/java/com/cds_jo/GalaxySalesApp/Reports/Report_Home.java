@@ -815,30 +815,75 @@ public class Report_Home extends FragmentActivity {
     }
     private LineData generateDataLine(ArrayList<Cls_SalesValues> cnt) {
 
-        ArrayList<Entry> values1 ;
-        ArrayList<ILineDataSet> sets = new ArrayList<>();
-        for (int i = 0; i < cnt.size(); i++) {
-            Cls_SalesValues c=cnt.get(i);
-            values1 = new ArrayList<>();
-            values1.add(new Entry(i,Float.parseFloat(c.getTr_Value())));
-            values1.add(new Entry(++i,Float.parseFloat(c.getTr_Value())));
-            values1.add(new Entry(++i,Float.parseFloat(c.getTr_Value())));
-            LineDataSet d1 = new LineDataSet(values1, c.getItem_Name());
-            d1.setLineWidth(2.5f);
-            d1.setCircleRadius(4.5f);
-            d1.setHighLightColor(Color.rgb(244+i, 117+i, 117+i));
-            d1.setColor(ColorTemplate.VORDIPLOM_COLORS[i]);
-            d1.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[i]);
-            d1.setDrawValues(false);
-            sets.add(d1);
+//        ArrayList<Entry> values1 ;
+//        ArrayList<ILineDataSet> sets = new ArrayList<>();
+//        for (int i = 0; i < cnt.size(); i++) {
+//            Cls_SalesValues c=cnt.get(i);
+//            values1 = new ArrayList<>();
+//            values1.add(new Entry(i,Float.parseFloat(c.getTr_Value())));
+//            values1.add(new Entry(++i,Float.parseFloat(c.getTr_Value())));
+//            values1.add(new Entry(++i,Float.parseFloat(c.getTr_Value())));
+//            LineDataSet d1 = new LineDataSet(values1, c.getItem_Name());
+//            d1.setLineWidth(2.5f);
+//            d1.setCircleRadius(4.5f);
+//            d1.setHighLightColor(Color.rgb(244+i, 117+i, 117+i));
+//            d1.setColor(ColorTemplate.VORDIPLOM_COLORS[i]);
+//            d1.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[i]);
+//            d1.setDrawValues(false);
+//            sets.add(d1);
+//        }
+//
+//
+
+        ArrayList<Entry> values1 = new ArrayList<>();
+        Cls_SalesValues c=cnt.get(0);
+        for (int i = 0; i < 12; i++) {
+            values1.add(new Entry(i, (int) (Math.random() * 65) + 40));
         }
 
+        LineDataSet d1 = new LineDataSet(values1, c.getItem_Name());
+        d1.setLineWidth(2.5f);
+        d1.setCircleRadius(4.5f);
+        d1.setHighLightColor(Color.rgb(244, 117, 117));
+        d1.setDrawValues(false);
 
+        ArrayList<Entry> values2 = new ArrayList<>();
+        Cls_SalesValues c1=cnt.get(1);
+        for (int i = 0; i < 12; i++) {
+            values2.add(new Entry(i, values1.get(i).getY() - 30));
+        }
 
+        LineDataSet d2 = new LineDataSet(values2,  c1.getItem_Name());
+        d2.setLineWidth(2.5f);
+        d2.setCircleRadius(4.5f);
+        d2.setHighLightColor(Color.rgb(244, 117, 117));
+        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        d2.setDrawValues(false);
 
+        ArrayList<Entry> values3 = new ArrayList<>();
+        Cls_SalesValues c2=cnt.get(2);
+        for (int i = 0; i < 12; i++) {
+            values3.add(new Entry(i, values1.get(i).getY() - 30));
+        }
 
+        LineDataSet d3 = new LineDataSet(values2,  c2.getItem_Name());
+        d2.setLineWidth(2.5f);
+        d2.setCircleRadius(4.5f);
+        d2.setHighLightColor(Color.rgb(244, 117, 117));
+        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[1]);
+        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[1]);
+        d2.setDrawValues(false);
+        ArrayList<ILineDataSet> sets = new ArrayList<>();
+        sets.add(d1);
+        sets.add(d2);
+        sets.add(d3);
         return new LineData(sets);
     }
+
+
+
+
     private BarData generateDataBar (List<Cls_SalesValues> objects){
 
         ArrayList<BarEntry> entries = new ArrayList<>();
