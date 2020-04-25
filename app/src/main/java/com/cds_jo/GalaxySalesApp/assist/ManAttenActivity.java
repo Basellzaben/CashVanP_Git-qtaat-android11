@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -81,7 +82,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import header.Header_Frag;
 
 
-public class ManAttenActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ManAttenActivity extends FragmentActivity implements OnMapReadyCallback {
     TextView tv;
     String SCR_NO ="11029";
     Drawable greenProgressbar;
@@ -131,7 +132,7 @@ public class ManAttenActivity extends AppCompatActivity implements OnMapReadyCal
     Document doc;
     String[] tags;
     Elements elements;
-    String Unix_time ;
+        String Unix_time ;
     String[] split;
     Intent BackInt;
     String UserID,UserName,COMPUTERNAME;
@@ -145,10 +146,10 @@ public class ManAttenActivity extends AppCompatActivity implements OnMapReadyCal
             setContentView(R.layout.man_atten);
             this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-              UserID =  sharedPreferences.getString("UserID", "");
-              UserName =  sharedPreferences.getString("UserName", "");
-              CustNm = (TextView) findViewById(R.id.tv_CustName);
-              CustNm.setText(UserName);
+            UserID =  sharedPreferences.getString("UserID", "");
+            UserName =  sharedPreferences.getString("UserName", "");
+            CustNm = (TextView) findViewById(R.id.tv_CustName);
+            CustNm.setText(UserName);
             COMPUTERNAME= Settings.Secure.getString(this.getContentResolver(), "bluetooth_name"  );
             COMPUTERNAME=COMPUTERNAME+" (" + Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID  )+")";
             CalnederServerTime  = Calendar.getInstance();
@@ -204,7 +205,7 @@ public class ManAttenActivity extends AppCompatActivity implements OnMapReadyCal
 
 
             tv_location = (Methdes.MyTextView) findViewById(R.id.tv_location);
-             tv_Loc = (TextView) findViewById(R.id.tv_Loc);
+            tv_Loc = (TextView) findViewById(R.id.tv_Loc);
 
             sqlHandler = new SqlHandler(this);
 
@@ -214,7 +215,7 @@ public class ManAttenActivity extends AppCompatActivity implements OnMapReadyCal
             DeviceDate = sdf.format(new Date());
             getUnixTime(-1);
             try {
-                GetlocationNew();
+            GetlocationNew();
             } catch (Exception ex) {
             }
 
@@ -229,22 +230,22 @@ public class ManAttenActivity extends AppCompatActivity implements OnMapReadyCal
 
 
 
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+            .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
-            mapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap googleMap) {
-                    LatLng sydney = new LatLng(Lat, Lng);
-                    googleMap.addMarker(new MarkerOptions().title("Paris").position(sydney));
-                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(17);
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
-                    googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                    mMap.animateCamera(zoom);
-                }
-            });
+  mapFragment.getMapAsync(new OnMapReadyCallback() {
+@Override
+public void onMapReady(GoogleMap googleMap) {
+    LatLng sydney = new LatLng(Lat, Lng);
+    googleMap.addMarker(new MarkerOptions().title("Paris").position(sydney));
+    CameraUpdate zoom = CameraUpdateFactory.zoomTo(17);
+    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
+    googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    mMap.animateCamera(zoom);
+}
+});
 
         } catch (Exception ex) {
             new SweetAlertDialog(ManAttenActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
@@ -254,7 +255,9 @@ public class ManAttenActivity extends AppCompatActivity implements OnMapReadyCal
                     .setConfirmText("رجــــوع")
                     .show();
         }
-        GetData();
+        try {
+            GetData();
+        } catch ( Exception df){}
     }
     public void GetData() {
         ArrayAtts.clear();

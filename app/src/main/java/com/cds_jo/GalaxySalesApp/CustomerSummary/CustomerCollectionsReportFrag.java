@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.We_Result;
@@ -66,7 +67,7 @@ public class CustomerCollectionsReportFrag extends Fragment {
                     JSONArray NameCust = js.getJSONArray("NameCust");
                     JSONArray  Date = js.getJSONArray("Date");
                     JSONArray new_Tr_date = js.getJSONArray("NewTr_date");
-                    JSONArray custNo = js.getJSONArray("CustNo");
+                    JSONArray custNo = js.getJSONArray("custNo");
                     JSONArray orderNo = js.getJSONArray("orderNo");
                     JSONArray Amt = js.getJSONArray("Amt");
                     JSONArray InoviceAmt = js.getJSONArray("InoviceAmt");
@@ -101,7 +102,12 @@ public class CustomerCollectionsReportFrag extends Fragment {
 
 
                     //  mo(TList);
-                } catch (Exception e) {
+                } catch (final Exception e) {
+                    _handler.post(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getActivity(),e.getMessage()+"",Toast.LENGTH_LONG).show();
+                        }
+                    });
 
                 }
 

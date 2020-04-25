@@ -693,8 +693,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
             DoNew();
             SharManVisits();
-            stopService(new Intent(MainActivity.this, AutoPostLocation.class));
-            startService(new Intent(MainActivity.this, AutoPostLocation.class));
+           /* stopService(new Intent(MainActivity.this, AutoPostLocation.class));
+            startService(new Intent(MainActivity.this, AutoPostLocation.class));*/
         } else {
 
             alertDialog.setMessage("عملية  الحفظ لم تتم ");

@@ -1,19 +1,19 @@
-package com.cds_jo.GalaxySalesApp.SmanChart;
+package com.cds_jo.GalaxySalesApp.Reports;
 
 import android.content.Context;
 import android.view.View;
 
 import com.github.mikephil.charting.data.ChartData;
 
-public abstract class ChartItem {
+public abstract class ChartItem_Report {
 
-    static final int TYPE_BARCHART = 0;
-    public static final int TYPE_LINECHART = 1;
+  //  static final int TYPE_BARCHART = 0;
+    static final int TYPE_LINECHART = 1;
     static final int TYPE_PIECHART = 2;
 
-    public ChartData<?> mChartData;
+    ChartData<?> mChartData;
 
-    public ChartItem(ChartData<?> cd) {
+    ChartItem_Report(ChartData<?> cd) {
         this.mChartData = cd;
     }
 

@@ -40,7 +40,7 @@ public class CallWebServices  {
         //URL = "http://92.253.93.52:3755/CV.asmx";
         //URL = "http://192.168.1.148/GIWS/CV.asmx";
         //URL = "http://10.0.1.166/GIWS/CV.asmx"; //Galaxy1
-          URL = "http://192.168.8.101:82/CV.asmx"; //Galaxy2
+          URL = "http://192.168.8.100:82/CV.asmx"; //Galaxy2
         //  URL = "http://192.168.43.36:82/CV.asmx"; //Galaxy2
 
       //  URL = "http://192.168.8.100:82/CV.asmx";[
@@ -4129,7 +4129,7 @@ return    We_Result.ID;
         We_Result.Msg="";
         We_Result.ID =-1;
 
-        SoapObject request = new SoapObject(NAMESPACE, "GET_CustReportCollections");
+        SoapObject request = new SoapObject(NAMESPACE, "GatTableCollections_Cust");
 
         PropertyInfo parm_AccNo = new PropertyInfo();
         parm_AccNo.setName("AccNo");
@@ -4152,7 +4152,7 @@ return    We_Result.ID;
 
         try {
 
-            androidHttpTransport.call("http://tempuri.org/GET_CustReportCollections", envelope);
+            androidHttpTransport.call("http://tempuri.org/GatTableCollections_Cust", envelope);
             SoapObject result  = (SoapObject) envelope.getResponse();
             We_Result.Msg =  result.getProperty("Msg").toString();
             We_Result.ID = Long.parseLong(result.getProperty("ID").toString());

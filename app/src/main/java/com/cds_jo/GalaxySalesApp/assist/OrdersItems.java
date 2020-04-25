@@ -2248,6 +2248,12 @@ public class OrdersItems extends FragmentActivity {
         }
 
         if (i > 0) {
+
+            if(IsNew== true){
+                InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+            }else{
+                InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Modify.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+            }
             // GetMaxPONo();
             AlertDialog alertDialog = new AlertDialog.Builder(
                     this).create();
@@ -2256,11 +2262,7 @@ public class OrdersItems extends FragmentActivity {
             UpDateMaxOrderNo();
             DeleteAllPromotions();
             Gf_Calc_Promotion();
-            if(IsNew){
-                InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
-            }else{
-                InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Modify.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
-            }
+
             IsNew = false;
             //UpDateMaxOrderNo();
             //contactList.clear();

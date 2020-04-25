@@ -73,10 +73,8 @@ public class CustomerBillFrag extends Fragment {
                         sendData.listDataC.add(cls_billC);
                     }
                 }
-
                 ItemBill exampleDialog = new ItemBill();
                 exampleDialog.show((getActivity()).getSupportFragmentManager(), " dialog");
-
             }
         });
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
