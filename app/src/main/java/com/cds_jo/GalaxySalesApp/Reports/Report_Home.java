@@ -511,7 +511,7 @@ public class Report_Home extends FragmentActivity {
 
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
-                ws.GET_Report_Payments("-1","-1","5","-1","01-01-2020","01-01-2021","-1","-1","-1");
+                ws.GET_Report_Payments("-1","-1","5","3","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if(We_Result.ID>0) {
                         Integer i;
@@ -746,11 +746,7 @@ public class Report_Home extends FragmentActivity {
 
 
 
-        obj=new  Cls_Listtitle ();
-        obj.setTitle("line_chart");
-        obj.setFlg("7");
-        obj.setNo("9");
-        cls_listtitles.add( obj);
+
 
     }
     private void ShowChart() {
@@ -1003,7 +999,7 @@ public class Report_Home extends FragmentActivity {
 
                 CallWebServices ws = new CallWebServices(Report_Home.this);
                // ws.GET_Report_Home(ReportId.CustNo,ReportId.ManNo,ReportId.Id,ReportId.flag,ReportId.FromDate,ReportId.ToDate,"","",ReportId.Countryno);
-                ws.GET_Report_Home("-1","-1","1","-1","01-01-2020","01-01-2021","-1","-1","-1");
+                ws.GET_Report_Home("-1","-1","1","2","01-01-2020","01-01-2021","-1","-1","-1");
                 try {
                     if(We_Result.ID>0) {
                         Integer i;
@@ -1066,8 +1062,8 @@ public class Report_Home extends FragmentActivity {
 
     public void Do_Whatsapp(View view) {
 
-        StoreImage();
-         openWhatsApp();
+       // StoreImage();
+        // openWhatsApp();
     }
     private void openWhatsApp() {
         File imageFileToShare = new File("//sdcard/z1.jpg");

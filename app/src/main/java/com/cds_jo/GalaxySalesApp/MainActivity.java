@@ -630,7 +630,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void btn_EndRound(View view) {
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        OrderNo =sharedPreferences.getString("V_OrderNo", "0");
         if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
 
             q = "Select * from VisitImagesHdr where V_OrderNo='" + sharedPreferences.getString("V_OrderNo", "0") + "'";
