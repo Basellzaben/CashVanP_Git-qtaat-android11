@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
@@ -40,6 +41,10 @@ import com.cds_jo.GalaxySalesApp.assist.getDataSer;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.json.JSONArray;
@@ -740,6 +745,13 @@ public class Report_Home extends FragmentActivity {
         cls_listtitles.add( obj);
 
 
+
+        obj=new  Cls_Listtitle ();
+        obj.setTitle("line_chart");
+        obj.setFlg("7");
+        obj.setNo("9");
+        cls_listtitles.add( obj);
+
     }
     private void ShowChart() {
         ChartList.clear();
@@ -765,16 +777,21 @@ public class Report_Home extends FragmentActivity {
 
                        // for (i = 0; i < js_Item_No.length(); i++) {
                         for (i = 0; i < 5; i++) {
+
                             obj=  new Cls_SalesValues();
                             obj.setItem_No(js_Item_No.get(i).toString());
                             obj.setItem_Name(js_Item_Name.get(i).toString());
                             obj.setTr_Value(js_Tr_Value.get(i).toString());
                             SalesValuesList.add(obj);
                         }
+
+
+
+
                         _handler.post(new Runnable() {
                             public void run() {
                                 ChartList.add(new BarChartItem_Report(generateDataBar(SalesValuesList),Report_Home.this,SalesValuesList));
-
+                                ChartList.add(new LineChartItem(generateDataLine(1), Report_Home.this));
                                 ChartDataAdapter cda = new ChartDataAdapter(Report_Home.this, ChartList);
                                 listView1.setAdapter(cda);
 
@@ -795,6 +812,40 @@ public class Report_Home extends FragmentActivity {
             }
         };
         thread.start();
+    }
+    private LineData generateDataLine(int cnt) {
+
+        ArrayList<Entry> values1 = new ArrayList<>();
+
+        for (int i = 0; i < 12; i++) {
+            values1.add(new Entry(i, (int) (Math.random() * 65) + 40));
+        }
+
+        LineDataSet d1 = new LineDataSet(values1, "New DataSet " + cnt + ", (1)");
+        d1.setLineWidth(2.5f);
+        d1.setCircleRadius(4.5f);
+        d1.setHighLightColor(Color.rgb(244, 117, 117));
+        d1.setDrawValues(false);
+
+        ArrayList<Entry> values2 = new ArrayList<>();
+
+        for (int i = 0; i < 12; i++) {
+            values2.add(new Entry(i, values1.get(i).getY() - 30));
+        }
+
+        LineDataSet d2 = new LineDataSet(values2, "New DataSet " + cnt + ", (2)");
+        d2.setLineWidth(2.5f);
+        d2.setCircleRadius(4.5f);
+        d2.setHighLightColor(Color.rgb(244, 117, 117));
+        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        d2.setDrawValues(false);
+
+        ArrayList<ILineDataSet> sets = new ArrayList<>();
+        sets.add(d1);
+        sets.add(d2);
+
+        return new LineData(sets);
     }
     private BarData generateDataBar (List<Cls_SalesValues> objects){
 

@@ -43,6 +43,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.cds_jo.GalaxySalesApp.ComInfo;
 import com.cds_jo.GalaxySalesApp.ContactListItems;
 import com.cds_jo.GalaxySalesApp.DB;
+import com.cds_jo.GalaxySalesApp.JalMasterActivity;
 import com.cds_jo.GalaxySalesApp.MyApplication;
 import com.cds_jo.GalaxySalesApp.PopSmallMenue;
 import com.cds_jo.GalaxySalesApp.Pop_Update_Qty;
@@ -544,7 +545,7 @@ private void ShowMenu(String rr){
 }
     @Override
     public void onBackPressed() {
-         Intent k= new Intent(this, ManLocationsReport.class);
+         Intent k= new Intent(this, JalMasterActivity.class);
         startActivity(k);
     }
 
@@ -853,7 +854,7 @@ private void ShowMenu(String rr){
         }
     }
     public void BtnBack(View view) {
-        Intent k= new Intent(this, ManLocationsReport.class);
+        Intent k= new Intent(this, JalMasterActivity.class);
         startActivity(k);
     }
 

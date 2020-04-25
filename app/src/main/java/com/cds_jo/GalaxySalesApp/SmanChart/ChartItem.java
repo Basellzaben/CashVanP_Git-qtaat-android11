@@ -8,12 +8,12 @@ import com.github.mikephil.charting.data.ChartData;
 public abstract class ChartItem {
 
     static final int TYPE_BARCHART = 0;
-    static final int TYPE_LINECHART = 1;
+    public static final int TYPE_LINECHART = 1;
     static final int TYPE_PIECHART = 2;
 
-    ChartData<?> mChartData;
+    public ChartData<?> mChartData;
 
-    ChartItem(ChartData<?> cd) {
+    public ChartItem(ChartData<?> cd) {
         this.mChartData = cd;
     }
 
