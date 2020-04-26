@@ -218,6 +218,10 @@ public class TOfCollections extends AppCompatActivity {
     public void getData(String acc2)
     {
         sqlHandler = new SqlHandler(this);
+        q = "Delete from InvoicePaymentSchedule";
+        sqlHandler.executeQuery(q);
+        lv.setAdapter(null);
+
         loadingdialog = ProgressDialog.show(TOfCollections.this, "الرجاء الانتظار ...", "العمل جاري على ترحيل الدفعات", true);
         loadingdialog.setCancelable(false);
         loadingdialog.setCanceledOnTouchOutside(false);
