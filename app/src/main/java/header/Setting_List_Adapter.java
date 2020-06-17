@@ -106,8 +106,8 @@ public class Setting_List_Adapter extends BaseAdapter {
         RR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context,myList.get(position).getTitle(),Toast.LENGTH_LONG).show();
-                Toast.makeText(context,position+"",Toast.LENGTH_LONG).show();
+
+              //  Toast.makeText(context,position+"",Toast.LENGTH_LONG).show();
                 GetPermession obj = new GetPermession();
                 //Toast.makeText(context.getApplicationContext(), position +"", Toast.LENGTH_SHORT).show();
 

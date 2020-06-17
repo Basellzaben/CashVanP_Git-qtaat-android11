@@ -15,7 +15,7 @@ import java.util.Locale;
 
 public class SqlHandler {
 
-    public static final String DATABASE_NAME = "/mnt/sdcard/Android/data/Galaxy/CVDB.db";
+        public static final String DATABASE_NAME = "/mnt/sdcard/Android/data/Galaxy/CVDB.db";
     public static final int DATABASE_VERSION =37;
     Context context;
     SQLiteDatabase sqlDatabase;

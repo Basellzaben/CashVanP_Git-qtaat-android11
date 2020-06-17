@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     RelativeLayout.LayoutParams lp;
     MyTextView tv_VisitWeekNm;
     EditText tv_Note;
+    String IsException= "0" ;
     TextView tv_x , tv_y, tv_Loc ;
     // Minimum time fluctuation for next update (in milliseconds)
     private static final long TIME = 30000;
@@ -500,6 +501,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         cv.put("OrderNo", OrderNo);
         cv.put("Note", tv_Note.getText().toString());
         cv.put("X_Lat", tv_x.getText().toString());
+        cv.put("IsException", IsException);
         cv.put("Y_Long", tv_y.getText().toString());
         cv.put("Loct", tv_Loc.getText().toString());
 
@@ -730,7 +732,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         final Handler _handler = new Handler();
         String query = "select  distinct no,ManNo, CusNo, DayNum ,Tr_Data ,Start_Time,End_Time, Duration,OrderNo " +
-                "  ,Note,  X_Lat,Y_Long,Loct from SaleManRounds   where Posted = -1";
+                "  ,Note,  X_Lat,Y_Long,Loct,IsException from SaleManRounds   where Posted = -1";
         Cursor c1 = sqlHandler.selectQuery(query);
         ArrayList<Cls_SaleManDailyRound> RoundList;
         RoundList = new ArrayList<Cls_SaleManDailyRound>();
@@ -780,6 +782,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     cls_saleManDailyRound.setLoct(c1.getString(c1
                             .getColumnIndex("Loct")));
 
+                    cls_saleManDailyRound.setIsException(c1.getString(c1
+                            .getColumnIndex("IsException")));
+
 
 
                     RoundList.add(cls_saleManDailyRound);
@@ -820,13 +825,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }
         }).start();
     }
-
+    public void Set_CustException(String No, String Nm) {
+        Toast.makeText(this , "جولة استثنائية",Toast.LENGTH_LONG).show();
+        TextView CustNm = (TextView) findViewById(R.id.tv_CustName);
+        TextView acc = (TextView) findViewById(R.id.tv_Acc);
+        acc.setText(No);
+        CustNm.setText(Nm);
+        acc.setError(null);
+        IsException = "1" ;
+        HidKeybad();
+    }
     public void Set_Cust(String No, String Nm) {
         TextView CustNm = (TextView) findViewById(R.id.tv_CustName);
         TextView acc = (TextView) findViewById(R.id.tv_Acc);
         acc.setText(No);
         CustNm.setText(Nm);
         acc.setError(null);
+        IsException = "0" ;
         HidKeybad();
     }
     private  void HidKeybad(){
@@ -1425,7 +1440,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void SearchExceptions(View view) {
-        UpdateUserExceptions();
+        //UpdateUserExceptions();
+        Bundle bundle = new Bundle();
+        bundle.putString("Scr", "Gps");
+        FragmentManager Manager = getFragmentManager();
+        Select_Customer_Expetion obj = new Select_Customer_Expetion();
+        obj.setArguments(bundle);
+        obj.show(Manager, null);
 
     }
 

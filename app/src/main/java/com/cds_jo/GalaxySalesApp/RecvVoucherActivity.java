@@ -681,7 +681,6 @@ public class RecvVoucherActivity extends AppCompatActivity {
       alertDialog.setTitle("سند القبض");
         if (i > 0) {
             InsertLogTrans obj=new InsertLogTrans(RecvVoucherActivity.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
-
             alertDialog.setMessage(" تمت عملية الحفظ بنجاح");
             alertDialog.setIcon(R.drawable.tick);
            /* GetMaxRecNo();
@@ -692,16 +691,19 @@ public class RecvVoucherActivity extends AppCompatActivity {
             Count = (SToD(Count)+1) + "";
             editor.putString("PayCount",Count);
             editor.commit();*/
-            IsNew = false;
+           IsNew = false;
+            DoShare();
+            UpDateMaxOrderNo();
 
         } else {
             alertDialog.setMessage("عملية الحفظ لم تتم ");
             alertDialog.setIcon(R.drawable.delete);
+            alertDialog.show();
         }
         // Setting OK Button
         alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                UpDateMaxOrderNo();
+
                //  btn_print(view);
 
 
@@ -710,7 +712,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
         });
 
         // Showing Alert Message
-        alertDialog.show();
+
 
 
 
@@ -1457,7 +1459,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
         k.putExtra("Scr", "Sale_Inv");
         k.putExtra("OrderNo", OrdeNo.getText().toString().replaceAll("[^\\d.]", ""));
         startActivity(k);
-        btn_new(view);
+       // btn_new(view);
 
     }
     public void btn_search_Recv(View view) {
@@ -1475,22 +1477,25 @@ public class RecvVoucherActivity extends AppCompatActivity {
         DoNew();
     }
     public void btn_share(View view) {
+        DoShare();
+    }
+    private  void DoShare(){
         InsertLogTrans obj=new InsertLogTrans(RecvVoucherActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
         if(IsNew==true){
             AlertDialog alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند قبض");
-           alertDialog.setMessage("يجب تخزين سند القبض اولاَ");
-           alertDialog.setIcon(R.drawable.delete);
-           alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+            alertDialog.setMessage("يجب تخزين سند القبض اولاَ");
+            alertDialog.setIcon(R.drawable.delete);
+            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     return;
                 }
             });
             alertDialog.show();
             return;
-          }
+        }
 
 
 
@@ -1537,21 +1542,21 @@ public class RecvVoucherActivity extends AppCompatActivity {
 
                         _handler.post(new Runnable() {
                             public void run() {
-                         AlertDialog alertDialog = new AlertDialog.Builder(
-                                RecvVoucherActivity.this).create();
-                        alertDialog.setTitle("اعتماد سند القبض");
-                        alertDialog.setMessage("تمت عملية اعتماد سند القبض بنجاح");
-                        alertDialog.setIcon(R.drawable.tick);
-                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        loadingdialog.dismiss();
-                        alertDialog.show();
-                        alertDialog.show();
-                        DoNew();
-                        GetMaxRecNo();
-                        showList();
+                                AlertDialog alertDialog = new AlertDialog.Builder(
+                                        RecvVoucherActivity.this).create();
+                                alertDialog.setTitle("اعتماد سند القبض");
+                                alertDialog.setMessage("تمت عملية اعتماد سند القبض بنجاح");
+                                alertDialog.setIcon(R.drawable.tick);
+                                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                });
+                                loadingdialog.dismiss();
+                                alertDialog.show();
+
+                               /* DoNew();
+                                GetMaxRecNo();
+                                showList();*/
                             }
                         });
                     } else {
@@ -1559,19 +1564,19 @@ public class RecvVoucherActivity extends AppCompatActivity {
                         loadingdialog.dismiss();
                         _handler.post(new Runnable() {
                             public void run() {
-                      AlertDialog alertDialog = new AlertDialog.Builder(
-                                RecvVoucherActivity.this).create();
-                        alertDialog.setTitle("فشل في عملية الاعتماد  " + "   " +We_Result.ID+"");
-                        alertDialog.setMessage(We_Result.Msg.toString());
-                        alertDialog.setIcon(R.drawable.tick);
-                        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        alertDialog.show();
+                                AlertDialog alertDialog = new AlertDialog.Builder(
+                                        RecvVoucherActivity.this).create();
+                                alertDialog.setTitle("فشل في عملية الاعتماد  " + "   " +We_Result.ID+"");
+                                alertDialog.setMessage(We_Result.Msg.toString());
+                                alertDialog.setIcon(R.drawable.tick);
+                                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                });
+                                alertDialog.show();
 
-                        alertDialog.setIcon(R.drawable.delete);
-                        alertDialog.setMessage("عملية الاعتماد لم تتم بنجاح" +"    " );
+                                alertDialog.setIcon(R.drawable.delete);
+                                alertDialog.setMessage("عملية الاعتماد لم تتم بنجاح" +"    " );
                             }
                         });
                     }

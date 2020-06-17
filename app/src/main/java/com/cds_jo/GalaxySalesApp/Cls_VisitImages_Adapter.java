@@ -59,6 +59,7 @@ public class Cls_VisitImages_Adapter extends BaseAdapter {
         ImageView img =(ImageView) convertView.findViewById(R.id.img);
         Methdes.MyTextView tv_Desc = ( Methdes.MyTextView) convertView.findViewById(R.id.tv_Desc);
         tv_Desc.setText(obj.getDesc());
+try {
 
         Methdes.MyTextView tv_Date = ( Methdes.MyTextView) convertView.findViewById(R.id.tv_Date);
         tv_Date.setText(obj.getTr_Date());
@@ -66,6 +67,7 @@ public class Cls_VisitImages_Adapter extends BaseAdapter {
         Methdes.MyTextView tv_time = ( Methdes.MyTextView) convertView.findViewById(R.id.tv_time);
         tv_time.setText(obj.getTr_Time());
 
+}catch (Exception sd){}
 
         File imgFile = new  File(obj.getImgUrl());
         try {

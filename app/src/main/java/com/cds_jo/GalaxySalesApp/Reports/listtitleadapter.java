@@ -58,7 +58,7 @@ public class listtitleadapter extends BaseAdapter {
         MyTextView Doctype = (MyTextView) convertView.findViewById(R.id.tv_doctype);*/
         MyTextView contact_name = (MyTextView) convertView.findViewById(R.id.contact_name);
 
-        contact_name.setText(cls_acc_report.getTitle());
+        contact_name.setText(cls_acc_report.getListTitle());
 
 
         return convertView;

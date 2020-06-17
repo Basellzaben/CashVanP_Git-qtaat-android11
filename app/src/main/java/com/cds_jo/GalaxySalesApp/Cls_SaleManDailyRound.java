@@ -37,7 +37,19 @@ public class Cls_SaleManDailyRound {
         Loct = loct;
     }
 
-    String   X_Lat,Y_Long,Loct;
+    String   X_Lat;
+    String Y_Long;
+    String Loct;
+
+    public String getIsException() {
+        return IsException;
+    }
+
+    public void setIsException(String isException) {
+        IsException = isException;
+    }
+
+    String IsException;
     public String getNote() {
         return Note;
     }

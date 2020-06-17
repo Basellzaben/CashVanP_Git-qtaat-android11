@@ -164,7 +164,7 @@ public class Report_Home extends FragmentActivity {
                  x=Integer.parseInt(obj.getNo());
                  Flg=Integer.parseInt(obj.getFlg());
                  ReportId.Id=x;
-                 ReportTitle.setText(  obj.getTitle().toString());
+                 ReportTitle.setText(  obj.getReportTile().toString());
 
 
                 listView1.setAdapter(null);
@@ -630,116 +630,141 @@ public class Report_Home extends FragmentActivity {
 
     private  void FillList(){
             obj=new  Cls_Listtitle ();
-            obj.setTitle("الجولات تفصيلي");
+            obj.setListTitle("جولات المندوبين");
+            obj.setReportTile("جولات المندوبين ");
             obj.setFlg("-1");
             obj.setNo("1");
             cls_listtitles.add( obj);
 
-            obj=new  Cls_Listtitle ();
-            obj.setTitle("طلبات البيع");
-            obj.setFlg("-1");
-            obj.setNo("2");
-            cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
-            obj.setTitle("فواتير المبيعات");
-            obj.setFlg("-1");
-            obj.setNo("3");
-            cls_listtitles.add( obj);
-
-            obj=new  Cls_Listtitle ();
-            obj.setTitle("المرتجعات");
-            obj.setFlg("-1");
-            obj.setNo("4");
-            cls_listtitles.add( obj);
-
-            obj=new  Cls_Listtitle ();
-            obj.setTitle("سندات القبض");
-            obj.setFlg("-1");
-            obj.setNo("5");
-            cls_listtitles.add( obj);
-
-            obj=new  Cls_Listtitle ();
-            obj.setTitle("نسبة الجولات");
+            obj.setListTitle("نسبة إنجازية الجولات");
+            obj.setReportTile("نسبةإنجازية الجولات ");
             obj.setFlg("-1");
             obj.setNo("6");
             cls_listtitles.add( obj);
 
             obj=new  Cls_Listtitle ();
-            obj.setTitle("ملخص المندوب");
+            obj.setListTitle("ملخص المندوب");
+            obj.setReportTile("ملخص المندوب");
             obj.setFlg("-1");
             obj.setNo("7");
             cls_listtitles.add( obj);
 
+            obj=new  Cls_Listtitle ();
+            obj.setListTitle("طلبات البيع");
+            obj.setReportTile("طلبات البيع");
+            obj.setFlg("-1");
+            obj.setNo("2");
+            cls_listtitles.add( obj);
+
+            obj=new  Cls_Listtitle ();
+            obj.setListTitle("فواتير المبيعات");
+            obj.setReportTile("فواتير المبيعات");
+            obj.setFlg("-1");
+            obj.setNo("3");
+            cls_listtitles.add( obj);
+
+            obj=new  Cls_Listtitle ();
+            obj.setListTitle("المرتجعات");
+            obj.setReportTile("المرتجعات");
+            obj.setFlg("-1");
+            obj.setNo("4");
+            cls_listtitles.add( obj);
+
+            obj=new  Cls_Listtitle ();
+            obj.setListTitle("سندات القبض");
+            obj.setReportTile("سندات القبض");
+            obj.setFlg("-1");
+            obj.setNo("5");
+            cls_listtitles.add( obj);
+
+
+
+
+
 
 
             obj=new  Cls_Listtitle ();
-            obj.setTitle("أعلى الأصناف مبيعا- كمية");
+            obj.setListTitle("اعلى كميات- جدول");
+            obj.setReportTile("أعلى الأصناف مبيعا- كمية");
             obj.setFlg("1");
             obj.setNo("8");
             cls_listtitles.add( obj);
 
 
             obj=new  Cls_Listtitle ();
-            obj.setTitle("أقل الأصناف مبيعا - كمية");
+            obj.setListTitle("اعلى كميات- بياني  ");
+            obj.setReportTile("أعلى الأصناف مبيعا كميات ");
+            obj.setFlg("1");
+            obj.setNo("9");
+            cls_listtitles.add( obj);
+
+
+        obj=new  Cls_Listtitle ();
+            obj.setListTitle("أقل كميات - جدول");
+            obj.setReportTile("أقل الأصناف مبيعا - كمية");
              obj.setFlg("2");
             obj.setNo("8");
             cls_listtitles.add( obj);
 
 
+        obj=new  Cls_Listtitle ();
+        obj.setListTitle("أقل الكميات- بياني");
+        obj.setReportTile("أقل الأصناف مبيعا - كمية");
+        obj.setFlg("2");
+        obj.setNo("9");
+        cls_listtitles.add( obj);
+
+
+
             obj=new  Cls_Listtitle ();
-            obj.setTitle("أعلى الأصناف مبيعا- مبلغ");
+            obj.setListTitle("أعلى الأصناف مبلغ");
+            obj.setReportTile("أعلى الأصناف مبيعا- مبلغ");
             obj.setFlg("3");
             obj.setNo("8");
             cls_listtitles.add( obj);
 
 
-            obj=new  Cls_Listtitle ();
-            obj.setTitle("أقل الأصناف مبيعا- مبلغ");
+
+        obj=new  Cls_Listtitle ();
+        obj.setListTitle("أعلى الأصناف مبلغ بياني");
+        obj.setReportTile("أعلى الأصناف مبيعا- مبلغ");
+        obj.setFlg("3");
+        obj.setNo("9");
+        cls_listtitles.add( obj);
+
+
+
+        obj=new  Cls_Listtitle ();
+            obj.setListTitle("أقل الأصناف  - مبلغ");
+            obj.setReportTile("أقل الأصناف مبيعا- مبلغ");
             obj.setFlg("4");
             obj.setNo("8");
             cls_listtitles.add( obj);
 
 
 
-
         obj=new  Cls_Listtitle ();
-        obj.setTitle("أعلى الأصناف مبيعا- كمية");
-        obj.setFlg("1");
-        obj.setNo("9");
-        cls_listtitles.add( obj);
-
-
-        obj=new  Cls_Listtitle ();
-        obj.setTitle("أقل الأصناف مبيعا - كمية");
-        obj.setFlg("2");
-        obj.setNo("9");
-        cls_listtitles.add( obj);
-
-
-        obj=new  Cls_Listtitle ();
-        obj.setTitle("أعلى الأصناف مبيعا- مبلغ");
-        obj.setFlg("3");
-        obj.setNo("9");
-        cls_listtitles.add( obj);
-
-
-        obj=new  Cls_Listtitle ();
-        obj.setTitle("أقل الأصناف مبيعا- مبلغ");
+        obj.setReportTile("أقل الأصناف  - بياني ");
+        obj.setListTitle("أقل الأصناف مبيعا- مبلغ");
         obj.setFlg("4");
         obj.setNo("9");
         cls_listtitles.add( obj);
 
 
         obj=new  Cls_Listtitle ();
-        obj.setTitle("الهدف الشهري مبالغ");
+        obj.setListTitle("الهدف الشهري مبالغ");
+        obj.setReportTile("الهدف الشهري مبالغ");
         obj.setFlg("5");
         obj.setNo("9");
         cls_listtitles.add( obj);
 
 
         obj=new  Cls_Listtitle ();
-        obj.setTitle("الهدف الشهري-كميات");
+        obj.setListTitle("الهدف الشهري-كميات");
+        obj.setReportTile("الهدف الشهري-كميات");
+
         obj.setFlg("6");
         obj.setNo("9");
         cls_listtitles.add( obj);

@@ -1,15 +1,15 @@
 package com.cds_jo.GalaxySalesApp.Reports;
 
 public class Cls_Listtitle {
-    public String getTitle() {
-        return Title;
+    public String getListTitle() {
+        return ListTitle;
     }
 
-    public void setTitle(String title) {
-        Title = title;
+    public void setListTitle(String title) {
+        ListTitle = title;
     }
 
-    String Title;
+    String ListTitle;
 
     public String getNo() {
         return No;
@@ -30,5 +30,15 @@ public class Cls_Listtitle {
     }
 
     String flg;
+
+    public String getReportTile() {
+        return ReportTile;
+    }
+
+    public void setReportTile(String reportTile) {
+        ReportTile = reportTile;
+    }
+
+    String ReportTile;
 
 }

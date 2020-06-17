@@ -1793,8 +1793,8 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                         }
                     });
 
-                    alertDialog.show();
-                    return;
+                   /* alertDialog.show();
+                    return;*/
                 }
 
                 if (DiscountPercent > SToD(tv_MaxDiscount.getText() + "")) {
@@ -1809,8 +1809,8 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                         }
                     });
 
-                    alertDialog.show();
-                    return;
+                   /* alertDialog.show();
+                    return;*/
                 }
 
             }
@@ -2493,8 +2493,8 @@ bo.setText("0");
         } else {
             ResultCode = 0;
             if (ManType.equalsIgnoreCase("4")) {
-                tv_MaxDiscount.setText("3");
-                tv_MaxBounce.setText("3");
+                tv_MaxDiscount.setText("100");
+                tv_MaxBounce.setText("100");
                 tv_CodeLiveNote.setText("");
                 LiveCode.setText("");
             } else if (ManType.equalsIgnoreCase("2")) {

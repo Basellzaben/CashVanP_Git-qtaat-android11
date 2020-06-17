@@ -1,5 +1,6 @@
 package com.cds_jo.GalaxySalesApp.WebPage;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.cds_jo.GalaxySalesApp.JalMasterActivity;
 import com.cds_jo.GalaxySalesApp.R;
 
 import header.Header_Frag;
@@ -30,10 +32,10 @@ public class WebPageAct extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         final String webLink = sharedPreferences.getString("WebSideLink", "");
-Toast.makeText(this,webLink,Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,webLink,Toast.LENGTH_LONG).show();
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl(webLink);
+        webView.loadUrl("192.168.8.100:3078");
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -44,7 +46,10 @@ Toast.makeText(this,webLink,Toast.LENGTH_LONG).show();
         if (webView.canGoBack()) {
             webView.goBack();
         } else {
-            super.onBackPressed();
+            Intent i  = new Intent(this, JalMasterActivity.class);
+            startActivity(i);
+
+           // super.onBackPressed();
         }
     }
 }

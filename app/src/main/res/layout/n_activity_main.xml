@@ -718,9 +718,9 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_centerHorizontal="true"
                                 android:gravity="center"
-                                android:text="الإستثناءات"
+                                android:text="جولة استثنائية"
                                 android:textColor="#000"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </RelativeLayout>
 

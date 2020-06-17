@@ -40,11 +40,11 @@ public class CallWebServices  {
         //URL = "http://92.253.93.52:3755/CV.asmx";
         //URL = "http://192.168.1.148/GIWS/CV.asmx";
         //URL = "http://10.0.1.166/GIWS/CV.asmx"; //Galaxy1
-          URL = "http://192.168.8.100:82/CV.asmx"; //Galaxy2
+          URL = "http://10.0.1.104:82/CV.asmx"; //Galaxy2
         //  URL = "http://192.168.43.36:82/CV.asmx"; //Galaxy2
 
       //  URL = "http://192.168.8.100:82/CV.asmx";[
-       //   URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
+        // URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
         //URL = "http://192.168.1.100:3750/CV.asmx";
         //URL = "http://92.253.22.118:3733/CV.asmx";// Targit
         //URL = "http://194.165.133.147:85/CV.asmx";// Okrania

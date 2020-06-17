@@ -1897,6 +1897,25 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             Seq = Integer.parseInt(DB.GetValue(this, "Sal_invoice_Hdr", "ifnull(Max(Seq),0)+1", "ifnull(doctype,'1')='"+DocType.toString()+ "'  and  date='" + currentDate + "'"));
 
         } else {
+            if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
+
+
+                AlertDialog alertDialog1 = new AlertDialog.Builder(
+                        this).create();
+                alertDialog1.setTitle(tv_ScrTitle.getText().toString());
+                alertDialog1.setMessage(" لا يمكن التعديل بعد الحفظ");
+                alertDialog1.setIcon(R.drawable.error_new);
+                alertDialog1.setButton("موافق", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+
+                    }
+                });
+
+                alertDialog.show();
+
+                return;
+            }
             Seq = Integer.parseInt(DB.GetValue(this, "Sal_invoice_Hdr", "ifnull(Seq,0)", "ifnull(doctype,'1')='"+DocType.toString()+ "'  and  OrderNo='" + pono.getText().toString() + "'"));
 
         }
@@ -2068,7 +2087,10 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
               }
             chk_Type.setEnabled(false);
 
-            IsNew = false;
+            if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
+                DoShare();
+            }
+            IsNew =  false;
             alertDialog.setIcon(R.drawable.tick);
 
             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -2660,7 +2682,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         sqlHandler.executeQuery(query);
         showList();
     }
-
     public void btn_delete(View view) {
         /*int flg;
         flg =Integer.parseInt( DB.GetValue(this,"ComanyInfo","AllowDeleteInvoice","1=1"));*/
@@ -2744,7 +2765,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
       }
  */
     }
-
     public void Delete_Record_PO() {
 
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
@@ -2804,7 +2824,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         // Showing Alert Message
         alertDialog.show();
     }
-
     public void btn_Search_Orders(View view) {
         ExistAfterSacve = 0;
 
@@ -2822,7 +2841,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         obj.setArguments(bundle);
         obj.show(Manager, null);
     }
-
     public void Set_Order(String No) {
         No=No.replace("\u202c","").replace("\u202d","");
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
@@ -2900,7 +2918,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         IsChange = false;
         IsNew = false;
     }
-
     public void RemoveAnmation() {
         ImageButton imageButton8 = (ImageButton) findViewById(R.id.imageButton8);
         ImageButton imageButton3 = (ImageButton) findViewById(R.id.imageButton3);
@@ -2918,7 +2935,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         imageButton9.clearAnimation();
 
     }
-
     public void SaveDelveryNm(final View view) {
         final TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
 
@@ -2984,7 +3000,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
-
     public void btn_print(View view) {
         ImageButton imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
         InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Print.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
@@ -3002,7 +3017,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
 
     }
-
     private void DoPrint(View view) {
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
         TextView tv_acc = (TextView) findViewById(R.id.tv_acc);
@@ -3060,7 +3074,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         startActivity(k);
        // btn_new(view);
     }
-private  void GotoVisitImage(){
+    private  void GotoVisitImage(){
     Intent  v = new Intent(this, VisitImges.class);
     startActivity(v);
 }
@@ -3110,7 +3124,6 @@ private  void GotoVisitImage(){
         }
         tv_HeaderDscount.setText("0.0%");
     }
-
     public void btn_back(View view) {
         //   RemoveAnmation();
         ImageButton imageButton7 = (ImageButton) findViewById(R.id.imageButton7);
@@ -4386,7 +4399,10 @@ private  void GotoVisitImage(){
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     public void btn_share(View view) {
-       InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+        DoShare();
+    }
+    private  void DoShare(){
+        InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
         final SqlHandler sql_Handler = new SqlHandler(this);
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
         final String Doc_No = pono.getText().toString();
