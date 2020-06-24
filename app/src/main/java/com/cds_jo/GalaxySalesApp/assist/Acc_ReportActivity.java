@@ -443,7 +443,7 @@ public class Acc_ReportActivity extends AppCompatActivity {
                             CheqBal.setText(txtCheqBal);
                             Ball.setText(txtBall);
                             CusTop.setText(txtCusTop);
-                            NetBall.setText(txtNetBall);
+                            NetBall.setText(S_tot);
 
                             Cls_Acc_Report cls_acc_report1 = new Cls_Acc_Report();
                             cls_acc_report1 = new Cls_Acc_Report();

@@ -13,11 +13,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
-import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
-
-import org.w3c.dom.Text;
 
 import Methdes.MyTextView;
 

@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.CusfCard;
 import com.cds_jo.GalaxySalesApp.CustomerQty;
@@ -26,7 +25,6 @@ import com.cds_jo.GalaxySalesApp.GetPermession;
 
 import com.cds_jo.GalaxySalesApp.ItemsDameged;
 import com.cds_jo.GalaxySalesApp.ManBalanceQtyActivity;
-import com.cds_jo.GalaxySalesApp.ManSummeryActivity;
 
 import com.cds_jo.GalaxySalesApp.Man_Qty;
 import com.cds_jo.GalaxySalesApp.NewLoginActivity;
@@ -49,10 +47,6 @@ import com.cds_jo.GalaxySalesApp.VisitImges;
 
 import com.cds_jo.GalaxySalesApp.WebPage.WebPageAct;
 import com.cds_jo.GalaxySalesApp.assist.ManAttenActivity;
-import com.cds_jo.GalaxySalesApp.assist.Monthly_Items_AmountAct;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.PopShowCode;
-import com.cds_jo.GalaxySalesApp.assist.TOfCollections;
 
 import java.util.ArrayList;
 

@@ -186,7 +186,9 @@ public class Convert_Sal_Invoice_To_ImgActivity_Prestaige extends AppCompatActiv
 
         }
     });
-        mBluetoothAdapter.enable();
+        try {
+            mBluetoothAdapter.enable();
+        }catch (Exception d){}
  }
 
     public  void ShowRecord( String OrdNo){

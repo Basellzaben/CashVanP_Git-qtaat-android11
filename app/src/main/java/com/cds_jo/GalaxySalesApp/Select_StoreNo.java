@@ -20,14 +20,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Stores;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Stores_Adapter;
-import com.cds_jo.GalaxySalesApp.assist.CustomerReturnQtyActivity;
-import com.cds_jo.GalaxySalesApp.assist.Customer_List;
-import com.cds_jo.GalaxySalesApp.assist.Customers;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;

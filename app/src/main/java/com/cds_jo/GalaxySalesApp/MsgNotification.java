@@ -14,9 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
-
 public class MsgNotification {
     /**
      * The unique identifier for this type of notification.

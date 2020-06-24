@@ -1,12 +1,9 @@
 package com.cds_jo.GalaxySalesApp;
 
 import android.app.DialogFragment;
-import android.bluetooth.BluetoothAdapter;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -19,7 +16,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,19 +30,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cds_jo.GalaxySalesApp.assist.PrintReport_TSC;
-import com.cds_jo.GalaxySalesApp.assist.PrintReport_Zepra520;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.sewoo.jpos.printer.ESCPOSPrinter;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public class CustomerSigActivity extends DialogFragment implements View.OnClickListener {
     private ESCPOSPrinter posPtr;

@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.cds_jo.GalaxySalesApp.assist.Cls_Search_Prepear_Qty_Order;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.cds_jo.GalaxySalesApp.assist.cls_Search_Pepeare_Qty_adapter;
 
 import java.util.ArrayList;

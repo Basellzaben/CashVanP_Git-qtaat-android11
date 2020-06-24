@@ -21,20 +21,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cds_jo.GalaxySalesApp.CusfCard;
-import com.cds_jo.GalaxySalesApp.CustomerQty;
-import com.cds_jo.GalaxySalesApp.DoctorReportActivity;
-import com.cds_jo.GalaxySalesApp.MainActivity;
 import com.cds_jo.GalaxySalesApp.R;
-import com.cds_jo.GalaxySalesApp.RecvVoucherActivity;
-import com.cds_jo.GalaxySalesApp.SaleManRoundsActivity;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
-import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
-import com.cds_jo.GalaxySalesApp.assist.CustomerReturnQtyActivity;
-import com.cds_jo.GalaxySalesApp.assist.Customer_List;
-import com.cds_jo.GalaxySalesApp.assist.Customers;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;

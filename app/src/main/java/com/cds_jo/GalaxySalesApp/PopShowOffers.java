@@ -2,7 +2,6 @@
 package com.cds_jo.GalaxySalesApp;
 
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,16 +12,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
-import com.cds_jo.GalaxySalesApp.assist.Cls_Select_Item_From_Pakage;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

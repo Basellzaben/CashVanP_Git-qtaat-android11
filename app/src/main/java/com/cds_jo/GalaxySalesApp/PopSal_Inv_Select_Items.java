@@ -1,13 +1,11 @@
 
 package com.cds_jo.GalaxySalesApp;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,7 +19,6 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -55,7 +52,6 @@ import com.cds_jo.GalaxySalesApp.assist.Cls_Invf;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Invf_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems_Adapter;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.google.gson.Gson;
 import com.romainpiel.shimmer.Shimmer;
 
@@ -71,7 +67,6 @@ import java.util.List;
 import java.util.Locale;
 
 import Methdes.MyTextView;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 

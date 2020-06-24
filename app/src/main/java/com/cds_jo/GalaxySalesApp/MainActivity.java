@@ -45,9 +45,6 @@ import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 import com.cds_jo.GalaxySalesApp.assist.ESCPSample3;
 
 import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
-import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;

@@ -81,7 +81,9 @@ public class Convert_Man_Balance_Qty_To_Img extends FragmentActivity {
         ed_date.setText(currentDateandTime);
         sqlHandler = new SqlHandler(this);
         showList();
-       mBluetoothAdapter.enable();
+        try {
+            mBluetoothAdapter.enable();
+        }catch (Exception d){}
     }
 
     private void showList() {

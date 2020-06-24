@@ -333,7 +333,10 @@ try {
 
         }
     });
-        mBluetoothAdapter.enable();
+
+        try {
+            mBluetoothAdapter.enable();
+        }catch (Exception d){}
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
  }
 

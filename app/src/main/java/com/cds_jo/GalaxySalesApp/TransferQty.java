@@ -20,7 +20,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -30,9 +29,6 @@ import android.widget.TextView;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 import com.cds_jo.GalaxySalesApp.assist.Cls_TransQtyItems;
 
-import com.cds_jo.GalaxySalesApp.assist.Convert_Layout_Img;
-import com.cds_jo.GalaxySalesApp.assist.Store_Trans_Qty_Img;
-import com.cds_jo.GalaxySalesApp.assist.TransIteQtyAdapter;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;

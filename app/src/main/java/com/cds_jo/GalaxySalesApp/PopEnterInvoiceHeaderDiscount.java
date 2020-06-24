@@ -16,8 +16,6 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;

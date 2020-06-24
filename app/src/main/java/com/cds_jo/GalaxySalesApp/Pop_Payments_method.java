@@ -2,27 +2,19 @@ package com.cds_jo.GalaxySalesApp;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -36,11 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
-import com.cds_jo.GalaxySalesApp.assist.CheckAdapter;
-import com.cds_jo.GalaxySalesApp.assist.Cls_Check;
-import com.cds_jo.GalaxySalesApp.assist.Cls_Trans_Qty;
-import com.cds_jo.GalaxySalesApp.assist.Customers;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
@@ -50,7 +37,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import Methdes.MethodToUse;
 import Methdes.MyTextView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 

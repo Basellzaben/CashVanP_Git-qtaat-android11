@@ -24,7 +24,6 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
- import android.widget.AdapterView;
  import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,8 +34,7 @@ import android.widget.Toast;
 
  import com.cds_jo.GalaxySalesApp.PostTransActions.PostPayments;
  import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_RecVoucher;
- import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
-import com.cds_jo.GalaxySalesApp.assist.CheckAdapter;
+ import com.cds_jo.GalaxySalesApp.assist.CheckAdapter;
 
 import com.cds_jo.GalaxySalesApp.assist.Cls_Check;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Cur;
@@ -46,15 +44,6 @@ import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img;
  import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img_GoodSystem;
  import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img_Tab10;
  import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
- import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
- import com.cds_jo.GalaxySalesApp.assist.PrintReport_TSC;
- import com.cds_jo.GalaxySalesApp.assist.PrintReport_Zepra520;
- import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
- import com.google.gson.Gson;
-
- import org.apache.commons.lang3.math.NumberUtils;
- import org.json.JSONException;
-import org.json.JSONObject;
 
  import java.text.DecimalFormat;
 import java.text.NumberFormat;

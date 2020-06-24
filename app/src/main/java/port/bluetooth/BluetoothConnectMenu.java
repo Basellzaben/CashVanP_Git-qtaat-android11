@@ -1,6 +1,5 @@
 package port.bluetooth;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -8,8 +7,6 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,9 +15,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +28,6 @@ import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.cds_jo.GalaxySalesApp.assist.AlertView;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Cur;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Cur_Adapter;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
 import com.sewoo.port.android.BluetoothPort;
 import com.sewoo.request.android.RequestHandler;
 

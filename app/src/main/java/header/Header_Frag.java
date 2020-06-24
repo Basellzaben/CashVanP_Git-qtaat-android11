@@ -58,7 +58,7 @@ public class Header_Frag extends Fragment {
         TypeDesc= DB.GetValue(this.getContext(),"manf","TypeDesc","man='"+UserID+"'");
         tv_UserNm.setText( sharedPreferences.getString("UserName", "")+"/"+TypeDesc);
 
-        tv_CpmpanyName.setText( DB.GetValue(this.getContext(),"ComanyInfo","CompanyNm","1=1") +"  "  +DB.GetValue(this.getContext(),"ComanyInfo","CompanyID","1=1"));
+        tv_CpmpanyName.setText( DB.GetValue(this.getContext(),"ComanyInfo","CompanyNm","1=1" ) +"  "  +DB.GetValue(this.getContext(),"ComanyInfo","CompanyID","1=1"));
         Img_Setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

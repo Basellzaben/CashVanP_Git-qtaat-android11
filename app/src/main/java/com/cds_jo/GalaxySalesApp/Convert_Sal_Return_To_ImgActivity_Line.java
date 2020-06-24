@@ -32,15 +32,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cds_jo.GalaxySalesApp.Cls_InvoiceMsg;
-import com.cds_jo.GalaxySalesApp.Cls_Offers_Hdr;
-import com.cds_jo.GalaxySalesApp.ComInfo;
-import com.cds_jo.GalaxySalesApp.ContactListItems;
-import com.cds_jo.GalaxySalesApp.DB;
-import com.cds_jo.GalaxySalesApp.R;
-import com.cds_jo.GalaxySalesApp.SqlHandler;
-import com.cds_jo.GalaxySalesApp.assist.PrintReport_TSC;
-import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 import com.sewoo.jpos.printer.ESCPOSPrinter;
 
 import java.io.File;

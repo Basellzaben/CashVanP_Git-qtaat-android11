@@ -27,7 +27,6 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,8 +48,6 @@ import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 
 
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
 

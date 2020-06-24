@@ -111,7 +111,9 @@ public class Convert_ccReport2To_ImgActivity extends AppCompatActivity {
 
         }
     });
-        mBluetoothAdapter.enable();
+        try {
+            mBluetoothAdapter.enable();
+        }catch (Exception d){}
  }
  private void  getTafkeed(){
      CallWebServices ws = new CallWebServices(Convert_ccReport2To_ImgActivity.this);

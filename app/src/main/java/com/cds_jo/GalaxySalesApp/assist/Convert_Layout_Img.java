@@ -109,7 +109,9 @@ public class Convert_Layout_Img extends AppCompatActivity {
         String currentDateandTime = sdf.format(new Date());
         sqlHandler = new SqlHandler(this);
         showList();
-        mBluetoothAdapter.enable();
+        try {
+            mBluetoothAdapter.enable();
+        }catch (Exception d){}
     }
 
    private void showList() {

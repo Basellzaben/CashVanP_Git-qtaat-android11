@@ -19,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.assist.CustomerReturnQtyActivity;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.cds_jo.GalaxySalesApp.assist.cls_Search_po;
 import com.cds_jo.GalaxySalesApp.assist.cls_Search_Inv_Sale_adapter;
 

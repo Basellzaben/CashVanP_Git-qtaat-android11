@@ -1,24 +1,18 @@
  package com.cds_jo.GalaxySalesApp;
 
         import android.app.AlertDialog;
-        import android.app.ProgressDialog;
         import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.SharedPreferences;
         import android.content.res.Configuration;
         import android.database.Cursor;
-        import android.graphics.Color;
-        import android.graphics.Paint;
-        import android.graphics.Typeface;
         import android.os.Build;
         import android.os.Handler;
         import android.preference.PreferenceManager;
         import android.support.v4.app.Fragment;
         import android.support.v4.app.FragmentActivity;
         import android.support.v4.app.FragmentManager;
-        import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
-        import org.apache.commons.lang3.StringUtils;
 
         import java.lang.reflect.Field;
         import java.text.DateFormat;
@@ -28,45 +22,27 @@
         import java.util.Calendar;
         import java.util.Date;
         import java.util.Locale;
-        import java.util.logging.Logger;
 
         import android.graphics.Bitmap;
         import android.graphics.BitmapFactory;
         import android.support.v7.widget.AppCompatTextView;
         import android.text.InputType;
-        import android.text.TextUtils;
         import android.text.method.PasswordTransformationMethod;
-        import android.util.DisplayMetrics;
         import android.util.Log;
-        import android.util.TypedValue;
-        import android.view.Gravity;
         import android.view.KeyEvent;
         import android.view.View;
-        import android.view.ViewGroup;
-        import android.view.animation.AccelerateDecelerateInterpolator;
         import android.view.animation.Animation;
         import android.view.animation.AnimationUtils;
-        import android.view.animation.LinearInterpolator;
-        import android.view.animation.TranslateAnimation;
         import android.widget.AdapterView;
         import android.widget.EditText;
         import android.widget.GridView;
-        import android.widget.HorizontalScrollView;
         import android.widget.LinearLayout;
-        import android.widget.RelativeLayout;
         import android.widget.TextView;
         import android.widget.Toast;
 
         import com.cds_jo.GalaxySalesApp.ManCard.DetailCardMan;
         import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
         import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
-        import com.cds_jo.GalaxySalesApp.assist.CustomerReturnQtyActivity;
-
-        import com.cds_jo.GalaxySalesApp.assist.Logtrans.PostLogTrans;
-        import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-        import com.cds_jo.GalaxySalesApp.assist.ReturnItemsFromCustActivity;
-        import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
-        import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 
 
         import org.json.JSONArray;
@@ -74,10 +50,9 @@
 
         import Methdes.MyTextView;
         import header.Header_Frag;
-        import port.bluetooth.BluetoothConnectMenu;
 
 
-public class JalMasterActivity extends FragmentActivity {
+ public class JalMasterActivity extends FragmentActivity {
     GridView gridView;
     ArrayList<Items> gridArray = new ArrayList<Items>();
     JalImageGridAdapter customGridAdapter;

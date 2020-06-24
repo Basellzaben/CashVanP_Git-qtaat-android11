@@ -1,24 +1,13 @@
 package com.cds_jo.GalaxySalesApp;
 
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.Service;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.location.Location;
-import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.PostTransActions.PostManLocations;
@@ -27,18 +16,11 @@ import com.cds_jo.GalaxySalesApp.PostTransActions.PostSalesInvoice;
 import com.cds_jo.GalaxySalesApp.PostTransActions.PostSalesOrder;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Check;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.sql.Time;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

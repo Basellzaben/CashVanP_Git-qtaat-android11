@@ -275,7 +275,9 @@ try {
 
         }
     });
-        mBluetoothAdapter.enable();
+        try {
+            mBluetoothAdapter.enable();
+        }catch (Exception d){}
  }
 
     private  void ResetFoundSize(){

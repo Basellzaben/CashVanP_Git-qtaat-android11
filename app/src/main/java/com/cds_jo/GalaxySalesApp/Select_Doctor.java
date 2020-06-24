@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
-import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
-import com.cds_jo.GalaxySalesApp.assist.CustomerReturnQtyActivity;
-import com.cds_jo.GalaxySalesApp.assist.Customer_List;
-import com.cds_jo.GalaxySalesApp.assist.Customers;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;

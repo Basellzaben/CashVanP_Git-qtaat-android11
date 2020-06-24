@@ -81,6 +81,16 @@ public class Cls_Acc_Report_Adapter   extends BaseAdapter {
         tv_tot.setText(cls_acc_report.getTot());
 
         LinearLayout RR=(LinearLayout)convertView.findViewById(R.id.RR);
+
+        cur_no.setTextColor(Color.BLACK);
+        tvdate.setTextColor(Color.BLACK);
+        tvdes.setTextColor(Color.BLACK);
+        tvbb.setTextColor(Color.BLACK);
+        tvdept.setTextColor(Color.BLACK);
+        tvcred.setTextColor(Color.BLACK);
+        tv_rate.setTextColor(Color.BLACK);
+        tv_tot.setTextColor(Color.BLACK);
+
         if(position==0)
         {
             RR.setBackgroundColor(context.getResources().getColor(R.color.Black11));

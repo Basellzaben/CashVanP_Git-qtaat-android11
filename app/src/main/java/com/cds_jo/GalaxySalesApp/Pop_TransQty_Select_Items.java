@@ -33,7 +33,6 @@ import com.cds_jo.GalaxySalesApp.assist.Cls_Invf;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Invf_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems_Adapter;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 

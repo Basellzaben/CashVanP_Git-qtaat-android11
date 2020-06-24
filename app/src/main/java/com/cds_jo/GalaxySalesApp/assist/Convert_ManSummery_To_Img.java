@@ -360,8 +360,9 @@ public class Convert_ManSummery_To_Img extends Fragment {
                 getActivity(), ItemsList);
 
         LstView.setAdapter(cls_unitItems_adapter);
-        mBluetoothAdapter.enable();
-
+        try {
+            mBluetoothAdapter.enable();
+        }catch ( Exception ex ){}
 
         TextView tv_NewCustomer = (TextView) v.findViewById(R.id.tv_NewCustomer);
         TextView tv_CustomerVisted = (TextView) v.findViewById(R.id.tv_CustomerVisted);

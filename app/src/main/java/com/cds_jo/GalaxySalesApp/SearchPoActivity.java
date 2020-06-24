@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
 import com.cds_jo.GalaxySalesApp.assist.cls_Search_po;
 import com.cds_jo.GalaxySalesApp.assist.cls_Search_po_adapter;
 

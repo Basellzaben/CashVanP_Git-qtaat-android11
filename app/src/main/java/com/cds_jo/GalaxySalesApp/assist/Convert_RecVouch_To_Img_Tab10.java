@@ -81,10 +81,12 @@ public class Convert_RecVouch_To_Img_Tab10 extends AppCompatActivity {
 
 
        ShowRecord (OrderNo);
+        try {
+            mBluetoothAdapter.enable();
+        }catch (Exception d){}
 
 
         try {
-        mBluetoothAdapter.enable();
 
             LinearLayout EmptyLyt = (LinearLayout) findViewById(R.id.Mainlayout);
             PrintReport_TSC obj = new PrintReport_TSC(Convert_RecVouch_To_Img_Tab10.this,
@@ -100,7 +102,9 @@ public class Convert_RecVouch_To_Img_Tab10 extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBluetoothAdapter.enable();
+                try {
+                    mBluetoothAdapter.enable();
+                }catch (Exception d){}
                 LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
                 Toast.makeText(Convert_RecVouch_To_Img_Tab10.this  ,"العمل جاري على إرسال الملف للطابعة",Toast.LENGTH_SHORT ).show();
 

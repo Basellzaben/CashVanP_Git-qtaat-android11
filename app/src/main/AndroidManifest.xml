@@ -50,24 +50,11 @@
         <activity android:name=".ItemsDameged" />
         <activity android:name=".Man_Qty" />
         <activity android:name=".Convert_Sal_Return_To_ImgActivity_Line" />
-        <activity android:name=".assist.Sale_ReturnActivity" />
         <activity
             android:name=".StartUpActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".Tracking.MapsActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".assist.Monthly_Items_AmountAct"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".assist.TOfCollections"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".assist.ReturnItemsFromCustActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
         <activity
@@ -80,7 +67,6 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".assist.MenuActivity" />
         <activity android:name=".assist.layout_to_imgActivity" />
         <activity
             android:name=".assist.Convert_Layout_Img"
@@ -134,10 +120,6 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".assist.OrdersItems"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
             android:name=".TransferQty"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
@@ -171,10 +153,6 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".assist.Sale_InvoiceActivity"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
             android:name=".ItemGalleryActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
@@ -191,6 +169,9 @@
             android:name=".assist.Convert_Sal_Invoice_To_Img_Ukrainian"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".assist.Convert_Sal_Invoice_To_ImgActivity_Okrania_Ipad"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".assist.Convert_RecVouch_To_Img_GoodSystem"
             android:screenOrientation="landscape" />
         <activity
@@ -199,7 +180,6 @@
         <activity android:name=".PrintImageActivity" />
         <activity android:name=".ItemCostActivity" />
         <activity android:name=".SaleManRoundsActivity" />
-        <activity android:name=".assist.SimpleListViewActivity" />
         <activity android:name=".QuestneerActivity" />
         <activity android:name=".CaptureSignatureActivity" />
         <activity android:name=".ZepraActivity" />
@@ -232,9 +212,6 @@
         <activity
             android:name=".GalaxyLoginActivity"
             android:label="@string/title_activity_galaxy_login"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".assist.Store_Trans_Qty_Img"
             android:screenOrientation="landscape" />
         <activity
             android:name=".ConnectXPrinterActivity"

@@ -84,7 +84,9 @@ public class Convert_Prapre_Qty_To_Img extends AppCompatActivity {
 
         sqlHandler = new SqlHandler(this);
         showList();
-        mBluetoothAdapter.enable();
+        try {
+            mBluetoothAdapter.enable();
+        }catch (Exception d){}
     }
 
     private void showList() {

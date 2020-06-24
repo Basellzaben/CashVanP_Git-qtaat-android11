@@ -30,7 +30,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

@@ -14,8 +14,6 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
-
 import java.util.ArrayList;
 import java.util.List;
 

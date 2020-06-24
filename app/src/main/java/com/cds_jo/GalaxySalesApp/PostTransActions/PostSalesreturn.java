@@ -2,19 +2,13 @@ package com.cds_jo.GalaxySalesApp.PostTransActions;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 
 import com.cds_jo.GalaxySalesApp.Cls_Sal_InvItems;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
-import com.cds_jo.GalaxySalesApp.We_Result;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
-import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

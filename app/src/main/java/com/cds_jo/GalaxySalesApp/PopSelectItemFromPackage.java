@@ -9,7 +9,6 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import android.widget.ListView;
 
 
 import com.cds_jo.GalaxySalesApp.assist.Cls_Select_Item_From_Pakage;
-import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
 
 import java.util.ArrayList;
 
