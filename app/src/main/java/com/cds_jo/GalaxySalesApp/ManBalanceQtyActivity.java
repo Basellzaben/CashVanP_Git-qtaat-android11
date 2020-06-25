@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.cds_jo.GalaxySalesApp.assist.Cls_Man_Qty_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Convert_Man_Balance_Qty_To_Img;
+import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

@@ -38,6 +38,7 @@ import com.cds_jo.GalaxySalesApp.ContactListItems;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.cds_jo.GalaxySalesApp.assist.ESCPSample3;
+import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
 import com.sewoo.jpos.printer.ESCPOSPrinter;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;

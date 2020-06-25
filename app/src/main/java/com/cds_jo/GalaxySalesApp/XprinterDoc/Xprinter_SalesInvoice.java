@@ -48,6 +48,7 @@ import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 
 
+import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
 

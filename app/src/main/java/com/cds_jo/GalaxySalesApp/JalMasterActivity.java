@@ -43,6 +43,9 @@
         import com.cds_jo.GalaxySalesApp.ManCard.DetailCardMan;
         import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
         import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
+        import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
+        import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
+        import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 
 
         import org.json.JSONArray;
@@ -359,12 +362,12 @@ try {
 
                    case "30003":
                        ComInfo.DocType = 1;
-                       k = new Intent(v.getContext(),Sale_InvoiceActivity.class);
+                       k = new Intent(v.getContext(), Sale_InvoiceActivity.class);
                        break;
 
 
                    case "30005":
-                       k = new Intent(v.getContext(),OrdersItems.class);
+                       k = new Intent(v.getContext(), OrdersItems.class);
                        break;
 
 

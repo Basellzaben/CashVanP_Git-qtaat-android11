@@ -32,6 +32,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cds_jo.GalaxySalesApp.assist.PrintReport_TSC;
+import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 import com.sewoo.jpos.printer.ESCPOSPrinter;
 
 import java.io.File;

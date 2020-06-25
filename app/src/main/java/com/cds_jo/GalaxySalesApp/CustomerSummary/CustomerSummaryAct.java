@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.R;
+import com.cds_jo.GalaxySalesApp.assist.SectionsPageAdapter;
 
 import header.Header_Frag;
 

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.assist.Customers;
+import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
