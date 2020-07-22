@@ -21,6 +21,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cds_jo.GalaxySalesApp.CustLocations.CustomerLocation;
 import com.cds_jo.GalaxySalesApp.Reports.Report_Home;
 import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
 import com.cds_jo.GalaxySalesApp.assist.CustomerReturnQtyActivity;
@@ -145,7 +146,7 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
                 }
 
                     else if (getArguments().getString("Scr") == "CusfCard") {
-                    ((CusfCard) getActivity()).Set_Cust(customers.getAcc(), customers.getNm());
+                    ((CustomerLocation) getActivity()).Set_Cust(customers.getAcc(), customers.getNm());
                 }
 
 

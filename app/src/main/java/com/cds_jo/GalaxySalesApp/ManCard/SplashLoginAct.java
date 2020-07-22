@@ -1,7 +1,10 @@
 package com.cds_jo.GalaxySalesApp.ManCard;
 
+import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.Animation;
@@ -17,6 +20,14 @@ public class SplashLoginAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_login);
+
+        try{
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                ActivityCompat.requestPermissions(SplashLoginAct.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.BLUETOOTH,Manifest.permission.BLUETOOTH_ADMIN},
+                        1);}
+
+        }catch ( Exception ex){}
         ImageView imageView=(ImageView)findViewById(R.id.imageView) ;
         Animation animation = AnimationUtils.loadAnimation(SplashLoginAct.this, R.animator.moveimg);
         imageView.startAnimation(animation);

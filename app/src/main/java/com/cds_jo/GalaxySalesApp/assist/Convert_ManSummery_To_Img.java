@@ -482,11 +482,23 @@ public class Convert_ManSummery_To_Img extends Fragment {
         if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
             PrintReport_TSC obj = new PrintReport_TSC(getActivity(),
                     getActivity(), lay, 520, 1);
-           // obj.DoPrint();
+            // obj.DoPrint();
             obj.DoPrint();
+        }  else  if (ComInfo.ComNo == Companies.Ukrania.getValue()) {
+            PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(getActivity(),
+                getActivity(), lay, 520, 1);
+        // obj.DoPrint();
+        obj.DoPrint();
 
 
-        }else {
+    }   else  if (ComInfo.ComNo == Companies.Saad.getValue()) {
+            PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(getActivity(),
+                getActivity(), lay, 520, 1);
+        // obj.DoPrint();
+        obj.DoPrint();
+
+
+    }else {
             PrintReport_Zepra520 obj = new PrintReport_Zepra520(getActivity(),
                     getActivity(), lay, 570, 1);
             obj.DoPrint();

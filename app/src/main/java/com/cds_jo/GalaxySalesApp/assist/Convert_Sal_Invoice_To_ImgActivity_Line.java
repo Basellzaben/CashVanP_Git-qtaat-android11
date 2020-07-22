@@ -165,11 +165,13 @@ try {
 
 
 
+        TextView tv_ManfName = (TextView)findViewById(R.id.tv_ManfName);
+
         String u =  sharedPreferences.getString("UserName", "");
         String UserID =  sharedPreferences.getString("UserID", "");
         TextView tv_TaxAcc =(TextView)findViewById(R.id.tv_TaxAcc);
         tv_TaxAcc.setText(sharedPreferences.getString("TaxAcc1", ""));
-
+        tv_ManfName.setText(u);
 
         TextView ManManMobile =(TextView)findViewById(R.id.tv_ManMobile);
 
@@ -478,10 +480,10 @@ try {
         obj.StoreFooter(lay);
 
 
-        obj.DoPrint2Img();
+         obj.DoPrint2Img();
 
 
-
+        //  obj.Print_Ipad();
 
 
 
@@ -633,6 +635,7 @@ try {
         TextView tv_NetTotal =(TextView)findViewById(R.id.tv_NetTotal);
         TextView tv_TotalTax =(TextView)findViewById(R.id.tv_TotalTax);
         TextView tv_Total =(TextView)findViewById(R.id.tv_Total);
+        TextView tv_TotAfterDisc =(TextView)findViewById(R.id.tv_TotAfterDisc);
 
         TextView textView11 =(TextView)findViewById(R.id.textView11);
         TextView textView12 =(TextView)findViewById(R.id.textView12);
@@ -685,6 +688,7 @@ try {
             tv_TotalTax.setVisibility(View.INVISIBLE);
             textView11.setVisibility(View.INVISIBLE);
             tv_Total.setVisibility(View.INVISIBLE);
+            tv_TotAfterDisc.setVisibility(View.INVISIBLE);
            /* textView86.setVisibility(View.INVISIBLE);
             textView861.setVisibility(View.INVISIBLE);
             tv_Disc.setVisibility(View.INVISIBLE);
@@ -694,6 +698,7 @@ try {
             tv_TotalTax.setHeight(0);
             textView11.setHeight(0);
             tv_Total.setHeight(0);
+            tv_TotAfterDisc.setHeight(0);
            /* textView86.setHeight(0);
             textView861.setHeight(0);*/
            /* tv_Disc.setHeight(0);
@@ -717,7 +722,7 @@ try {
 
 
         String q = "Select distinct ifnull(s.Seq,'') as  Seq,   ifnull(s.DelveryNm,'') as  DelveryNm , s.include_Tax, s.inovice_type , s.Total , s.Nm,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , c.name  " +
-                "    from  Sal_invoice_Hdr s left join Customers c on c.no =s.acc   where s.OrderNo = '"+OrdNo+"'";
+                "  ,ifnull(TotalWithoutDiscount,0) as tot ,ifnull(disc_Total,0) as disc_Total  from  Sal_invoice_Hdr s left join Customers c on c.no =s.acc   where s.OrderNo = '"+OrdNo+"'";
 
         SqlHandler sqlHandler = new SqlHandler(this);
 
@@ -791,6 +796,7 @@ try {
 */
 
                 tv_Total.setText(c1.getString(c1.getColumnIndex("Total")));
+                tv_TotAfterDisc.setText(   (SToD( c1.getString(c1.getColumnIndex("Total")))-   SToD(  c1.getString(c1.getColumnIndex("disc_Total") )+""))+"");
             }
             c1.close();
         }
@@ -887,7 +893,7 @@ try {
         ArrayList<ContactListItems> contactList = new ArrayList<ContactListItems>();
         contactList.clear();
         sqlHandler = new SqlHandler(this);
-        String query = "SELECT  distinct sid.itemNo,sid.OrgPrice ,sid.price,sid.tax,u.UnitName  , sid.tax_Amt,  ( ifnull(sid.qty,0) +  ifnull(sid.Pro_bounce,0))  as qty, ifnull(bounce_qty,0)   as bounce_qty  ,invf.Item_Name  ,  sid.total    " +
+        String query = "SELECT  distinct sid.itemNo,sid.OrgPrice ,sid.price,sid.tax,u.UnitName , ifnull( DisAmtFromHdr,0) as DisAmtFromHdr   , sid.tax_Amt,  ( ifnull(sid.qty,0) +  ifnull(sid.Pro_bounce,0))  as qty, ifnull(bounce_qty,0)   as bounce_qty  ,invf.Item_Name  ,  sid.total    " +
                 " , ifnull(sid.Pro_dis_Per,0) as Pro_dis_Per ,ifnull(sid.dis_Amt,0) as dis_Amt     FROM Sal_invoice_Det   sid    Left Join Unites u on u.Unitno =sid.unitNo " +
                 "Left Join invf on   invf.Item_No=sid.itemNo  where sid.OrderNo =  '"+  i.getStringExtra("OrderNo").toString()+"'";
 
@@ -917,7 +923,7 @@ try {
                     contactListItems.setBounce(c1.getString(c1
                             .getColumnIndex("bounce_qty")));
                     contactListItems.setTax(c1.getString(c1
-                            .getColumnIndex("tax_Amt")));
+                            .getColumnIndex("tax")));
                     contactListItems.setUnite(c1.getString(c1
                             .getColumnIndex("UnitName")));
                     contactListItems.setTotal(c1.getString(c1
@@ -925,6 +931,11 @@ try {
 
                     contactListItems.setPro_dis_Per(c1.getString(c1
                             .getColumnIndex("Pro_dis_Per")));
+
+
+                    contactListItems.setDisAmtFromHdr(c1.getString(c1
+                            .getColumnIndex("DisAmtFromHdr")));
+
 
 
                     Pro = Pro + (SToD(c1.getString(c1.getColumnIndex("Pro_dis_Per"))) / 100) * (SToD(c1.getString(c1.getColumnIndex("price"))) * SToD(c1.getString(c1.getColumnIndex("qty"))));
@@ -1022,9 +1033,9 @@ try {
                 tv_Price.setText(Obj.getprice());
                 tv_Qty.setText(Obj.getQty());
                 tv_Unit.setText(Obj.getUnite() );
-                tv_tax.setText(Obj.getTax());
-                tv_total.setText(Obj.getTotal());
-                tv_tax.setText(Obj.getTax());
+                tv_tax.setText(Obj.getTax()+"%");
+                tv_total.setText(  (SToD(  Obj.getprice().toString()+"" ) * SToD(Obj.getQty().toString()+"" )+"" )    );
+                tv_tax.setText("%"+Obj.getTax());
                 tv_bonce.setText(Obj.getBounce());
                 tv_tax.setVisibility(View.VISIBLE);
                 if (ShowTax.equals("0")) {

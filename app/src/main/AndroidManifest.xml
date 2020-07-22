@@ -175,6 +175,12 @@
             android:name=".assist.Convert_RecVouch_To_Img_GoodSystem"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".assist.OrdersItems"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Sale_InvoiceActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".assist.Convert_Sal_Invoice_To_ImgActivity_Prestaige"
             android:screenOrientation="landscape" />
         <activity android:name=".PrintImageActivity" />
@@ -195,7 +201,13 @@
             android:name=".ManLocationsReport"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".assist.Sale_ReturnActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".NewLoginActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".assist.Monthly_Items_AmountAct"
             android:screenOrientation="landscape" />
         <activity
             android:name=".JalMasterActivity"
@@ -205,6 +217,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".BeeHiveActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".CustLocations.CustomerLocation"
             android:screenOrientation="landscape" />
         <activity
             android:name=".DoctorReportActivity"

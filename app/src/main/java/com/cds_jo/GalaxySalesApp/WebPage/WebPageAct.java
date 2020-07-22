@@ -35,7 +35,7 @@ public class WebPageAct extends AppCompatActivity {
         //Toast.makeText(this,webLink,Toast.LENGTH_LONG).show();
         webView = (WebView) findViewById(R.id.webview);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("192.168.8.100:3078");
+        webView.loadUrl("http://192.168.8.100:3078");
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);

@@ -78,7 +78,8 @@ public class PopItemImagePreview extends DialogFragment implements View.OnClickL
         return  form;
     }
     private void showImage(String ItemNo) {
-        imgFile = new File("//sdcard/Android/Cv_Images/" + ItemNo + ".jpg");
+        img.setImageResource(R.drawable.img101);
+     /*   imgFile = new File("//sdcard/Android/Cv_Images/" + ItemNo + ".jpg");
         try {
             if (imgFile.exists()) {
 
@@ -107,7 +108,7 @@ public class PopItemImagePreview extends DialogFragment implements View.OnClickL
         } catch (Exception ex) {
             img.setImageDrawable(null);
             img.setImageResource(0);
-        }
+        }*/
 
 
     }

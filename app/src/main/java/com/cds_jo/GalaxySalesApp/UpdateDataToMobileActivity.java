@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 126;
+    private static final int LASTUPDATE = 130;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -463,7 +463,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         try {
             sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  ACC_REPORT    " +
                     "( ID integer primary key autoincrement,Cust_No  text null,Cust_Nm  text null ,FDate text null,TDate text null , TrDate text null ," +
-                    "  Tot  text null    , Rate  text null , Cred text null , Dept text null , Bb text null , Des text null , Date text null" +
+                    "   Tot  text null   , Rate  text null , Cred text null , Dept text null , Bb text null , Des text null , Date text null" +
                     " , Cur_no text null , Doctype text null , Doc_num text null , CheqBal text null  , Ball text null, CusTop text null, NetBall text null" +
                     " , Notes text null )");
         } catch (SQLException e) {
@@ -1370,6 +1370,12 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             sqlHandler.executeQuery("Alter Table SaleManRounds  Add  COLUMN  IsException  text null");
         } catch (SQLException e) {
         }
+
+
+
+        sqlHandler.executeQuery(" CREATE TABLE IF NOT EXISTS CustLocaltions ( no integer primary key autoincrement,CustNo text null , ManNo text null , Lat_X text null ,Lat_Y text null,Locat text null,Post INTEGER null " +
+                " , Note Text null , Tr_Date text null , PersonNm  text null , MobileNo text null ,Stutes text null   ) ");
+
     }
 
     CheckBox chkall;

@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.tscdll.TSCActivity;
@@ -24,17 +23,12 @@ import com.zebra.sdk.printer.ZebraPrinterFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.UnsupportedEncodingException;
-
-import com.example.tscdll.TSCActivity;
 
 /**
  * Created by Hp on 30/05/2016.
  */
-public class PrintReport_TSC {
+public class PrintReport_TSC_Ipad {
     Context context;
     Activity Activity;
     String BPrinter_MAC_ID;
@@ -45,8 +39,8 @@ public class PrintReport_TSC {
     int h;
     Bitmap Empty_bitmap = null;
     Connection connection;
-    public PrintReport_TSC(Context _context, Activity _Activity,
-                           View _ReportView, int _PageWidth, float _ImageCountFactor) {
+    public PrintReport_TSC_Ipad(Context _context, Activity _Activity,
+                                View _ReportView, int _PageWidth, float _ImageCountFactor) {
         context = _context;
         Activity = _Activity;
 
@@ -100,13 +94,8 @@ public class PrintReport_TSC {
         StoreImage();
         Bitmap myBitmap = null;
         myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
-
-
         Toast.makeText(context  ,"العمل جاري على طباعة الملف",Toast.LENGTH_SHORT ).show();
-
         PrintImage(myBitmap);
-
-
     }
 
     public  void StoreHeader(View v){
@@ -398,7 +387,7 @@ public class PrintReport_TSC {
 
     }
   private void PrintImage(final Bitmap bitmap) {
-
+      double  INCH;
       if ( bitmap.getHeight()>1707) {
           bm1 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), 1707);
           bm2 = Bitmap.createBitmap(bitmap, 0, 1707, bitmap.getWidth(), bitmap.getHeight()-1707  );
@@ -416,7 +405,16 @@ public class PrintReport_TSC {
               out = new FileOutputStream(dest);
               bm1.compress(Bitmap.CompressFormat.JPEG, 100, out);
 
+
+              INCH = ( bm1.getHeight()/ 190);
+              TscDll.openport(BPrinter_MAC_ID);
+              TscDll.sendcommand("SIZE 3,"+ String.valueOf((int)INCH) + "\n");
+              //TscDll.sendpicture(0, 0, Environment.getExternalStorageDirectory().getPath() + "/z3.jpg");
+              TscDll.sendbitmap(0,0,bm1);
+              TscDll.printlabel(1, 1);
+              TscDll.closeport(5000);
           }
+
 
           if(bm2!=null) {
               FileOutputStream   out = new FileOutputStream(dest);
@@ -431,69 +429,21 @@ public class PrintReport_TSC {
           }
 
 
-          new Thread(new Runnable() {
-              public void run() {
-                  try {
 
+      }else
+      {
 
-                      Looper.prepare();
-                      String BPrinter_MAC_ID;
-                      SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                      BPrinter_MAC_ID = sharedPreferences.getString("AddressBT", "");
-
-                      Connection connection = new BluetoothConnection(BPrinter_MAC_ID);
-                      connection.open();
-
-                     // ZebraPrinter printer = ZebraPrinterFactory.getInstance(PrinterLanguage.CPCL, connection);
-
-                      TscDll.openport(BPrinter_MAC_ID);
-                      TscDll.downloadpcx("UL.PCX");
-                      TscDll.closeport(5000);
-                     /* printer.printImage(new ZebraImageAndroid(bm1), 20, 0, 550, bm1.getHeight(), false);
-                      printer.printImage(new ZebraImageAndroid(bm2), 20, 0, 550, bm2.getHeight(), false);*/
-                      //connection.close();
-
-                  } catch (ConnectionException e) {
-                      e.printStackTrace();
-                  } finally {
-                      Looper.myLooper().quit();
-                  }
-              }
-          }).start();
-
-      }else {
-
-          h = bitmap.getHeight();
-          if (h > 1800) {
-              h = 1800;
-          }
-          Toast.makeText(context, h + "  h   ", Toast.LENGTH_SHORT).show();
-          new Thread(new Runnable() {
-              public void run() {
-                  try {
-
-
-                      Looper.prepare();
-                      String BPrinter_MAC_ID;
-                      SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                      BPrinter_MAC_ID = sharedPreferences.getString("AddressBT", "");
-
-                      Connection connection = new BluetoothConnection(BPrinter_MAC_ID);
-                      connection.open();
-
-                      ZebraPrinter printer = ZebraPrinterFactory.getInstance(PrinterLanguage.CPCL, connection);
-                      connection.write("! U1 JOURNAL\r\n! U1 SETFF 20 2\r\n".getBytes());
-                      printer.printImage(new ZebraImageAndroid(bitmap), 20, 0, 550, bitmap.getHeight(), false);
-                      connection.close();
-
-                  } catch (ConnectionException e) {
-                      e.printStackTrace();
-                  } finally {
-                      Looper.myLooper().quit();
-                  }
-              }
-          }).start();
+          TscDll.clearbuffer();
+          INCH = (bitmap.getHeight()/ 190);
+          TscDll.openport(BPrinter_MAC_ID);
+          TscDll.sendcommand("SIZE 3,"+ String.valueOf((int)INCH) + "\n");
+          TscDll.clearbuffer();
+          //TscDll.sendpicture(0, 0, Environment.getExternalStorageDirectory().getPath() + "/z3.jpg");
+          TscDll.sendbitmap(0,0,bitmap);
+          TscDll.printlabel(1, 1);
+          TscDll.closeport(5000);
       }
+
   }
     public void Print_Ipad()
     {

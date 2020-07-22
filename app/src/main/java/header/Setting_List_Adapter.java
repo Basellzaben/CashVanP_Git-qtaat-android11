@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.cds_jo.GalaxySalesApp.CusfCard;
+import com.cds_jo.GalaxySalesApp.CustLocations.CustomerLocation;
 import com.cds_jo.GalaxySalesApp.CustomerQty;
 import com.cds_jo.GalaxySalesApp.CustomerSummary.CustomerSummaryAct;
 import com.cds_jo.GalaxySalesApp.DoctorReportActivity;
@@ -121,7 +122,7 @@ public class Setting_List_Adapter extends BaseAdapter {
 
 
                     //       Intent intent = new Intent(context.getApplicationContext(), MainActivity.class);
-                    Intent intent = new Intent(context.getApplicationContext(), TransferQty.class);
+                    Intent intent = new Intent(context.getApplicationContext(), CustomerLocation.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     context.startActivity(intent);
                     ((Activity) context).finish();

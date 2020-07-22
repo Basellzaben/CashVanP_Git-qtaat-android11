@@ -45,6 +45,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.*;
+import com.cds_jo.GalaxySalesApp.OrderApproval.Show_Orders_Need_Approval;
 import com.cds_jo.GalaxySalesApp.PostTransActions.PostSalesOrder;
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesOrder;
 import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
@@ -92,6 +93,7 @@ public class OrdersItems extends FragmentActivity {
     public ArrayList<Cls_Offers_Hdr> cls_offers_hdrs;
     public ArrayList<Cls_Offers_Hdr> cls_offers_hdrsNew;
     String UserID = "";
+    MyTextView ApprovalOrdersCount;
     boolean checkItem, CheckGeroupQty, CheckGroupAmt = false;
     Double Hdr_Dis_A_Amt, Hdr_Dis_Per;
     public ProgressDialog loadingdialog;
@@ -141,6 +143,10 @@ public class OrdersItems extends FragmentActivity {
 
             setContentView(R.layout.activity_orders_items);
             ComInfo.ComNo = Integer.parseInt(DB.GetValue(this, "ComanyInfo", "CompanyID", "1=1"));
+
+            ApprovalOrdersCount = (MyTextView) findViewById(R.id.ApprovalOrdersCount);
+            ApprovalOrdersCount.setText("0");
+
 
             tv_TaxStatus = (MyTextView) findViewById(R.id.tv_TaxStatus);
             CustTaxStatus = "0";
@@ -593,6 +599,47 @@ public class OrdersItems extends FragmentActivity {
             Toast.makeText(this, ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
 
         }
+        NotifcationSitting();
+
+    }
+    public void NotifcationSitting() {
+
+        q = "Select count(distinct orderno) as orderno  from  Po_Hdr ";
+        Cursor c1 = sqlHandler.selectQuery(q);
+        ApprovalOrdersCount.setText("0");
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                ApprovalOrdersCount.setText(c1.getString(c1.getColumnIndex("orderno")));
+            }
+            c1.close();
+        }
+
+
+    }
+    public void Set_Order_For_Aproval(String No, String Nm, String acc) { // FillList
+
+    }
+    private  void FillDtl(String No ){
+
+
+
+    }
+    public void Set_OrderForApproval(String No, String Nm, String acc) { // FillList
+        Set_Order(  No,   Nm,   acc);
+
+
+
+    }
+    public void btn_show_Approval_Pop(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString("Scr", "po");
+        bundle.putString("CatNo", CatNo);
+        FragmentManager Manager = getFragmentManager();
+        Show_Orders_Need_Approval obj = new Show_Orders_Need_Approval();
+        obj.setArguments(bundle);
+        obj.show(Manager, null);
+
+
     }
     private  void GetCelling() {
 
@@ -2016,9 +2063,10 @@ public class OrdersItems extends FragmentActivity {
 
 
         Intent k = new Intent(this, Convert_Layout_Img.class);
-
-        if (ComInfo.ComNo== Companies.Ukrania.getValue()) {
-            k = new Intent(this, Xprinter_SalesOrder.class);
+        if (ComInfo.ComNo== Companies.Saad.getValue()) {
+            k = new Intent(this, Convert_Layout_Img_Tsc.class);
+        }else if (ComInfo.ComNo== Companies.Ukrania.getValue()) {
+            k = new Intent(this, Convert_Layout_Img_Tsc.class);
         }else if (ComInfo.ComNo== Companies.beutyLine.getValue()){
             k = new Intent(this, Convert_Layout_Img_Tsc.class);
         } else{

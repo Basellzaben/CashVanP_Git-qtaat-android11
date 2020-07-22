@@ -108,10 +108,24 @@ public class Convert_RecVouch_To_Img_Tab10 extends AppCompatActivity {
                 LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
                 Toast.makeText(Convert_RecVouch_To_Img_Tab10.this  ,"العمل جاري على إرسال الملف للطابعة",Toast.LENGTH_SHORT ).show();
 
-                   PrintReport_TSC obj = new PrintReport_TSC(Convert_RecVouch_To_Img_Tab10.this,
-                           Convert_RecVouch_To_Img_Tab10.this, lay, 550, 1);
 
-                   obj.DoPrint();
+                  if (ComInfo.ComNo== Companies.Ukrania.getValue()   ) {
+
+                      PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(Convert_RecVouch_To_Img_Tab10.this,
+                              Convert_RecVouch_To_Img_Tab10.this, lay, 550, 1);
+                      obj.DoPrint();
+                  }else if (ComInfo.ComNo== Companies.Saad.getValue()   ) {
+
+                          PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(Convert_RecVouch_To_Img_Tab10.this,
+                                  Convert_RecVouch_To_Img_Tab10.this, lay, 550, 1);
+                          obj.DoPrint();
+                      }else{
+
+                      PrintReport_TSC obj = new PrintReport_TSC(Convert_RecVouch_To_Img_Tab10.this,
+                              Convert_RecVouch_To_Img_Tab10.this, lay, 550, 1);
+                      obj.DoPrint();
+                  }
+
 
 
         }

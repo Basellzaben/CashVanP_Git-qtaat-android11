@@ -103,7 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int GoogleMapType=1;
     MyTextView tv_DayNm,tv_date,tv_FromTime,tv_ToTime;
     private int year, month, day;
-    String Man;
+    String Man,tv_UserNm;
     Circle circle;
     @Override
     protected Dialog onCreateDialog(int id) {

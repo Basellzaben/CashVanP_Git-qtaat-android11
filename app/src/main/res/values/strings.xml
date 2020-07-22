@@ -121,7 +121,7 @@
     <string name="T5">الحركات الغير مرحلة</string>
     <array name="Main_Item">
         <item>كشف حساب</item>
-        <item>خط سير</item>
+        <item>حفظ موقع العميل</item>
         <item>استعراض المواد</item>
         <item>فاتورة مبيعات</item>
         <item>سند قبض</item>
@@ -148,7 +148,7 @@
 
     <array name="Main_Item1">
         <item>بطاقة العميل</item>
-        <item>سند النقل</item>
+        <item>حفظ موقع العميل</item>
         <item>استعراض العروض</item>
         <item>أخر حركات العميل</item>
         <item>ملاحظات العميل</item>

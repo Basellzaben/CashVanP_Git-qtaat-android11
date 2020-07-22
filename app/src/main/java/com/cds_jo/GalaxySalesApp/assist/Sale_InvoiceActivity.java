@@ -319,7 +319,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         myButton.setAnimation(animFadeIn);
 
     }
-
     boolean checkItem, CheckGeroupQty, CheckGroupAmt = false;
     public ArrayList<Cls_Offers_Hdr> cls_offers_hdrsNew;
     ArrayList<AlertChoiceItem> itemList;
@@ -809,17 +808,16 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
         for (int x = 0; x < contactList.size(); x++) {
-           // ItemWieght=((SToD( contactList.get(x).getTotal())/SToD(tv_NetTotal.getText().toString()))*100);
-           // contactList.get(x).setDisPerFromHdr((((ItemWieght*FinalDiscountpercent)/100))+"");
+
             contactList.get(x).setDisPerFromHdr(FinalDiscountpercent+"" );
-            contactList.get(x).setDisAmtFromHdr(( (FinalDiscountpercent*(SToD(contactList.get(x).getTotal())))/100)+"" );
-           // contactList.get(x).setDisPerFromHdr("10");
+            contactList.get(x).setDisAmtFromHdr(( (FinalDiscountpercent*(SToD(contactList.get(x).getTotal())  - SToD(contactList.get(x).getTax_Amt())    ))/100)+"" );
+
         }
 
         CalcTotal();
         showList();
 
-        btn_save_po(null);
+        Save_Recod_Po();
     }
     private void CustAmtDt() {
         TextView accno = (TextView) findViewById(R.id.tv_acc);
@@ -1029,7 +1027,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             c1.close();   }
 
     }
-
     private void showList() {
 
         lvCustomList.setAdapter(null);
@@ -1038,7 +1035,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         lvCustomList.setAdapter(contactListAdapter);
         //  json = new Gson().toJson(contactList);
     }
-
     private void FillAdapter() {
         contactList.clear();
         float Total = 0;
@@ -1158,7 +1154,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
 
     }
-
     public void btn_searchCustomer(View view) {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -1187,7 +1182,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
         }
     }
-
     public void Set_Cust(String No, String Nm) {
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
         TextView acc = (TextView) findViewById(R.id.tv_acc);
@@ -1195,7 +1189,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         CustNm.setText(Nm);
         CustNm.setError(null);
     }
-
     public void CreateAlertDialogWithRadioButtonGroup(final String amt) {
 
 
@@ -1226,7 +1219,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         alertDialog2.show();
 
     }
-
     private void Get_RequestPermission() {
 
 
@@ -1364,7 +1356,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
-
     private void CheckCelingNew(String Amt) {
         Long i;
         final SqlHandler sql_Handler = new SqlHandler(this);
@@ -1527,7 +1518,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
 
     }
-
     private void CheckCelingOld(String Amt) {
 
         CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
@@ -1582,7 +1572,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
-
     private void CheckCeling() {
 
 
@@ -1640,8 +1629,47 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             Save_Recod_Po();
         }
     }
-
     public void btn_save_po(final View view) {
+
+        final TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
+
+
+        String q1 = " Select * From Sal_invoice_Hdr Where  ifnull(doctype,'1')='"+ DocType.toString()+ "'  and   OrderNo='" + pono.getText().toString() + "'";
+        Cursor cc;
+        cc = sqlHandler.selectQuery(q1);
+
+        if (cc != null && cc.getCount() != 0) {
+            IsNew = false;
+            cc.close();
+        } else {
+            IsNew = true;
+        }
+
+
+        if (IsNew == false) {
+
+            if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
+
+
+                AlertDialog alertDialog1 = new AlertDialog.Builder(
+                        this).create();
+                alertDialog1.setTitle(tv_ScrTitle.getText().toString());
+                alertDialog1.setMessage(" لا يمكن التعديل بعد الحفظ");
+                alertDialog1.setIcon(R.drawable.error_new);
+                alertDialog1.setButton("موافق", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+
+                    }
+                });
+
+                alertDialog1.show();
+
+                return;
+            }
+
+        }
+
         TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
 
         Double TempTotal = 0.0;
@@ -1673,24 +1701,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String Count = sharedPreferences.getString("InvCount", "0");
         String NumOfInvPerVisit = DB.GetValue(Sale_InvoiceActivity.this, "ComanyInfo", "NumOfInvPerVisit  ", "1=1");
-       /* if (ComInfo.ComNo == 1) {
-            if ((SToD(Count) >= SToD(NumOfInvPerVisit)) && IsNew == true && BalanceQtyTrans == false) {
-                alertDialog = new AlertDialog.Builder(
-                        this).create();
-                alertDialog.setTitle("فاتورة مبيعات");
-                alertDialog.setMessage("يجب فتح جولة جديدة حتى تتمكن من تنفيذ هذ العملية");
-
-                alertDialog.setIcon(R.drawable.delete);
-                alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        btn_new(view);
-                    }
-                });
-                alertDialog.show();
-                return;
-            }
-        }*/
-
 
 
         String q = "";
@@ -1715,7 +1725,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
         //////////////////////////////////////////////////////////////////////////////////////
 
-        final TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
+
         q = "SELECT distinct *  from  Sal_invoice_Hdr where    ifnull(doctype,'1')='"+DocType.toString()+ "'  and   Post >0 AND   OrderNo ='" + pono.getText().toString() + "'";
         TextView acc = (TextView) findViewById(R.id.tv_acc);
         Cursor c1 = sqlHandler.selectQuery(q);
@@ -1897,25 +1907,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             Seq = Integer.parseInt(DB.GetValue(this, "Sal_invoice_Hdr", "ifnull(Max(Seq),0)+1", "ifnull(doctype,'1')='"+DocType.toString()+ "'  and  date='" + currentDate + "'"));
 
         } else {
-            if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
 
-
-                AlertDialog alertDialog1 = new AlertDialog.Builder(
-                        this).create();
-                alertDialog1.setTitle(tv_ScrTitle.getText().toString());
-                alertDialog1.setMessage(" لا يمكن التعديل بعد الحفظ");
-                alertDialog1.setIcon(R.drawable.error_new);
-                alertDialog1.setButton("موافق", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-
-                    }
-                });
-
-                alertDialog.show();
-
-                return;
-            }
             Seq = Integer.parseInt(DB.GetValue(this, "Sal_invoice_Hdr", "ifnull(Seq,0)", "ifnull(doctype,'1')='"+DocType.toString()+ "'  and  OrderNo='" + pono.getText().toString() + "'"));
 
         }
@@ -2074,7 +2066,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
             alertDialog.setTitle(tv_ScrTitle.getText().toString());
             alertDialog.setMessage("تمت عمليةالتخزين  بنجاح");
-
+            Toast.makeText(this,"تمت عملية الحفظ بنجاح" ,Toast.LENGTH_SHORT).show();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             String Count = sharedPreferences.getString("InvCount", "0");
             Count = (SToD(Count) + 1) + "";
@@ -2110,7 +2102,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             });
 
 
-            alertDialog.show();
+           // alertDialog.show();
 
 
         }
@@ -3122,6 +3114,17 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             chk_showTax.setChecked(true);
             IncludeTax_Flag.setVisibility(View.INVISIBLE);
         }
+        if (ComInfo.ComNo == Companies.beutyLine.getValue() ) {
+
+            IncludeTax_Flag.setChecked(false);
+            IncludeTax_Flag.setVisibility(View.INVISIBLE);
+
+            chk_showTax.setChecked(true);
+            chk_showTax.setVisibility(View.INVISIBLE);
+
+            chk_cus_name.setChecked(true);
+
+        }
         tv_HeaderDscount.setText("0.0%");
     }
     public void btn_back(View view) {
@@ -3138,9 +3141,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
-
     int position;
-
     public void btn_Delete_Item(final View view) {
         position = lvCustomList.getPositionForView(view);
         registerForContextMenu(view);

@@ -78,7 +78,28 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#fff" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/NotiLyt"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="70dp"
+                android:onClick="btn_show_Approval_Pop"
+                android:orientation="horizontal">
 
+                <Methdes.MyTextView
+                    android:id="@+id/ApprovalOrdersCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/notifcations"
+
+                    android:gravity="top|right"
+
+                    android:paddingRight="3dp"
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
             <ImageView
                 android:id="@+id/imageView13"
                 android:layout_width="60dp"

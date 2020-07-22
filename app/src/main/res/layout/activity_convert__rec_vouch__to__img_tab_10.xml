@@ -17,7 +17,7 @@
             <include
                 android:id="@+id/f_view"
                 layout="@layout/rec_voucher_img_tab_10"
-                android:layout_width="400dp"
+                android:layout_width="420dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 

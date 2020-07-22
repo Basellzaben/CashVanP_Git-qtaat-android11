@@ -83,7 +83,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
     float min = 0;
     Double min_price = 0.0;
     Double price = 0.0;
-    EditText filter;
+    EditText filter,et_ItemNm;
     ImageButton btn_filter_search;
     String UnitNo = "";
     String Operand = "";
@@ -202,7 +202,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
         ftv_StoreQty = (TextView) form.findViewById(R.id.tv_StoreQty);
         fqty = (EditText) form.findViewById(R.id.et_qty);
         ItemImage = (ImageView) form.findViewById(R.id.ItemImage);
-        img1 = (ImageView) form.findViewById(R.id.img1);
+
 
 
         ItemImage.setOnTouchListener(new View.OnTouchListener() {
@@ -269,8 +269,8 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
         } else {
 
 
-            Price.setFocusable(false);
-            Price.setClickable(false);
+         //   Price.setFocusable(false);
+          //  Price.setClickable(false);
             Price.setInputType(Configuration.KEYBOARD_12KEY);
             Price.setKeyListener(new DigitsKeyListener());
         }
@@ -427,6 +427,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
         });
 
 
+        et_ItemNm = (EditText) form.findViewById(R.id.et_ItemNm);
         filter = (EditText) form.findViewById(R.id.et_Search_filter);
         filter.setInputType(InputType.TYPE_NULL);
         filter.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -732,7 +733,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
         window.setAttributes(lp);
         btn_Change_Menu = (Button) form.findViewById(R.id.btn_Change_Menu);
         btn_Change_Menu.setOnClickListener(this);
-
+        Price.setEnabled(true);
         try {
 
             if (FillMethod.equalsIgnoreCase("1")) {
@@ -758,6 +759,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
             }
             SetSearchImage();
         } catch (Exception ex) {
+           // Toast.makeText(getActivity(),ex.getMessage().toString(),Toast.LENGTH_LONG).show();
 
         }
         window.setGravity(Gravity.TOP | Gravity.LEFT);
@@ -772,6 +774,11 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
                 }
             });
         }
+
+        if (ComInfo.ComNo == 9) {
+            Price.setEnabled(true);
+        }
+        Price.setEnabled(true);
         return form;
     }
 
@@ -813,6 +820,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
 
         str = (String) o.getItem_Name();
         ItemNm = (String) o.getItem_Name();
+        et_ItemNm.setText(ItemNm);
         // Toast.makeText(getActivity(),str,Toast.LENGTH_LONG).show();
         getDialog().setTitle(str);
         fillUnit(o.getItem_No().toString());
@@ -840,15 +848,19 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
             et_qty.requestFocus();
         }
 
+        if (ComInfo.ComNo == 9) {
+            Price.setEnabled(true);
+            Price.setText("");
+        }
 
     }
 
     private void showImage(String ItemNo) {
-        imgFile = new File("//sdcard/Android/Cv_Images/" + ItemNo + ".jpg");
+        /*imgFile = new File("//sdcard/Android/Cv_Images/" + ItemNo + ".jpg");
         try {
             if (imgFile.exists()) {
 
-                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+               Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
                 Bitmap imageRounded = Bitmap.createBitmap(myBitmap.getWidth(), myBitmap.getHeight(), myBitmap.getConfig());
                 Canvas canvas = new Canvas(imageRounded);
                 Paint mpaint = new Paint();
@@ -856,6 +868,8 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
                 mpaint.setShader(new BitmapShader(myBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
                 canvas.drawRoundRect((new RectF(0, 0, myBitmap.getWidth(), myBitmap.getHeight())), 0, 0, mpaint);// Round Image Corner 100 100 100 100
                 ItemImage.setImageBitmap(imageRounded);
+
+
 
 
             } else {
@@ -874,8 +888,8 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
             ItemImage.setImageDrawable(null);
             ItemImage.setImageResource(0);
         }
-
-
+*/
+       // ItemImage.setImageResource(R.drawable.img101);
     }
 
     private double GetCustLastPrice(String ItemNo, String UnitNo) {
@@ -883,8 +897,8 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String CustNo = sharedPreferences.getString("CustNo", "");
 
-        String q = "select ifnull(Price,0) as price  from CustLastPrice where " +
-                " Item_No = '" + ItemNo + "' and Cust_No ='" + CustNo + "' and  Unit_No = '" + UnitNo + "'";
+        String q = " select ifnull(Price,0) as price  from CustLastPrice where " +
+                   " Item_No = '" + ItemNo + "' and Cust_No ='" + CustNo + "' and  Unit_No = '" + UnitNo + "'";
         Cursor c = sqlHandler.selectQuery(q);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();

@@ -1433,9 +1433,14 @@ public class RecvVoucherActivity extends AppCompatActivity {
             k = new Intent(this, Convert_RecVouch_To_Img_GoodSystem.class);
 
 
+        } else  if (ComInfo.ComNo== Companies.Saad.getValue()) {
+
+            k = new Intent(this, Convert_RecVouch_To_Img_Tab10.class);
+            k.putExtra("OrderNo", OrdeNo.getText().toString().replaceAll("[^\\d.]", ""));
+            startActivity(k);
         } else  if (ComInfo.ComNo== Companies.Ukrania.getValue()) {
 
-            k = new Intent(this, Xprinter_RecVoucher.class);
+            k = new Intent(this, Convert_RecVouch_To_Img_Tab10.class);
             k.putExtra("OrderNo", OrdeNo.getText().toString().replaceAll("[^\\d.]", ""));
             startActivity(k);
         }  else  if (ComInfo.ComNo== Companies.beutyLine.getValue()) {

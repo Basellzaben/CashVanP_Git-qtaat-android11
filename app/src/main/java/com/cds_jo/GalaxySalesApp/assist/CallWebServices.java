@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.cds_jo.GalaxySalesApp.Cls_SaleManDailyRound;
 import com.cds_jo.GalaxySalesApp.Companies;
+import com.cds_jo.GalaxySalesApp.CustLocations.CustLocaltions;
 import com.cds_jo.GalaxySalesApp.We_Result;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -44,11 +45,113 @@ public class CallWebServices  {
         //  URL = "http://192.168.43.36:82/CV.asmx"; //Galaxy2
 
       //  URL = "http://192.168.8.100:82/CV.asmx";[
-   URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
+     //    URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
         //URL = "http://192.168.1.100:3750/CV.asmx";
         //URL = "http://92.253.22.118:3733/CV.asmx";// Targit
         //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
         //URL = "http://92.253.127.230:92/CV.asmx";// mo8bl
+          URL = "http://109.107.238.12:3755//CV.asmx";// السعد
+    }
+    public long SaveManLocationsNew(CustLocaltions obj) {
+
+        We_Result.Msg =  ""     ;
+        We_Result.ID = -2;
+
+        String resTxt = null;
+        SoapObject request = new SoapObject(NAMESPACE, "SaveCustLocations");
+
+
+        // CusNo   , DayNum ,End_Time  , ManNo ,Start_Time, Tr_Data  ,  no ,    OrderNo
+        //       Duration  ,  VisitType  ,  X , Y  ,Locat ,  VisitType1  ,VisitType2,VisitType3 ,
+        //      VisitType4 ,Po_Order , Notes
+
+        PropertyInfo P_CustNo = new PropertyInfo();
+        P_CustNo.setName("CustNo");
+        P_CustNo.setValue(obj.getCustNo());
+        P_CustNo.setType(String.class);
+        request.addProperty(P_CustNo);
+
+        PropertyInfo P_DayNum = new PropertyInfo();
+        P_DayNum.setName("ManNo");
+        P_DayNum.setValue(obj.getManNo());
+        P_DayNum.setType(String.class);
+        request.addProperty(P_DayNum);
+
+        PropertyInfo P_Lat_X= new PropertyInfo();
+        P_Lat_X.setName("Lat_X");
+        P_Lat_X.setValue(obj.getLat_X());
+        P_Lat_X.setType(String.class);
+        request.addProperty(P_Lat_X);
+
+        PropertyInfo P_Lat_Y= new PropertyInfo();
+        P_Lat_Y.setName("Lat_Y");
+        P_Lat_Y.setValue(obj.getLat_Y());
+        P_Lat_Y.setType(String.class);
+        request.addProperty(P_Lat_Y);
+
+        PropertyInfo P_Locat= new PropertyInfo();
+        P_Locat.setName("Locat");
+        P_Locat.setValue(obj.getLocat());
+        P_Locat.setType(String.class);
+        request.addProperty(P_Locat);
+
+        PropertyInfo P_Note= new PropertyInfo();
+        P_Note.setName("Note");
+        P_Note.setValue(obj.getNote());
+        P_Note.setType(String.class);
+        request.addProperty(P_Note);
+
+
+
+
+        PropertyInfo P_Tr_Date= new PropertyInfo();
+        P_Tr_Date.setName("Tr_Date");
+        P_Tr_Date.setValue(obj.getTr_Date());
+        P_Tr_Date.setType(String.class);
+        request.addProperty(P_Tr_Date);
+
+        PropertyInfo P_PersonNm= new PropertyInfo();
+        P_PersonNm.setName("PersonNm");
+        P_PersonNm.setValue(obj.getPersonNm());
+        P_PersonNm.setType(String.class);
+        request.addProperty(P_PersonNm);
+
+        PropertyInfo P_MobileNo= new PropertyInfo();
+        P_MobileNo.setName("MobileNo");
+        P_MobileNo.setValue(obj.getMobileNo());
+        P_MobileNo.setType(String.class);
+        request.addProperty(P_MobileNo);
+
+        PropertyInfo P_Stutes= new PropertyInfo();
+        P_Stutes.setName("Stutes");
+        P_Stutes.setValue(obj.getStutes());
+        P_Stutes.setType(String.class);
+        request.addProperty(P_Stutes);
+
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+            androidHttpTransport.call( "http://tempuri.org/SaveCustLocations", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            // Assign it to resTxt variable static variable
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.ID = Long.parseLong("-404");
+            //Print error
+            e.printStackTrace();
+            //Assign error message to resTxt
+            resTxt = "Error occured";
+        }
+        return   We_Result.ID;
+        //Return resTxt to calling object
+
     }
     public long SaveManVisitsNew(Cls_SaleManDailyRound obj) {
 
