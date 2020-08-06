@@ -56,7 +56,7 @@ public class PrintReport_Zepra520 {
 
     }
 
-    private  void StoreImage(){
+    public   void StoreImage(){
        // LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
 
         Bitmap b = loadBitmapFromView(ReportView);
@@ -115,5 +115,7 @@ public class PrintReport_Zepra520 {
         }).start();
 
     }
+
+
 
 }

@@ -136,14 +136,10 @@ public class Setting_List_Adapter extends BaseAdapter {
                         context.startActivity(intent);
                         ((Activity)context).finish();*/
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("Scr", "po");
-                    bundle.putString("CatNo", "");
-                    FragmentManager Manager = ((Activity) context).getFragmentManager();
-                    PopShowOffers popShowOffers = new PopShowOffers();
-                    popShowOffers.setArguments(bundle);
-                    popShowOffers.show(Manager, null);
-
+                    Intent intent = new Intent(context.getApplicationContext(), CustomerSummaryAct.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
 
                 } else if (position == 3)
 
@@ -343,11 +339,15 @@ public class Setting_List_Adapter extends BaseAdapter {
 
                 } else if (position == 16) {
 
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Scr", "po");
+                    bundle.putString("CatNo", "");
+                    FragmentManager Manager = ((Activity) context).getFragmentManager();
+                    PopShowOffers popShowOffers = new PopShowOffers();
+                    popShowOffers.setArguments(bundle);
+                    popShowOffers.show(Manager, null);
 
-                    Intent intent = new Intent(context.getApplicationContext(), CustomerSummaryAct.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(intent);
-                    ((Activity) context).finish();
+
 
 
                 } else if (position == 17) {

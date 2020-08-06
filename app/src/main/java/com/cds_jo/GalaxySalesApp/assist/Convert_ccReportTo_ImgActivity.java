@@ -4,34 +4,51 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.ComInfo;
 import com.cds_jo.GalaxySalesApp.Companies;
 import com.cds_jo.GalaxySalesApp.DB;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.sewoo.jpos.printer.ESCPOSPrinter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import static com.itextpdf.text.PageSize.A4;
 
 public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
     private ESCPOSPrinter posPtr;
@@ -112,51 +129,8 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
 
         sqlHandler = new SqlHandler(this);
         ShowRecord ("");
-        mButton = (Button) findViewById(R.id.btn_Print);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
 
-                LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
-                /*if (PrinterType.equals("1")) {
-
-                    if (Company.equals("1") || Company.equals("2")) {
-                        PrintReport_SEWOO_ESCPOS ObjPrint = new PrintReport_SEWOO_ESCPOS(Convert_ccReportTo_ImgActivity.this,
-                                Convert_ccReportTo_ImgActivity.this, lay, 570, 1);
-                        ObjPrint.ConnectToPrinter();
-
-                    }
-
-                }
-
-                if (PrinterType.equals("2")) {*/
-
-                if (ComInfo.ComNo== Companies.Arabian.getValue()) {
-                    PrintReport_TSC obj = new PrintReport_TSC(Convert_ccReportTo_ImgActivity.this,
-                            Convert_ccReportTo_ImgActivity.this, lay, 550, 1);
-                    obj.DoPrint();
-
-                }else {
-                    PrintReport_Zepra520 obj = new PrintReport_Zepra520(Convert_ccReportTo_ImgActivity.this,
-                            Convert_ccReportTo_ImgActivity.this, lay, 570, 1);
-                    obj.DoPrint();
-                }
-
-
-
-
-
-
-                  /*  PrintReport_Zepra520 obj =  new PrintReport_Zepra520(Convert_ccReportTo_ImgActivity.this,
-                            Convert_ccReportTo_ImgActivity.this,lay,560,1);
-                    obj.DoPrint();*/
-              //  }
-
-
-
-        }
-    });
         mBluetoothAdapter.enable();
  }
 
@@ -327,9 +301,192 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
 
 
     }
+    public void btn_share(View view) {
+        TextView ed_Mobile =(EditText)findViewById(R.id.ed_Mobile);
+        TextView tv_cusnm =(TextView)findViewById(R.id.tv_cusname);
+        String MsgHeader ="السيد";
+        MsgHeader = MsgHeader +" "+tv_cusnm.getText().toString() +" المحترم ";
+        MsgHeader = MsgHeader+"\n";
+        MsgHeader=MsgHeader+" تمت الطباعة من خلال نظام المبيعات المحمول " ;
+        MsgHeader = MsgHeader+"\n ";
+        MsgHeader = MsgHeader+"وكل عام وانتم بالف خير  ";
+         String PhoneNo =ed_Mobile.getText().toString();
+        LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
 
+
+        PrintReport_Zepra520 obj = new PrintReport_Zepra520(Convert_ccReportTo_ImgActivity.this,
+                Convert_ccReportTo_ImgActivity.this, lay, 550, 1);
+        obj.StoreImage();
+
+
+
+        PackageManager pm = this.getPackageManager();
+        try {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+            File imageFileToShare = new File("//sdcard/z1.jpg");
+            Uri uri2 = Uri.fromFile(imageFileToShare);
+            @SuppressWarnings("unused")
+            PackageInfo info = pm.getPackageInfo(this.getPackageName(), PackageManager.GET_META_DATA);
+
+            Intent waIntent = new Intent(Intent.ACTION_SEND);
+            waIntent.setType("image/*");
+            waIntent.setPackage("com.whatsapp");
+           // waIntent.putExtra(android.content.Intent.EXTRA_STREAM, imageUri);
+           //waIntent.putExtra("jid", "962786185c 997" + "@s.whatsapp.net"); //phone number witho
+            waIntent.putExtra("jid", "962"+PhoneNo + "@s.whatsapp.net"); //phone number witho
+            waIntent.putExtra(Intent.EXTRA_TEXT, MsgHeader);
+            waIntent.putExtra(Intent.EXTRA_STREAM, uri2);
+            this.startActivity(Intent.createChooser(waIntent, "Share with"));
+        } catch (Exception e) {
+            Log.e("Error on sharing", e + " ");
+            Toast.makeText(this, "الرجاء تثبيت الواتس اب من المتجر", Toast.LENGTH_SHORT).show();
+        }
+    }
     public void btn_back(View view) {
         Intent i =  new Intent(this,Sale_InvoiceActivity.class);
          startActivity(i);
+    }
+    private void pdf1()  {
+        com.itextpdf.text.Document document = new com.itextpdf.text.Document(A4,0,0,0,0);
+        try {
+            String targetPdf = "/sdcard/Statement_of_Account.pdf";
+
+            PdfWriter.getInstance(document, new FileOutputStream(targetPdf)); //  Change pdf's name.
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        document.open();
+        com.itextpdf.text.Image img1 = null;
+        try {
+            img1 = com.itextpdf.text.Image.getInstance("//sdcard//z1.jpg");
+
+        } catch (BadElementException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            if(img1!=null  ) {
+                float scaler1 = ((document.getPageSize().getWidth() - 0
+                        - document.rightMargin() - 0) / img1.getWidth()) * 100; // 0 means you have no indentation. If you have any, change it.
+                img1.scalePercent(60);
+                img1.setAlignment(com.itextpdf.text.Image.BOTTOM | com.itextpdf.text.Image.ALIGN_CENTER);
+                //  img1.scaleToFit(700,3000);
+                document.add(img1);
+
+            }
+
+
+
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        document.close();
+
+
+    }
+    public void Send_Email(View view) {
+        try {
+            LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
+
+
+            PrintReport_Zepra520 obj = new PrintReport_Zepra520(Convert_ccReportTo_ImgActivity.this,
+                    Convert_ccReportTo_ImgActivity.this, lay, 550, 1);
+            obj.StoreImage();
+            pdf1();
+            String targetPdf = "/sdcard/Statement_of_Account.pdf";
+            ArrayList<Uri> uris = new ArrayList<Uri>();
+            File fileIn = new File(targetPdf);
+            Uri u = Uri.fromFile(fileIn);
+            uris.add(u);
+            String email, subject, message, attachmentFile;
+            // Customer_email = "maen.naamneh@yahoo.com";
+            email = "";//"m.naamneh@gi-group.com";
+            subject ="كشف حساب العميل";
+            message = "";// tv_sig.getText().toString();
+            final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.setAction(Intent.ACTION_SEND_MULTIPLE);
+            intent.putExtra(android.content.Intent.EXTRA_EMAIL, email);
+            intent.putExtra(android.content.Intent.EXTRA_EMAIL,
+                    new String[]{email});
+            intent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(android.content.Intent.EXTRA_TEXT, message);
+
+            intent.setType("text/plain");
+            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+            final PackageManager pm = getPackageManager();
+            final List<ResolveInfo> matches = pm.queryIntentActivities(intent, 0);
+            ResolveInfo best = null;
+            for (final ResolveInfo info : matches)
+                if (info.activityInfo.packageName.endsWith(".gm") ||
+                        info.activityInfo.name.toLowerCase().contains("gmail")) best = info;
+            if (best != null)
+                intent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+
+            //   startActivity(intent);
+            startActivity(Intent.createChooser(intent, "الرجاء اختيار البرنامج "));
+
+        } catch (Throwable t) {
+            Toast.makeText(this,
+                    "Request failed try again: " + t.toString(),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void Print_Report(View view) {
+        LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
+                /*if (PrinterType.equals("1")) {
+
+                    if (Company.equals("1") || Company.equals("2")) {
+                        PrintReport_SEWOO_ESCPOS ObjPrint = new PrintReport_SEWOO_ESCPOS(Convert_ccReportTo_ImgActivity.this,
+                                Convert_ccReportTo_ImgActivity.this, lay, 570, 1);
+                        ObjPrint.ConnectToPrinter();
+
+                    }
+
+                }
+
+                if (PrinterType.equals("2")) {*/
+
+        if (ComInfo.ComNo== Companies.Arabian.getValue()) {
+            PrintReport_TSC obj = new PrintReport_TSC(Convert_ccReportTo_ImgActivity.this,
+                    Convert_ccReportTo_ImgActivity.this, lay, 550, 1);
+            obj.DoPrint();
+
+        }else if (ComInfo.ComNo== Companies.Ukrania.getValue()) {
+
+            LinearLayout PageLyt = (LinearLayout) findViewById(R.id.MainHeader);
+
+            PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(Convert_ccReportTo_ImgActivity.this,
+                    Convert_ccReportTo_ImgActivity.this, PageLyt, 550, 1);
+            obj.DoPrint();
+
+            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout);
+              obj = new PrintReport_TSC_Ipad(Convert_ccReportTo_ImgActivity.this,
+                    Convert_ccReportTo_ImgActivity.this, PageLyt, 550, 1);
+           // obj.DoPrint();
+
+
+            PageLyt = (LinearLayout) findViewById(R.id.MainDetails);
+            obj = new PrintReport_TSC_Ipad(Convert_ccReportTo_ImgActivity.this,
+                    Convert_ccReportTo_ImgActivity.this, PageLyt, 550, 1);
+          //  obj.DoPrint();
+        }
+
+
+
+
+
+
+                  /*  PrintReport_Zepra520 obj =  new PrintReport_Zepra520(Convert_ccReportTo_ImgActivity.this,
+                            Convert_ccReportTo_ImgActivity.this,lay,560,1);
+                    obj.DoPrint();*/
+        //  }
+
+
     }
 }

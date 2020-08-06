@@ -35,6 +35,7 @@
                 android:layout_weight="1"
 
                 android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
                 android:inputType="text" />
 
         </LinearLayout>

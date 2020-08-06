@@ -90,6 +90,13 @@ public class PrintReport_TSC_Ipad {
 
 
     }
+    public  void DoLongPage(){
+        StoreImage();
+        Bitmap myBitmap = null;
+        myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
+        Toast.makeText(context  ,"العمل جاري على طباعة الملف",Toast.LENGTH_SHORT ).show();
+        PrintLongImage(myBitmap);
+    }
     public  void DoPrint(){
         StoreImage();
         Bitmap myBitmap = null;
@@ -386,63 +393,50 @@ public class PrintReport_TSC_Ipad {
             }).start();
 
     }
+    private void PrintLongImage(final Bitmap bitmap) {
+        double  INCH;
+
+            bm1 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), 750);
+            TscDll.clearbuffer();
+            INCH = (bm1.getHeight()/ 194);
+            TscDll.openport(BPrinter_MAC_ID);
+
+            TscDll.sendcommand("SIZE 3,"+ String.valueOf((int)INCH) + "");
+            TscDll.clearbuffer();
+            //TscDll.sendpicture(0, 0, Environment.getExternalStorageDirectory().getPath() + "/z3.jpg");
+            TscDll.sendbitmap(0,0,bm1);
+            TscDll.printlabel(1, 1);
+            TscDll.closeport(5000);
+
+
+
+        bm2 = Bitmap.createBitmap(bitmap, 0,750, bitmap.getWidth(), 10);
+        TscDll.clearbuffer();
+        INCH = (bm2.getHeight()/ 194);
+        TscDll.openport(BPrinter_MAC_ID);
+
+        TscDll.sendcommand("SIZE 3,"+ String.valueOf((int)INCH) + "");
+        TscDll.clearbuffer();
+        //TscDll.sendpicture(0, 0, Environment.getExternalStorageDirectory().getPath() + "/z3.jpg");
+        TscDll.sendbitmap(0,0,bm2);
+        TscDll.printlabel(1, 1);
+        TscDll.closeport(5000);
+
+
+    }
   private void PrintImage(final Bitmap bitmap) {
+
       double  INCH;
-      if ( bitmap.getHeight()>1707) {
-          bm1 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), 1707);
-          bm2 = Bitmap.createBitmap(bitmap, 0, 1707, bitmap.getWidth(), bitmap.getHeight()-1707  );
-          try {
-
-          String filename = "z1.jpg";
-          File sd = Environment.getExternalStorageDirectory();
-          File dest = new File(sd, filename);
-
-
-          if(bm1!=null) {
-              FileOutputStream   out = new FileOutputStream(dest);
-              filename = "z1.jpg";
-              dest = new File(sd, filename);
-              out = new FileOutputStream(dest);
-              bm1.compress(Bitmap.CompressFormat.JPEG, 100, out);
-
-
-              INCH = ( bm1.getHeight()/ 190);
-              TscDll.openport(BPrinter_MAC_ID);
-              TscDll.sendcommand("SIZE 3,"+ String.valueOf((int)INCH) + "\n");
-              //TscDll.sendpicture(0, 0, Environment.getExternalStorageDirectory().getPath() + "/z3.jpg");
-              TscDll.sendbitmap(0,0,bm1);
-              TscDll.printlabel(1, 1);
-              TscDll.closeport(5000);
-          }
-
-
-          if(bm2!=null) {
-              FileOutputStream   out = new FileOutputStream(dest);
-                  filename = "z1.jpg";
-                  dest = new File(sd, filename);
-                  out = new FileOutputStream(dest);
-                  bm2.compress(Bitmap.CompressFormat.JPEG, 100, out);
-
-           }
-          } catch (Exception e) {
-              Toast.makeText(context, e.getMessage() + "  Exception   ", Toast.LENGTH_SHORT).show();
-          }
-
-
-
-      }else
-      {
-
           TscDll.clearbuffer();
-          INCH = (bitmap.getHeight()/ 190);
+          INCH = (bitmap.getHeight()/ 100);
           TscDll.openport(BPrinter_MAC_ID);
-          TscDll.sendcommand("SIZE 3,"+ String.valueOf((int)INCH) + "\n");
+          //TscDll.sendcommand("SIZE 3,"+ String.valueOf((int)INCH) + "\n");
           TscDll.clearbuffer();
           //TscDll.sendpicture(0, 0, Environment.getExternalStorageDirectory().getPath() + "/z3.jpg");
           TscDll.sendbitmap(0,0,bitmap);
           TscDll.printlabel(1, 1);
           TscDll.closeport(5000);
-      }
+
 
   }
     public void Print_Ipad()

@@ -9,46 +9,208 @@
         android:layout_height="fill_parent">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <include
                 android:id="@+id/f_view"
                 layout="@layout/acc_img"
-                android:layout_width="wrap_content"
+                android:layout_width="420dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/MobilrLyt"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/Gray3"
+            android:layoutDirection="rtl"
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:weightSum="4">
 
-            <Button
-                android:id="@+id/btn_Print"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:text="طباعة"
-                android:nestedScrollingEnabled="false"
-                style="?android:attr/buttonStyleSmall"
-                android:onClick="Do_P"
-                android:layout_weight="1" />
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="رجـــــوع"
-                android:id="@+id/button38"
-                android:layout_alignTop="@+id/btn_Print"
-                android:layout_alignRight="@+id/f_view"
-                android:layout_alignEnd="@+id/f_view"
+            <LinearLayout
+                android:id="@+id/Home_laydout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:layoutDirection="ltr"
                 android:onClick="btn_back"
-                android:nestedScrollingEnabled="false"
-                android:layout_weight="1" />
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Bddack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="رقم الموبايل"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="Do_P"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/ed_Mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="phone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="2"
+                android:background="#fff"
+                android:gravity="center|right"
+                android:layoutDirection="ltr"
+                android:onClick="Send_Email"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editText6"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:ems="10"
+                    android:gravity="center|center_vertical"
+                    android:inputType="phone"
+                    android:text="962" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/Gray3"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="btn_share"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView231"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:elevation="1dp"
+                    android:text="واتس اب"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="Send_Email"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView233"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="إيميل"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/btn_Print"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="Print_Report"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView236"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="طباعة"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Home_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="btn_back"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="الرئيسية"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

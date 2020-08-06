@@ -454,6 +454,15 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
 
             }
         });
+        Price.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    Price.setText("", TextView.BufferType.EDITABLE);
+                }
+            }
+
+        });
         Price.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -840,6 +849,12 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
         } else {
             checkStoreQty();
         }
+        if (ComInfo.ComNo == 9) {
+            Price.setEnabled(true);
+            Price.setText("1");
+            Toast.makeText(getActivity(),"",Toast.LENGTH_LONG).show();
+        }
+
         showImage(o.getItem_No().toString());
         if (ComInfo.ComNo == 3) {
             et_qty.requestFocus();
@@ -848,15 +863,12 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
             et_qty.requestFocus();
         }
 
-        if (ComInfo.ComNo == 9) {
-            Price.setEnabled(true);
-            Price.setText("");
-        }
+
 
     }
 
     private void showImage(String ItemNo) {
-        /*imgFile = new File("//sdcard/Android/Cv_Images/" + ItemNo + ".jpg");
+        imgFile = new File("//sdcard/Android/Cv_Images/" + ItemNo + ".jpg");
         try {
             if (imgFile.exists()) {
 
@@ -888,7 +900,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
             ItemImage.setImageDrawable(null);
             ItemImage.setImageResource(0);
         }
-*/
+
        // ItemImage.setImageResource(R.drawable.img101);
     }
 
@@ -954,7 +966,10 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
                 c1.close();
             }
         }
-
+        if (ComInfo.ComNo == 9) {
+            min_price = 1.0;
+            price = 1.0;
+        }
     }
 
     private void checkStoreQtyAllStore() {

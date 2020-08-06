@@ -113,7 +113,7 @@ public class Convert_RecVouch_To_Img_Tab10 extends AppCompatActivity {
 
                       PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(Convert_RecVouch_To_Img_Tab10.this,
                               Convert_RecVouch_To_Img_Tab10.this, lay, 550, 1);
-                      obj.DoPrint();
+                      obj.DoLongPage();
                   }else if (ComInfo.ComNo== Companies.Saad.getValue()   ) {
 
                           PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(Convert_RecVouch_To_Img_Tab10.this,

@@ -95,7 +95,8 @@
 
         <activity
             android:name=".assist.Convert_ccReportTo_ImgActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".assist.Convert_ccReport2To_ImgActivity"
             android:screenOrientation="landscape" />

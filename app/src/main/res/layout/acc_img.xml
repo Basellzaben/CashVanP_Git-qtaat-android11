@@ -12,6 +12,15 @@
         android:layout_alignParentTop="true"
         android:background="#FFFFFF">
 
+
+    <LinearLayout
+        android:id="@+id/MainHeader"
+        android:orientation="vertical"
+        android:layout_width="420dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF">
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -158,7 +167,7 @@
 
         </LinearLayout>
 
-
+    </LinearLayout>
         <LinearLayout
             android:id="@+id/Sal_ItemSLayout"
             android:orientation="vertical"
@@ -170,6 +179,14 @@
                    android:id="@+id/listView" />-->
         </LinearLayout>
 
+
+    <LinearLayout
+        android:id="@+id/MainDetails"
+        android:orientation="vertical"
+        android:layout_width="420dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
@@ -259,7 +276,7 @@
 
             </LinearLayout>
         </LinearLayout>
-
+    </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

@@ -91,7 +91,7 @@ public class Acc_ReportActivity extends AppCompatActivity {
         btn_print = (Button)findViewById(R.id.btn_print);
         btn_print2 = (Button)findViewById(R.id.btn_print2);
 
-        if(ComInfo.ComNo== Companies.Arabian.getValue()||ComInfo.ComNo== Companies.Ukrania.getValue() ){
+        if(ComInfo.ComNo== Companies.Arabian.getValue() ){
             btn_print.setVisibility(View.INVISIBLE);
             btn_print2.setVisibility(View.INVISIBLE);
         }
@@ -645,6 +645,8 @@ public class Acc_ReportActivity extends AppCompatActivity {
     }
 
 
+    public void Print_Report(View view) {
+    }
 }
 
 

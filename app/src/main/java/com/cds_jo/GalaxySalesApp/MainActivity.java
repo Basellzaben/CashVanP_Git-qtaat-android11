@@ -376,7 +376,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void btn_SearchCust(View v) {
-      if (ComInfo.ComNo == Companies.beutyLine.getValue() || ComInfo.ComNo == 1){
+      if (ComInfo.ComNo == Companies.beutyLine.getValue() || ComInfo.ComNo == 1||ComInfo.ComNo == Companies.Saad.getValue() ){
         Bundle bundle = new Bundle();
         bundle.putString("Scr", "Gps");
         FragmentManager Manager = getFragmentManager();

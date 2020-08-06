@@ -486,7 +486,7 @@ public class Convert_ManSummery_To_Img extends Fragment {
             obj.DoPrint();
         }  else  if (ComInfo.ComNo == Companies.Ukrania.getValue()) {
             PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(getActivity(),
-                getActivity(), lay, 520, 1);
+                getActivity(), lay, 550, 1);
         // obj.DoPrint();
         obj.DoPrint();
 
