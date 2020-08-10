@@ -168,7 +168,16 @@
         </LinearLayout>
 
     </LinearLayout>
-        <LinearLayout
+
+    <LinearLayout
+        android:id="@+id/Details"
+        android:orientation="vertical"
+        android:layout_width="420dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="#FFFFFF">
+
+     <LinearLayout
             android:id="@+id/Sal_ItemSLayout"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -178,8 +187,65 @@
                    android:layout_height="520dp"
                    android:id="@+id/listView" />-->
         </LinearLayout>
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/Details2"
+            android:orientation="vertical"
+            android:layout_width="420dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="#FFFFFF">
 
+            <LinearLayout
+                android:id="@+id/Sal_ItemSLayout2"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--   <ListView
+                       android:layout_width="fill_parent"
+                       android:layout_height="520dp"
+                       android:id="@+id/listView" />-->
+            </LinearLayout>
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/Details3"
+            android:orientation="vertical"
+            android:layout_width="420dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="#FFFFFF">
+
+            <LinearLayout
+                android:id="@+id/Sal_ItemSLayout3"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--   <ListView
+                       android:layout_width="fill_parent"
+                       android:layout_height="520dp"
+                       android:id="@+id/listView" />-->
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/Details4"
+            android:orientation="vertical"
+            android:layout_width="420dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="#FFFFFF">
+
+            <LinearLayout
+                android:id="@+id/Sal_ItemSLayout4"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--   <ListView
+                       android:layout_width="fill_parent"
+                       android:layout_height="520dp"
+                       android:id="@+id/listView" />-->
+            </LinearLayout>
+        </LinearLayout>
     <LinearLayout
         android:id="@+id/MainDetails"
         android:orientation="vertical"

@@ -214,14 +214,14 @@ public class ManSummeryNew extends FragmentActivity {
 
 
 
-                if (ComInfo.ComNo == Companies.Ukrania.getValue()) {
+             /*   if (ComInfo.ComNo == Companies.Ukrania.getValue()) {
                     Intent  k = new Intent(ManSummeryNew.this, Xprinter_ManSummeryTo_img.class);
                     startActivity(k);
-                }else{
+                }else{*/
                     frag = new Convert_ManSummery_To_Img();
                     fragmentManager = getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
-                }
+              //  }
 
 
             }

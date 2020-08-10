@@ -81,7 +81,7 @@ public class Convert_Sal_Invoice_To_ImgActivity_Okrania_Ipad extends AppCompatAc
         super.onCreate(savedInstanceState);
 
 try {
-    setContentView(R.layout.activity_convert__sal__invoice__to__img_line);
+    setContentView(R.layout.activity_convert__sal__invoice__to__img_okrania);
 }catch (Exception ex)
 {
     Toast.makeText(this,ex.getMessage(),Toast.LENGTH_SHORT).show();
@@ -440,45 +440,125 @@ try {
 
 
     }
-
+    PrintReport_TSC_Ipad printReport_tsc_ipad;
+    Bitmap LargeBitmap = null;
     public void Do_PRINT(View view) {
         mButton.setBackground(getResources().getDrawable(R.drawable.blue_fill_white));
         mButton.setTextColor(getResources().getColor(R.color.Blue));
-        LinearLayout lay = (LinearLayout) findViewById(R.id.Invoice_Header);
-        PrintReport_TSC obj = new PrintReport_TSC(Convert_Sal_Invoice_To_ImgActivity_Okrania_Ipad.this,
-                Convert_Sal_Invoice_To_ImgActivity_Okrania_Ipad.this,lay, 570, 1);
+
+        LinearLayout PageLyt = (LinearLayout) findViewById(R.id.Invoice_Header);
+        printReport_tsc_ipad = new PrintReport_TSC_Ipad(Convert_Sal_Invoice_To_ImgActivity_Okrania_Ipad.this,
+                Convert_Sal_Invoice_To_ImgActivity_Okrania_Ipad.this, PageLyt, 550, 1);
+
+        PageLyt = (LinearLayout) findViewById(R.id.Invoice_Header);
+
+        try {
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z1");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z1.jpg");
+             printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
+
+        try {
+            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout);
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z2");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z2.jpg");
+
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
+
+        try {
+            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout1);
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z3");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z3.jpg");
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
+
+
+        try {
+            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout2);
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z4");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z4.jpg");
+
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
+
+
+        try {
+            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout3);
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z5");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z5.jpg");
+
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
+
+        try {
+            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout4);
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z6");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z6.jpg");
+
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
 
 
 
-        lay = (LinearLayout) findViewById(R.id.Invoice_Header);
-        obj.StoreHeader(lay);
+        try {
+            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout5);
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z7");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z7.jpg");
 
-        lay  = (LinearLayout) findViewById(R.id.Sal_ItemSLayout);
-         if(lay.getHeight()==0) {
-             lay  = (LinearLayout) findViewById(R.id.Sal_ItemSLayout_emp);
-         }
-        obj.StoreContent(lay, "z2.jpg");
-
-
-        lay  = (LinearLayout) findViewById(R.id.Sal_ItemSLayout1);
-        if(lay.getHeight()==0) {
-            lay  = (LinearLayout) findViewById(R.id.Sal_ItemSLayout_emp);
-        }
-        obj.StoreContent(lay,"z21.jpg");
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
 
 
-        lay  = (LinearLayout) findViewById(R.id.Sal_ItemSLayout2);
-        if(lay.getHeight()==0) {
-            lay  = (LinearLayout) findViewById(R.id.Sal_ItemSLayout_emp);
-        }
-        obj.StoreContent(lay,"z22.jpg");
 
+        try {
+            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout6);
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z8");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z8.jpg");
 
-        lay    = (LinearLayout) findViewById(R.id.Invoice_Footer);
-        obj.StoreFooter(lay);
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
 
+        try {
+            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout7);
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z9");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z9.jpg");
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
 
-        obj.DoPrint2Img();
+        PageLyt = (LinearLayout) findViewById(R.id.Invoice_Footer);
+        try {
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z10");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z10.jpg");
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
+
+        PageLyt = (LinearLayout) findViewById(R.id.Invoice_Footer2);
+        try {
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z11");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z11.jpg");
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
+
+        PageLyt = (LinearLayout) findViewById(R.id.Invoice_Footer3);
+        try {
+            printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z12");
+            Bitmap myBitmap = null;
+            myBitmap = BitmapFactory.decodeFile("//sdcard//z12.jpg");
+            printReport_tsc_ipad.SendInvoiceImage(myBitmap);
+        }catch (Exception f){}
+
 
 
 
@@ -978,6 +1058,11 @@ try {
             LinearLayout Sal_ItemSLayout = (LinearLayout) findViewById(R.id.Sal_ItemSLayout);
             LinearLayout Sal_ItemSLayout1 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout1);
             LinearLayout Sal_ItemSLayout2 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout2);
+            LinearLayout Sal_ItemSLayout3 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout3);
+            LinearLayout Sal_ItemSLayout4 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout4);
+            LinearLayout Sal_ItemSLayout5 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout5);
+            LinearLayout Sal_ItemSLayout6 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout6);
+            LinearLayout Sal_ItemSLayout7 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout7);
 
             LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view;
@@ -999,7 +1084,7 @@ try {
               int count = 0;
 
             for (ContactListItems Obj : contactList){
-                count =count +1 ;
+
                     view = inflater.inflate(R.layout.sal_invoce_row_tab_10, null);
 
                 /*if  (Company.equals("2")) {
@@ -1033,22 +1118,28 @@ try {
 
                 }
 
-                 if( count < 1) {
+                 if( count < 10) {
                     Sal_ItemSLayout.addView(view);
+                }else if(count <20){
+                    Sal_ItemSLayout1.addView(view);
+                }else if(count <30){
+                    Sal_ItemSLayout2.addView(view);
                 }else if(count <40){
-                    Sal_ItemSLayout1.addView(view);
-                }else{
-                    Sal_ItemSLayout2.addView(view);
-                }
+                     Sal_ItemSLayout3.addView(view);
+                 }else if(count <50){
+                     Sal_ItemSLayout4.addView(view);
+                 }else if(count <60){
+                     Sal_ItemSLayout5.addView(view);
+                 }else if(count <70){
+                     Sal_ItemSLayout6.addView(view);
+                 }else if(count <80){
+                     Sal_ItemSLayout7.addView(view);
+                 }
 
 
-             /*   if( count <12) {
-                    Sal_ItemSLayout.addView(view);
-                }else if(count <24){
-                    Sal_ItemSLayout1.addView(view);
-                }else{
-                    Sal_ItemSLayout2.addView(view);
-                }*/
+
+
+                count =count +1 ;
             }
 
 

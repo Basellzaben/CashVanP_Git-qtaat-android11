@@ -487,8 +487,12 @@ public class Convert_ManSummery_To_Img extends Fragment {
         }  else  if (ComInfo.ComNo == Companies.Ukrania.getValue()) {
             PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(getActivity(),
                 getActivity(), lay, 550, 1);
-        // obj.DoPrint();
-        obj.DoPrint();
+
+         obj.ConvertLayToImg(lay,"z1");
+         Bitmap myBitmap = null;
+         myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
+         obj.SendSmallImage(myBitmap);
+         //////////////////////////////////////////////////
 
 
     }   else  if (ComInfo.ComNo == Companies.Saad.getValue()) {

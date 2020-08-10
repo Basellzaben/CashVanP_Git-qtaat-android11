@@ -1,7 +1,9 @@
 package com.cds_jo.GalaxySalesApp.assist;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -25,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cds_jo.GalaxySalesApp.Acc_Report;
 import com.cds_jo.GalaxySalesApp.ComInfo;
 import com.cds_jo.GalaxySalesApp.Companies;
 import com.cds_jo.GalaxySalesApp.DB;
@@ -61,6 +64,8 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
     private static final int REQUEST_DISCOVERABLE_BT = 0;
     private static final DecimalFormat oneDecimal = new DecimalFormat("#,##0.0");
     ImageView img_Logo;
+    PrintReport_TSC_Ipad printReport_tsc_ipad;
+    Bitmap LargeBitmap = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -267,6 +272,9 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
 
 
             LinearLayout Sal_ItemSLayout = (LinearLayout) findViewById(R.id.Sal_ItemSLayout);
+            LinearLayout Sal_ItemSLayout2 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout2);
+            LinearLayout Sal_ItemSLayout3 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout3);
+            LinearLayout Sal_ItemSLayout4 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout4);
 
             LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view;
@@ -275,10 +283,10 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
             TextView Cred;
             TextView Dept;
             TextView Tot;
-
+           int index = 0;
             for (Cls_Acc_Report Obj : contactList){
 
-                    view = inflater.inflate(R.layout.report_img_row, null);
+               view = inflater.inflate(R.layout.report_img_row, null);
 
                 tv_Des = (TextView) view.findViewById(R.id.tv_Des);
                 Cred = (TextView) view.findViewById(R.id.tv_Cred);
@@ -291,8 +299,16 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
                 Dept.setText(Obj.getDept());
                 Tot.setText(Obj.getTot());
 
-                Sal_ItemSLayout.addView(view);
-
+                if(  index<=11) {
+                    Sal_ItemSLayout.addView(view);
+                }else if(index<=21){
+                    Sal_ItemSLayout2.addView(view);
+                }else if(index<=31){
+                    Sal_ItemSLayout3.addView(view);
+                 }else if(index<=41){
+                    Sal_ItemSLayout4.addView(view);
+                }
+                index=index+1;
             }
 
 
@@ -344,7 +360,7 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
         }
     }
     public void btn_back(View view) {
-        Intent i =  new Intent(this,Sale_InvoiceActivity.class);
+        Intent i =  new Intent(this, Acc_Report.class);
          startActivity(i);
     }
     private void pdf1()  {
@@ -438,19 +454,8 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
     }
 
     public void Print_Report(View view) {
+        try{
         LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
-                /*if (PrinterType.equals("1")) {
-
-                    if (Company.equals("1") || Company.equals("2")) {
-                        PrintReport_SEWOO_ESCPOS ObjPrint = new PrintReport_SEWOO_ESCPOS(Convert_ccReportTo_ImgActivity.this,
-                                Convert_ccReportTo_ImgActivity.this, lay, 570, 1);
-                        ObjPrint.ConnectToPrinter();
-
-                    }
-
-                }
-
-                if (PrinterType.equals("2")) {*/
 
         if (ComInfo.ComNo== Companies.Arabian.getValue()) {
             PrintReport_TSC obj = new PrintReport_TSC(Convert_ccReportTo_ImgActivity.this,
@@ -461,23 +466,78 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
 
             LinearLayout PageLyt = (LinearLayout) findViewById(R.id.MainHeader);
 
-            PrintReport_TSC_Ipad obj = new PrintReport_TSC_Ipad(Convert_ccReportTo_ImgActivity.this,
+            printReport_tsc_ipad = new PrintReport_TSC_Ipad(Convert_ccReportTo_ImgActivity.this,
                     Convert_ccReportTo_ImgActivity.this, PageLyt, 550, 1);
-            obj.DoPrint();
-
-            PageLyt = (LinearLayout) findViewById(R.id.Sal_ItemSLayout);
-              obj = new PrintReport_TSC_Ipad(Convert_ccReportTo_ImgActivity.this,
-                    Convert_ccReportTo_ImgActivity.this, PageLyt, 550, 1);
-           // obj.DoPrint();
 
 
-            PageLyt = (LinearLayout) findViewById(R.id.MainDetails);
-            obj = new PrintReport_TSC_Ipad(Convert_ccReportTo_ImgActivity.this,
-                    Convert_ccReportTo_ImgActivity.this, PageLyt, 550, 1);
-          //  obj.DoPrint();
+            try {
+                printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z1");
+                Bitmap myBitmap = null;
+                myBitmap = BitmapFactory.decodeFile("//sdcard//z1.jpg");
+                //Toast.makeText(Convert_ccReportTo_ImgActivity.this,myBitmap.getHeight()+","+myBitmap.getDensity(),Toast.LENGTH_SHORT).show();
+                printReport_tsc_ipad.SendSmallImage(myBitmap);
+            }catch (Exception f){}
+
+             try {
+                 PageLyt = (LinearLayout) findViewById(R.id.Details);
+                 printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z2");
+                 LargeBitmap = null;
+                 LargeBitmap = BitmapFactory.decodeFile("//sdcard//z2.jpg");
+                 Log.i("dt1", "dt1 " + LargeBitmap.getHeight() + "");
+                 if (LargeBitmap != null && LargeBitmap.getHeight() > 0) {
+                     printReport_tsc_ipad.SendLongImage(LargeBitmap);
+                 }
+             }catch (Exception s){}
+
+                 try {
+                     PageLyt = (LinearLayout) findViewById(R.id.Details2);
+                     printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z31");
+                     LargeBitmap = null;
+                     LargeBitmap = BitmapFactory.decodeFile("//sdcard//z31.jpg");
+                     Log.i("dt2", "dt2 " + LargeBitmap.getHeight() + "");
+                     if (LargeBitmap != null && LargeBitmap.getHeight() > 0) {
+                         printReport_tsc_ipad.SendLongImage(LargeBitmap);
+                     }
+                 }catch ( Exception O){}
+
+            try {
+                PageLyt = (LinearLayout) findViewById(R.id.Details3);
+                printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z4");
+                LargeBitmap = null;
+                LargeBitmap = BitmapFactory.decodeFile("//sdcard//z4.jpg");
+
+                Log.i("dt3", "dt3 " + LargeBitmap.getHeight() + "");
+                if (LargeBitmap != null && LargeBitmap.getHeight() > 0) {
+                    printReport_tsc_ipad.SendLongImage(LargeBitmap);
+                }
+            }catch (Exception d) { }
+
+
+            try {
+                PageLyt = (LinearLayout) findViewById(R.id.Details4);
+                printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z5");
+                LargeBitmap = null;
+                LargeBitmap = BitmapFactory.decodeFile("//sdcard//z5.jpg");
+
+                Log.i("dt4", "dt4 " + LargeBitmap.getHeight() + "");
+                if (LargeBitmap != null && LargeBitmap.getHeight() > 0) {
+                    printReport_tsc_ipad.SendLongImage(LargeBitmap);
+                }
+            }catch (Exception d) { }
+
+            try {
+                PageLyt = (LinearLayout) findViewById(R.id.MainDetails);
+                printReport_tsc_ipad.ConvertLayToImg(PageLyt, "z6");
+                LargeBitmap = null;
+                LargeBitmap = BitmapFactory.decodeFile("//sdcard//z6.jpg");
+                printReport_tsc_ipad.SendSmallImage(LargeBitmap);
+            }catch ( Exception d){}
+
         }
 
+    }catch(Exception f){
 
+        }
 
 
 

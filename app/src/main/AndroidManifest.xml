@@ -81,6 +81,9 @@
             android:name=".assist.Convert_RecVouch_To_Img_Tab10"
             android:screenOrientation="landscape" />
         <activity
+            android:name="Convert_RecVouch_To_Img_Ipad"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".assist.Convert_Prapre_Qty_To_Img"
             android:screenOrientation="landscape" />
         <activity

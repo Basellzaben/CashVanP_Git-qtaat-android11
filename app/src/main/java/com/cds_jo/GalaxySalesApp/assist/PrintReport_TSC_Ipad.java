@@ -9,6 +9,7 @@ import android.graphics.Canvas;
 import android.os.Environment;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,7 +24,9 @@ import com.zebra.sdk.printer.ZebraPrinterFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by Hp on 30/05/2016.
@@ -102,8 +105,175 @@ public class PrintReport_TSC_Ipad {
         Bitmap myBitmap = null;
         myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
         Toast.makeText(context  ,"العمل جاري على طباعة الملف",Toast.LENGTH_SHORT ).show();
+         PrintImage(myBitmap);
+    }
+
+    public  void SendSmallImage(final Bitmap bitmap){
+        try {
+            double INCH;
+            TscDll.clearbuffer();
+            INCH = (bitmap.getHeight() / 200);
+            TscDll.openport(BPrinter_MAC_ID);
+            TscDll.sendcommand("SIZE 3," + String.valueOf((int) INCH) + "\n");
+            TscDll.clearbuffer();
+            //TscDll.sendpicture(0, 0, Environment.getExternalStorageDirectory().getPath() + "/z3.jpg");
+            TscDll.sendbitmap(0, 0, bitmap);
+
+            TscDll.printlabel(1, 1);
+            TscDll.closeport(5000);
+        }catch (Exception d){}
+    }
+
+    public  void SendLongImage(final Bitmap bitmap){
+        double  INCH,Margin;
+        TscDll.clearbuffer();
+
+        Margin=0.0;
+
+        if (bitmap.getHeight()>700)  {//10 Rows
+              Margin=0.9;
+        }else if(bitmap.getHeight()>630)   {//9 Rows
+            Margin = 0.2;//0.35;
+        } else if (bitmap.getHeight()>550) {//8 Rows
+            Margin = 0.9;
+        }else if (bitmap.getHeight()>470)  {//7 Rows
+            Margin = 0.5;
+        } else if (bitmap.getHeight()>400) {//6 Rows
+            Margin = 0.130;
+        } else if (bitmap.getHeight()>310) {//5 Rows
+            Margin = 0.77;
+        } else if (bitmap.getHeight()>275) {//4 Rows
+                 Margin = 0.5;
+        } else if (bitmap.getHeight()>200) {//3 Rows
+                 Margin = 0.3;
+        } else if (bitmap.getHeight()>175) {//2 Rows
+                 Margin =0.9;
+        } else if (bitmap.getHeight()>125) {//1 Row
+                 Margin =0.7;
+        }else if (bitmap.getHeight()>50) {//1 Row Sal
+                 Margin =-0.2;
+        } else if (bitmap.getHeight()>20) {//0 Row
+           Margin =0;
+        }else{
+                 Margin =0.5;
+             }
+        INCH = (bitmap.getHeight()/200)+Margin;
+        Log.i("cv", "Height: " + bitmap.getHeight() + "");
+        Log.i("cv", "INCH : " + INCH + "");
+
+        TscDll.openport(BPrinter_MAC_ID);
+        TscDll.sendcommand("SIZE 3,"+ String.valueOf(INCH) + "\n");
+        //  TscDll.sendcommand("SIZE 3,1.8"+ "\n");
+        TscDll.clearbuffer();
+
+         TscDll.sendbitmap(0,0,bitmap);
+
+        TscDll.printlabel(1, 1);
+        TscDll.closeport(5000);
+    }
+
+    public  void SendInvoiceImage(final Bitmap bitmap){
+        double  INCH,Margin;
+        TscDll.clearbuffer();
+
+        Margin=0.0;
+
+        if (bitmap.getHeight()>700)  {//10 Rows
+            Margin=0.9;
+        }else if(bitmap.getHeight()>630)   {//9 Rows
+            Margin = 0.35;//0.35;
+        } else if (bitmap.getHeight()>550) {//8 Rows
+            Margin = 0.9;
+        }else if (bitmap.getHeight()>470)  {//7 Rows
+            Margin = 0.5;
+        } else if (bitmap.getHeight()>400) {//6 Rows
+            Margin = 0.130;
+        } else if (bitmap.getHeight()>310) {//5 Rows
+            Margin = 0.77;
+        } else if (bitmap.getHeight()>275) {//4 Rows
+            Margin = 0.5;
+        } else if (bitmap.getHeight()>200) {//3 Rows
+            Margin = 0.3;
+        } else if (bitmap.getHeight()>175) {//2 Rows
+            Margin =0.9;
+        } else if (bitmap.getHeight()>125) {//1 Row
+            Margin =0.7;
+        }else if (bitmap.getHeight()>50) {//1 Row Sal
+            Margin =-0.2;
+        } else if (bitmap.getHeight()>20) {//0 Row
+            Margin =0;
+        }else{
+            Margin =0.5;
+        }
+        INCH = (bitmap.getHeight()/200)+Margin;
+        Log.i("cv", "Height: " + bitmap.getHeight() + "");
+        Log.i("cv", "INCH : " + INCH + "");
+
+        TscDll.openport(BPrinter_MAC_ID);
+        TscDll.sendcommand("SIZE 3,"+ String.valueOf(INCH) + "\n");
+        //  TscDll.sendcommand("SIZE 3,1.8"+ "\n");
+        TscDll.clearbuffer();
+
+        TscDll.sendbitmap(0,0,bitmap);
+
+        TscDll.printlabel(1, 1);
+        TscDll.closeport(5000);
+    }
+    public  void SendReciveVoucherImage(final Bitmap bitmap){
+        double  INCH,Margin;
+        TscDll.clearbuffer();
+
+        Margin=0.0;
+
+        if (bitmap.getHeight()>700)  {//10 Rows
+            Margin=0.9;
+        }else if(bitmap.getHeight()>630)   {//9 Rows
+            Margin = 0.35;//0.35;
+        } else if (bitmap.getHeight()>550) {//8 Rows
+            Margin = 0.9;
+        }else if (bitmap.getHeight()>470)  {//7 Rows
+            Margin = 0.5;
+        } else if (bitmap.getHeight()>400) {//6 Rows
+            Margin = 0.130;
+        } else if (bitmap.getHeight()>310) {//5 Rows
+            Margin = 0.77;
+        } else if (bitmap.getHeight()>275) {//4 Rows
+            Margin = 0.5;
+        } else if (bitmap.getHeight()>200) {//3 Rows
+            Margin = 0.3;
+        } else if (bitmap.getHeight()>175) {//2 Rows
+            Margin =0.9;
+        } else if (bitmap.getHeight()>125) {//1 Row
+            Margin =0.7;
+        }else if (bitmap.getHeight()>50) {//1 Row Sal
+            Margin =-0.2;
+        } else if (bitmap.getHeight()>20) {//0 Row
+            Margin =0;
+        }else{
+            Margin =0.5;
+        }
+        INCH = (bitmap.getHeight()/200)+Margin;
+        Log.i("cv", "Height: " + bitmap.getHeight() + "");
+        Log.i("cv", "INCH : " + INCH + "");
+
+        TscDll.openport(BPrinter_MAC_ID);
+        TscDll.sendcommand("SIZE 3,"+ String.valueOf(INCH) + "\n");
+        //  TscDll.sendcommand("SIZE 3,1.8"+ "\n");
+        TscDll.clearbuffer();
+
+        TscDll.sendbitmap(0,0,bitmap);
+
+        TscDll.printlabel(1, 1);
+        TscDll.closeport(5000);
+    }
+    public  void DoPrintSmallImg(){
+        StoreImage();
+        Bitmap myBitmap = null;
+        myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
+        Toast.makeText(context  ,"العمل جاري على طباعة الملف",Toast.LENGTH_SHORT ).show();
         PrintImage(myBitmap);
     }
+
 
     public  void StoreHeader(View v){
         Bitmap b = loadBitmapFromView(v);
@@ -245,7 +415,63 @@ public class PrintReport_TSC_Ipad {
         }
 
     }
-    private  void StoreImage(){
+    public void storeImage(View View,String ImgName) {
+        try {
+            Bitmap image = loadBitmapFromView(View);
+            String filename = ImgName +".jpg";
+            File sd = Environment.getExternalStorageDirectory();
+
+            File pictureFile = new File(sd, filename);
+
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+
+
+            ByteArrayOutputStream imageByteArray = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.JPEG, 100, imageByteArray);
+            byte[] imageData = imageByteArray.toByteArray();
+
+            //300 will be the dpi of the bitmap
+            setDpi(imageData, 300);
+
+            fos.write(imageData);
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public   void ConvertLayToImg( View View,String ImgName){
+        Bitmap b = loadBitmapFromView(View);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        String filename = ImgName +".jpg";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+
+
+
+            out.flush();
+            out.close();
+            //  bitmap.recycle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    private static void setDpi(byte[] imageData, int dpi) {
+        imageData[13] = 1;
+        imageData[14] = (byte) (dpi >> 8);
+        imageData[15] = (byte) (dpi & 0xff);
+        imageData[16] = (byte) (dpi >> 8);
+        imageData[17] = (byte) (dpi & 0xff);
+    }
+    public   void StoreImage(){
        // LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
 
         Bitmap b = loadBitmapFromView(ReportView);
@@ -266,17 +492,22 @@ public class PrintReport_TSC_Ipad {
 
     }
     public static Bitmap loadBitmapFromView(View v) {
+        Bitmap b = null;
+           try {
 
-        v.measure(View.MeasureSpec.makeMeasureSpec(v.getLayoutParams().width,
-                View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(
-                v.getLayoutParams().height, View.MeasureSpec.UNSPECIFIED));
-        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
-        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
-                Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        v.draw(c);
-        return b;
-    }
+               v.measure(View.MeasureSpec.makeMeasureSpec(v.getLayoutParams().width,
+                       View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(
+                       v.getLayoutParams().height, View.MeasureSpec.UNSPECIFIED));
+               v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+                b = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
+                       Bitmap.Config.ARGB_8888);
+               Canvas c = new Canvas(b);
+               v.draw(c);
+           }catch (Exception es){
+
+           }
+                return b;
+            }
   /*  private void PrintImage(final Bitmap bitmap) {
 
 
@@ -424,13 +655,15 @@ public class PrintReport_TSC_Ipad {
 
 
     }
+
+
   private void PrintImage(final Bitmap bitmap) {
 
-      double  INCH;
+         double  INCH;
           TscDll.clearbuffer();
-          INCH = (bitmap.getHeight()/ 100);
+          INCH = (bitmap.getHeight()/ 200);
           TscDll.openport(BPrinter_MAC_ID);
-          //TscDll.sendcommand("SIZE 3,"+ String.valueOf((int)INCH) + "\n");
+           TscDll.sendcommand("SIZE 3,"+ String.valueOf((int)INCH) + "\n");
           TscDll.clearbuffer();
           //TscDll.sendpicture(0, 0, Environment.getExternalStorageDirectory().getPath() + "/z3.jpg");
           TscDll.sendbitmap(0,0,bitmap);
