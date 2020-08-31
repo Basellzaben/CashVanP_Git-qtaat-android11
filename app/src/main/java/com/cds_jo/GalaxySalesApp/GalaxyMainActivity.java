@@ -26,7 +26,8 @@ public class GalaxyMainActivity extends FragmentActivity {
         Cir1();
         Cir2();
     }
-
+//mohammad12345
+private void Initi1() {}
     private void Initi() {
         context=GalaxyMainActivity.this;
         RR1= (LinearLayout) findViewById(R.id.RR1);

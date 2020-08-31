@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CashVan Package2020.iml" filepath="$PROJECT_DIR$/CashVan Package2020.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CashVanPackage.iml" filepath="$PROJECT_DIR$/.idea/modules/CashVanPackage.iml" group="CashVanPackage" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CashVanPackage-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CashVanPackage-app.iml" group="CashVanPackage/app" />
       <module fileurl="file://$PROJECT_DIR$/CashVan_Git.iml" filepath="$PROJECT_DIR$/CashVan_Git.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/CashVan_Git-app.iml" filepath="$PROJECT_DIR$/app/CashVan_Git-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
