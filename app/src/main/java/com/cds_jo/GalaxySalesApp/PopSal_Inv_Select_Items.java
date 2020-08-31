@@ -1624,7 +1624,7 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
 
 // Showing Alert Message
 
-                if (ComInfo.ComNo != 8) {
+                if (ComInfo.ComNo != 8 ) {
                     alertDialog.show();
                     return;
                 }

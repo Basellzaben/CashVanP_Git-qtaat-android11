@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -385,23 +386,43 @@ public class VisitImges extends AppCompatActivity {
             Uri uri = Uri.fromFile(img);
 
             // Uri  uri = FileProvider.getUriForFile(CusfCard.this, BuildConfig.APPLICATION_ID + ".provider",img);
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+
+             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             startActivityForResult(intent, 2);
+
+
+           /*
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+            startActivityForResult(intent, 2);
+*/
+
+
+
         }
         catch (Exception ex){
             Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
         }
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
     String image_path;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (  resultCode == Activity.RESULT_OK) {
+       // this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        image_path=  "//sdcard/Android/Cv_Images/tmp_image.jpg" ;
+         if (  resultCode == Activity.RESULT_OK) {
 
             Bitmap bmp = BitmapFactory.decodeFile(image_path);
-            SaveImageFromCammera(bmp);
+             SaveImageFromCammera(bmp);
 
         }
 
@@ -445,9 +466,9 @@ public class VisitImges extends AppCompatActivity {
 
         }
 
-        SaveRecord();
-        EnterDesc();
-        ShowList();
+          SaveRecord();
+         EnterDesc();
+          ShowList();
     }
     private void onCaptureImageResult(Intent data) {
 

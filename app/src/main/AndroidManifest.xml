@@ -259,8 +259,10 @@
             android:name=".SittingNew"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".VisitImges" />
-
+        <activity android:name=".VisitImges"
+        android:screenOrientation="landscape"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:windowSoftInputMode="stateHidden|adjustPan" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

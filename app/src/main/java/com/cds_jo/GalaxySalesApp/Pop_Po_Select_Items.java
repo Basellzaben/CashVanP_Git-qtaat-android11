@@ -869,6 +869,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
 
     private void showImage(String ItemNo) {
         imgFile = new File("//sdcard/Android/Cv_Images/" + ItemNo + ".jpg");
+        /*
         try {
             if (imgFile.exists()) {
 
@@ -900,8 +901,15 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
             ItemImage.setImageDrawable(null);
             ItemImage.setImageResource(0);
         }
+        */
+        if(ItemNo.equalsIgnoreCase("1010001")) {
+            ItemImage.setImageResource(R.drawable.img11);
+        }else if (ItemNo.equalsIgnoreCase("1010002")){
+            ItemImage.setImageResource(R.drawable.img2);
+        }else {
+            ItemImage.setImageResource(R.drawable.img1);
+        }
 
-       // ItemImage.setImageResource(R.drawable.img101);
     }
 
     private double GetCustLastPrice(String ItemNo, String UnitNo) {

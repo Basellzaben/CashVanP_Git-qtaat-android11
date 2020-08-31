@@ -110,6 +110,14 @@ public class PopItemImagePreview extends DialogFragment implements View.OnClickL
             img.setImageResource(0);
         }
 
+        if(ItemNo.equalsIgnoreCase("1010001")) {
+            img.setImageResource(R.drawable.img11);
+        }else if (ItemNo.equalsIgnoreCase("1010002")){
+            img.setImageResource(R.drawable.img2);
+        }else {
+            img.setImageResource(R.drawable.img1);
+        }
+
 
     }
 

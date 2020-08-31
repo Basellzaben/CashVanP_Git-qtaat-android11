@@ -135,8 +135,9 @@ public class Convert_ccReportTo_ImgActivity extends AppCompatActivity {
         sqlHandler = new SqlHandler(this);
         ShowRecord ("");
 
-
-        mBluetoothAdapter.enable();
+try {
+    mBluetoothAdapter.enable();
+}catch (Exception r){}
  }
 
     public  void ShowRecord( String OrdNo){

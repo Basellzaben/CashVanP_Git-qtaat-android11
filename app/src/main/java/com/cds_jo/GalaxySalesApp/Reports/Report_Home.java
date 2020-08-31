@@ -789,7 +789,7 @@ public class Report_Home extends FragmentActivity {
 
 
                        // for (i = 0; i < js_Item_No.length(); i++) {
-                        for (i = 0; i < 5; i++) {
+                        for (i = 0; i <4; i++) {
 
                             obj=  new Cls_SalesValues();
                             obj.setItem_No(js_Item_No.get(i).toString());
