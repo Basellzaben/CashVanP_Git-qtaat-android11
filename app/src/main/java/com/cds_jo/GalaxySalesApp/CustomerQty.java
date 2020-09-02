@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -34,6 +35,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import header.Header_Frag;
 
 public class CustomerQty extends AppCompatActivity {
     SqlHandler sqlHandler;
@@ -117,11 +120,14 @@ public   String json;
         accno.setText(sharedPreferences.getString("CustNo", ""));
         CustNm.setText(sharedPreferences.getString("CustNm", ""));
 
+        Fragment frag = new Header_Frag();
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.Frag1, frag).commit();
     }
 
     private void showList( Integer f  ) {
 
-       /* lv_Items.setAdapter(null);
+         lv_Items.setAdapter(null);
         float Total = 0 ;
         float Total_Tax = 0 ;
         float  TTemp= 0 ;
@@ -139,7 +145,7 @@ public   String json;
         Cls_Cust_Qty_Item_Adapter contactListAdapter = new Cls_Cust_Qty_Item_Adapter(
                 CustomerQty.this, contactList);
         lv_Items.setAdapter(contactListAdapter);
-        //  json = new Gson().toJson(contactList);*/
+        //  json = new Gson().toJson(contactList);
     }
 
     @Override
@@ -150,8 +156,7 @@ public   String json;
 
 
 
-    public  void showPop()
-  {
+    public  void showPop() {
 
 
       Bundle bundle = new Bundle();
@@ -172,18 +177,15 @@ public   String json;
 
         startActivity(k);
     }
-
     public void btn_back(View view) {
-        Intent k= new Intent(this, Main2Activity.class);
+        Intent k= new Intent(this, JalMasterActivity.class);
         startActivity(k);
 
     }
-
     public void btn_showPop(View view) {
 
         showPop();
     }
-
     public void Save_Method(String ItemNo , String p , String q ,String t,String u ,String dis ,String bounce) {
 
         TextView OrderNo = (TextView)findViewById(R.id.et_OrdeNo);
@@ -195,10 +197,7 @@ public   String json;
         sqlHandler.executeQuery(query);
         showList(1);
     }
-
     public void Save_List(String ItemNo   , String q ,  String   u ,  String   ItemNm , String UnitName ) {
-
-
         for (int x = 0; x < contactList.size(); x++) {
             ContactListItems contactListItems = new ContactListItems();
             contactListItems = contactList.get(x);
@@ -247,7 +246,6 @@ public   String json;
         Select_Customer obj = new Select_Customer();
         obj.show(Manager, null);
     }
-
     public void Set_Cust(String No, String Nm) {
        TextView CustNm =(TextView)findViewById(R.id.tv_cusnm);
         TextView acc = (TextView)findViewById(R.id.tv_acc);
@@ -255,9 +253,6 @@ public   String json;
         CustNm.setText(Nm);
         CustNm.setError(null);
     }
-
-
-
     public void Set_Order(String No, String Nm, String acc) {
         TextView CustNm =(TextView)findViewById(R.id.tv_cusnm);
         TextView Order_no = (TextView)findViewById(R.id.et_OrdeNo);
@@ -342,9 +337,6 @@ public   String json;
         showList(0);
         IsNew=false;
     }
-
-
-
     public void btn_searchCustomer(View view) {
 
         Bundle bundle = new Bundle();
@@ -354,14 +346,9 @@ public   String json;
         obj.setArguments(bundle);
         obj.show(Manager, null);
     }
-
     public void btn_show_Pop(View view) {
         showPop();
     }
-
-
-
-
     public void btn_print(View view) {
 
 /*
@@ -377,11 +364,7 @@ public   String json;
 
         startActivity(k);*/
     }
-
-
-
-    public void   Save_Recod_Po()
-    {
+    public void   Save_Recod_Po() {
 
 
         TextView custNm = (TextView)findViewById(R.id.tv_cusnm);
@@ -478,7 +461,6 @@ public   String json;
                 alertDialog.show();
             }
     }
-
     public void btn_save_po(View view) {
 
 
@@ -520,7 +502,6 @@ public   String json;
 
 
     }
-
     public void btn_delete(View view) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("حذف جرد كميات العميل");
@@ -545,8 +526,6 @@ public   String json;
         // Showing Alert Message
         alertDialog.show();
     }
-
-
     public void Delete_Record_PO(){
         TextView custNm = (TextView)findViewById(R.id.tv_cusnm);
         TextView pono = (TextView)findViewById(R.id.et_OrdeNo);
@@ -583,7 +562,6 @@ public   String json;
         });
        alertDialog.show();
     }
-
     public void btn_Search_Orders(View view) {
         Bundle bundle = new Bundle();
         bundle.putString("Scr", "po");
@@ -592,7 +570,6 @@ public   String json;
         obj.setArguments(bundle);
         obj.show(Manager, null);
        }
-
     public void btn_share(View view) {
        final  SqlHandler sql_Handler = new SqlHandler(this);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -750,8 +727,6 @@ public   String json;
             }
         }).start();
         }
-
-
     public void btn_new(View view) {
         TextView custNm = (TextView)findViewById(R.id.tv_cusnm);
         TextView pono = (TextView)findViewById(R.id.et_OrdeNo);
@@ -775,7 +750,6 @@ public   String json;
         contactList.clear();
         showList(0);
     }
-
     public void btn_Delete_Item( final View view) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("جرد كميات العميل ");
@@ -796,5 +770,10 @@ public   String json;
             }
         });
          alertDialog.show();
+    }
+    @Override
+    public void onBackPressed() {
+        Intent     BackInt = new Intent(this, JalMasterActivity.class);
+        startActivity(BackInt);
     }
 }

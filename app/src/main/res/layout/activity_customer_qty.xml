@@ -437,145 +437,338 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/listview_border">
+            android:background="@drawable/listview_border"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
+                android:id="@+id/textView11"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/textView11"
                 android:layout_marginRight="20dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000" />
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/et_Total"
-                android:layout_weight="1"
-                android:textSize="14dp"
-                android:textColor="#000"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="14dp" />
 
             <TextView
+                android:id="@+id/textView80"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/textView80"
                 android:textColor="#000" />
 
             <TextView
+                android:id="@+id/et_dis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/et_dis"
-                android:textColor="#000"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000" />
 
             <TextView
+                android:id="@+id/textView84"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/textView84"
-                android:layout_weight="1"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
+                android:id="@+id/textView12"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/textView12"
-                android:gravity="left"
                 android:layout_gravity="center"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000" />
 
             <TextView
+                android:id="@+id/et_TotalTax"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/et_TotalTax"
-                android:layout_weight="1"
-                android:textColor="#000"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/tv_NetTotal"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/tv_NetTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/Gray3"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="btn_new"
+                android:orientation="horizontal">
+
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView230"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="جديد"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imageView130"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/ic_new" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="btn_save_po"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView231"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:elevation="1dp"
+                    android:text="حفظ"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imageView16"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/ic_save" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="btn_delete"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView233"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="حذف"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imageView17"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/ic_delete" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="btn_print"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView236"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="طباعة"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imageView18"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/ic_print" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyt_Share"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="btn_share"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView2037"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="اعتماد"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imageView19"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/ic_post" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Home_layout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="0.5dp"
+                android:layout_weight="1"
+                android:background="@color/Footer_Menu"
+                android:gravity="center"
+                android:layoutDirection="ltr"
+                android:onClick="btn_back"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:text="الرئيسية"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imgBack"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@mipmap/ic_home" />
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
                 android:id="@+id/imageButton8"
-                android:src="@drawable/addnew"
-                android:paddingRight="0dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:onClick="btn_new"
                 android:paddingLeft="00dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:onClick="btn_new" />
+                android:paddingRight="0dp"
+                android:src="@drawable/addnew" />
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
                 android:id="@+id/imageButton3"
-                android:src="@drawable/save"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:onClick="btn_save_po" />
-
-            <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:onClick="btn_save_po"
+                android:src="@drawable/save" />
+
+            <ImageButton
                 android:id="@+id/imageButton6"
-                android:src="@drawable/delete"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:onClick="btn_delete"
                 android:paddingLeft="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:onClick="btn_delete" />
+                android:src="@drawable/delete" />
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
                 android:id="@+id/imageButton2"
-                android:src="@drawable/print"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:onClick="btn_print" />
-
-            <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:onClick="btn_print"
+                android:src="@drawable/print" />
+
+            <ImageButton
                 android:id="@+id/imageButton7"
-                android:src="@drawable/back"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:onClick="btn_back" />
-
-            <ImageButton
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:onClick="btn_back"
+                android:src="@drawable/back" />
+
+            <ImageButton
                 android:id="@+id/imageButton9"
-                android:src="@drawable/share"
-                android:onClick="btn_share" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:onClick="btn_share"
+                android:src="@drawable/share" />
 
         </LinearLayout>
 
