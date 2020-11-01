@@ -98,7 +98,8 @@
                     android:paddingRight="3dp"
                     android:textColor="#000"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </LinearLayout>
             <ImageView
                 android:id="@+id/imageView13"

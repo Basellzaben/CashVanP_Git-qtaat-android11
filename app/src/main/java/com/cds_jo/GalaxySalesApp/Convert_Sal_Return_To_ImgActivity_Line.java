@@ -808,7 +808,7 @@ import java.util.Locale;
 
             for (ContactListItems Obj : contactList){
                 count =count +1 ;
-                view = inflater.inflate(R.layout.sal_return_row_tab_10, null);
+                view = inflater.inflate(R.layout.return_qty_buetyline_item_row, null);
 
                 tv_no = (TextView) view.findViewById(R.id.tv_no);
                 tv_name = (TextView) view.findViewById(R.id.tv_name);

@@ -17,6 +17,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -130,7 +131,11 @@ public class CusfCard extends FragmentActivity implements OnMapReadyCallback {
             max = max1;
         }
         if (max.length() == 1) {
-            OrderNo.setText(intToString(Integer.valueOf(UserID), 2) + intToString(Integer.valueOf(max), 5));
+            try {
+                OrderNo.setText(intToString(Integer.valueOf(UserID), 2) + intToString(Integer.valueOf(max), 5));
+            }catch (Exception e){
+
+            }
         } else {
             OrderNo.setText(intToString(Integer.valueOf(max), 7));
         }
@@ -332,7 +337,10 @@ public class CusfCard extends FragmentActivity implements OnMapReadyCallback {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
                 googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                mMap.setMyLocationEnabled(true);
+                mMap.setBuildingsEnabled(true);
                 mMap.animateCamera(zoom);
+                mMap.setOnMyLocationChangeListener(myLocationChangeListener);
             }
         });
 
@@ -344,6 +352,18 @@ public class CusfCard extends FragmentActivity implements OnMapReadyCallback {
         }
 
     }
+    private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
+
+        @Override
+        public void onMyLocationChange(Location location) {
+            ed_Lat.setText(String.valueOf(location.getLatitude()));
+            ed_Long.setText(String.valueOf(location.getLongitude()));
+
+            ShowMap( Double.parseDouble( ed_Lat.getText().toString()),Double.parseDouble(  ed_Long.getText().toString() ));
+            // Toast.makeText(ManAttenActivity.this,location.getProvider()+" ",Toast.LENGTH_SHORT).show();
+
+        }
+    };
     private  void DeleteRow(final int position, SwipeMenu menu, int index) {
 
          Cls_VisitImages istObj=Records.get(position);
@@ -1363,7 +1383,10 @@ try {
                 mMap.addMarker(new MarkerOptions().position(sydney).title( ed_CusName.getText().toString() ));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
                 mMap.animateCamera(zoom);
-
+                mMap.setMyLocationEnabled(true);
+                mMap.setBuildingsEnabled(true);
+                mMap.animateCamera(zoom);
+                mMap.setOnMyLocationChangeListener(myLocationChangeListener);
             }catch (Exception ex){
                 // Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
 

@@ -11,6 +11,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.cds_jo.GalaxySalesApp.NewHomePage.NewHomePage;
+import com.cds_jo.GalaxySalesApp.Pos.Pos_Activity;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.StartUpActivity;
 
@@ -34,7 +36,9 @@ public class SplashLoginAct extends AppCompatActivity {
         int secondsDelayed = 1;
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                startActivity(new Intent(SplashLoginAct.this, StartUpActivity.class));
+            //  startActivity(new Intent(SplashLoginAct.this, StartUpActivity.class));
+             //   startActivity(new Intent(SplashLoginAct.this, NewHomePage.class));
+                startActivity(new Intent(SplashLoginAct.this, Pos_Activity.class));
                 finish();
             }
         }, secondsDelayed * 3000);

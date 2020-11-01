@@ -711,7 +711,7 @@ private  void fill_Bill_info_list(){
 
                             alertDialog.setTitle("مبيعات العميل");
                             if (We_Result.ID == -1) {
-                                alertDialog.setMessage("لا يوجد مبيعات للعميل ");
+                                 alertDialog.setMessage("لا يوجد مبيعات للعميل ");
                             } else {
                                 alertDialog.setMessage("مشكلة في عملية الاتصال بالسيرفر الرئيسي");
                             }
@@ -721,7 +721,7 @@ private  void fill_Bill_info_list(){
 
                                 }
                             });
-                            alertDialog.show();
+                          //  alertDialog.show();
                         }catch ( Exception t){}
                         }
                     });
@@ -1241,8 +1241,8 @@ private  void fill_Bill_info_list(){
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 });
-                alertDialog.show();
-                return;
+               /* alertDialog.show();
+                return;*/
             }
 
 

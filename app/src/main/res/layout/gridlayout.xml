@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk"
+    xmlns:cardview_id="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview_id"
+    android:layout_width="wrap_content"
+    android:layout_height="80dp"
+
+    android:layout_margin="5dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    cardview_id:cardCornerRadius="20dp"
+    cardview_id:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:gravity="center"
+            android:paddingStart="5dp"
+            android:paddingEnd="2dp"
+            android:text="Test"
+            android:textColor="#000"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"></View>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgThumbnail"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:src="@drawable/add_custmer"
+            cardview_id:civ_border_width="2dp" />
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

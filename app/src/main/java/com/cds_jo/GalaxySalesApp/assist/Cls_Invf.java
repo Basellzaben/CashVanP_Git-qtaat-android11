@@ -18,6 +18,16 @@ public class Cls_Invf {
     String Damaged;
     String Note;
 
+    public int getImage() {
+        return Image;
+    }
+
+    public void setImage(int image) {
+        Image = image;
+    }
+
+    int Image ;
+
     public String getTax() {
         return tax;
     }

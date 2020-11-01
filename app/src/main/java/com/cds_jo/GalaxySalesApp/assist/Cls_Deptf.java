@@ -8,6 +8,16 @@ public class Cls_Deptf {
     String     Type_Name ;
     String      etname;
 
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
+    }
+
+    int      img;
+
     public String getEtname() {
         return etname;
     }

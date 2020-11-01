@@ -495,7 +495,7 @@ public class OrdersItems extends FragmentActivity {
                 chk_Cash.setVisibility(View.INVISIBLE);
             }
             Fill_OffeNew();
-            if (ComInfo.ComNo == 1 || ComInfo.ComNo == Companies.tariget.getValue()) {
+            if (ComInfo.ComNo == 1 || ComInfo.ComNo == Companies.tariget.getValue()|| ComInfo.ComNo == Companies.Saad.getValue()) {
                 Tax_Include.setChecked(true);
 
             }
@@ -2418,8 +2418,8 @@ public class OrdersItems extends FragmentActivity {
         alertDialog.setIcon(R.drawable.save);
         alertDialog.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                CheckCeling();
-                // Save_Recod_Po();
+                //CheckCeling();
+                  Save_Recod_Po();
             }
         });
 
@@ -3371,8 +3371,11 @@ public class OrdersItems extends FragmentActivity {
         custNm.setText(sharedPreferences.getString("CustNm", ""));
         chk_Cash.setEnabled(true);
         chk_Cash.setChecked(false);
+        CheckBox Tax_Include = (CheckBox) findViewById(R.id.chk_Tax_Include);
+        if (ComInfo.ComNo == 1 || ComInfo.ComNo == Companies.tariget.getValue()|| ComInfo.ComNo == Companies.Saad.getValue()) {
+            Tax_Include.setChecked(true);
 
-
+        }
     }
 
     int position;

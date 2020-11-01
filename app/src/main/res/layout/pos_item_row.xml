@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk"
+    xmlns:cardview_id="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview_id"
+    android:layout_width="100dp"
+    android:layout_height="145dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginTop="2dp"
+   android:layout_marginBottom="5dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    cardview_id:cardCornerRadius="20dp"
+    cardview_id:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/cardview_light_background"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/img_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/add_custmer"
+
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="bottom"
+            android:background="#000" />
+
+        <TextView
+            android:id="@+id/title_id"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/Blue"
+            android:gravity="center"
+            android:inputType="textMultiLine"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingBottom="1dp"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
+            android:text="Book Title"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/Price"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@color/Gray3"
+
+            android:gravity="center"
+            android:text="3.15"
+            android:textColor="#000"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

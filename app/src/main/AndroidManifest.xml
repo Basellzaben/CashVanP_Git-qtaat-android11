@@ -72,6 +72,9 @@
             android:name=".assist.Convert_Layout_Img"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".Pos.Pos_Activity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".assist.Convert_Layout_Img_Tsc"
             android:screenOrientation="landscape" />
         <activity
@@ -88,6 +91,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".assist.Convert_Man_Balance_Qty_To_Img"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".NewHomePage.NewHomePage"
             android:screenOrientation="landscape" />
         <activity
             android:name=".assist.Convert_TransQty_To_Img"

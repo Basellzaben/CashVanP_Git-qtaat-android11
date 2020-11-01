@@ -479,7 +479,7 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
     }
     public void btn_Customer(View view) {
         Bundle bundle = new Bundle();
-        bundle.putString("Scr", "CusfCard");
+        bundle.putString("Scr", "CustomerLocation");
         FragmentManager Manager = getFragmentManager();
         Select_Customer obj = new Select_Customer();
         obj.setArguments(bundle);

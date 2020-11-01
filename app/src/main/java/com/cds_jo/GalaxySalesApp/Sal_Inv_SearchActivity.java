@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cds_jo.GalaxySalesApp.Pos.Pos_Activity;
 import com.cds_jo.GalaxySalesApp.assist.CustomerReturnQtyActivity;
 import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.cds_jo.GalaxySalesApp.assist.cls_Search_po;
@@ -128,6 +129,9 @@ String DocType ="1";
                     Exist_Pop();
                 } else if (getArguments().getString("Scr") == "Edite_inv") {
                     ((EditeTransActivity) getActivity()).Set_Order_Sal_Inv(po_obj.getCustNo().toString());
+                    Exist_Pop();
+                }else if (getArguments().getString("Scr") == "POS") {
+                    ((Pos_Activity) getActivity()).Set_Order(po_obj.getCustNo().toString());
                     Exist_Pop();
                 }
 

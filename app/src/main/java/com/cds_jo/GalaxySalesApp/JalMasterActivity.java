@@ -44,6 +44,7 @@
         import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
         import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
         import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
+        import com.cds_jo.GalaxySalesApp.Pos.Pos_Activity;
         import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
         import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 
@@ -468,7 +469,8 @@ try {
                        alert.showDialog(JalMasterActivity.this, "نأسف أنت لا تملك صلاحية فتح هذه الشاشة", "فاتورة المبيعات ");
                    } else {
                        ComInfo.DocType = 1;
-                       Intent k = new Intent(v.getContext(), Sale_InvoiceActivity.class);
+                       //Intent k = new Intent(v.getContext(), Sale_InvoiceActivity.class);
+                       Intent k = new Intent(v.getContext(), Pos_Activity.class);
                        startActivity(k);
                    }
                } else if (position == 2) {

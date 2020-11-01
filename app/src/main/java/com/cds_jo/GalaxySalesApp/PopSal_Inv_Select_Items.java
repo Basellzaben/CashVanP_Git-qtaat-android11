@@ -1291,7 +1291,7 @@ Toast.makeText(getActivity(), "كمية التزويد " + ":" + String.valueOf(
 
             Cls_Deptf o = (Cls_Deptf) item_cat.getItemAtPosition(indexValue);
 
-            query = query + "and    Type_No = '" + o.getType_No().toString() + "'";
+            query = query + " and    Type_No = '" + o.getType_No().toString() + "'";
 
         }
 

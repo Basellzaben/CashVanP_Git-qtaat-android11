@@ -1783,8 +1783,8 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
                 });
 
                 // Showing Alert Message
-                alertDialog.show();
-                return;
+                /*alertDialog.show();
+                return;*/
             }
 
             EditText et_disc_per = (EditText) form.findViewById(R.id.et_disc_per);
