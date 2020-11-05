@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -42,12 +43,10 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import Methdes.MyTextView;
 import header.Header_Frag;
 
 //import com.loopj.android.http.HttpGet;// temp
@@ -77,7 +76,7 @@ public class Acc_ReportActivity extends AppCompatActivity {
          SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         final TextView CustNm =(TextView)findViewById(R.id.tv_cusnm);
         TextView acc = (TextView)findViewById(R.id.tv_acc);
-
+        items_Lsit=(ListView)findViewById(R.id.lst_acc);
         acc.setText(sharedPreferences.getString("CustNo", ""));
         CustNm.setText(sharedPreferences.getString("CustNm", ""));
 
@@ -138,6 +137,41 @@ public class Acc_ReportActivity extends AppCompatActivity {
         Fragment frag = new Header_Frag();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.Frag1, frag).commit();
+       items_Lsit.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+           @Override
+          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               Cls_Acc_Report cls_acc_report1 = new Cls_Acc_Report();
+               cls_acc_report1 = cls_acc_reportsList.get(position);
+               String doctype = String.valueOf(cls_acc_report1.getDoctype()).toString();
+               String des1 = String.valueOf(cls_acc_report1.getDes()).toString();
+               String doc_num1 = String.valueOf(cls_acc_report1.getDoc_num()).toString();
+               String v_type1 = String.valueOf(cls_acc_report1.getV_type()).toString();
+               String myear1 = String.valueOf(cls_acc_report1.getMyear()).toString();
+
+               if (doctype != "") {
+                   int doctype1 = Integer.parseInt(doctype);
+                   int doc_num = Integer.parseInt(doc_num1);
+                   int v_type = Integer.parseInt(v_type1);
+                   int myear = Integer.parseInt(myear1);
+                   if (doctype1 != 2) {
+                       GVal.bill = doc_num;
+                       GVal.dis = des1;
+                       GVal.v_type = v_type;
+                       GVal.myear = myear;
+                       GVal.doctype = doctype1;
+                       Acc_Report_D exampleDialog = new Acc_Report_D();
+                       exampleDialog.show(getFragmentManager(), "MyCustomDialog");
+//                android.app.FragmentManager fragmentManager = getFragmentManager();
+//                Acc_Report_D exampleDialog = new Acc_Report_D();
+//                exampleDialog.show( fragmentManager,null);
+                   }
+
+
+               }
+
+           }
+       });
+
     }
      private  Double SToD(String str){
         String f = "";
@@ -337,8 +371,8 @@ public class Acc_ReportActivity extends AppCompatActivity {
                     JSONArray js_dept= js.getJSONArray("dept");
                     JSONArray js_cred= js.getJSONArray("cred");
                     JSONArray js_rate= js.getJSONArray("rate");
-
-
+                    JSONArray js_v_type= js.getJSONArray("v_type");
+                    JSONArray js_myear= js.getJSONArray("myear");
 
                     Cls_Acc_Report cls_acc_report = new Cls_Acc_Report();
 
@@ -369,6 +403,8 @@ public class Acc_ReportActivity extends AppCompatActivity {
                         cls_acc_report.setCur_no(js_cur_no.get(i).toString());
                         cls_acc_report.setDate(js_date.get(i).toString());
                         cls_acc_report.setDes(js_des.get(i).toString());
+                        cls_acc_report.setMyear(js_myear.get(i).toString());
+                        cls_acc_report.setV_type(js_v_type.get(i).toString());
                         if(i==0)
                             cls_acc_report.setBb(js_bb.get(i).toString());
                         else

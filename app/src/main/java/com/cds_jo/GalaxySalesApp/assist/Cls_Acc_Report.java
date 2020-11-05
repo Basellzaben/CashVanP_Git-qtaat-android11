@@ -17,6 +17,15 @@ public class Cls_Acc_Report {
     String dept ;
     String cred ;
     String net ;
+    String myear ;
+
+    public String getMyear() {
+        return myear;
+    }
+
+    public void setMyear(String myear) {
+        this.myear = myear;
+    }
 
     public String getTot() {
         return tot;

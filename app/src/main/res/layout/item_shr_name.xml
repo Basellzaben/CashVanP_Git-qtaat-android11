@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:weightSum="4"
+            android:layout_height="50dp">
+<TextView
+    android:layout_width="0dp"
+    android:layout_weight="0.5"
+    android:text="رقم المادة"
+    android:textSize="16dp"
+    android:textColor="@color/Black11"
+    android:gravity="center"
+    android:layout_height="match_parent"/>
+            <TextView
+                android:layout_width="0dp"
+                android:id="@+id/itemno"
+                android:layout_weight="0.5"
+                android:textSize="16dp"
+                android:textColor="@color/Black11"
+                android:gravity="center"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:text="أسم المادة"
+                android:textSize="16dp"
+                android:textColor="@color/Black11"
+                android:gravity="center"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/itemname"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:textSize="16dp"
+                android:textColor="@color/Black11"
+                android:gravity="center"
+                android:layout_height="match_parent"/>
+           </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
