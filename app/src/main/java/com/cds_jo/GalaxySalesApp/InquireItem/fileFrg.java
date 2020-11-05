@@ -1,0 +1,128 @@
+package com.cds_jo.GalaxySalesApp.InquireItem;
+
+import android.app.DialogFragment;
+import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ListView;
+
+import com.cds_jo.GalaxySalesApp.R;
+import com.cds_jo.GalaxySalesApp.We_Result;
+import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+public class fileFrg extends DialogFragment {
+    cls_Item_hdr cls_acc_report ;
+    ArrayList< cls_Item_hdr> list;
+    final Handler _handler = new Handler();
+    file_Adabter adapter;
+    ListView listView;
+    Button back,update;
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        if (getDialog() == null)
+            return;
+
+        int dialogWidth = WindowManager.LayoutParams.MATCH_PARENT;//340; // specify a value here
+        int dialogHeight = WindowManager.LayoutParams.MATCH_PARENT;//400; // specify a value here
+
+        getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
+
+
+
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        getDialog().setTitle("الملفات");
+        View view = inflater.inflate(R.layout.activity_file_frg, container, false);
+        int dialogWidth = WindowManager.LayoutParams.MATCH_PARENT;//340; // specify a value here
+        int dialogHeight = WindowManager.LayoutParams.MATCH_PARENT;//400; // specify a value here
+
+        getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
+        back=(Button) view.findViewById(R.id.back);
+        update=(Button) view.findViewById(R.id.update);
+        //cls_acc_report =new cls_ACC_Report();
+        list =new ArrayList<>();
+        listView=(ListView) view.findViewById(R.id.LstvItems);
+        showD();
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                list.clear();
+                showD();
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent myIntent = new Intent(getActivity(), Sale_InvoiceActivity.class);
+                //getActivity().startActivity(myIntent);
+                dismiss();
+
+            }});
+        return view;
+    }
+
+    private void showD() {
+
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+
+
+                CallWebServices ws = new CallWebServices(getActivity());
+                ws.GetItem_D(GlobleV.itemno,4);
+                try {
+                    Integer i;
+
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray Description = js.getJSONArray("Description");
+                    JSONArray Img_Text= js.getJSONArray("Img_Text");
+
+
+                    cls_acc_report = new  cls_Item_hdr();
+                    for (i = 0; i < Description.length(); i++) {
+                        cls_acc_report = new  cls_Item_hdr();
+
+                        cls_acc_report.setDescription(Description.get(i).toString());
+                        cls_acc_report.setImg_Text(Img_Text.get(i).toString());
+
+
+
+
+                        list.add(cls_acc_report);
+                    }
+                    _handler.post(new Runnable() {
+                        public void run() {
+
+                            adapter = new file_Adabter(getActivity(), list);
+                            listView.setAdapter(adapter);
+                        }
+                    });
+
+                } catch (final Exception e) {
+
+                }
+
+            }
+        };
+        thread.start();
+
+    }
+}
+

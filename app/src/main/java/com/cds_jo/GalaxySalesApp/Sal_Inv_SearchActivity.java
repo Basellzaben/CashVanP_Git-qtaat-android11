@@ -157,7 +157,8 @@ String DocType ="1";
          if (Filter.length()==0) {
              q = "Select distinct s.Net_Total, s.OrderNo ,s.acc ,s.date , s.inovice_type,  CASE s.inovice_type WHEN '-1' THEN  c.name ELSE s.Nm END as  name   " +
                      "from  Sal_invoice_Hdr s     left join Customers c on c.no =s.acc where  ifnull(s.doctype,'1')='"+DocType + "'  and UserID='"+sharedPreferences.getString("UserID", "")+"'";
-         }else {
+         }
+         else {
              q = "Select  distinct s.Net_Total ,s.OrderNo ,s.acc ,s.date , s.inovice_type,  CASE s.inovice_type WHEN '-1' THEN  c.name ELSE s.Nm END as  name   from  Sal_invoice_Hdr s left join Customers c on c.no =s.acc" +
                      " Where  ifnull(s.doctype,'1')='"+DocType + "' UserID='"+sharedPreferences.getString("UserID","") +"'" +
                      " and c.name like '%" + Filter + "%'   or   s.Nm  like '%" + Filter + "%' " ;
