@@ -144,13 +144,20 @@ public class Setting_List_Adapter extends BaseAdapter {
                 } else if (position == 3)
 
                 {
-                    Bundle bundle = new Bundle();
+                    /*Bundle bundle = new Bundle();
                     bundle.putString("Scr", "po");
                     bundle.putString("CatNo", "");
                     FragmentManager Manager = ((Activity) context).getFragmentManager();
                     PopShowCustLastTrans popShowOffers = new PopShowCustLastTrans();
                     popShowOffers.setArguments(bundle);
-                    popShowOffers.show(Manager, null);
+                    popShowOffers.show(Manager, null);*/
+                    Intent intent = new Intent(context.getApplicationContext(), CustomerQty.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intent);
+                    ((Activity) context).finish();
+
+
+
                 } else if (position == 4) {
                     Bundle bundle = new Bundle();
                     bundle.putString("Scr", "po");

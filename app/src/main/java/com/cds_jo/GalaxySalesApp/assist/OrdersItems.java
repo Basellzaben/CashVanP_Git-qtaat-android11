@@ -4092,7 +4092,7 @@ public class OrdersItems extends FragmentActivity {
         if (PromotionFlag.equalsIgnoreCase("1")) {
             cls_offers_hdrsNew.clear();
         } else {
-
+            CatNo="0";// for demo
 
             String q = "   SELECT    *   FROM Offers_Hdr inner join Offers_Groups on Offers_Groups.grv_no=  Offers_Hdr.gro_no " +
                     "      WHERE   ( Offers_Groups.gro_type='1' or  Offers_Groups.gro_type='2' )  " +

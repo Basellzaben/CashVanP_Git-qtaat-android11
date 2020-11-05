@@ -154,7 +154,7 @@ public class Header_Frag extends Fragment {
 
         itme=new Main_List_Itme();
         itme.setTitle(arr[3]);
-        itme.setImg(R.mipmap.see9);
+        itme.setImg(R.mipmap.see11);
         myList_Setting.add(itme);
 
         itme=new Main_List_Itme();

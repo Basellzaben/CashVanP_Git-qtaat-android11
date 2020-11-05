@@ -299,7 +299,7 @@
                         android:gravity="center"
                         android:text="نوع التأثير :"
                         android:textColor="#000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <view
                         android:id="@+id/tv_EffictType"
@@ -335,10 +335,10 @@
                         android:gravity="center"
                         android:text="المبلغ  :"
                         android:textColor="#000"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <view
-                        android:id="@+id/tv_Type"
+                        android:id="@+id/tv_Amt"
                         class="Methdes.MyTextView"
                         id="@+id/view17"
                         layout_width="match_parent"
@@ -370,7 +370,7 @@
                         android:gravity="center"
                         android:text="عدد مواد البكج:"
                         android:textColor="#000"
-                        android:textSize="18sp" />
+                        android:textSize="16sp" />
 
                     <view
                         android:id="@+id/tv_TotalPackage"

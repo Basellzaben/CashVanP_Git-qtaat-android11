@@ -214,7 +214,7 @@ private  void FillList3(String Gro_No){
     ItemsList3.clear();
     LinearLayout RR=(LinearLayout)form.findViewById(R.id.RR3);
     sqlHandler = new SqlHandler(getActivity());
-    String query = " Select  ofh.sum_Qty_item, odg.Item_No,odg.Unit_No,odg.QTY ,invf.Item_Name  , ofh.Offer_Result_Type,ofh.Offer_Amt,ofh.Offer_Dis,ofh.total_item " +
+    String query = " Select  ofh.sum_Qty_item, odg.Item_No,odg.Unit_No,odg.QTY ,invf.Item_Name  , ofh.Offer_Result_Type,ifnull(  ofh.Offer_Amt,0) as Offer_Amt ,ofh.Offer_Dis,ofh.total_item " +
             "     from  Offers_Hdr ofh    " +
             "     Left join Offers_Dtl_Gifts odg on ofh.Offer_No =odg.Trans_ID " +
             "     left Join  invf on  invf.Item_No = odg.Item_No     where ofh.Offer_No  = '"+Gro_No+"'";

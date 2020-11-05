@@ -14,7 +14,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -42,7 +44,8 @@ import java.util.Locale;
 
 public class PopCus_Qty_Items extends DialogFragment implements View.OnClickListener  {
     View form ;
-    ImageButton add,cancel,OpenCal;
+    ImageButton  OpenCal;
+    Button add,cancel;
     ListView items_Lsit;
     TextView itemnm;
     public String ItemNo = "";
@@ -64,9 +67,9 @@ public class PopCus_Qty_Items extends DialogFragment implements View.OnClickList
         form =inflater.inflate(R.layout.popcustqty,container,false);
 
         getDialog().setTitle("Galaxy");
-        add =(ImageButton) form.findViewById(R.id.btn_add_item);
+        add =(Button) form.findViewById(R.id.btn_add_item);
         add.setOnClickListener(this);
-        cancel=(ImageButton) form.findViewById(R.id.btn_cancel_item);
+        cancel=(Button) form.findViewById(R.id.btn_cancel_item);
         FillDeptf();
         cancel.setOnClickListener(this);
 
@@ -173,7 +176,7 @@ public class PopCus_Qty_Items extends DialogFragment implements View.OnClickList
 
 
                EditText et_qty = (EditText) form.findViewById(R.id.et_qty);
-               et_qty.setText("");
+               et_qty.setText("1");
 
 
                str = (String) o.getItem_Name();//As you are using Default String Adapter
@@ -196,6 +199,10 @@ public class PopCus_Qty_Items extends DialogFragment implements View.OnClickList
             }
 
         });
+
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        this.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+         filter.clearFocus();
         return  form;
     }
 

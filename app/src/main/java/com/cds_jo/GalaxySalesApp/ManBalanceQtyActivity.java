@@ -157,7 +157,7 @@ ListView lst_Items ;
             AlertDialog alertDialog = new AlertDialog.Builder(
                     ManBalanceQtyActivity.this).create();
 
-            alertDialog.setMessage("يوجد فاتير غير مرحلة ، الرجاء ترحيل الفواتير ومن عمل تسوية جرد  مستودع المندوب");
+            alertDialog.setMessage("يوجد فواتير غير مرحلة ، الرجاء ترحيل الفواتير ومن عمل تسوية جرد  مستودع المندوب");
 
             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
