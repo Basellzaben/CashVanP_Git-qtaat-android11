@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.assist.Cls_Stores;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Stores_Adapter;
+import com.cds_jo.GalaxySalesApp.warehouse.EnterQtyActivity;
+import com.cds_jo.GalaxySalesApp.warehouse.ItemsRecepit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,12 +90,20 @@ public class Select_StoreNo extends DialogFragment implements View.OnClickListen
                 Exist_Pop();
 
 
+                if (getArguments().getString("Scr") == "EnterQty") {
+                    ((EnterQtyActivity) getActivity()).Set_Store(cc.getSno(), cc.getSname(),1);
+                }
                 if (getArguments().getString("Scr") == "FromStore") {
                     ((TransferQty) getActivity()).Set_Store(cc.getSno(), cc.getSname(),1);
                 }
 
                 else if (getArguments().getString("Scr") == "ToStore") {
                     ((TransferQty) getActivity()).Set_Store(cc.getSno(), cc.getSname() ,2);
+
+                }
+
+                  else if (getArguments().getString("Scr") == "ItemRecepit") {
+                    ((ItemsRecepit) getActivity()).Set_Store(cc.getSno(), cc.getSname() ,2);
 
                 }
 

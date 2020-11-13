@@ -8,15 +8,15 @@ public class Cls_Deptf {
     String     Type_Name ;
     String      etname;
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 
-    int      img;
+    String      img;
 
     public String getEtname() {
         return etname;

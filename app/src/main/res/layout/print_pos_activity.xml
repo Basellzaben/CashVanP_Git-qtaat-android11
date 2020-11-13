@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/f_view"
+                layout="@layout/pos_print_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/btn_Print" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_Print"
+                android:layout_width="fill_parent"
+                android:layout_height="80dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/Pink"
+                android:nestedScrollingEnabled="false"
+                android:onClick="Do_PRINT"
+                android:text="طباعة "
+                android:textColor="@android:color/white"
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/button18"
+                android:layout_width="fill_parent"
+                android:layout_height="80dp"
+                android:layout_alignEnd="@+id/f_view"
+                android:layout_alignRight="@+id/f_view"
+                android:layout_alignTop="@+id/btn_Print"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@color/ColorPrimary"
+                android:onClick="btn_back"
+                android:text="رجـــــوع"
+                android:textColor="@android:color/white"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

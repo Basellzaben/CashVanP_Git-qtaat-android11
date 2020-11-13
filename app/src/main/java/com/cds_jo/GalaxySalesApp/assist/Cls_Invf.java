@@ -18,15 +18,15 @@ public class Cls_Invf {
     String Damaged;
     String Note;
 
-    public int getImage() {
+    public String getImage() {
         return Image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         Image = image;
     }
 
-    int Image ;
+    String Image ;
 
     public String getTax() {
         return tax;

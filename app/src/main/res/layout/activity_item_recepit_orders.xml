@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText4"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButton10"
+                android:layout_weight="5"
+                android:src="@android:drawable/ic_menu_search"
+                android:onClick="btn_filter" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Gray4"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_ordfdferno"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:text="رقم المستند"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18dp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_dبيate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text="التاريخ"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18dp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_purches_سيسيserial_nm"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.7"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="تسلسل طلب الشراء"
+                android:textAlignment="gravity"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#000"
+                android:textSize="18dp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tسv_purches_order_no"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|center_vertical"
+                android:paddingLeft="5dp"
+                android:text="رقم طلب الشراء"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18dp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/sd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center|center_vertical"
+                android:paddingLeft="5dp"
+                android:text="السنة"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18dp" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listView2"
+                    style="@style/TextAppearance.AppCompat.Inverse"
+                    android:paddingLeft="10dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

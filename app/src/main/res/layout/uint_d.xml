@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RR"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <LinearLayout
+        android:id="@+id/RR1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:layout_weight="1.28"
+        android:orientation="horizontal"
+        android:weightSum="7">
+
+        <Methdes.MyTextView
+            android:id="@+id/uno"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000" />
+
+        <Methdes.MyTextView
+            android:id="@+id/uname"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="2.2"
+            android:gravity="center"
+            android:text="ط§ط³ظ… ط§ظ„ظ…ط§ط¯ط©"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000" />
+
+        <Methdes.MyTextView
+            android:id="@+id/uprice"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="ط§ظ„ط³ط¹ط±"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000" />
+
+        <Methdes.MyTextView
+            android:id="@+id/rate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="ط§ظ„ظƒظ…ظٹط©"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000" />
+
+
+        <Methdes.MyTextView
+            android:id="@+id/minu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="ط§ظ„ظˆط­ط¯ط©"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000" />
+
+        <Methdes.MyTextView
+            android:id="@+id/bcode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="ط§ظ„ط¨ظˆظ†طµ"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+

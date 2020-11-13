@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 130;
+    private static final int LASTUPDATE = 146 ;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -80,7 +80,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
     String UserID;
     int DB_VERVSION;
 
-    CheckBox chk_PaymentSchudel,chk_cust, chk_banks, chk_Items, chk_Unites, Chk_Items_Unites, Chk_Curf, Chk_deptf, Chk_Users, Chk_Drivers, Chk_CustLastTrans;
+    CheckBox chk_PaymentSchudel,chk_cust,chk_LookUp, chk_banks, chk_Items, chk_Unites, Chk_Items_Unites, Chk_Curf, Chk_deptf, Chk_Users, Chk_Drivers, Chk_CustLastTrans;
     CheckBox Chk_TransQty, chk_Pro, chkCompany, chkCashCust, chk_Item_cat, chk_Cust_Cat, chk_Serial, chk_LastPrice, Chk_Msg, Chk_Batch,chk_country;
     CheckBox Chk_Post_Inv, Chk_Post_Payments, chk_po_post, Chk_Code, chk_Stores, chk_Gift, chk_OfferGroups;
 
@@ -1376,6 +1376,182 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         sqlHandler.executeQuery(" CREATE TABLE IF NOT EXISTS CustLocaltions ( no integer primary key autoincrement,CustNo text null , ManNo text null , Lat_X text null ,Lat_Y text null,Locat text null,Post INTEGER null " +
                 " , Note Text null , Tr_Date text null , PersonNm  text null , MobileNo text null ,Stutes text null   ) ");
 
+
+
+
+
+
+
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  EnterQtyhdr    " +
+                    "( No integer primary key autoincrement,OrderNo text null," +
+                    "  fromstore  text null    , tostore  text null ,Tr_Date  text null " +
+                    ", Tr_Time  text null ,UserNo text null , Posted integer null, Kind  text null ,  " +
+                    " Notes  text null ,Seq integer  text null , DayNum  integer null)");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  EnterQtydtl    " +
+                    "( No integer primary key autoincrement,OrderNo text null , " +
+                    "  itemno  text null    , qty  text null ,UnitNo  text null " +
+                    ", cost  text null ,UnitRate text null , Wcost  text null ,Kind  text null)");
+        } catch (SQLException e) {
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table OrdersSitting  Add  COLUMN  EnterQtySerial  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Lookup    " +
+                    "( No integer primary key autoincrement,ItemNo text null , " +
+                    "  ArDesc  text null    , TableNo  text null)");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table OrdersSitting  Add  COLUMN  ItemsRecepitSerial  text null");
+        } catch (SQLException e) {
+        }
+         try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  ItemsReceipthdr    " +
+                    "( no integer primary key autoincrement,orderno text null," +
+                    "  date  text null    , posted  text null ,userid  text null " +
+                    ", Total  text null ,Net_Total text null , Tax_Total text null, Notes  text null ,  " +
+                    "  Time  text null ,Seq integer  text null , purches_serial_no  text null, purches_order_no  text null, purches_year_no  text null," +
+                    "  purches_serial_nm  text null,vendor_no  text null,vendor_nm  text null ,hdr_dis_per text null  , hdr_dis_value text null)");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  ItemsReceiptdtl    " +
+                    "( No integer primary key autoincrement,orderno text null , " +
+                    "  itemno  text null    , qty  text null ,tax  text null " +
+                    ", unitNo  text null ,dis_per text null , OrgPrice  text null ,bounce_qty  text null" +
+                    ",tax_Amt  text null,total  text null,net_total  text null,Opraned  text null ,Price_From_AB text null)");
+        } catch (SQLException e) {
+        }
+
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  PurchesOrderTemp    " +
+                    "( No integer primary key autoincrement,order_no text null , " +
+                    "  odate  text null    , ven  text null ,br_no  text null " +
+                    ", tot  text null ,dis text null , item_no  text null ,UnitNo  text null" +
+                    ",UnitRate  text null,qty  text null,StoreNo  text null,item_name  text null ,cost text null" +
+                    "  , OrderMyear text null ,Order_V_TYPE text null , StoreNm text null ,br_nm text null ,venNm  text null)");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table PurchesOrderTemp  Add  COLUMN  UnitName  text null");
+        } catch (SQLException e) {
+        }
+    try {
+            sqlHandler.executeQuery("Alter Table PurchesOrderTemp  Add  COLUMN  Po_Total  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table ItemsReceiptdtl  Add  COLUMN  store_no  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table ItemsReceiptdtl  Add  COLUMN  store_nm  text null");
+        } catch (SQLException e) {
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        //cash, check, Visa , Check_Paid_Amt , Visa_Paid_Amt , Cash_Paid_Amt , Cust_Amt_Paid ,  RemainAm
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Cash_flg  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Check_flg  text null");
+        } catch (SQLException e) {
+        }
+         try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Visa_flg  text null");
+        } catch (SQLException e) {
+        }
+         try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Cash_Paid_Amt  text null");
+        } catch (SQLException e) {
+        }
+         try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Cust_Amt_Paid  text null");
+        } catch (SQLException e) {
+        }
+         try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Remain_Amt  text null");
+        } catch (SQLException e) {
+        }
+         try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Check_Paid_Amt  text null");
+        } catch (SQLException e) {
+        }
+         try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Check_Paid_Date  text null");
+        } catch (SQLException e) {
+        }
+         try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Check_Paid_Bank  text null");
+        } catch (SQLException e) {
+        }
+         try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Check_Paid_Person  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Visa_Paid_Amt  text null");
+        } catch (SQLException e) {
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Visa_Paid_Expire_Date  text null");
+        } catch (SQLException e) {
+        }
+
+      try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Visa_Paid_Type  text null");
+        } catch (SQLException e) {
+        }
+
+      try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Check_Number  text null");
+        } catch (SQLException e) {
+        }
+     try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Pos_System  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN  Acc  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN  AccName  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN  PosAcc  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN  PosAccName  text null");
+        } catch (SQLException e) {
+        }
+
+
+
     }
 
     CheckBox chkall;
@@ -1445,6 +1621,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_PaymentSchudel = (CheckBox) findViewById(R.id.chk_PaymentSchudel);
         chk_cust = (CheckBox) findViewById(R.id.Chk_Custs);
         chk_banks = (CheckBox) findViewById(R.id.Chk_Banks);
+        chk_LookUp = (CheckBox) findViewById(R.id.chk_LookUp);
         chk_Items = (CheckBox) findViewById(R.id.Chk_Items);
         chk_Unites = (CheckBox) findViewById(R.id.Chk_Unites);
         Chk_Items_Unites = (CheckBox) findViewById(R.id.Chk_Items_Unites);
@@ -1475,6 +1652,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_PaymentSchudel.setChecked(true);
         chk_cust.setChecked(true);
         chk_banks.setChecked(true);
+        chk_LookUp.setChecked(true);
         chk_Items.setChecked(true);
         chk_Unites.setChecked(true);
         Chk_Items_Unites.setChecked(true);
@@ -1511,6 +1689,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_PaymentSchudel.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_cust.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_banks.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
+        chk_LookUp.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_Items.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_Unites.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         Chk_Items_Unites.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
@@ -1587,6 +1766,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             chk_PaymentSchudel.setChecked(true);
             chk_cust.setChecked(true);
             chk_banks.setChecked(true);
+            chk_LookUp.setChecked(true);
             chk_Items.setChecked(true);
             chk_Unites.setChecked(true);
             Chk_Items_Unites.setChecked(true);
@@ -1620,6 +1800,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             chk_PaymentSchudel.setChecked(false);
             chk_cust.setChecked(false);
             chk_banks.setChecked(false);
+            chk_LookUp.setChecked(false);
             chk_Items.setChecked(false);
             chk_Unites.setChecked(false);
             Chk_Items_Unites.setChecked(false);
@@ -1868,6 +2049,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     }
 
+
     public void btn_Transfer_Data(View view) {
         List_Result.clear();
         Lv_Result.setAdapter(null);
@@ -1942,6 +2124,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         final CheckBox chk_PaymentSchudel = (CheckBox) findViewById(R.id.chk_PaymentSchudel);
         final CheckBox chk_cust = (CheckBox) findViewById(R.id.Chk_Custs);
         final CheckBox chk_banks = (CheckBox) findViewById(R.id.Chk_Banks);
+        final CheckBox chk_LookUp = (CheckBox) findViewById(R.id.chk_LookUp);
         final CheckBox chk_Items = (CheckBox) findViewById(R.id.Chk_Items);
         final CheckBox chk_Unites = (CheckBox) findViewById(R.id.Chk_Unites);
         final CheckBox Chk_Items_Unites = (CheckBox) findViewById(R.id.Chk_Items_Unites);
@@ -2931,7 +3114,90 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                     }
                 }
             }).start();
-        } else if (chk_Unites.isChecked()) {
+
+
+    } else if (chk_LookUp.isChecked()) {
+
+        final Handler _handler = new Handler();
+        tv = new TextView(getApplicationContext());
+        lp = new RelativeLayout.LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
+        tv.setLayoutParams(lp);
+        tv.setLayoutParams(lp);
+        tv.setPadding(10, 15, 10, 15);
+        tv.setGravity(Gravity.CENTER);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+        tv.setTextColor(Color.WHITE);
+        tv.setBackgroundColor(Color.BLUE);
+        tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
+
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(UpdateDataToMobileActivity.this);
+        progressDialog.setProgressStyle(progressDialog.STYLE_HORIZONTAL);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setProgress(0);
+        progressDialog.setMax(100);
+        progressDialog.setMessage("  الرجاء الانتظار ..." + "  العمل جاري على نسخ البيانات  ");
+        tv.setText("تعريفات النظام");
+        progressDialog.setCustomTitle(tv);
+        progressDialog.setProgressDrawable(greenProgressbar);
+        progressDialog.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CallWebServices ws = new CallWebServices(UpdateDataToMobileActivity.this);
+                ws.GetLookUp(UserID);
+                try {
+                    Integer i;
+                    String q;
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray js_ItemNo = js.getJSONArray("ItemNo");
+                    JSONArray js_ArDesc = js.getJSONArray("ArDesc");
+                    JSONArray js_TableNo = js.getJSONArray("TableNo");
+
+
+                    q = "Delete from Lookup";
+                    sqlHandler.executeQuery(q);
+                    q = " delete from sqlite_sequence where name='Lookup'";
+                    sqlHandler.executeQuery(q);
+
+                    for (i = 0; i < js_ItemNo.length(); i++) {
+                        q = "INSERT INTO Lookup(ItemNo, ArDesc , TableNo  ) values ('"
+                                + js_ItemNo.get(i).toString()
+                                + "','" + js_ArDesc.get(i).toString()
+                                + "','" + js_TableNo.get(i).toString()
+                                + "')";
+                        sqlHandler.executeQuery(q);
+                        progressDialog.setMax(js_ItemNo.length());
+                        progressDialog.incrementProgressBy(1);
+                        if (progressDialog.getProgress() == progressDialog.getMax()) {
+                            progressDialog.dismiss();
+                        }
+                    }
+                    final int total = i;
+                    _handler.post(new Runnable() {
+                        public void run() {
+                            filllist("تعريفات النظام", 1, total);
+                            chk_LookUp.setChecked(false);
+                            progressDialog.dismiss();
+                            Do_Trans_From_Server();
+                        }
+                    });
+                } catch (final Exception e) {
+                    progressDialog.dismiss();
+                    _handler.post(new Runnable() {
+                        public void run() {
+                            filllist("تعريفات النظام", 0, 0);
+                            chk_LookUp.setChecked(false);
+                            Do_Trans_From_Server();
+                        }
+                    });
+                }
+            }
+        }).start();
+
+    }else if (chk_Unites.isChecked()) {
 
             tv = new TextView(getApplicationContext());
             lp = new RelativeLayout.LayoutParams(
@@ -3321,6 +3587,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             GetManPermession();
             GetManExceptions();
             Get_Tab_Password();
+
             //GetSerials();
             new Thread(new Runnable() {
                 @Override
@@ -3349,6 +3616,10 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         JSONArray js_Email= js.getJSONArray("Email");
                         JSONArray js_SuperVisor_name= js.getJSONArray("SuperVisor_name");
                         JSONArray js_BranchArName= js.getJSONArray("BranchArName");
+                        JSONArray js_Acc= js.getJSONArray("Acc");
+                        JSONArray js_AccName= js.getJSONArray("AccName");
+                        JSONArray js_PosAcc= js.getJSONArray("PosAcc");
+                        JSONArray js_PosAccName= js.getJSONArray("PosAccName");
 
 
                         JSONArray js_AlternativeMan = js.getJSONArray("AlternativeMan");
@@ -3360,7 +3631,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
                         for (i = 0; i < js_man.length(); i++) {
                             q = "Insert INTO manf(man,name,MEName,username,password,StoreNo,Stoped,SupNo,Mobile1,Mobile2" +
-                                    " , ManType,TypeDesc,AlternativeMan,BranchName,SupervisorName,Email) values ("
+                                    " , ManType,TypeDesc,AlternativeMan,BranchName,SupervisorName,Email,Acc,AccName,PosAcc,PosAccName) values ("
                                     + js_man.get(i).toString()
                                     + ",'" + js_name.get(i).toString()
                                     + "','" + js_MEName.get(i).toString()
@@ -3377,6 +3648,10 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                                     + "','" + js_BranchArName.get(i).toString()
                                     + "','" + js_SuperVisor_name.get(i).toString()
                                     + "','" + js_Email.get(i).toString()
+                                    + "','" + js_Acc.get(i).toString()
+                                    + "','" + js_AccName.get(i).toString()
+                                    + "','" + js_PosAcc.get(i).toString()
+                                    + "','" + js_PosAccName.get(i).toString()
                                     + "')";
                             sqlHandler.executeQuery(q);
                             progressDialog.setMax(js_man.length());
@@ -4371,7 +4646,8 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             }).start();
 
 
-        } else if (chk_Serial.isChecked()) {
+        }
+        else if (chk_Serial.isChecked()) {
 
             tv = new TextView(getApplicationContext());
             lp = new RelativeLayout.LayoutParams(
@@ -4418,6 +4694,9 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         JSONArray js_ReturnQty = js.getJSONArray("ReturnQty");
                         JSONArray js_CustCash = js.getJSONArray("CustCash");
                         JSONArray js_Visits = js.getJSONArray("Visits");
+                        JSONArray js_EnterQty = js.getJSONArray("EnterQty");
+                        JSONArray js_TransferQty = js.getJSONArray("TransferQty");
+                        JSONArray js_ItemRecepit= js.getJSONArray("ItemRecepit");
 
                         q = "Delete from OrdersSitting";
                         sqlHandler.executeQuery(q);
@@ -4426,7 +4705,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         sqlHandler.executeQuery(q);
 
 
-                        q = "INSERT INTO OrdersSitting(Sales, Payment , SalesOrder , PrepareQty , RetSales, PostDely , ReturnQty , CustCash,Visits  ) values ('"
+                        q = "INSERT INTO OrdersSitting(Sales, Payment , SalesOrder , PrepareQty , RetSales, PostDely , ReturnQty , CustCash,Visits,TransQtySerial,EnterQtySerial,ItemsRecepitSerial  ) values ('"
                                 + js_Sales.get(0).toString()
                                 + "','" + js_Payment.get(0).toString()
                                 + "','" + js_SalesOrder.get(0).toString()
@@ -4436,6 +4715,10 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                                 + "','" + js_ReturnQty.get(0).toString()
                                 + "','" + js_CustCash.get(0).toString()
                                 + "','" + js_Visits.get(0).toString()
+                                + "','" + js_TransferQty.get(0).toString()
+                                + "','" + js_EnterQty.get(0).toString()
+                                + "','" + js_ItemRecepit.get(0).toString()
+
                                 + "')";
                         sqlHandler.executeQuery(q);
 

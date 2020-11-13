@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:paddingTop="2dp"
@@ -24,8 +24,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:orientation="horizontal">
 
                 <Methdes.MyTextView
                     android:id="@+id/tv_no"
@@ -50,14 +49,24 @@
                     android:textIsSelectable="false"
                     android:textSize="16sp" />
 
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="5">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Pdsrice"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.7"
+                    android:gravity="right|center_vertical"
+                    android:paddingRight="5dp"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
 
                 <Methdes.MyTextView
                     android:id="@+id/tv_Price"
@@ -65,7 +74,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_weight="0.9"
-                    android:gravity="right|center_vertical"
+                    android:gravity="center"
                     android:paddingRight="5dp"
                     android:text="TextView"
                     android:textColor="#000"
@@ -95,7 +104,7 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#000"
                     android:textSize="16sp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <Methdes.MyTextView
                     android:id="@+id/tv_Total"
@@ -124,6 +133,7 @@
                     android:visibility="gone" />
 
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout

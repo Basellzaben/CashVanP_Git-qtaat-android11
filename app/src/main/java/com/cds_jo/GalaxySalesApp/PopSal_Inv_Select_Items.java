@@ -1072,7 +1072,6 @@ Toast.makeText(getActivity(), "ادنى سعر للبيع " + ":" + String.value
         query = "SELECT       (ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0)  +   ifnull( sum  ( ifnull( sid.bounce_qty,0)  * (ifnull( sid.Operand,1))) ,0) +  ifnull( sum  ( ifnull( sid.Pro_bounce,0)  * (ifnull( sid.Operand,1))) ,0))  as Sal_Qty  from  Sal_invoice_Hdr  sih inner join Sal_invoice_Det sid on  sid.OrderNo = sih.OrderNo" +
                 " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
                 " where   sih.Post = -1  and ui.item_no ='" + ItemNo + "'  and sih.UserID='" + sharedPreferences.getString("UserID", "-1") + "'";
-//   "    where  QtyStoreSer = "+MaxStoreQtySer+" and ui.item_no ='"+ItemNo+"'";
 
 
         if (UpdateItem != null && UpdateItem.size() > 0) {
@@ -1101,10 +1100,7 @@ Toast.makeText(getActivity(), "ادنى سعر للبيع " + ":" + String.value
         }
 
         Store_Qty.setText(SToD(Res.toString()) + "");
-/*  if(ComInfo.ComNo ==1 ) {
-Toast.makeText(getActivity(), "كمية التزويد " + ":" + String.valueOf(Store_qty) +"    "  + "الكمية المباعة" + ":" + String.valueOf(Sal_Qty)  +"   "  + "Operand" + ":" + String.valueOf(Operand)
-+ "   المسموحة "+ ":"+ String.valueOf(Res) , Toast.LENGTH_SHORT).show();
-}*/
+
 
 
         GetQtyPerc();

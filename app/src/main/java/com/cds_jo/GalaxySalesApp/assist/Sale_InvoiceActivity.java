@@ -210,21 +210,23 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
     }
 
     public void GetMaxPONo() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String u = sharedPreferences.getString("UserID", "");
-        EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
-       // query = "SELECT  ifnull(MAX(OrderNo), 0) +1 AS no FROM Sal_invoice_Hdr where  ifnull(doctype,'1')='"+DocType.toString()+"'  and     UserID ='" + u.toString() + "'";
-         query = "SELECT   COALESCE(MAX( cast(OrderNo as integer)+1), 0)  as  no FROM Sal_invoice_Hdr ";
-        Cursor c1 = sqlHandler.selectQuery(query);
-        String max = "0";
+        try {
 
-        if (c1 != null && c1.getCount() != 0) {
-            c1.moveToFirst();
-            max = c1.getString(c1.getColumnIndex("no"));
-            c1.close();
-        }
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String u = sharedPreferences.getString("UserID", "");
+            EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
+            // query = "SELECT  ifnull(MAX(OrderNo), 0) +1 AS no FROM Sal_invoice_Hdr where  ifnull(doctype,'1')='"+DocType.toString()+"'  and     UserID ='" + u.toString() + "'";
+            query = "SELECT   COALESCE(MAX( cast(OrderNo as integer)+1), 0)  as  no FROM Sal_invoice_Hdr ";
+            Cursor c1 = sqlHandler.selectQuery(query);
+            String max = "0";
 
-        String max1 = "0";
+            if (c1 != null && c1.getCount() != 0) {
+                c1.moveToFirst();
+                max = c1.getString(c1.getColumnIndex("no"));
+                c1.close();
+            }
+
+            String max1 = "0";
        /* if(ComInfo.DocType==1) {
             tv_ScrTitle.setText("فاتورة المبيعات");
          max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "Sales", "1=1");
@@ -235,46 +237,45 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         tv_ScrTitle.setText("سند تسليم بضاعة ");
         max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "ReciveItemToCustomer", "1=1");
     }*/
-        // max1 = sharedPreferences.getString("m1", "");
-        String q =" SELECT  COALESCE(MAX( cast(Sales as integer)+1), 0) as Sales   from OrdersSitting    ";
-        Cursor c = sqlHandler.selectQuery(q);
-        if(c!=null && c.getCount()>0){
-            c.moveToFirst();
-            max1= c.getString(c.getColumnIndex("Sales"));
-            c.close();
-        }
-        if (max1 == "") {
-            max1 = "0";
-        }
+            // max1 = sharedPreferences.getString("m1", "");
+            String q = " SELECT  COALESCE(MAX( cast(Sales as integer)+1), 0) as Sales   from OrdersSitting    ";
+            Cursor c = sqlHandler.selectQuery(q);
+            if (c != null && c.getCount() > 0) {
+                c.moveToFirst();
+                max1 = c.getString(c.getColumnIndex("Sales"));
+                c.close();
+            }
+            if (max1 == "") {
+                max1 = "0";
+            }
 
-        if (SToD(max1) > SToD(max)) {
-            max = max1;
-        }
+            if (SToD(max1) > SToD(max)) {
+                max = max1;
+            }
 
-        if (max.length() == 1) {
+            if (max.length() == 1) {
 
-            Maxpo.setText(intToString(Integer.valueOf(u), 2) + intToString(Integer.valueOf(max), 5));
-            Bundle bundle = new Bundle();
-            bundle.putString("Scr", "po");
-            bundle.putString("msg", "الرجاء الانتباه ، سيتم تخزين  الطلب برقم " + Maxpo.getText().toString());
-            FragmentManager Manager = getFragmentManager();
-            Pop_Confirm_Serial_From_Zero obj = new Pop_Confirm_Serial_From_Zero();
-            obj.setArguments(bundle);
-            obj.show(Manager, null);
-        } else {
+                Maxpo.setText(intToString(Integer.valueOf(u), 2) + intToString(Integer.valueOf(max), 5));
+                Bundle bundle = new Bundle();
+                bundle.putString("Scr", "po");
+                bundle.putString("msg", "الرجاء الانتباه ، سيتم تخزين  الطلب برقم " + Maxpo.getText().toString());
+                FragmentManager Manager = getFragmentManager();
+                Pop_Confirm_Serial_From_Zero obj = new Pop_Confirm_Serial_From_Zero();
+                obj.setArguments(bundle);
+                obj.show(Manager, null);
+            } else {
 
-            Maxpo.setText(intToString(Integer.valueOf(max), 7));
-        }
-       // max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "Sales", "1=1");
-        //Maxpo.setText(intToString(Integer.valueOf(max), 7));
-        Maxpo.setFocusable(false);
-        Maxpo.setEnabled(false);
-        Maxpo.setCursorVisible(false);
-
-
+                Maxpo.setText(intToString(Integer.valueOf(max), 7));
+            }
+            // max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "Sales", "1=1");
+            //Maxpo.setText(intToString(Integer.valueOf(max), 7));
+            Maxpo.setFocusable(false);
+            Maxpo.setEnabled(false);
+            Maxpo.setCursorVisible(false);
 
 
-        contactList.clear();
+            contactList.clear();
+        }catch (Exception rd){}
     }
 
     public static String intToString(int num, int digits) {
@@ -778,7 +779,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
         chk_cus_name.setChecked(true);
           tv_acc = (TextView)findViewById(R.id.tv_acc);
-          InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.open.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
     }
     public  void InsertDiscount(String DiscountAmt , String DiscountType){
@@ -1171,7 +1171,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             obj.show(Manager, null);
 
         } else {
-            if (u == "-1" || ComInfo.ComNo == 2) {
+            if (u == "-1" || ComInfo.ComNo == 2|| ComInfo.ComNo== Companies.Sector.getValue() ) {
                 Bundle bundle = new Bundle();
                 bundle.putString("Scr", "Sale_Inv");
                 FragmentManager Manager = getFragmentManager();
@@ -1954,7 +1954,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         cv.put("hdr_dis_Type",FinalDiscountType+"");
 
         cv.put("disc_Total", dis.getText().toString().replace("\u202c","").replace("\u202d",""));
-
+        cv.put("Pos_System", "0");
         if (IsNew == true) {
             i = sqlHandler.Insert("Sal_invoice_Hdr", null, cv);
         } else {
@@ -3317,7 +3317,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
 
     }
-
     private int checkItemInGroup(String ItemNo, String Group) {
         sqlHandler = new SqlHandler(this);
         String q = " select distinct * from Offers_Dtl_Cond odc  inner join Offers_Groups ogs on ogs.grv_no= odc.Gro_Num  " +
@@ -3330,7 +3329,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
         return 0;
     }
-
     private void InsertItemsOffersType3(String GroupNo, int f) {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
@@ -3415,13 +3413,11 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
 
     }
-
     private int CalcFactor(String g) {
         int f = 1;
 
         return f;
     }
-
     public void Apply_Promotion() {
 
         Double Rowtotal = 0.0;
@@ -3517,7 +3513,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
 
     }
-
     private void Calc_LowPriPro() {
         int f = 1;
         sqlHandler = new SqlHandler(this);
@@ -3639,7 +3634,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
-
     private void ResetPromotion() {
         cls_offers_hdrs.clear();
         Cls_Sal_InvItems Inv_Obj;
@@ -3662,7 +3656,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         CalcTotal();
         showList();
     }
-
     private void Gf_Calc_Promotion() {
         ResetPromotion();
 
@@ -3698,11 +3691,9 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
-
     public void btn_Calc_Promotion(View view) {
         // Gf_Calc_Promotion();
     }
-
     private int Check_All_Promotion_Items(String groupNo) {
         //   groupNo = "2";
         int result = 0;
@@ -3785,7 +3776,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
         return result;
     }
-
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////
     private void Gf_Calc_PromotionNew() {
@@ -3999,7 +3989,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
         }// End loop
     }
-
     private void AppledOfferType1(String Grv_no, String ItemFactor, String dis_Per) {
 
 
@@ -4028,7 +4017,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         Set_Order(Order_no.getText().toString());
 
     }
-
     private void AppledOfferType2(String Grv_no, String ItemFactor, String dis_Amt) { //AMt
 
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
@@ -4068,7 +4056,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         TextView accno = (TextView) findViewById(R.id.tv_acc);
         Set_Order(Order_no.getText().toString());
     }
-
     private void AppledOfferType3(String GroupNo, String ItemFactor, String TotalItem) {
 
         if ((Integer.parseInt(ItemFactor)) > 0) {
@@ -4138,7 +4125,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             Set_Order(Order_no.getText().toString());
         }
     }
-
     public void AppledOfferType32(String GroupNo, final String ItemFactor, final String TotalItem) {
         DoPrint = 0;
 
@@ -4238,7 +4224,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         builder.setView(view);
         alertDialog1 = builder.show();
     }
-
     private void AppledOfferType33(String GroupNo, String ItemFactor, String TotalItem) {
      //   Toast.makeText(this,ItemFactor+"" , Toast.LENGTH_SHORT).show();
         Long i;
@@ -4302,7 +4287,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
 
     }
-
     private void Fill_OffeNew() {
         cls_offers_hdrsNew.clear();
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
@@ -4346,7 +4330,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
-
     private void DeleteAllPromotions() {
 
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
@@ -4359,7 +4342,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         TextView Order_no = (TextView) findViewById(R.id.et_OrdeNo);
         Set_Order(Order_no.getText().toString());
     }
-
     private void fill_Offers_GroupNew(String grv_no) {
         offer_groups_List.clear();
         String query = " select * from Offers_Groups where (gro_type='0' or gro_type='2'  )  and grv_no ='" + grv_no + "'  ";
@@ -4397,7 +4379,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         }
 
     }
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     public void btn_share(View view) {
         DoShare();
@@ -4510,7 +4491,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             }
         }).start();
     }
-
     @Override
     public void onBackPressed() {
 
@@ -4524,7 +4504,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             startActivity(k);
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -4533,7 +4512,6 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -4554,13 +4532,11 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
         return true;
     }
-
     public void InsertBalanceQty(String No, String Nm) {
         FillAdapterFromBalanceQty(No);
         showList();
         BalanceQtyTrans = true;
     }
-
     private void FillAdapterFromBalanceQty(String OrderNo) {
         contactList.clear();
 
@@ -4666,6 +4642,4 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
-
-
 }

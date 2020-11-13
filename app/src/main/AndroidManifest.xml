@@ -72,7 +72,11 @@
             android:name=".assist.Convert_Layout_Img"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".warehouse.PrintItemRecepit"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".Pos.Pos_Activity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             android:screenOrientation="landscape" />
         <activity
             android:name=".assist.Convert_Layout_Img_Tsc"
@@ -99,6 +103,9 @@
             android:name=".assist.Convert_TransQty_To_Img"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".Pos.Print_POS_Activity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".WebPage.WebPageAct"
             android:screenOrientation="landscape" />
 
@@ -106,6 +113,7 @@
             android:name=".assist.Convert_ccReportTo_ImgActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
+
         <activity
             android:name=".assist.Convert_ccReport2To_ImgActivity"
             android:screenOrientation="landscape" />
@@ -114,6 +122,21 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".RecvVoucherActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".InquireItem.InquireItemACT"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+ <activity
+            android:name=".TspPrinter.SampleReciptActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+
+
+        <activity
+            android:name=".TspPrinter.imagePrintingActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
@@ -126,13 +149,21 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".warehouse.ItemsRecepit"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".CustomerQty"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".TransferQty"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"       />
+        <activity
+            android:name=".warehouse.EnterQtyActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden"       />
         <activity
             android:name=".assist.Acc_ReportActivity"
             android:screenOrientation="landscape"
@@ -179,6 +210,9 @@
             android:name=".assist.Convert_Sal_Invoice_To_Img_Ukrainian"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".assist.Store_Trans_Qty_Img"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".assist.Convert_Sal_Invoice_To_ImgActivity_Okrania_Ipad"
             android:screenOrientation="landscape" />
         <activity
@@ -186,6 +220,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".assist.OrdersItems"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".warehouse.Enter_Qty_Img"
             android:screenOrientation="landscape" />
         <activity
             android:name=".assist.Sale_InvoiceActivity"

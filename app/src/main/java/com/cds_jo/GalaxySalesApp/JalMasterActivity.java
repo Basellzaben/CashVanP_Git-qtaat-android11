@@ -41,6 +41,7 @@
         import android.widget.Toast;
 
         import com.cds_jo.GalaxySalesApp.ManCard.DetailCardMan;
+        import com.cds_jo.GalaxySalesApp.NewHomePage.NewHomePage;
         import com.cds_jo.GalaxySalesApp.assist.Acc_ReportActivity;
         import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
         import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
@@ -87,6 +88,8 @@
        // PostLogTrans  postLogTrans = new PostLogTrans(JalMasterActivity.this);
         setContentView(R.layout.activity_jal_master);
         TextView Un = (TextView) findViewById(R.id.tv_UserName);
+
+        startActivity(new Intent(JalMasterActivity.this, NewHomePage.class));
 
 
 

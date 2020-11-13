@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
+import com.cds_jo.GalaxySalesApp.warehouse.ItemsRecepit;
 
 import Methdes.MyTextView;
 
@@ -48,8 +49,15 @@ public class Pop_Update_Qty  extends DialogFragment implements View.OnClickListe
 
         if (v==Inc){
             tv_qty.setText( (Double.parseDouble(tv_qty.getText().toString().replaceAll("[^\\d.]", ""))+1)   +"" );
+            if(getArguments().getString("Scr").equalsIgnoreCase("SalesOrder")) {
+                ((OrdersItems) getActivity()).UpdateQty(tv_qty.getText().toString().replaceAll("[^\\d.]", ""));
 
-                    ((OrdersItems) getActivity()).UpdateQty(tv_qty.getText().toString().replaceAll("[^\\d.]", ""));
+            }   else   if(getArguments().getString("Scr").equalsIgnoreCase("ItemRecepit")) {
+                ((ItemsRecepit) getActivity()).UpdateBounce(tv_qty.getText().toString().replaceAll("[^\\d.]", ""));
+
+            }   else   if(getArguments().getString("Scr").equalsIgnoreCase("ItemRecepitQty")) {
+                ((ItemsRecepit) getActivity()).UpdateQty(tv_qty.getText().toString().replaceAll("[^\\d.]", ""));
+            }
             if( Double.parseDouble( tv_qty.getText().toString().replaceAll("[^\\d.]", "")) > 1 ) {
                 Dec.setVisibility(View.VISIBLE);
             }
@@ -62,7 +70,15 @@ public class Pop_Update_Qty  extends DialogFragment implements View.OnClickListe
                 tv_qty.setText("1");
                 Dec.setVisibility(View.INVISIBLE);
             }
-            ((OrdersItems) getActivity()).UpdateQty(tv_qty.getText().toString().replaceAll("[^\\d.]", ""));
+            if(getArguments().getString("Scr").equalsIgnoreCase("SalesOrder")) {
+                ((OrdersItems) getActivity()).UpdateQty(tv_qty.getText().toString().replaceAll("[^\\d.]", ""));
+
+            }else   if(getArguments().getString("Scr").equalsIgnoreCase("ItemRecepit")) {
+                ((ItemsRecepit) getActivity()).UpdateBounce(tv_qty.getText().toString().replaceAll("[^\\d.]", ""));
+
+            }   else   if(getArguments().getString("Scr").equalsIgnoreCase("ItemRecepitQty")) {
+                ((ItemsRecepit) getActivity()).UpdateQty(tv_qty.getText().toString().replaceAll("[^\\d.]", ""));
+            }
         }
   }
 }

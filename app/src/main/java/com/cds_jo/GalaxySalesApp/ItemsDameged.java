@@ -171,4 +171,5 @@ public class ItemsDameged extends AppCompatActivity {
         Intent i = new Intent(this,JalMasterActivity.class);
         startActivity(i);
     }
+
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.cds_jo.GalaxySalesApp.GalaxyLoginActivity;
@@ -49,6 +50,18 @@ public class Cls_Home_Show_Ditial_Adapter extends RecyclerView.Adapter<Cls_Home_
             @Override
             public void onClick(View v) {
 
+                String activityToStart = "com.cds_jo.GalaxySalesApp."+mData.get(position).getActivityNm() ;
+                try {
+                    Class<?> c = Class.forName(activityToStart);
+
+                    Intent intent = new Intent(mContext, c);
+                    mContext.startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(mContext, e.getMessage().toString(),Toast.LENGTH_SHORT).show();
+                }
+
+
+            /*
                 if(mData.get(position).getID()==1)
                 {
                     Intent intent = new Intent(mContext, OrdersItems.class);
@@ -82,7 +95,7 @@ public class Cls_Home_Show_Ditial_Adapter extends RecyclerView.Adapter<Cls_Home_
                     Intent intent = new Intent(mContext, GalaxyLoginActivity.class);
                     mContext.startActivity(intent);
                 }
-
+*/
 
             }
         });

@@ -31,6 +31,7 @@ public class Sal_Inv_SearchActivity  extends DialogFragment implements View.OnCl
     Button add,cancel;
     ListView items_Lsit;
    // TextView itemnm;
+
 String DocType ="1";
     ArrayList<cls_Search_po> cls_search_pos_list  ;
     @Override

@@ -53,7 +53,6 @@ SqlHandler sqlHandler ;
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savestate) {
         form = inflater.inflate(R.layout.view_enter_invoice_discount, container, false);

@@ -99,7 +99,9 @@ public class PostSalesInvoice {
         final String str;
 
         String query = "SELECT distinct     COALESCE(DocType,0) as DocType  , COALESCE(driverno,0) as driverno  ,   V_OrderNo,OrderNo, acc,date,UserID, COALESCE(hdr_dis_per,0) as hdr_dis_per  , COALESCE(hdr_dis_value ,0) as  hdr_dis_value , COALESCE(Total ,0) as  Total , COALESCE(Net_Total ,0) as Net_Total , COALESCE( Tax_Total ,0) as Tax_Total , COALESCE(bounce_Total ,0) as bounce_Total , COALESCE( include_Tax ,0) as include_Tax" +
-                " ,Nm ,COALESCE( disc_Total ,0) as  disc_Total , COALESCE(inovice_type ,0)  as inovice_type  FROM Sal_invoice_Hdr" +
+                " ,Nm ,COALESCE( disc_Total ,0) as  disc_Total , COALESCE(inovice_type ,0)  as inovice_type " +
+                " ,Pos_System ,Check_Number,Cash_flg,Check_flg,Visa_flg,Cash_Paid_Amt,Cust_Amt_Paid,Remain_Amt,Check_Paid_Amt,Check_Paid_Date,Check_Paid_Bank" +
+                " ,Check_Paid_Person,Visa_Paid_Amt,Visa_Paid_Expire_Date,Visa_Paid_Type  FROM Sal_invoice_Hdr" +
                 " where  ifnull(doctype,'1')='"+DocType.toString()+"' and OrderNo  ='" + OrderNo.toString() + "'";
 
         Cursor c1 = sqlHandler.selectQuery(query);
@@ -128,6 +130,22 @@ public class PostSalesInvoice {
                 jsonObject.put("V_OrderNo", c1.getString(c1.getColumnIndex("V_OrderNo")));
                 jsonObject.put("DocType", c1.getString(c1.getColumnIndex("DocType")));
                 jsonObject.put("DriverNo", c1.getString(c1.getColumnIndex("driverno")));
+                jsonObject.put("Cash_flg", c1.getString(c1.getColumnIndex("Cash_flg")));
+                jsonObject.put("Check_flg", c1.getString(c1.getColumnIndex("Check_flg")));
+                jsonObject.put("Visa_flg", c1.getString(c1.getColumnIndex("Visa_flg")));
+                jsonObject.put("Cash_Paid_Amt", c1.getString(c1.getColumnIndex("Cash_Paid_Amt")));
+                jsonObject.put("Cust_Amt_Paid", c1.getString(c1.getColumnIndex("Cust_Amt_Paid")));
+                jsonObject.put("Remain_Amt", c1.getString(c1.getColumnIndex("Remain_Amt")));
+                jsonObject.put("Check_Paid_Amt", c1.getString(c1.getColumnIndex("Check_Paid_Amt")));
+                jsonObject.put("Check_Paid_Date", c1.getString(c1.getColumnIndex("Check_Paid_Date")));
+                jsonObject.put("Check_Paid_Bank", c1.getString(c1.getColumnIndex("Check_Paid_Bank")));
+                jsonObject.put("Check_Paid_Person", c1.getString(c1.getColumnIndex("Check_Paid_Person")));
+                jsonObject.put("Visa_Paid_Amt", c1.getString(c1.getColumnIndex("Visa_Paid_Amt")));
+                jsonObject.put("Visa_Paid_Expire_Date", c1.getString(c1.getColumnIndex("Visa_Paid_Expire_Date")));
+                jsonObject.put("Visa_Paid_Type", c1.getString(c1.getColumnIndex("Visa_Paid_Type")));
+                jsonObject.put("Check_Number", c1.getString(c1.getColumnIndex("Check_Number")));
+                jsonObject.put("Pos_System", c1.getString(c1.getColumnIndex("Pos_System")));
+
             } catch (JSONException ex) {
                 Result= -1;
             } catch (Exception ex) {

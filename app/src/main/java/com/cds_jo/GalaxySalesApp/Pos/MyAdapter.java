@@ -2,6 +2,13 @@ package com.cds_jo.GalaxySalesApp.Pos;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +24,7 @@ import com.cds_jo.GalaxySalesApp.assist.Cls_Deptf;
 import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -39,15 +47,45 @@ import java.util.ArrayList;
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, int i) {
             viewHolder.textView.setText(deptfs.get(i).getType_Name());
-            viewHolder.imgThumbnail.setImageResource(deptfs.get(i).getImg());
+         //   viewHolder.imgThumbnail.setImageResource(deptfs.get(i).getImg());
+            File imgFile = new File("//sdcard/Android/Cv_Images/" + deptfs.get(i).getImg() + ".jpg");
+            try {
+                if (imgFile.exists()) {
+
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    Bitmap imageRounded = Bitmap.createBitmap(myBitmap.getWidth(), myBitmap.getHeight(), myBitmap.getConfig());
+                    Canvas canvas = new Canvas(imageRounded);
+                    Paint mpaint = new Paint();
+                    mpaint.setAntiAlias(true);
+                    mpaint.setShader(new BitmapShader(myBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+                    canvas.drawRoundRect((new RectF(0, 0, myBitmap.getWidth(), myBitmap.getHeight())), 0, 0, mpaint);// Round Image Corner 100 100 100 100
+                    viewHolder.imgThumbnail.setImageBitmap(imageRounded);
+
+
+                } else {
+
+                    Bitmap myBitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.no_image);
+                    Bitmap imageRounded = Bitmap.createBitmap(myBitmap.getWidth(), myBitmap.getHeight(), myBitmap.getConfig());
+                    Canvas canvas = new Canvas(imageRounded);
+                    Paint mpaint = new Paint();
+                    mpaint.setAntiAlias(true);
+                    mpaint.setShader(new BitmapShader(myBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+                    canvas.drawRoundRect((new RectF(0, 0, myBitmap.getWidth(), myBitmap.getHeight())), 0, 0, mpaint);// Round Image Corner 100 100 100 100
+                    viewHolder.imgThumbnail.setImageBitmap(imageRounded);
+                }
+
+            } catch (Exception ex) {
+                viewHolder.imgThumbnail.setImageDrawable(null);
+                viewHolder.imgThumbnail.setImageResource(0);
+            }
             viewHolder.setClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int position, boolean isLongClick) {
                     if (isLongClick) {
-                        Toast.makeText(context, "#" + position + " - " + deptfs.get(position).getType_Name() ,
+                        Toast.makeText(context, "#" + position + " - " + deptfs.get(position).getType_No() ,
                                 Toast.LENGTH_SHORT).show();
 
-                    } else { ((Pos_Activity) context).Set_Order("11");
+                    } else { ((Pos_Activity) context).FillItems(deptfs.get(position).getType_No());
 
                     }
                 }

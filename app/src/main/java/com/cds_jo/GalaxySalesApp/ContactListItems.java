@@ -20,7 +20,25 @@ public class ContactListItems {
     String qty;
     String DisPerFromHdr;
     String Batch;
+   String SerialNo;
+    public String getStoreNo() {
+        return StoreNo;
+    }
 
+    public void setStoreNo(String storeNo) {
+        StoreNo = storeNo;
+    }
+
+    public String getStoreNm() {
+        return StoreNm;
+    }
+
+    public void setStoreNm(String storeNm) {
+        StoreNm = storeNm;
+    }
+
+    String StoreNo ,CostCenter;
+    String StoreNm;
     public String getWeight() {
         return weight;
     }

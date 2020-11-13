@@ -62,7 +62,7 @@ public class Header_Frag extends Fragment {
         Img_Setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ComInfo.ComNo!= Companies.Arabian.getValue()) {
+                if(ComInfo.ComNo!= Companies.Sector.getValue()) {
                     mNav.toggleRightDrawer();
                     NotificationFun();
                 }

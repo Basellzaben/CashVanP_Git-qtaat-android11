@@ -3506,7 +3506,7 @@ public class OrdersItems extends FragmentActivity {
 
     public void UpdateQty(String qty) {
         contactList.get(position).setQty(qty);
-        CalcTotal();
+         CalcTotal();
         showList(1);
     }
     ///////////////////////////////////////////////////

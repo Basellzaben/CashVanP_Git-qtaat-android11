@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -20,11 +22,15 @@ import android.widget.TextView;
 
 import com.cds_jo.GalaxySalesApp.ComInfo;
 import com.cds_jo.GalaxySalesApp.Companies;
+import com.cds_jo.GalaxySalesApp.Pos.Print_POS_Activity;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
+import com.cds_jo.GalaxySalesApp.TspPrinter.PrinterFunctions;
 import com.sewoo.jpos.printer.ESCPOSPrinter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,11 +44,15 @@ public class Convert_RecVouch_To_Img extends AppCompatActivity {
     private Button mButton;
     private Context context;
     ImageView img_Logo;
+    String BPrinter_MAC_ID ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
           SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            final String Company = sharedPreferences.getString("CompanyID", "1") ;
+        BPrinter_MAC_ID= sharedPreferences.getString("AddressBT", "");
+
+
+        final String Company = sharedPreferences.getString("CompanyID", "1") ;
         // 1 Dell
         // 2 Lenovo
         // 3 Samsung
@@ -127,10 +137,39 @@ public class Convert_RecVouch_To_Img extends AppCompatActivity {
                            Convert_RecVouch_To_Img.this, lay, 550, 1);
                    obj.DoPrint();
 
-               }else if(  ComInfo.ComNo==Companies.goodsystem.getValue()) {
-                   PrintReport_PR3 PR3 = new PrintReport_PR3(Convert_RecVouch_To_Img.this,
-                           Convert_RecVouch_To_Img.this, lay, 570, 1);
-                   PR3.DoPrint();
+               }else if(  ComInfo.ComNo==Companies.Sector.getValue()) {
+
+                   int paperWidth = 576;
+                   String portName ="BT:"+BPrinter_MAC_ID ; //"BT:TSP100-L0528";// PrinterTypeActivity.getPortName();
+                   String portSettings = "";
+                   PrinterFunctions.RasterCommand rasterType = PrinterFunctions.RasterCommand.Standard;
+
+                   Bitmap b = loadBitmapFromView(lay);
+                   ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                   String filename = "z1.jpg";
+                   File sd = Environment.getExternalStorageDirectory();
+                   File dest = new File(sd, filename);
+
+                   try {
+                       FileOutputStream out = new FileOutputStream(dest);
+                       b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+                       out.flush();
+                       out.close();
+                       //  bitmap.recycle();
+                   } catch (Exception e) {
+                       e.printStackTrace();
+                   }
+
+
+                   Bitmap myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
+                   PrinterFunctions.PrintBitmap(context,portName,portSettings,myBitmap, paperWidth, false, rasterType);
+
+
+
+
+
+
+
                }else if(  ComInfo.ComNo==Companies.Ukrania.getValue()) {
 
                    PrintReport_Xprinter PR3 = new PrintReport_Xprinter(Convert_RecVouch_To_Img.this,
@@ -154,7 +193,18 @@ public class Convert_RecVouch_To_Img extends AppCompatActivity {
 
 
     }
+    public static Bitmap loadBitmapFromView(View v) {
 
+        v.measure(View.MeasureSpec.makeMeasureSpec(v.getLayoutParams().width,
+                View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(
+                v.getLayoutParams().height, View.MeasureSpec.UNSPECIFIED));
+        v.layout(0, 0, v.getMeasuredWidth(), v.getMeasuredHeight());
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
+    }
     public  void ShowRecord( String OrdNo){
          TextView OrderNo = (TextView)findViewById(R.id.et_OrdeNo);
         TextView amt =(TextView)findViewById(R.id.et_Amt);

@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="7">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView172"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/Gray3"
+                    android:gravity="center"
+                    android:text="مبلغ الفاتورة"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/ed_Total"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView173"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/Gray3"
+                    android:gravity="center"
+                    android:text="الخصم"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_Discount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:textSize="18sp" />
+
+                <RadioGroup
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <RadioButton
+                        android:id="@+id/rdoPrecent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="نسبة"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/rdoAmt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="مبلغ"
+                        android:textSize="18sp" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView174"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/Gray3"
+                    android:gravity="center"
+                    android:text="المبلغ بعد الخصم"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/ed_AfterDiscount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:editable="false"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textبيView174"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/Gray3"
+                    android:gravity="center"
+                    android:text="طريقة الدفع"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.3"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <CheckBox
+                        android:id="@+id/cbx_Cash"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="نقدا"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/cbx_Check"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="شيكات"
+                        android:textSize="18sp" />
+
+                    <CheckBox
+                        android:id="@+id/cbx_Visa"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="فيزا"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/CashAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/Gray3"
+                    android:gravity="center"
+                    android:text="المبلغ النقدي"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <EditText
+                    android:id="@+id/ed_Cash_Paid_Amt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_AmountPay"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/Gray3"
+                    android:gravity="center"
+                    android:text="المبلغ المدفوع"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <EditText
+                    android:id="@+id/ed_Cust_Amt_Paid"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
+
+                    android:gravity="center"
+                    android:inputType="numberDecimal"
+                    android:text="0.000"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Remain"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/Gray3"
+                    android:gravity="center"
+                    android:text="الباقي"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <EditText
+                    android:id="@+id/ed_RemainAmt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:textSize="18dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.2"
+                android:orientation="vertical"
+                android:weightSum="5.5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_CehckInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="معلومات الشيكات"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_fill_white"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:weightSum="2">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_checkAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="قيمة الشيكات"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/ed_Check_Paid_Amt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_cir_white_fill_black"
+
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:text="0.000"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_fill_white"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:weightSum="2">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_Cehck_No"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="رقم الشيك"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/ed_Check_Number"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:gravity="center_horizontal"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/blue_fill_white"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:weightSum="2">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_BankNm"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="البنك"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="16sp" />
+
+                    <Spinner
+                        android:id="@+id/sp_banks"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#fff"
+                        android:backgroundTint="#fff"
+                        android:gravity="center_vertical"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/ed_Check_Bank_Name"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:editable="false"
+                        android:gravity="center_horizontal"
+                        android:textSize="18dp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_fill_white"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:weightSum="2">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_Check_Date"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="تاريخ الاستحقاق"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/ed_Check_Date"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.6"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:editable="false"
+                        android:gravity="center_horizontal"
+                        android:inputType="date"
+                        android:textSize="18sp" />
+
+
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_Check_Date"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="31/12/2020"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.7"
+                    android:orientation="horizontal">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/textView283"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="معلومات الفيزا"
+                        android:textColor="#000"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="0.7"
+                    android:background="@drawable/blue_fill_white"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:weightSum="2">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_VisaAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="قيمة الفيزا"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/ed_Visa_Paid_Amt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:text="0.000"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="0.7"
+                    android:background="@drawable/blue_fill_white"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:weightSum="2">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_Visi_Number"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="رقم الفيزا"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/ed_Visa_Number"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_cir_white_fill_black"
+
+                        android:gravity="center_horizontal"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="0.7"
+                    android:background="@drawable/blue_fill_white"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:weightSum="2">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_Bank_Visa_Nm"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="تاريخ الانتهاء"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/ed_Visa_Expire_Date"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_cir_white_fill_black"
+
+                        android:gravity="center_horizontal"
+                        android:inputType="date"
+                        android:textSize="18dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_fill_white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/Blue"
+            android:text="تخزين"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_Back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/ColorPrimary"
+            android:text="رجوع"
+            android:textColor="#fff"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

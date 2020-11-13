@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/tv_Count"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView121"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" عدد الفواتير   :"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_Search"
+                android:layout_weight="1"
+                android:hint=" ابحث هنا ......." />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_BillNo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/Gray2"
+                    android:gravity="center"
+                    android:text="رقم الفاتورة"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_custno"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/Gray2"
+                    android:gravity="center|center_vertical"
+                    android:paddingLeft="5dp"
+                    android:text="رقم العميل"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_invoType"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000"
+                    android:visibility="gone" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_nm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/Gray2"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="اسم العميل"
+                    android:textAlignment="gravity"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Date"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@color/Gray2"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:text="التاريخ"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_tot"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:background="@color/Gray2"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:text="المجموع"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listView2"
+                style="@style/TextAppearance.AppCompat.Inverse"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/Blue"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <FrameLayout
+                android:id="@+id/Frag1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/dd1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#fff"
+            android:gravity="right"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="215dp"
+                android:background="@mipmap/row2"
+                android:gravity="center">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_ScrTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="الاستعلام عن المواد"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="right"
+                android:background="@mipmap/row1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView4"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Main_Page"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layoutDirection="rtl"
+            android:weightSum="2">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="0.8"
+                android:layoutDirection="rtl"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.6"
+                    android:orientation="horizontal">
+
+                    <Methdes.MyTextView
+                        android:id="@+id/textView38"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:onClick="btn_Search_Orders"
+                        android:text="رقم المادة"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.1"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_OrdeNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:ems="10"
+                        android:enabled="false"
+                        android:gravity="center_horizontal|center"
+                        android:inputType="number"
+                        android:onClick="btn_Search_Orders"
+                        android:scrollIndicators="top"
+                        android:textColor="#000" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:onClick="btn_Search_Orders"
+                        android:padding="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/ic_search" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layoutDirection="rtl"
+            android:weightSum="7">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:weightSum="3"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="الصنف"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:id="@+id/type_name"
+                        android:gravity="center"
+                        android:textColor="@color/Black11"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="سعر البيع"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:gravity="center"
+                        android:id="@+id/Price"
+                        android:textColor="@color/Black11"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:weightSum="3"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="المادة"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:id="@+id/Item_Name"
+                        android:gravity="center"
+                        android:textColor="@color/Black11"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="الضريبة"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:gravity="center"
+                        android:id="@+id/tax"
+                        android:textColor="@color/Black11"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:weightSum="3"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="الحد الطلب"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:gravity="center"
+                        android:id="@+id/ol"
+                        android:textColor="@color/Black11"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="كمية الطلب"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:id="@+id/OQ1"
+                        android:gravity="center"
+                        android:textColor="@color/Black11"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="باركود"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:id="@+id/brandno"
+                        android:gravity="center"
+                        android:textColor="@color/Black11"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:weightSum="3"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="تعبئة حاوية 20"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"
+                        android:id="@+id/pack20"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:textColor="@color/Black11"
+                        android:textSize="15dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="تعبئة حاوية 40"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:gravity="center"
+                        android:id="@+id/pack40"
+                        android:textColor="@color/Black11"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="3dp"
+                    android:weightSum="2">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
+                        android:text="مرتبط بتاريخ صلاحيه"
+                        android:textColor="@color/Black11"
+                        android:textSize="16dp"
+                        android:background="@color/Gray1"
+                        android:layout_weight="0.7"/>
+                    <EditText
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:textSize="15dp"
+                        android:id="@+id/Expired"
+                        android:gravity="center"
+                        android:textColor="@color/Black11"
+                        android:background="@drawable/btn_cir_white_fill_black"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.3"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:weightSum="3"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:weightSum="3"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:background="@drawable/btn_cir_white_fill_black">
+
+                    <Button
+                        android:id="@+id/bt_GetData2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/Blue"
+                        android:onClick="btn_Getfile"
+                        android:text="الصور"
+                        android:textColor="@color/White"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:background="@drawable/btn_cir_white_fill_black">
+
+                    <Button
+                        android:id="@+id/bt_GetData1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/Blue"
+                        android:onClick="btn_GetUint"
+                        android:text="الوحدات"
+                        android:textColor="@color/White"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black">
+
+                    <Button
+                        android:id="@+id/bt_GetData"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/Blue"
+                        android:onClick="btn_GetData"
+                        android:text="فئات الاسعار"
+                        android:textColor="@color/White"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black">
+
+                    <Button
+                        android:id="@+id/bt_ShowQty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/Blue"
+                        android:onClick="btn_ShowQty"
+                        android:text="كمية المستودعات"
+                        android:textColor="@color/White"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black">
+
+                    <Button
+                        android:id="@+id/back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="2dp"
+                        android:background="@color/Blue"
+                        android:onClick="bt_back"
+
+                        android:text="القائمة الرئيسية"
+                        android:textColor="@color/White"
+                        android:textSize="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

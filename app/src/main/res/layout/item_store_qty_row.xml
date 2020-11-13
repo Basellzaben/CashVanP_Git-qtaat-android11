@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/RR1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#fff"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_Storeno"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:text="Small Text"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#060606"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_Sname"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1.6"
+                android:gravity="center"
+                android:text="Small Text"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#060606"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_Qty"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:text="Small Text"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#060606"
+                android:textSize="16sp" />
+
+            <Methdes.MyTextView
+                android:id="@+id/tv_UnitName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.8"
+                android:gravity="center"
+                android:text="Small Text"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#060606"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

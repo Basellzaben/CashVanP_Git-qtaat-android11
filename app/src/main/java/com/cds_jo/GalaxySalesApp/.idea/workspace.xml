@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="277f89fc-1037-475f-abfb-2cbf1aac9ab1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/Categ_Frq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/GlobleV.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/InquireItemACT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/Item_SearchAct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/UintFrq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/cls_Item_hdr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/cls_get_Uint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/cls_get_Uint_Adabter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/cls_get_items_categ.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/cls_get_items_categ_Adabter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/fileFrg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/file_Adabter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/getItem_name.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/InquireItem/getItem_name_Adabter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/Categ_Frq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/GlobleV.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/InquireItemACT.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/Item_SearchAct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/UintFrq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/cls_Item_hdr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/cls_get_Uint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/cls_get_Uint_Adabter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/cls_get_items_categ.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/cls_get_items_categ_Adabter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/fileFrg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/file_Adabter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/getItem_name.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assist/InquireItem/getItem_name_Adabter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Cls_ItemRecepit_Search_Row.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Cls_Item_Store_Qty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Cls_Lookup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Cls_PurchesOrderSearch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Cls_Search_Item_Recepit_adapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/EnterQtyActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Enter_Qty_Img.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/ItemRecepitListAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Item_Store_qty_Adapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/ItemsRecepit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Lookup_Adapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Pop_EnterQty_Select_Items.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/Pop_Show_Item_Qty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/PurchesOrderSearch_Adapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/SearchEnterQtyOrders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/SearchItemsRecepitOrders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/SearchLookup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/SearchPurchesOrders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/warehouse/cls_Search_EnterQty_adapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/drawable/enter_qty.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/drawable/item_search.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/drawable/tick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/activity_categ__frq.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/activity_file_frg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/activity_inquire_item_a_c_t.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/activity_item__search.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/activity_item_recepit_orders.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/activity_uint_frq.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/categ_d.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/enter_qty__search.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/enter_qty_activity.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/enter_qty_img.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/enter_qty_row_search.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/enter_qty_trans_img.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/file_d.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/item_recepit_list_row.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/item_shr_name.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/item_store_qty_row.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/items_recepit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/pop_enter_qty_select_items.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/pop_show_item_qty.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/search_item_recpeit_row.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/search_lookup.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/search_lookup_row.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/search_purches_order.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/search_purches_order_row.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../res/layout/uint_d.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../../.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../../.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Companies.java" beforeDir="false" afterPath="$PROJECT_DIR$/Companies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ContactListItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/ContactListItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ItemsDameged.java" beforeDir="false" afterPath="$PROJECT_DIR$/ItemsDameged.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JalMasterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/JalMasterActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ManCard/SplashLoginAct.java" beforeDir="false" afterPath="$PROJECT_DIR$/ManCard/SplashLoginAct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewHomePage/Cls_Home_Show_Ditial.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewHomePage/Cls_Home_Show_Ditial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewHomePage/Cls_Home_Show_Ditial_Adapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewHomePage/Cls_Home_Show_Ditial_Adapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NewHomePage/NewHomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/NewHomePage/NewHomePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pop_Update_Qty.java" beforeDir="false" afterPath="$PROJECT_DIR$/Pop_Update_Qty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Select_StoreNo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Select_StoreNo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UpdateDataToMobileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateDataToMobileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assist/CallWebServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/assist/CallWebServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assist/Cls_TransQtyItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/assist/Cls_TransQtyItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assist/OrdersItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/assist/OrdersItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assist/Sale_InvoiceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/assist/Sale_InvoiceActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../header/Header_Frag.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../header/Header_Frag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../res/layout/select_store.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../res/layout/select_store.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../res/layout/view_update_data_to_mobile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../res/layout/view_update_data_to_mobile.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../.." />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="10" />
+    <option name="y" value="20" />
+    <option name="width" value="1004" />
+    <option name="height" value="688" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="GalaxySalesApp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GalaxySalesApp" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="D:/ttt11/Software/SDK" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="277f89fc-1037-475f-abfb-2cbf1aac9ab1" name="Default Changelist" comment="" />
+      <created>1604583730005</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604583730005</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.32980332" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Resources Explorer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Flutter Inspector" />
+      <window_info anchor="right" id="Flutter Outline" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Flutter Performance" />
+    </layout>
+  </component>
+</project>

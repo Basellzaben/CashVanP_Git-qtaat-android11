@@ -324,8 +324,27 @@ public class SittingNew extends FragmentActivity {
         sqlHandler.executeQuery(" delete from sqlite_sequence where name='CusfCardAtt'");
 
 
-        sqlHandler.executeQuery("Delete from CusfCard");
+              sqlHandler.executeQuery("Delete from CusfCard");
         sqlHandler.executeQuery(" delete from sqlite_sequence where name='CusfCard'");
+
+
+
+        sqlHandler.executeQuery("Delete from CusfCard");
+        sqlHandler.executeQuery(" Delete from sqlite_sequence where name='CusfCard'");
+
+        sqlHandler.executeQuery("Delete from ItemsReceipthdr");
+        sqlHandler.executeQuery(" Delete from sqlite_sequence where name='ItemsReceipthdr'");
+
+        sqlHandler.executeQuery("Delete from ItemsReceiptdtl");
+        sqlHandler.executeQuery(" Delete from sqlite_sequence where name='ItemsReceiptdtl'");
+
+
+        sqlHandler.executeQuery("Delete from EnterQtyhdr");
+        sqlHandler.executeQuery(" Delete from sqlite_sequence where name='EnterQtyhdr'");
+
+        sqlHandler.executeQuery("Delete from EnterQtydtl");
+        sqlHandler.executeQuery(" Delete from sqlite_sequence where name='EnterQtydtl'");
+
 
 
 
@@ -541,33 +560,35 @@ public class SittingNew extends FragmentActivity {
     }
 
     private void showblueboothlist() {
-        if (!bluetoothAdapter.isDiscovering()) {
-            bluetoothAdapter.startDiscovery();
-        }
-        LayoutInflater inflater=LayoutInflater.from(this);
-        dialogView=inflater.inflate(R.layout.printer_list, null);
-        adapter1=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, deviceList_bonded);
-        lv1=(ListView) dialogView.findViewById(R.id.listView1);
-        btn_scan=(Button) dialogView.findViewById(R.id.btn_scan);
-        LLlayout=(LinearLayout) dialogView.findViewById(R.id.ll1);
-        lv2=(ListView) dialogView.findViewById(R.id.listView2);
-        adapter2=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, deviceList_found);
-        lv1.setAdapter(adapter1);
-        lv2.setAdapter(adapter2);
-        dialog=new android.support.v7.app.AlertDialog.Builder(this).setTitle("الاجهزة المتاحة").setView(dialogView).create();
-        dialog.show();
+        try {
+            if (!bluetoothAdapter.isDiscovering()) {
+                bluetoothAdapter.startDiscovery();
+            }
+            LayoutInflater inflater = LayoutInflater.from(this);
+            dialogView = inflater.inflate(R.layout.printer_list, null);
+            adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, deviceList_bonded);
+            lv1 = (ListView) dialogView.findViewById(R.id.listView1);
+            btn_scan = (Button) dialogView.findViewById(R.id.btn_scan);
+            LLlayout = (LinearLayout) dialogView.findViewById(R.id.ll1);
+            lv2 = (ListView) dialogView.findViewById(R.id.listView2);
+            adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, deviceList_found);
+            lv1.setAdapter(adapter1);
+            lv2.setAdapter(adapter2);
+            dialog = new android.support.v7.app.AlertDialog.Builder(this).setTitle("الاجهزة المتاحة").setView(dialogView).create();
+            dialog.show();
 
-        myDevice=new DeviceReceiver(deviceList_found,adapter2,lv2);
+            myDevice = new DeviceReceiver(deviceList_found, adapter2, lv2);
 
-        //register the receiver
-        IntentFilter filterStart=new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        IntentFilter filterEnd=new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        registerReceiver(myDevice, filterStart);
-        registerReceiver(myDevice, filterEnd);
+            //register the receiver
+            IntentFilter filterStart = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+            IntentFilter filterEnd = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+            registerReceiver(myDevice, filterStart);
+            registerReceiver(myDevice, filterEnd);
 
 
-        setDlistener();
-        findAvalibleDevice();
+            setDlistener();
+            findAvalibleDevice();
+        }catch (Exception sd){}
     }
     private void setDlistener() {
         // TODO Auto-generated method stub
@@ -599,10 +620,20 @@ public class SittingNew extends FragmentActivity {
                     //lv1.setSelection(arg2);
                     dialog.cancel();
                     AddressBT.setText(mac);
-
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SittingNew.this);
                     SharedPreferences.Editor editor    = sharedPreferences.edit();
                     editor.putString("AddressBT", mac);
+
+                    if(  ComInfo.ComNo==Companies.Sector.getValue()) {
+                        AddressBT.setText(name);
+                        editor.putString("AddressBT", name);
+
+
+
+                    }
+
+
+
 
                     editor.commit();
                     new SweetAlertDialog(SittingNew.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)

@@ -77,6 +77,25 @@ public class Cls_UnitItems {
     String Min;
     String posprice;
 
+    public String getTax() {
+        return Tax;
+    }
+
+    public void setTax(String tax) {
+        Tax = tax;
+    }
+
+    String Tax;
+
+    public String getItemName() {
+        return ItemName;
+    }
+
+    public void setItemName(String itemName) {
+        ItemName = itemName;
+    }
+
+    String ItemName;
     public String getWeight() {
         return Weight;
     }

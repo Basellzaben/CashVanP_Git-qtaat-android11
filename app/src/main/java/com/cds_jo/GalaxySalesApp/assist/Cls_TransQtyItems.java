@@ -61,5 +61,15 @@ public class Cls_TransQtyItems {
     }
 
     String UnitNm;
+
+    public String getCounterKey() {
+        return CounterKey;
+    }
+
+    public void setCounterKey(String counterKey) {
+        CounterKey = counterKey;
+    }
+
+    String  CounterKey;
 }
 

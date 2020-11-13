@@ -67,7 +67,6 @@ import java.util.Locale;
 
 import Methdes.MyTextView;
 
-
 public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickListener {
     public static final String CALCULATOR_PACKAGE = "com.android.calculator2";
     public static final String CALCULATOR_CLASS = "com.android.calculator2.Calculator";
@@ -146,7 +145,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
 
         int dialogWidth = WindowManager.LayoutParams.WRAP_CONTENT;//340; // specify a value here
         int dialogHeight = WindowManager.LayoutParams.MATCH_PARENT;//400; // specify a value here
-
+        getDialog().setCanceledOnTouchOutside(false);
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
 
     }

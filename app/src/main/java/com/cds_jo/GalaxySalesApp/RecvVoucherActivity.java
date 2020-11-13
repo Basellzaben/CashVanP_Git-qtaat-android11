@@ -458,71 +458,65 @@ public class RecvVoucherActivity extends AppCompatActivity {
 
     }
     public void GetMaxRecNo() {
+try {
+    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    String Login = sharedPreferences.getString("Login", "No");
 
-        String Login = sharedPreferences.getString("Login", "No");
-        if(Login.toString().equals("No")){
-            Intent i = new Intent(this,NewLoginActivity.class);
-            startActivity(i);
-        }
+    String u = sharedPreferences.getString("UserID", "");
+    sql_Handler = new SqlHandler(this);
+    String query = "SELECT  ifnull(MAX(DocNo), 0) +1 AS no FROM RecVoucher   where UserID = '" + u.toString() + "'";
+    Cursor c1 = sql_Handler.selectQuery(query);
+    Integer max = 0;
+    EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
+    if (c1 != null && c1.getCount() != 0) {
+        c1.moveToFirst();
+        max = Integer.parseInt(c1.getString(c1.getColumnIndex("no")));
+        c1.close();
+    }
+    Integer max1 = 0;
+    String Payment_No;
+    try {
+        Payment_No = DB.GetValue(RecvVoucherActivity.this, "OrdersSitting", "Payment", "1=1");
 
-        String u =  sharedPreferences.getString("UserID", "").replaceAll("[^\\d.]", "");
-        sql_Handler = new SqlHandler(this);
-        String query = "SELECT  ifnull(MAX(DocNo), 0) +1 AS no FROM RecVoucher   where UserID = '"+u.toString().replaceAll("[^\\d.]", "")+"'";
-        Cursor c1 = sql_Handler.selectQuery(query);
-        Integer max =  0 ;
-        EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
-        if (c1 != null && c1.getCount() != 0) {
-            c1.moveToFirst();
-            max =Integer.parseInt(  c1.getString(c1.getColumnIndex("no")));
-            c1.close();
-        }
-        Integer max1=0;
-        String Payment_No;
-        try {
-            Payment_No = DB.GetValue(RecvVoucherActivity.this, "OrdersSitting", "Payment", "1=1");
-             Payment_No = Payment_No.replaceAll("[^\\d.]", "");
-             max1 = Integer.parseInt(Payment_No.toString());
+        max1 = Integer.parseInt(Payment_No.toString());
 
 
-        }catch (Exception ex){
-            Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
-            max1=0;
-        }
-        //max1 = sharedPreferences.getString("m2", "");
-        if (max1<=0){
-            max1 =0;
-        }
+    } catch (Exception ex) {
+        Toast.makeText(this, ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
+        max1 = 0;
+    }
 
-        max1 = max1 + 1;
-        if (max1 >  max )
-        {
-            max = max1 ;
-        }
+    if (max1 <= 0) {
+        max1 = 0;
+    }
 
-   if (max.toString().length()==1) {
-       Maxpo.setText(intToString(Integer.valueOf(u), 2) + intToString(Integer.valueOf(max), 5));
+    max1 = max1 + 1;
+    if (max1 > max) {
+        max = max1;
+    }
 
-   }
-   else {
+    if (max.toString().length() == 1) {
+        Maxpo.setText(intToString(Integer.valueOf(u), 2) + intToString(Integer.valueOf(max), 5));
 
-       Maxpo.setText(intToString(Integer.valueOf(max), 7)  );
+    } else {
 
-   }
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(Maxpo.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        Maxpo.setFocusable(false);
-        Maxpo.setEnabled(false);
-        Maxpo.setCursorVisible(false);
+        Maxpo.setText(intToString(Integer.valueOf(max), 7));
+
+    }
+    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(Maxpo.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    Maxpo.setFocusable(false);
+    Maxpo.setEnabled(false);
+    Maxpo.setCursorVisible(false);
 
 
-       // Maxpo.setKeyListener(null);
-       // Maxpo.setBackgroundColor(Color.TRANSPARENT);
+    // Maxpo.setKeyListener(null);
+    // Maxpo.setBackgroundColor(Color.TRANSPARENT);
 
-        DoNew();
-        showList();
-
+    DoNew();
+    showList();
+        }catch (Exception ex){}
     }
     public static String intToString(int num, int digits) {
         String output = Integer.toString(num);
@@ -604,20 +598,20 @@ public class RecvVoucherActivity extends AppCompatActivity {
 
         }
         ContentValues cv = new ContentValues();
-        cv.put("DocNo", DocNo.getText().toString().replace("\u202c","").replace("\u202d",""));
-        cv.put("CustAcc", acc.getText().toString().replace("\u202c","").replace("\u202d",""));
-        cv.put("Amnt", amt.getText().toString().replace("\u202c","").replace("\u202d",""));
-        cv.put("TrDate", Date.getText().toString().replace("\u202c","").replace("\u202d",""));
-        cv.put("Desc", note.getText().toString().replace("\u202c","").replace("\u202d",""));
-        cv.put("VouchType", v.getNo().toString().replace("\u202c","").replace("\u202d",""));
-        cv.put("curno", o.getNo().toString().replace("\u202c","").replace("\u202d",""));
-        cv.put("Cash", Cash.getText().toString().replace("\u202c","").replace("\u202d",""));
-        cv.put("CheckTotal", CheckTotal.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("DocNo", DocNo.getText().toString());
+        cv.put("CustAcc", acc.getText().toString());
+        cv.put("Amnt", amt.getText().toString());
+        cv.put("TrDate", Date.getText().toString());
+        cv.put("Desc", note.getText().toString());
+        cv.put("VouchType", v.getNo().toString());
+        cv.put("curno", o.getNo().toString());
+        cv.put("Cash", Cash.getText().toString());
+        cv.put("CheckTotal", CheckTotal.getText().toString());
         cv.put("Post","-1");
-        cv.put("Seq",Seq.toString().replace("\u202c","").replace("\u202d",""));
-        cv.put("UserID", sharedPreferences.getString("UserID", "").replace("\u202c","").replace("\u202d",""));
-        cv.put("V_OrderNo",sharedPreferences.getString("V_OrderNo", "0").replace("\u202c","").replace("\u202d",""));
-        cv.put("DayNum",dayOfWeek+"".replace("\u202c","").replace("\u202d",""));
+        cv.put("Seq",Seq.toString());
+        cv.put("UserID", sharedPreferences.getString("UserID", ""));
+        cv.put("V_OrderNo",sharedPreferences.getString("V_OrderNo", "0"));
+        cv.put("DayNum",dayOfWeek+"".replace("\u202c",""));
         long i;
 
         if (IsNew==true) {
@@ -1109,7 +1103,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
 
         sql_Handler = new SqlHandler(this);
 
-        String query = "delete from t_RecCheck ";
+             String query = "delete from t_RecCheck ";
         sql_Handler.executeQuery(query);
 
 

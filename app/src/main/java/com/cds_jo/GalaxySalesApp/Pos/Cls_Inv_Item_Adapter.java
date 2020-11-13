@@ -81,20 +81,20 @@ public class Cls_Inv_Item_Adapter extends BaseAdapter {
 
         }
         TextView tvSlNo = (TextView) convertView.findViewById(R.id.tv_no);
-        tvSlNo.setText("الرقم"+":"+contactListItems.getno());
+        tvSlNo.setText(contactListItems.getno());
         TextView tvName = (TextView) convertView.findViewById(R.id.tv_name);
-        tvName.setText("المادة"+":"+contactListItems.getName());
+        tvName.setText( contactListItems.getName());
         TextView tvPrice = (TextView) convertView.findViewById(R.id.tv_Price);
-        tvPrice.setText("السعر"+":"+contactListItems.getItemOrgPrice());
+        tvPrice.setText( contactListItems.getItemOrgPrice());
 
 
         TextView tvQTY = (TextView) convertView.findViewById(R.id.tv_Qty);
-        tvQTY.setText("الكمية"+":"+contactListItems.getQty()+" "+contactListItems.getUniteNm());
+        tvQTY.setText(contactListItems.getQty());
         TextView tvTAX = (TextView) convertView.findViewById(R.id.tv_tax);
         tvTAX.setText(contactListItems.getTax());
 
         TextView Unit = (TextView) convertView.findViewById(R.id.tv_Unit);
-        Unit.setText("الوحدة"+":"+contactListItems.getUniteNm());
+        Unit.setText(contactListItems.getUniteNm());
 
 
         TextView Bounce = (TextView) convertView.findViewById(R.id.tv_Bounce);
@@ -112,7 +112,7 @@ public class Cls_Inv_Item_Adapter extends BaseAdapter {
 
 
         TextView Total = (TextView) convertView.findViewById(R.id.tv_Total);
-        Total.setText("المجموع"+":"+contactListItems.getTotal());
+        Total.setText(contactListItems.getTotal());
 
 
         TextView Tax_Amt = (TextView) convertView.findViewById(R.id.tv_Tax_Amt);

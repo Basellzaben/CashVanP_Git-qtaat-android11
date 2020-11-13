@@ -60,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
 
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.7"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -236,6 +236,7 @@
                                 android:checked="false"
                                 android:text="معلومات المؤسسة"
                                 android:textSize="18sp" />
+
                             <CheckBox
                                 android:id="@+id/chk_Cust_Cat"
                                 android:layout_width="fill_parent"
@@ -380,6 +381,7 @@
                                 android:visibility="visible" />
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/phLayouts1"
                             android:layout_width="fill_parent"
@@ -423,12 +425,56 @@
                                 android:visibility="visible" />
 
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/phLayouts10"
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <CheckBox
+                                android:id="@+id/chk_LookUp"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:checked="false"
+                                android:gravity="center|clip_vertical|right"
+                                android:text="معلومات عامة"
+                                android:textSize="18sp"
+                                android:visibility="visible" />
+
+
+                            <CheckBox
+                                android:id="@+id/chk_PaymengfgtSchudel"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:checked="false"
+                                android:gravity="center|clip_vertical|right"
+                                android:text=" "
+                                android:textSize="18sp"
+                                android:visibility="gone" />
+
+
+                            <CheckBox
+                                android:id="@+id/chk_cogfguntry"
+                                android:layout_width="fill_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:checked="false"
+                                android:gravity="center|clip_vertical|right"
+                                android:text=""
+                                android:textSize="18sp"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.3"
                         android:orientation="vertical">
 
                         <LinearLayout
