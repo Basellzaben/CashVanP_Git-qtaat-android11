@@ -1,6 +1,8 @@
 package com.cds_jo.GalaxySalesApp.InquireItem;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ public class file_Adabter  extends BaseAdapter {
     public file_Adabter(Context context, ArrayList<cls_Item_hdr> contactList) {
         this.context = context;
         this.contactList = contactList;
+
     }
 
     @Override
@@ -50,8 +53,10 @@ public class file_Adabter  extends BaseAdapter {
         }
         MyTextView tvSlNo = (MyTextView) convertView.findViewById(R.id.dis);
         tvSlNo.setText(contactListItems.getDescription());
+
+
         ImageView imageView = (ImageView) convertView.findViewById(R.id.img);
-        Picasso.get().load("http://192.168.1.4:3766/"+contactListItems.getImg_Text()).into(imageView);
+             Picasso.get().load( contactListItems.getIP()+":3766/"+contactListItems.getImg_Text()).into(imageView);
      
 
 

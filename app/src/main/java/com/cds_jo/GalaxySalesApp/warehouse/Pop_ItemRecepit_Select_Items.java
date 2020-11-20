@@ -220,27 +220,13 @@ public class Pop_ItemRecepit_Select_Items extends DialogFragment implements View
         final List<String> promotion_ls = new ArrayList<String>();
 
         final EditText Price = (EditText) form.findViewById(R.id.et_price);
-        if (ComInfo.ComNo == 1) {
+
 
             Price.setFocusable(true);
             Price.setClickable(true);
-            Price.setInputType(Configuration.KEYBOARD_12KEY);
-            Price.setKeyListener(new DigitsKeyListener());
-        } else {
 
 
-         //   Price.setFocusable(false);
-          //  Price.setClickable(false);
-            Price.setInputType(Configuration.KEYBOARD_12KEY);
-            Price.setKeyListener(new DigitsKeyListener());
-        }
-        //Price.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-        // Price.setKeyListener(new DigitsKeyListener());
-        // Price.setRawInputType(Configuration.KEYBOARD_QWERTY);
-      /*  InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(Price, InputMethodManager.SHOW_IMPLICIT);
-*/
 
         final EditText qty = (EditText) form.findViewById(R.id.et_qty);
         EditText tax = (EditText) form.findViewById(R.id.et_tax);
@@ -766,6 +752,11 @@ public class Pop_ItemRecepit_Select_Items extends DialogFragment implements View
             Price.setEnabled(true);
         }
         Price.setEnabled(true);
+        EditText et_Discount = (EditText) form.findViewById(R.id.et_Discount);
+        et_Discount.setEnabled(false);
+
+        et_Discount.setText((SToD( getArguments().getString("dispercent")+"") )+"");
+        rad_Per.setChecked(true);
         return form;
     }
 
@@ -791,7 +782,8 @@ public class Pop_ItemRecepit_Select_Items extends DialogFragment implements View
             et_qty.setText("");
         }
         et_qty.clearFocus();
-        et_Discount.setText("");
+        //et_Discount.setText("");
+
         tv_StoreQty.setText("");
         tv_qty_perc.setText("");
 
@@ -1753,7 +1745,7 @@ public class Pop_ItemRecepit_Select_Items extends DialogFragment implements View
         } else if (v == cancel) {
             this.dismiss();
         } else if (v == add) {
-
+            CalcDiscount();
             EditText Price = (EditText) form.findViewById(R.id.et_price);
             final EditText final_P = (EditText) form.findViewById(R.id.et_price);
 

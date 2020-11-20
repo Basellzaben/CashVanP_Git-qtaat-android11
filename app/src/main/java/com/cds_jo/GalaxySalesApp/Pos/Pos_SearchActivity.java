@@ -41,7 +41,6 @@ String DocType ="1";
         form =inflater.inflate(R.layout.activity_pos__inv__search,container,false);
         DocType = getArguments().getString("doctype") ;
 
-
             getDialog().setTitle("البحث في فواتير المبيعات");
 
 
@@ -135,12 +134,12 @@ String DocType ="1";
          cls_search_pos_list.clear();
          items_Lsit.setAdapter(null);
          if (Filter.length()==0) {
-             q = "Select distinct s.Net_Total, s.OrderNo ,s.acc ,s.date , s.inovice_type,    s.Nm  as  name   " +
+             q = "Select distinct ifnull(OrderDesc,'') as OrderDesc,  s.Net_Total, s.OrderNo ,s.acc ,s.date , s.inovice_type,    s.Nm  as  name   " +
                      "from  Sal_invoice_Hdr s      where       UserID='"+sharedPreferences.getString("UserID", "")+"'";
          }else {
-             q = "Select  distinct s.Net_Total ,s.OrderNo ,s.acc ,s.date , s.inovice_type,    s.Nm   as  name   from  Sal_invoice_Hdr s  " +
+             q = "Select  distinct ifnull(OrderDesc,'') as OrderDesc, s.Net_Total ,s.OrderNo ,s.acc ,s.date , s.inovice_type,    s.Nm   as  name   from  Sal_invoice_Hdr s  " +
                      " Where      UserID='"+sharedPreferences.getString("UserID","") +"'" +
-                     " and c.name like '%" + Filter + "%'   or   s.Nm  like '%" + Filter + "%' " ;
+                     " and s.Nm like '%" + Filter + "%'   or   s.acc  like '%" + Filter + "%'  or  s.OrderNo     like '%" + Filter + "%'";
          }
 
          SqlHandler sqlHandler = new SqlHandler(getActivity());
@@ -154,7 +153,7 @@ String DocType ="1";
                      cls_searchpos.setCustNm(c1.getString(c1.getColumnIndex("name")));
                      cls_searchpos.setDate(c1.getString(c1.getColumnIndex("date")));
                      cls_searchpos.setAcc(c1.getString(c1.getColumnIndex("acc")));
-                     cls_searchpos.setNotes("");
+                     cls_searchpos.setNotes(c1.getString(c1.getColumnIndex("OrderDesc")));
                      cls_searchpos.setType(c1.getString(c1.getColumnIndex("inovice_type")));
                      cls_searchpos.setTot(c1.getString(c1.getColumnIndex("Net_Total")));
                      cls_search_pos_list.add(cls_searchpos);

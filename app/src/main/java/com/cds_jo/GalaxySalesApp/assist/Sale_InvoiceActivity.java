@@ -67,8 +67,10 @@ import com.cds_jo.GalaxySalesApp.PopEnterActQty;
 import com.cds_jo.GalaxySalesApp.PopEnterInvoiceHeaderDiscount;
 import com.cds_jo.GalaxySalesApp.PopSal_Inv_Select_Items;
 import com.cds_jo.GalaxySalesApp.PopSal_return_Select_Items;
+import com.cds_jo.GalaxySalesApp.PopShowCustDiscountDept;
 import com.cds_jo.GalaxySalesApp.PopShowCustLastTrans;
 import com.cds_jo.GalaxySalesApp.Pop_Confirm_New;
+import com.cds_jo.GalaxySalesApp.Pop_Man_Vac;
 import com.cds_jo.GalaxySalesApp.Pop_Payments_method;
 import com.cds_jo.GalaxySalesApp.PostTransActions.PostSalesInvoice;
 import com.cds_jo.GalaxySalesApp.R;
@@ -108,6 +110,7 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 import Methdes.MyTextView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import header.Header_Frag;
 import header.SimpleSideDrawer;
 
@@ -160,6 +163,8 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
     String   FinalDiscountType="0" ;// 1 نسبة    2 مبلغ
     Button btn_Payment;
     String SCR_NO="11002";
+    Double DisAmt = 0.0;
+    String DiscountDept = "-1";
     private static final String DIALOG_DATE = "date";
     private void HiddenHdrDiscount() {
         int flg;
@@ -653,15 +658,22 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
 
-        if (ComInfo.ComNo == 1) {
-            FragmentManager Manager = getFragmentManager();
+
+           /* FragmentManager Manager = getFragmentManager();
             PopShowCustLastTrans popShowOffers = new PopShowCustLastTrans();
             popShowOffers.setArguments(bundle);
-            popShowOffers.show(Manager, null);
-        }
+            popShowOffers.show(Manager, null);*/
+
+            FragmentManager Manager = getFragmentManager();
+            PopShowCustDiscountDept popShowCustDiscountDept = new PopShowCustDiscountDept();
+            popShowCustDiscountDept.setArguments(bundle);
+            popShowCustDiscountDept.show(Manager, null);
+
+
+
 
         DriverNm  = (MyTextView) mNav.findViewById(R.id.tv_DriverNm);
-          tv_NetTotal  = (TextView) mNav.findViewById(R.id.tv_NetTotal);
+        tv_NetTotal  = (TextView) mNav.findViewById(R.id.tv_NetTotal);
         tv_HeaderDscount  = (MyTextView) mNav.findViewById(R.id.tv_HeaderDscount);
 
         LinearLayout  LytHeaderDiscount = (LinearLayout)mNav.findViewById(R.id.LytHeaderDiscount);
@@ -781,7 +793,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
           tv_acc = (TextView)findViewById(R.id.tv_acc);
 
     }
-    public  void InsertDiscount(String DiscountAmt , String DiscountType){
+    public  void InsertDiscount(String DiscountAmt , String DiscountType   ){
            double ItemWieght=0.0;
 
         for (int x = 0; x < contactList.size(); x++) {
@@ -1953,6 +1965,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
         cv.put("hdr_dis_value",FinalDiscountAmt+"");
         cv.put("hdr_dis_Type",FinalDiscountType+"");
 
+
         cv.put("disc_Total", dis.getText().toString().replace("\u202c","").replace("\u202d",""));
         cv.put("Pos_System", "0");
         if (IsNew == true) {
@@ -2073,6 +2086,11 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
             editor.putString("InvCount", Count);
             editor.commit();
             IsChange = false;
+
+            if(DiscountDept.equalsIgnoreCase("-1")){
+                ApplyCustDiscount();
+            }
+            DiscountDept = "-1";
             CustAmtDt();
               if (chk_Type.isChecked()) {
                   Insert_AutRecv();
@@ -4642,4 +4660,42 @@ public class Sale_InvoiceActivity extends AppCompatActivity {
 
 
     }
+
+    private  void ApplyCustDiscount() {
+        Double InvTotla = 0.0;
+
+        for (int x = 0; x < contactList.size(); x++) {
+
+            if (contactList.get(x).getProID().equalsIgnoreCase("") || contactList.get(x).getProID().equalsIgnoreCase("0")) {
+                InvTotla = InvTotla + SToD(contactList.get(x).getTotal());
+            }
+
+        }
+        if (InvTotla > 0) {
+            query = "SELECT ifnull(Discount_Value,0)  as  Discount_Value from DeptDiscount " +
+                    "  Where CustNo ='" + tv_acc.getText().toString() + "' And " + InvTotla + " " +
+                    "    between From_Value and  To_Value  order by cast(Discount_Value  as float)  desc" +
+                    "    limit 1  ";
+
+            Cursor c1 = sqlHandler.selectQuery(query);
+            if (c1 != null && c1.getCount() != 0) {
+                if (c1.moveToFirst()) {
+                    DisAmt = SToD(c1.getString(c1.getColumnIndex("Discount_Value")));
+                }
+                c1.close();
+            }
+        }
+
+
+
+        if (DisAmt>0   ){
+            DiscountDept = "2";
+            InsertDiscount(DisAmt+"","1" );
+            new SweetAlertDialog(Sale_InvoiceActivity.this,SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                    .setTitleText("فاتورة مبيعات")
+                    .setContentText("لقد تم منح العميل خصم قيمتة " + " " +DisAmt  +" % ")
+                    .setCustomImage(R.drawable.tick).show();
+        }
+    }
+
 }

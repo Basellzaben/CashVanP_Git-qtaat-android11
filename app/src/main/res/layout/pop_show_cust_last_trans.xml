@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/Footer_Menu"
                     android:gravity="center"
-                    android:text="اخر حركات العميل"
+                    android:text="فئات خصم الممنوحة للعميل"
                     android:textColor="#000"
                     android:textSize="25sp" />
             </LinearLayout>
@@ -61,7 +61,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_weight="1.5"
+                        android:layout_weight="2"
                         android:background="@color/Main_Gray_Blure"
 
                         android:gravity="center"
@@ -79,7 +79,7 @@
 
                         android:background="@color/Main_Gray_Blure"
                         android:gravity="center"
-                        android:text="نوع الحركة"
+                        android:text="قيمة الفاتورة"
                         android:textColor="#fff"
                         android:textSize="18sp" />
 
@@ -92,10 +92,11 @@
                         android:layout_weight="1"
                         android:background="@color/Main_Gray_Blure"
                         android:gravity="center"
-                        android:text="التاريخ"
+                        android:text="قيمة الفاتورة"
                         android:textColor="#fff"
                         android:textIsSelectable="false"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:visibility="gone" />
 
 
                     <Methdes.MyTextView
@@ -105,10 +106,10 @@
                         android:layout_gravity="center"
 
                         android:layout_marginRight="1dp"
-                        android:layout_weight="0.7"
+                        android:layout_weight="1"
                         android:background="@color/Main_Gray_Blure"
                         android:gravity="center"
-                        android:text="المدة بالايام"
+                        android:text="قيمة الخصم"
                         android:textColor="#fff"
                         android:textIsSelectable="false"
                         android:textSize="18sp" />
@@ -121,7 +122,7 @@
                         android:layout_gravity="center"
 
                         android:layout_marginRight="1dp"
-                        android:layout_weight="0.8"
+                        android:layout_weight="1"
                         android:background="@color/Main_Gray_Blure"
                         android:gravity="center"
                         android:text="المبلغ"
@@ -143,6 +144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#fff" />
+
             </LinearLayout>
 
         </LinearLayout>

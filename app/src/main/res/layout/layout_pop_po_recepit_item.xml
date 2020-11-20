@@ -484,14 +484,14 @@
                         android:layout_height="match_parent"
                         android:layout_marginBottom="2dp"
                         android:orientation="horizontal"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <Methdes.MyTextView
                             android:id="@+id/textView25"
                             android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="الخصم "
+                            android:text="خصم طلب الشراء "
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="#000"
                             android:textSize="20sp" />
@@ -499,10 +499,11 @@
                         <EditText
                             android:id="@+id/et_Discount"
                             android:layout_width="130dp"
-                            android:layout_height="40dp"
+                            android:layout_height="match_parent"
                             android:background="@drawable/btn_cir_white_fill_black"
+                            android:editable="false"
                             android:ems="10"
-                            android:inputType="numberDecimal"
+
                             android:textAlignment="center" />
 
                     </LinearLayout>

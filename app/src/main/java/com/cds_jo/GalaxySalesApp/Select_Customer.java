@@ -153,6 +153,8 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
                     ((CustomerLocation) getActivity()).Set_Cust(customers.getAcc(), customers.getNm());
                 }else if (getArguments().getString("Scr") == "POS") {
                     ((Pos_Activity) getActivity()).Set_Cust(customers.getAcc(), customers.getNm());
+                }else if (getArguments().getString("Scr") == "CustNotes") {
+                    ((CustomerNotes) getActivity()).Set_Cust(customers.getAcc(), customers.getNm());
                 }
 
 

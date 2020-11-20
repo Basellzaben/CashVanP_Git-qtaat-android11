@@ -2,7 +2,9 @@ package com.cds_jo.GalaxySalesApp.InquireItem;
 
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ public class fileFrg extends DialogFragment {
     file_Adabter adapter;
     ListView listView;
     Button back,update;
+    String IPAddress;
     public ProgressDialog loadingdialog;
     @Override
     public void onStart()
@@ -78,6 +81,10 @@ public class fileFrg extends DialogFragment {
                 dismiss();
 
             }});
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        IPAddress =sharedPreferences.getString("ServerIP", "");
+
         return view;
     }
 
@@ -107,6 +114,7 @@ public class fileFrg extends DialogFragment {
 
                         cls_acc_report.setDescription(Description.get(i).toString());
                         cls_acc_report.setImg_Text(Img_Text.get(i).toString());
+                        cls_acc_report.setIP(IPAddress);
 
 
 

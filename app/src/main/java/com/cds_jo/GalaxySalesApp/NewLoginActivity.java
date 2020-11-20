@@ -58,6 +58,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 public class NewLoginActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -314,7 +316,13 @@ public class NewLoginActivity extends FragmentActivity implements LoaderManager.
 
                         return;
                     } else {
-                        Toast.makeText(this, "معلومات الدخول غير صحيحة", Toast.LENGTH_SHORT).show();
+                        new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                                .setTitleText("نظام المبيعات")
+                                .setContentText("معلومات الدخول غير صحيحة ")
+                                 .setCustomImage(R.drawable.error_new)
+                                .show();
+
+                       // Toast.makeText(this, "معلومات الدخول غير صحيحة", Toast.LENGTH_SHORT).show();
                         return;
                     }
 

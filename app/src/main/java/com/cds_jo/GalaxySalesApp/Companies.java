@@ -11,7 +11,8 @@ public enum Companies {
     beutyLine(8) ,
     Saad(9),
     Ma8bel(10),
-    Sector(11);
+    Sector(11),
+    Afrah(12);
     private final int value;
     Companies(int type)
     {

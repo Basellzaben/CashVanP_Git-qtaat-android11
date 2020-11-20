@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -19,10 +20,12 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 
 
+import com.cds_jo.GalaxySalesApp.Cls_Offers_Hdr;
 import com.cds_jo.GalaxySalesApp.Cls_Sal_InvItems;
 import com.cds_jo.GalaxySalesApp.ContactListItems;
 import com.cds_jo.GalaxySalesApp.DB;
 import com.cds_jo.GalaxySalesApp.R;
+import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.starmicronics.stario.StarIOPort;
 import com.starmicronics.stario.StarIOPortException;
 import com.starmicronics.stario.StarPrinterStatus;
@@ -42,6 +45,9 @@ import java.util.Map;
 import com.cds_jo.GalaxySalesApp.TspPrinter.RasterDocument.RasSpeed;
 import com.cds_jo.GalaxySalesApp.TspPrinter.RasterDocument.RasPageEndMode;
 import com.cds_jo.GalaxySalesApp.TspPrinter.RasterDocument.RasTopMargin;
+
+import org.apache.commons.lang3.StringUtils;
+
 public class PrinterFunctions {
 	public enum NarrowWide {
 		_2_6, _3_9, _4_12, _2_5, _3_8, _4_10, _2_4, _3_6, _4_8
@@ -2426,7 +2432,12 @@ public class PrinterFunctions {
 		return d;
 	}
 
+	public static String pad(String string , int maxPadLength) {
 
+
+		String paddingCharacter = " ";
+		return 	StringUtils.leftPad(string, maxPadLength, paddingCharacter);
+	}
 	public static void PrintPos(Context context, String portName, String portSettings, String commandType, Resources res, String strPrintArea, RasterCommand rasterType,String CustName , String ManNm,String Total, ArrayList<Cls_Sal_InvItems> contactList ,String OrdeNo ) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 		String BPrinter_MAC_ID = sharedPreferences.getString("AddressBT", "");
@@ -2434,20 +2445,41 @@ public class PrinterFunctions {
 		  portName ="BT:"+BPrinter_MAC_ID;
 
 
-		String AmtPaid ,Remain,Discount,OrderTotal,Net_Total,Visa_flg,Check_flg, Cash_flg,Paymethod,TaxTotal;
-		AmtPaid= DB.GetValue(context,"Sal_invoice_Hdr","Cust_Amt_Paid","OrderNo='"+OrdeNo+"'");
-		Remain= DB.GetValue(context,"Sal_invoice_Hdr","Remain_Amt","OrderNo='"+OrdeNo+"'");
-		Discount= DB.GetValue(context,"Sal_invoice_Hdr","hdr_dis_value","OrderNo='"+OrdeNo+"'");
-		Net_Total= DB.GetValue(context,"Sal_invoice_Hdr","Net_Total","OrderNo='"+OrdeNo+"'");
+		String q,AmtPaid ,Remain,Discount,OrderTotal,Net_Total,Visa_flg,Check_flg, Cash_flg,Paymethod,TaxTotal,OrderDesc;
+		AmtPaid="0";
+		Remain="0";
+		Discount="0";
+		OrderTotal="0";
+		Net_Total="0";
+		Visa_flg="0";
+		Check_flg="0";
+		Cash_flg="0";
+		Paymethod="";
+		TaxTotal ="0";
+		OrderDesc="";
+		q= "  select distinct ifnull(OrderDesc,0) as OrderDesc , ifnull(Cust_Amt_Paid,0) as Cust_Amt_Paid ,ifnull(Remain_Amt,0) as Remain_Amt , hdr_dis_value,Net_Total,ifnull(Cash_flg,0) as Cash_flg  ,ifnull( Check_flg,0) as Check_flg ,ifnull(Visa_flg,0) as Visa_flg ,Tax_Total ,Total from Sal_invoice_Hdr     where OrderNo='"+OrdeNo+"'";
+		SqlHandler sqlHandler= new SqlHandler(context);
+		Cursor c1 = sqlHandler.selectQuery(q);
 
-		//Net_Total = SToD(Net_Total)+SToD(Discount)+"";
 
-		Cash_flg= DB.GetValue(context,"Sal_invoice_Hdr","Cash_flg","OrderNo='"+OrdeNo+"'");
-		Check_flg= DB.GetValue(context,"Sal_invoice_Hdr","Check_flg","OrderNo='"+OrdeNo+"'");
-		Visa_flg= DB.GetValue(context,"Sal_invoice_Hdr","Visa_flg","OrderNo='"+OrdeNo+"'");
-		TaxTotal= DB.GetValue(context,"Sal_invoice_Hdr","Tax_Total","OrderNo='"+OrdeNo+"'");
+		if (c1 != null && c1.getCount() != 0) {
+			 if (c1.moveToFirst()){
+				AmtPaid = c1.getString(c1.getColumnIndex("Cust_Amt_Paid") );
+				Remain = c1.getString(c1.getColumnIndex("Remain_Amt") );
+				Discount = c1.getString(c1.getColumnIndex("hdr_dis_value") );
+				Net_Total = c1.getString(c1.getColumnIndex("Net_Total") );
+				Cash_flg = c1.getString(c1.getColumnIndex("Cash_flg") );
+				Check_flg = c1.getString(c1.getColumnIndex("Check_flg") );
+				Visa_flg = c1.getString(c1.getColumnIndex("Visa_flg") );
+				TaxTotal = c1.getString(c1.getColumnIndex("Tax_Total") );
+				Total = c1.getString(c1.getColumnIndex("Total") );
+				OrderDesc = c1.getString(c1.getColumnIndex("OrderDesc") );
+			}
+			c1.close();
+		}
 
-		Total= DB.GetValue(context,"Sal_invoice_Hdr","Total","OrderNo='"+OrdeNo+"'");
+
+
 
         if (AmtPaid.equalsIgnoreCase("-1")){
 			AmtPaid="0";
@@ -2529,7 +2561,8 @@ public class PrinterFunctions {
 		list.add(createRasterCommand(Date, 15, Typeface.BOLD, rasterType));
 
 		textToPrint="العميل" ;
-		textToPrint=textToPrint+" : "+CustName+"";
+		//textToPrint=textToPrint+" : "+CustName+"";
+		textToPrint=textToPrint+" : "+OrderDesc+"";
 		list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
 
 		textToPrint="المندوب" ;
@@ -2540,10 +2573,17 @@ public class PrinterFunctions {
 		textToPrint=textToPrint+"\r\n"+ "ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ";
 		list.add(createRasterCommand(textToPrint, 14, Typeface.BOLD, rasterType));
 
-
+		int maxPadLength=10;
+		  if(SToD(Total+"")>1000) {
+			    maxPadLength = 9;
+		  }else{
+			  maxPadLength = 11;
+		  }
 		for (Cls_Sal_InvItems i : contactList){
 			textToPrint ="  "+ i.getName()+"\n";
-			textToPrint =textToPrint+ "      "+ i.getTotal()+"        " +  i.getTax_Amt()+ "       "+  SToD(i.getQty())*SToD(i.getPrice() ) + "       "+i.getUniteNm()+"       "+i.getQty()+"      "+ i.getItemOrgPrice()   ;
+			//textToPrint =textToPrint+ " "+ i.getTotal()+"    " +  i.getTax_Amt()+ "    "+  SToD(i.getQty())*SToD(i.getPrice() ) + "     "+i.getUniteNm()+"     "+i.getQty()+"     "+ i.getItemOrgPrice()   ;
+			textToPrint =textToPrint+ pad( i.getTotal(),maxPadLength )+pad(i.getTax_Amt(),maxPadLength ) +  pad(SToD(i.getQty())*SToD(i.getPrice()  )+"",maxPadLength )   +pad(i.getUniteNm() ,maxPadLength) +pad(i.getQty() ,maxPadLength+2)+  pad(i.getItemOrgPrice() ,maxPadLength)  ;
+
 			textToPrint =textToPrint+  "\r\n";
 			textToPrint =textToPrint+  "***********************************************";
 			list.add(createRasterCommand(textToPrint, 12, Typeface.BOLD, rasterType));

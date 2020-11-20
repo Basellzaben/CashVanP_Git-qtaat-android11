@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <Methdes.MyTextView
+            android:id="@+id/Title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="#000"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_Increment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/Gray3"
+                android:gravity="center"
+                android:text="+"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/tv_price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:gravity="center"
+                android:inputType="numberDecimal"
+                android:maxLength="8"
+                android:textColor="#000"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_Dicrement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/Gray3"
+                android:gravity="center"
+                android:text="-"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="5dp"
+        android:background="#000"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_Clear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:background="@color/Gray3"
+                android:gravity="center"
+                android:text="مسح"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_Back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/Gray3"
+                android:gravity="center"
+                android:text="إغلاق"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -73,6 +73,7 @@ import com.cds_jo.GalaxySalesApp.assist.Convert_Layout_Img;
 import com.cds_jo.GalaxySalesApp.assist.Convert_Layout_Img_Tsc;
 import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 import com.cds_jo.GalaxySalesApp.assist.Pop_Confirm_Serial_From_Zero;
+import com.github.mikephil.charting.renderer.scatter.ChevronDownShapeRenderer;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -104,6 +105,7 @@ public class ItemsRecepit extends FragmentActivity {
     public String json;
     Boolean IsNew;
     String CatNo = "-1";
+    String dispercent="0";
     public int f = 0;
     private SimpleSideDrawer mNav;
     NumberFormat nf_out;
@@ -683,35 +685,41 @@ public class ItemsRecepit extends FragmentActivity {
         showList(0);
     }
     private void CalcTotal() {
-
         Double Total,  Po_Total;
         ContactListItems contactListItems = new ContactListItems();
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
         DecimalFormat df = (DecimalFormat) nf;
-
         Total = 0.0;
-
-
 
         TextView Subtotal = (TextView) findViewById(R.id.et_Total);
         TextView dis = (TextView) findViewById(R.id.et_dis);
         TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
 
          Double pq = 0.0;
-
-
+        Double All_Dis_Per = 0.0;
+        Double Dis_Amt = 0.0;
+        Double V_NetTotal = 0.0;
+        Double RowTotal = 0.0;
+        Double opq = 0.0;
         for (int x = 0; x < contactList.size(); x++) {
             contactListItems = new ContactListItems();
             contactListItems = contactList.get(x);
             pq = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
-            Total = Total + pq;
-            contactListItems.setTotal((SToD(Total.toString().replace(",", ""))).toString());
+            All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr())    ;
+            Dis_Amt = Dis_Amt + (((pq) * (All_Dis_Per / 100)));
+            opq = SToD(contactListItems.getItemOrgPrice()) * SToD(contactListItems.getQty());
+            RowTotal = opq - ((opq) * (All_Dis_Per / 100));
+            V_NetTotal = V_NetTotal + SToD(RowTotal.toString().replace(",", ""));
+            Total = V_NetTotal   + Dis_Amt;
+            contactListItems.setTotal((SToD(RowTotal.toString().replace(",", ""))).toString());
 
         }
         Subtotal.setText(Total+"");
+        dis.setText(String.valueOf(df.format(Dis_Amt)).replace(",", ""));
+
 
         Po_Total =    (SToD(Subtotal.getText().toString()) - SToD(dis.getText().toString())) ;
-        NetTotal.setText(Po_Total.toString().replace(",", ""));
+        NetTotal.setText(V_NetTotal.toString().replace(",", ""));
         showList(0);
 
 
@@ -867,6 +875,7 @@ public class ItemsRecepit extends FragmentActivity {
         bundle.putString("Scr", "po");
         bundle.putString("CustTaxStatus", CustTaxStatus);
         bundle.putString("CatNo", CatNo);
+        bundle.putString("dispercent", dispercent);
         FragmentManager Manager = getFragmentManager();
         Pop_ItemRecepit_Select_Items obj = new Pop_ItemRecepit_Select_Items();
         obj.setArguments(bundle);
@@ -1194,20 +1203,14 @@ public class ItemsRecepit extends FragmentActivity {
 
         if (i > 0) {
 
-            if(IsNew== true){
-                InsertLogTrans obj=new InsertLogTrans(ItemsRecepit.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
-            }else{
-                InsertLogTrans obj=new InsertLogTrans(ItemsRecepit.this,SCR_NO , SCR_ACTIONS.Modify.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
-            }
-            // GetMaxPONo();
-            AlertDialog alertDialog = new AlertDialog.Builder(
-                    this).create();
-            alertDialog.setTitle("استلام المواد");
-            alertDialog.setMessage("تمت عملية الحفظ بنجاح ");
+
+
             UpDateMaxOrderNo();
 
-
+            Toast.makeText(this,"تمت عملية الحفظ بنجاح",Toast.LENGTH_SHORT).show();
+            DoShare();
             IsNew = false;
+
             //UpDateMaxOrderNo();
             //contactList.clear();
             //showList(0);
@@ -1220,18 +1223,9 @@ public class ItemsRecepit extends FragmentActivity {
 
 
 
-            alertDialog.setIcon(R.drawable.tick);
 
-            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    View view = null;
 
-                    // btn_print(view);
-                }
-            });
 
-            // Showing Alert Message
-            alertDialog.show();
         }
     }
     public void btn_save_po(View view) {
@@ -1415,8 +1409,11 @@ public class ItemsRecepit extends FragmentActivity {
     }
     public void btn_share(View view) {
 
-            InsertLogTrans insertLogTrans=new InsertLogTrans(ItemsRecepit.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+        DoShare();
 
+
+    }
+    private  void DoShare(){
 
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
 
@@ -1478,7 +1475,7 @@ public class ItemsRecepit extends FragmentActivity {
 
                             }
 
-                    });
+                        });
 
                     } else if (PostResult == -3) {
                         loadingdialog.dismiss();
@@ -1557,7 +1554,6 @@ public class ItemsRecepit extends FragmentActivity {
             }
         }).start();
 
-
     }
     public void btn_new(View view) {
         Do_New();
@@ -1583,6 +1579,8 @@ public class ItemsRecepit extends FragmentActivity {
         IsNew = true;
         pono.setText("");
         acc.setText("");
+        tv_VendorNo.setText("");
+        dispercent="0";
         GetMaxPONo();
         contactList.clear();
         showList(0);
@@ -1818,7 +1816,7 @@ public class ItemsRecepit extends FragmentActivity {
     }
     public void Set_PurchesOrder(String OrderNo  ) {
     tv_PurchesOrder.setText(OrderNo);
-    String q =  "SELECT distinct  Po_Total, order_no,odate,ven,br_no,tot,dis,item_no,UnitNo,UnitRate,qty,StoreNo ,item_name ,cost,OrderMyear,Order_V_TYPE,StoreNm,br_nm,venNm,UnitName " +
+    String q =  "SELECT distinct  Po_Total, order_no,odate,ven,br_no,tot,dis,item_no,UnitNo,UnitRate,qty,StoreNo ,item_name ,cost,OrderMyear,Order_V_TYPE,StoreNm,br_nm,venNm,UnitName,dispercent,LineDiscount " +
                 " FROM PurchesOrderTemp where  order_no ='"+OrderNo+"' AND Order_V_TYPE ='"+tv_SerialNo.getText().toString()+"' AND OrderMyear='"+tv_PurchesOrderYear.getText().toString() +"'";
 
 
@@ -1832,10 +1830,9 @@ public class ItemsRecepit extends FragmentActivity {
                 Po_Total= c1.getString(c1.getColumnIndex("Po_Total"));
                 tv_VendorNo.setText( c1.getString(c1.getColumnIndex("ven")));
                 tv_VendorNm.setText( c1.getString(c1.getColumnIndex("venNm")));
-
+                 dispercent = c1.getString(c1.getColumnIndex("dispercent"));
                 do {
-                   Save_List(c1.getString(c1.getColumnIndex("item_no")),c1.getString(c1.getColumnIndex("cost")),c1.getString(c1.getColumnIndex("qty")),"0",c1.getString(c1.getColumnIndex("UnitNo")),"0","0",c1.getString(c1.getColumnIndex("item_name")),c1.getString(c1.getColumnIndex("UnitName")),"0","","",c1.getString(c1.getColumnIndex("UnitRate")),c1.getString(c1.getColumnIndex("cost")),c1.getString(c1.getColumnIndex("StoreNo")),c1.getString(c1.getColumnIndex("StoreNm")));
-
+                   Save_List(c1.getString(c1.getColumnIndex("item_no")),c1.getString(c1.getColumnIndex("cost")),c1.getString(c1.getColumnIndex("qty")),"0",c1.getString(c1.getColumnIndex("UnitNo")),c1.getString(c1.getColumnIndex("dispercent")),"0",c1.getString(c1.getColumnIndex("item_name")),c1.getString(c1.getColumnIndex("UnitName")),c1.getString(c1.getColumnIndex("LineDiscount"))  ,"","",c1.getString(c1.getColumnIndex("UnitRate")),c1.getString(c1.getColumnIndex("cost")),c1.getString(c1.getColumnIndex("StoreNo")),c1.getString(c1.getColumnIndex("StoreNm")));
                 } while (c1.moveToNext());
             }
 

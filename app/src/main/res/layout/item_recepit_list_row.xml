@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RR"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="rtl"
     android:orientation="horizontal"
+    android:minHeight="60dp"
     android:weightSum="10">
 
     <Methdes.MyTextView
@@ -21,7 +22,7 @@
     <Methdes.MyTextView
         android:id="@+id/tv_name"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="2.7"
         android:gravity="center"
@@ -108,11 +109,11 @@
     <ImageButton
         android:id="@+id/imageButton14"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="0.4"
         android:onClick="btn_Delete_Item"
         android:scaleType="fitXY"
-        android:src="@android:drawable/ic_delete" />
+        android:src="@android:drawable/ic_menu_edit" />
 
 </LinearLayout>

@@ -178,7 +178,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:checked="true"
+                        android:checked="false"
                         android:text="نقدا"
                         android:textSize="18sp" />
 
@@ -488,7 +488,7 @@
                         android:layout_weight="0.4"
                         android:background="@color/Gray3"
                         android:gravity="center"
-                        android:text="31/12/2020"
+                        android:text="2020/12/31"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -631,13 +631,22 @@
         android:background="@drawable/blue_fill_white"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="3">
+
+        <CheckBox
+            android:id="@+id/chk_print"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:checked="true"
+            android:text="طباعة الفاتورة"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:background="@color/Blue"
             android:text="تخزين"
             android:textColor="#fff"
@@ -648,7 +657,7 @@
             android:id="@+id/btn_Back"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:background="@color/ColorPrimary"
             android:text="رجوع"
             android:textColor="#fff"

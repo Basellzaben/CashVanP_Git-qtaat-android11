@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.cds_jo.GalaxySalesApp.NewHomePage.NewHomePage;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 
 import org.json.JSONArray;
@@ -716,6 +717,11 @@ public class SittingNew extends FragmentActivity {
 
 
 
+    }
+
+    public void GoToHome(View view) {
+        Intent k = new Intent(this, NewHomePage.class);
+        startActivity(k);
     }
 
 //    private void showblueboothlist() {

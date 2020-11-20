@@ -3,7 +3,6 @@
     package="com.cds_jo.GalaxySalesApp"
     android:versionCode="3"
     android:versionName="3.0">
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,7 +29,6 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -43,7 +41,6 @@
         <activity android:name=".ManCard.SplashLoginAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -53,7 +50,7 @@
         <activity
             android:name=".StartUpActivity"
             android:screenOrientation="landscape" />
-        <activity
+      <activity
             android:name=".Tracking.MapsActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
@@ -68,7 +65,7 @@
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".assist.layout_to_imgActivity" />
-        <activity
+         <activity
             android:name=".assist.Convert_Layout_Img"
             android:screenOrientation="landscape" />
         <activity
@@ -99,7 +96,7 @@
         <activity
             android:name=".NewHomePage.NewHomePage"
             android:screenOrientation="landscape" />
-        <activity
+   <activity
             android:name=".assist.Convert_TransQty_To_Img"
             android:screenOrientation="landscape" />
         <activity
@@ -108,12 +105,10 @@
         <activity
             android:name=".WebPage.WebPageAct"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".assist.Convert_ccReportTo_ImgActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-
         <activity
             android:name=".assist.Convert_ccReport2To_ImgActivity"
             android:screenOrientation="landscape" />
@@ -128,15 +123,16 @@
             android:name=".InquireItem.InquireItemACT"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-
- <activity
+        <activity
             android:name=".TspPrinter.SampleReciptActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-
-
         <activity
             android:name=".TspPrinter.imagePrintingActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        <activity
+            android:name=".CustomerNotes"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
@@ -144,7 +140,7 @@
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
-        <activity
+           <activity
             android:name=".assist.CustomerReturnQtyActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
@@ -212,7 +208,7 @@
         <activity
             android:name=".assist.Store_Trans_Qty_Img"
             android:screenOrientation="landscape" />
-        <activity
+         <activity
             android:name=".assist.Convert_Sal_Invoice_To_ImgActivity_Okrania_Ipad"
             android:screenOrientation="landscape" />
         <activity
@@ -238,12 +234,10 @@
         <activity android:name=".ZepraActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".NotifationResultActivity" />
-
         <service
             android:name=".GetManMessage"
             android:enabled="true"
             android:exported="true" />
-
         <activity
             android:name=".ManLocationsReport"
             android:screenOrientation="landscape" />
@@ -265,9 +259,7 @@
         <activity
             android:name=".BeeHiveActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".CustLocations.CustomerLocation"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".DoctorReportActivity"
             android:screenOrientation="landscape" />
@@ -285,7 +277,6 @@
         <activity
             android:name=".ManSummeryNew"
             android:screenOrientation="landscape" />
-
         <service android:name="net.posprinter.service.PosprinterService" />
         <service
             android:name=".AutoPostTrans"
@@ -297,40 +288,42 @@
             android:enabled="true"
             android:exported="false"
             android:stopWithTask="false" />
-
         <activity
             android:name=".SittingNew"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity android:name=".VisitImges"
-        android:screenOrientation="landscape"
-        android:configChanges="keyboardHidden|orientation|screenSize"
-        android:windowSoftInputMode="stateHidden|adjustPan" />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+           <activity android:name=".CustLocations.CustomerLocation"
+               android:windowSoftInputMode="stateHidden|adjustPan"
+               android:screenOrientation="landscape"
+               />
 
-        <activity
-            android:name=".MapsTest"
-            android:label="@string/title_activity_maps_test" />
-        <activity android:name=".RR3Printer" />
-        <activity android:name=".imgtest" />
-        <activity
-            android:name=".XprinterDoc.Xprinter_RecVoucher"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
-            android:name=".XprinterDoc.Xprinter_SalesOrder"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
-            android:name=".XprinterDoc.Xprinter_SalesInvoice"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
-            android:name=".XprinterDoc.Xprinter_ManSummeryTo_img"
-            android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+         <activity
+                 android:name=".VisitImges"
+                 android:screenOrientation="landscape"
+                 android:windowSoftInputMode="stateHidden|adjustPan" />
+            <meta-data
+                 android:name="com.google.android.geo.API_KEY"
+                 android:value="@string/google_maps_key" />
+             <activity
+                 android:name=".MapsTest"
+                 android:label="@string/title_activity_maps_test" />
+             <activity android:name=".RR3Printer" />
+             <activity android:name=".imgtest" />
+             <activity
+                 android:name=".XprinterDoc.Xprinter_RecVoucher"
+                 android:screenOrientation="landscape"
+                 android:windowSoftInputMode="stateHidden|adjustPan" />
+             <activity
+                 android:name=".XprinterDoc.Xprinter_SalesOrder"
+                 android:screenOrientation="landscape"
+                 android:windowSoftInputMode="stateHidden|adjustPan" />
+             <activity
+                 android:name=".XprinterDoc.Xprinter_SalesInvoice"
+                 android:screenOrientation="landscape"
+                 android:windowSoftInputMode="stateHidden|adjustPan" />
+             <activity
+                 android:name=".XprinterDoc.Xprinter_ManSummeryTo_img"
+                 android:screenOrientation="landscape"
+                 android:windowSoftInputMode="stateHidden|adjustPan" />
     </application>
-
 </manifest>

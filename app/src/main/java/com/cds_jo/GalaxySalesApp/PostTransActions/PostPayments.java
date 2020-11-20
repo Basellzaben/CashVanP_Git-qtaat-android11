@@ -65,7 +65,7 @@ public class PostPayments {
         }
 
 
-        String query = "Select  distinct rc.V_OrderNo, rc.DocNo,  IFNULL(rc.CheckTotal,0) as CheckTotal, IFNULL(rc.Cash,0) as Cash, rc.Desc,rc.Amnt,rc.TrDate,rc.CustAcc  ,c.name , rc.curno  ,COALESCE(Post, -1)  as Post , " +
+        String query = "Select  distinct   ifnull(PersonPayAmt,'') as PersonPayAmt, rc.V_OrderNo, rc.DocNo,  IFNULL(rc.CheckTotal,0) as CheckTotal, IFNULL(rc.Cash,0) as Cash, rc.Desc,rc.Amnt,rc.TrDate,rc.CustAcc  ,c.name , rc.curno  ,COALESCE(Post, -1)  as Post , " +
                 "rc.UserID ,rc.VouchType ,rc.UserID from RecVoucher rc   left join Customers c on c.no = rc.CustAcc " +
                 " where rc.DocNo = '" + OrderNo.toString() + "'";
         Cursor c1 = sqlHandler.selectQuery(query);
@@ -88,6 +88,7 @@ public class PostPayments {
                 jsonObject.put("CheckTotal", c1.getString(c1.getColumnIndex("CheckTotal")));
                 jsonObject.put("V_OrderNo", c1.getString(c1.getColumnIndex("V_OrderNo")));
                 jsonObject.put("UserID", c1.getString(c1.getColumnIndex("UserID")));
+                jsonObject.put("PersonPayAmt", c1.getString(c1.getColumnIndex("PersonPayAmt")));
             } catch (JSONException ex) {
                ex.printStackTrace();
             } catch (Exception ex) {

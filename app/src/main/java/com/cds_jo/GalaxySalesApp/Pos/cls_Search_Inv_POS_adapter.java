@@ -68,8 +68,9 @@ public class cls_Search_Inv_POS_adapter extends BaseAdapter {
         tv_BillNo.setText(cls_search_po.getCustNo());
 
 
-       /* TextView tv_invoType = (TextView) convertView.findViewById(R.id.tv_invoType);
-
+     TextView tv_Notes = (TextView) convertView.findViewById(R.id.tv_Notes);
+        tv_Notes.setText(cls_search_po.getNotes());
+/*
        if(cls_search_po.getType().equals("0")) {
            tv_invoType.setText("نقدية");
        }

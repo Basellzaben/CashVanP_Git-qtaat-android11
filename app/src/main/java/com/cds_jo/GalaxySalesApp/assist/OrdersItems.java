@@ -135,7 +135,7 @@ public class OrdersItems extends FragmentActivity {
     MyTextView tv_PromotionStatus,tv_Celing,tv_CustTotal;
     String SCR_NO ="11003";
     EditText  et_OrdeNo ;
-            TextView tv_acc   ;
+    TextView tv_acc   ;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

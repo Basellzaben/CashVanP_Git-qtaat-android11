@@ -33,7 +33,7 @@ public class CallWebServices  {
         IPAddress =sharedPreferences.getString("ServerIP", "");
        //1 bustanji 2 bristage 3-salsel 4-goodsystem 5-tariget system 6-
           //URL = "http://"+IPAddress+"/GIWS/CV.asmx";//bustanji or prastaige
-          URL = "http://"+IPAddress+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
+          URL = "http://"+IPAddress+":3755"+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
 
 
         //URL = "http://46.185.131.31:9090/CV.asmx";//شركة السلاسل
@@ -41,9 +41,9 @@ public class CallWebServices  {
         //URL = "http://92.253.93.52:3755/CV.asmx";
         //URL = "http://192.168.1.148/GIWS/CV.asmx";
         //URL = "http://10.0.1.166/GIWS/CV.asmx"; //Galaxy1
-           URL = "http://10.0.1.104:82/CV.asmx"; //Galaxy2
+        //   URL = "http://10.0.1.104:82/CV.asmx"; //Galaxy2
         // URL = "http://192.168.43.36:82/CV.asmx"; //Galaxy2
-       URL = "http://192.168.1.103:82/CV.asmx";
+         URL = "http://192.168.1.103:82/CV.asmx";
        //  URL = "http://10.0.1.104:82/CV.asmx";
         // URL = "http://94.249.83.196:3767/CV.asmx";
       //URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
@@ -52,7 +52,7 @@ public class CallWebServices  {
        //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
         //URL = "http://92.253.127.230:92/CV.asmx";// mo8bl
        //  URL = "http://109.107.238.12:3755/CV.asmx";// السعد
-      //  URL = "http://192.168.1.4:3755/CV.asmx";// sector
+      //   URL = "http://192.168.1.4:3755/CV.asmx";// sector
     }
     public void GetItem_D(String Item_no, int flag) {
 
@@ -223,7 +223,6 @@ public class CallWebServices  {
 
         We_Result.Msg =  ""     ;
         We_Result.ID = -2;
-
         String resTxt = null;
         SoapObject request = new SoapObject(NAMESPACE, "SaveALLVisits");
 
@@ -369,6 +368,69 @@ public class CallWebServices  {
         Object  response =null;
         try {
             androidHttpTransport.call( "http://tempuri.org/SaveALLVisits", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            // Assign it to resTxt variable static variable
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.ID = Long.parseLong("-404");
+            //Print error
+            e.printStackTrace();
+            //Assign error message to resTxt
+            resTxt = "Error occured";
+        }
+        return   We_Result.ID;
+        //Return resTxt to calling object
+
+    }
+    public long SaveCustNotes(Cls_CustNotes obj) {
+
+        We_Result.Msg =  ""     ;
+        We_Result.ID = -2;
+
+        String resTxt = null;
+        SoapObject request = new SoapObject(NAMESPACE, "SaveALLCustNotes");
+
+
+        PropertyInfo P_CustNo = new PropertyInfo();
+        P_CustNo.setName("CustNo");
+        P_CustNo.setValue(obj.getCustNo());
+        P_CustNo.setType(String.class);
+        request.addProperty(P_CustNo);
+
+        PropertyInfo P_ManNo = new PropertyInfo();
+        P_ManNo.setName("ManNo");
+        P_ManNo.setValue(obj.getManNo());
+        P_ManNo.setType(String.class);
+        request.addProperty(P_ManNo);
+
+        PropertyInfo getNotes= new PropertyInfo();
+        getNotes.setName("Notes");
+        getNotes.setValue(obj.getNotes());
+        getNotes.setType(String.class);
+        request.addProperty(getNotes);
+
+        PropertyInfo P_NotesDate= new PropertyInfo();
+        P_NotesDate.setName("NotesDate");
+        P_NotesDate.setValue(obj.getNotesDate());
+        P_NotesDate.setType(String.class);
+        request.addProperty(P_NotesDate);
+
+
+
+
+
+
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+            androidHttpTransport.call( "http://tempuri.org/SaveALLCustNotes", envelope);
             SoapObject result  = (SoapObject) envelope.getResponse();
             // Assign it to resTxt variable static variable
             We_Result.Msg =  result.getProperty("Msg").toString();
@@ -4692,7 +4754,59 @@ return    We_Result.ID;
         //Return resTxt to calling object
 
     }
+    public void GetDiscountDept(String ManNo) {
 
+        We_Result.Msg="";
+        We_Result.ID =-1;
+
+        SoapObject request = new SoapObject(NAMESPACE, "GetDeptDiscount");
+
+        PropertyInfo parm_ManNo = new PropertyInfo();
+        parm_ManNo.setName("ManNo");
+        parm_ManNo.setValue(ManNo);
+        parm_ManNo.setType(String.class);
+
+
+
+        // Add the property to request object
+        request.addProperty(parm_ManNo);
+
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GetDeptDiscount", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+
+
+
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        //Return resTxt to calling object
+
+    }
     public void GET_CustReportAccountStatement(String AccNo) {
 
         We_Result.Msg="";
@@ -4748,6 +4862,7 @@ return    We_Result.ID;
         //Return resTxt to calling object
 
     }
+
     public void getCountry() {
 
         We_Result.Msg="";

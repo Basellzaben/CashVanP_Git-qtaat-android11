@@ -175,6 +175,8 @@ public class SearchPurchesOrders extends DialogFragment implements View.OnClickL
                     JSONArray js_venNm = js.getJSONArray("venNm");
                     JSONArray js_UnitName = js.getJSONArray("UnitName");
                     JSONArray js_Po_Total = js.getJSONArray("Po_Total");
+                    JSONArray js_dispercent = js.getJSONArray("dispercent");
+                    JSONArray js_LineDiscount = js.getJSONArray("LineDiscount");
 
                     q = "Delete from PurchesOrderTemp";
                     sqlHandler.executeQuery(q);
@@ -182,7 +184,7 @@ public class SearchPurchesOrders extends DialogFragment implements View.OnClickL
                     sqlHandler.executeQuery(q);
 
                     for (i = 0; i < js_order_no.length(); i++) {
-                        q = "Insert INTO PurchesOrderTemp(order_no,odate,ven,br_no,tot,dis,item_no,UnitNo,UnitRate,qty,StoreNo ,item_name ,cost,OrderMyear,Order_V_TYPE,StoreNm,br_nm,venNm,UnitName,Po_Total) values('"+
+                        q = "Insert INTO PurchesOrderTemp(order_no,odate,ven,br_no,tot,dis,item_no,UnitNo,UnitRate,qty,StoreNo ,item_name ,cost,OrderMyear,Order_V_TYPE,StoreNm,br_nm,venNm,UnitName,Po_Total,dispercent,LineDiscount) values('"+
                                           js_order_no.get(i).toString()
                                 + "','" + js_odate.get(i).toString()
                                 + "','" + js_ven.get(i).toString()
@@ -203,6 +205,8 @@ public class SearchPurchesOrders extends DialogFragment implements View.OnClickL
                                 + "','" + js_venNm.get(i).toString()
                                 + "','" + js_UnitName.get(i).toString()
                                 + "','" + js_Po_Total.get(i).toString()
+                                + "','" + js_dispercent.get(i).toString()
+                                + "','" + js_LineDiscount.get(i).toString()
                                 + "' )";
                         sqlHandler.executeQuery(q);
                         custDialog.setMax(js_order_no.length());
@@ -246,7 +250,7 @@ public class SearchPurchesOrders extends DialogFragment implements View.OnClickL
                             AlertDialog alertDialog = new AlertDialog.Builder(
                                     getActivity()).create();
                             alertDialog.setTitle("طلبات الشراء");
-                            alertDialog.setMessage("مشكلة في عملية الاتصال بالسيرفر الرئيسي");
+                            alertDialog.setMessage("لا يوجد بيانات ");
                             alertDialog.setIcon(R.drawable.tick);
                             alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {

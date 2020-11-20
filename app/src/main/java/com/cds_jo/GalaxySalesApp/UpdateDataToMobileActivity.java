@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 146 ;
+    private static final int LASTUPDATE = 152 ;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -82,7 +82,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     CheckBox chk_PaymentSchudel,chk_cust,chk_LookUp, chk_banks, chk_Items, chk_Unites, Chk_Items_Unites, Chk_Curf, Chk_deptf, Chk_Users, Chk_Drivers, Chk_CustLastTrans;
     CheckBox Chk_TransQty, chk_Pro, chkCompany, chkCashCust, chk_Item_cat, chk_Cust_Cat, chk_Serial, chk_LastPrice, Chk_Msg, Chk_Batch,chk_country;
-    CheckBox Chk_Post_Inv, Chk_Post_Payments, chk_po_post, Chk_Code, chk_Stores, chk_Gift, chk_OfferGroups;
+    CheckBox Chk_Post_Inv, Chk_Post_Payments, chk_po_post, Chk_Code, chk_Stores, chk_Gift, chk_OfferGroups,chk_DeptDiscount;
 
     private void filllist(String str, int f, int c) {
 
@@ -1450,7 +1450,8 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         } catch (SQLException e) {
         }
     try {
-            sqlHandler.executeQuery("Alter Table PurchesOrderTemp  Add  COLUMN  Po_Total  text null");
+
+        sqlHandler.executeQuery("Alter Table PurchesOrderTemp  Add  COLUMN  Po_Total  text null");
         } catch (SQLException e) {
         }
 
@@ -1550,6 +1551,41 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         } catch (SQLException e) {
         }
 
+        try{
+        sqlHandler.executeQuery("Alter Table PurchesOrderTemp  Add  COLUMN  dispercent  text null");
+         } catch (SQLException e) {
+        }
+     try{
+        sqlHandler.executeQuery("Alter Table PurchesOrderTemp  Add  COLUMN  LineDiscount  text null");
+         } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  OrderDesc  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  DeptDiscount    " +
+                    "( No integer primary key autoincrement,CustNo text null , " +
+                    "  From_Value  text null , To_Value  text null ,Discount_Value  text null" +
+                    " ,Discount_Type  text null " +
+                    " ,Notes  text null )");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table RecVoucher  Add  COLUMN  PersonPayAmt  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  CustomerNotes    " +
+                    "( No integer primary key autoincrement,CustNo text null , " +
+                    "  ManNo  text null , Notes  text null ,NotesDate  text null" +
+                    " ,Posted  integer  null )");
+        } catch (SQLException e) {
+        }
 
 
     }
@@ -1648,6 +1684,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_Gift = (CheckBox) findViewById(R.id.chk_Gift);
         chk_OfferGroups = (CheckBox) findViewById(R.id.chk_OfferGroups);
         chk_country  = (CheckBox) findViewById(R.id.chk_country);
+        chk_DeptDiscount  = (CheckBox) findViewById(R.id.chk_DeptDiscount);
 
         chk_PaymentSchudel.setChecked(true);
         chk_cust.setChecked(true);
@@ -1680,6 +1717,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_Gift.setChecked(true);
         chk_OfferGroups.setChecked(true);
         chk_country.setChecked(true);
+        chk_DeptDiscount.setChecked(true);
 
         chk_Serial.setEnabled(false);
         chk_Gift.setEnabled(false);
@@ -1717,6 +1755,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         chk_Gift.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_OfferGroups.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chk_country.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
+        chk_DeptDiscount.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
 
         chkall.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
         chkall.setText("  اختيار الكل");
@@ -1794,6 +1833,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             chk_Gift.setChecked(true);
             chk_OfferGroups.setChecked(true);
             chk_country.setChecked(true);
+            chk_DeptDiscount.setChecked(true);
 
         } else {
             chkall.setText("  اختيار الكل");
@@ -1826,6 +1866,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             Chk_Batch.setChecked(false);
             chk_Stores.setChecked(false);
             chk_country.setChecked(false);
+            chk_DeptDiscount.setChecked(false);
         /*    chk_Gift.setChecked(false);
             chk_OfferGroups.setChecked(false);*/
 
@@ -2146,6 +2187,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         final CheckBox Chk_Batch = (CheckBox) findViewById(R.id.Chk_Batch);
         final CheckBox chk_Stores = (CheckBox) findViewById(R.id.chk_Stores);
         final CheckBox chk_country = (CheckBox) findViewById(R.id.chk_country);
+        final CheckBox chk_DeptDiscount = (CheckBox) findViewById(R.id.chk_DeptDiscount);
 
 
 
@@ -2558,6 +2600,108 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                             public void run() {
                                 filllist("تاريخ الصلاحية", 0, 0);
                                 Chk_Batch.setChecked(false);
+                                Do_Trans_From_Server();
+                            }
+                        });
+                    }
+                }
+            }).start();
+
+        }
+
+           else if (chk_DeptDiscount.isChecked()) {
+
+            final Handler _handler = new Handler();
+            tv = new TextView(getApplicationContext());
+            lp = new RelativeLayout.LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+            tv.setLayoutParams(lp);
+            tv.setLayoutParams(lp);
+            tv.setPadding(10, 15, 10, 15);
+            tv.setGravity(Gravity.CENTER);
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+            tv.setTextColor(Color.WHITE);
+            tv.setBackgroundColor(Color.BLUE);
+            tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
+
+            final ProgressDialog progressDialog;
+            progressDialog = new ProgressDialog(UpdateDataToMobileActivity.this);
+            progressDialog.setProgressStyle(progressDialog.STYLE_HORIZONTAL);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setProgress(0);
+            progressDialog.setMax(100);
+            progressDialog.setMessage("  الرجاء الانتظار ..." + "  العمل جاري على نسخ البيانات  ");
+            tv.setText("فئات خصم العميل");
+            progressDialog.setCustomTitle(tv);
+            progressDialog.setProgressDrawable(greenProgressbar);
+            progressDialog.show();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    CallWebServices ws = new CallWebServices(UpdateDataToMobileActivity.this);
+                    ws.GetDiscountDept("");
+                    try {
+                        Integer i;
+                        String q;
+
+                        if (We_Result.ID>0) {
+                            JSONObject js = new JSONObject(We_Result.Msg);
+                            JSONArray CustNo= js.getJSONArray("CustNo");
+                            JSONArray From_Value = js.getJSONArray("From_Value");
+                            JSONArray To_Value = js.getJSONArray("To_Value");
+                            JSONArray Discount_Value = js.getJSONArray("Discount_Value");
+                            JSONArray Discount_Type = js.getJSONArray("Discount_Type");
+                            JSONArray Notes = js.getJSONArray("Notes");
+
+
+                            q = "Delete from DeptDiscount";
+                            sqlHandler.executeQuery(q);
+                            q = " delete from sqlite_sequence where name='DeptDiscount'";
+                            sqlHandler.executeQuery(q);
+
+                            for (i = 0; i < CustNo.length(); i++) {
+                                q = "INSERT INTO DeptDiscount(CustNo,From_Value,To_Value,Discount_Value,Discount_Type,Notes) values ('"
+                                        + CustNo.get(i).toString()
+                                        + "','" + From_Value.get(i).toString()
+                                        + "','" + To_Value.get(i).toString()
+                                        + "','" + Discount_Value.get(i).toString()
+                                        + "','" + Discount_Type.get(i).toString()
+                                        + "','" + Notes.get(i).toString()
+
+                                        + "')";
+                                sqlHandler.executeQuery(q);
+                                progressDialog.setMax(CustNo.length());
+                                progressDialog.incrementProgressBy(1);
+                                if (progressDialog.getProgress() == progressDialog.getMax()) {
+                                    progressDialog.dismiss();
+                                }
+                            }
+                            final int total = i;
+                            _handler.post(new Runnable() {
+                                public void run() {
+                                    filllist("فئات خصم العميل", 1, total);
+                                    chk_DeptDiscount.setChecked(false);
+                                    progressDialog.dismiss();
+                                    Do_Trans_From_Server();
+                                }
+                            });
+                        }else{
+                            _handler.post(new Runnable() {
+                                public void run() {
+                                    filllist("فئات خصم العميل", 0, 0);
+                                    chk_DeptDiscount.setChecked(false);
+                                    progressDialog.dismiss();
+                                    Do_Trans_From_Server();
+                                }
+                            });
+                        }
+                    } catch (final Exception e) {
+                        progressDialog.dismiss();
+                        _handler.post(new Runnable() {
+                            public void run() {
+                                filllist("فئات خصم العميل", 0, 0);
+                                chk_DeptDiscount.setChecked(false);
                                 Do_Trans_From_Server();
                             }
                         });

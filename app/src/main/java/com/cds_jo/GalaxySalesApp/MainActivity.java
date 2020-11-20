@@ -163,6 +163,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.Frag1, frag).commit();
         //Toast.makeText(this, sharedPreferences.getString("UserID", ""),Toast.LENGTH_LONG).show();
+        final TextView tv_CustName = (TextView) findViewById(R.id.tv_CustName);
+        tv_CustName.requestFocus();
+
     }
 
     @Override
@@ -376,14 +379,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void btn_SearchCust(View v) {
-      if (ComInfo.ComNo == Companies.beutyLine.getValue() || ComInfo.ComNo == 1||ComInfo.ComNo == Companies.Saad.getValue() ){
+    //  if (ComInfo.ComNo == Companies.beutyLine.getValue() || ComInfo.ComNo == 1||ComInfo.ComNo == Companies.Saad.getValue() ){
         Bundle bundle = new Bundle();
         bundle.putString("Scr", "Gps");
         FragmentManager Manager = getFragmentManager();
         Select_Customer obj = new Select_Customer();
         obj.setArguments(bundle);
         obj.show(Manager, null);
-    }else if (ComInfo.ComNo > 1) {
+  /*   }else if (ComInfo.ComNo > 1) {
 
 
             Button create, show, setting;
@@ -454,7 +457,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
         }
-
+*/
 
     }
 

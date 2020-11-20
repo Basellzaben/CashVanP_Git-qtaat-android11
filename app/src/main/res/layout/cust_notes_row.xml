@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+
+    <LinearLayout
+        android:id="@+id/RR1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layoutDirection="rtl"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="right|center_vertical"
+                    android:paddingLeft="1dp"
+                    android:text="TT"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Gray1"
+                    android:textSize="19sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Mannm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="right|center_vertical"
+                    android:paddingLeft="1dp"
+                    android:text="TT"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Gray1"
+                    android:textSize="19sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="right|center_vertical"
+                    android:paddingLeft="5dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000"
+                    android:textSize="19sp"
+                    android:visibility="visible" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_states"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:gravity="right|center_vertical"
+                    android:paddingLeft="1dp"
+                    android:text="TT"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/Gray1"
+                    android:textSize="19sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

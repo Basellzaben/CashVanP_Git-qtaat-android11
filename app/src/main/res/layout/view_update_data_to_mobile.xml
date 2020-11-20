@@ -446,15 +446,15 @@
 
 
                             <CheckBox
-                                android:id="@+id/chk_PaymengfgtSchudel"
+                                android:id="@+id/chk_DeptDiscount"
                                 android:layout_width="fill_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:checked="false"
                                 android:gravity="center|clip_vertical|right"
-                                android:text=" "
+                                android:text="فئات الخصم"
                                 android:textSize="18sp"
-                                android:visibility="gone" />
+                                />
 
 
                             <CheckBox

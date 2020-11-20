@@ -52,8 +52,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -269,6 +271,10 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
                 googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                mMap.setMyLocationEnabled(true);
+                mMap.setTrafficEnabled(true);
+                mMap.setBuildingsEnabled(true);
+                mMap.setOnMyLocationChangeListener(myLocationChangeListener);
                 mMap.animateCamera(zoom);
             }
         });
@@ -277,14 +283,37 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
 
 
 
-        MapWeb.setWebViewClient(new WebViewClient());
+       /* MapWeb.setWebViewClient(new WebViewClient());
         MapWeb.loadUrl("https://maps.google.com/maps?q=32.019926,35.859867&hl=en&z=14&amp;output=embed");
 
         WebSettings webSettings = MapWeb.getSettings();
-        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptEnabled(true);*/
 
     }
+    private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {
 
+        @Override
+        public void onMyLocationChange(Location location) {
+            ed_Lat.setText(String.valueOf(location.getLatitude()));
+            ed_Long.setText(String.valueOf(location.getLongitude()));
+            GetStreetName() ;
+            LatLng ManLoc ;
+            ManLoc= new LatLng(Lat, Lng);
+            mMap.clear();
+            PolylineOptions polylineOpt = new PolylineOptions();
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(ManLoc));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+            mMap.getUiSettings().setZoomControlsEnabled(true);
+            mMap.setMyLocationEnabled(true);
+            mMap.setTrafficEnabled(true);
+            mMap.setBuildingsEnabled(true);
+
+            mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+            polylineOpt.add(ManLoc);
+
+
+        }
+    };
     private void DeleteRow(final int position, SwipeMenu menu, int index) {
 
 

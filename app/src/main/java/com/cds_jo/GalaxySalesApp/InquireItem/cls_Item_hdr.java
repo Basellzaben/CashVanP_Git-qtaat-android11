@@ -4,6 +4,16 @@ public class cls_Item_hdr {
     String Description ;
     String Img_Text ;
 
+    public String getIP() {
+        return IP;
+    }
+
+    public void setIP(String IP) {
+        this.IP = IP;
+    }
+
+    String IP ;
+
     public String getDescription() {
         return Description;
     }

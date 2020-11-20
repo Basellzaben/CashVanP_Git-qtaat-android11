@@ -449,7 +449,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="4">
 
         <Button
             android:id="@+id/button25"
@@ -487,6 +487,21 @@
             android:paddingRight="10dp"
             android:text="مسح كل البيانات"
             android:textSize="20sp" />
+
+
+        <Button
+            android:id="@+id/btn_Back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@color/main_orange_stroke_color"
+            android:onClick="GoToHome"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="القائمة الرئيسية"
+            android:textSize="20sp" />
+
 
     </LinearLayout>
 

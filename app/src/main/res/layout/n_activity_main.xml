@@ -168,12 +168,14 @@
                             android:gravity="center" />
 
                         <Methdes.MyTextView
-                            android:text="التاريخ"
+                            android:id="@+id/textView260"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:id="@+id/textView260"
                             android:layout_weight="0.6"
-                            android:gravity="right|center" />
+                            android:gravity="right|center"
+                            android:text="التاريخ"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -197,11 +199,13 @@
                             android:gravity="center" />
 
                         <Methdes.MyTextView
-                            android:text="وقت النهاية"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.6"
-                            android:gravity="right|center" />
+                            android:gravity="right|center"
+                            android:text="وقت النهاية"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -225,11 +229,13 @@
                             android:gravity="center" />
 
                         <Methdes.MyTextView
-                            android:text="احداثيات الموقع 2"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.6"
-                            android:gravity="right|center" />
+                            android:gravity="right|center"
+                            android:text="احداثيات الموقع 2"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -253,11 +259,13 @@
                             android:gravity="center" />
 
                         <Methdes.MyTextView
-                            android:text="الباركود"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.6"
-                            android:gravity="right|center" />
+                            android:gravity="right|center"
+                            android:text="الباركود"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -362,12 +370,14 @@
                             android:inputType="textPersonName" />
 
                         <Methdes.MyTextView
-                            android:text="اليوم"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="0.6"
                             android:gravity="right|center"
-                            android:layout_marginRight="10dp" />
+                            android:text="اليوم"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -391,12 +401,14 @@
                             android:gravity="center" />
 
                         <Methdes.MyTextView
-                            android:text="وقت البداية"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="0.6"
                             android:gravity="right|center"
-                            android:layout_marginRight="10dp" />
+                            android:text="وقت البداية"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -420,12 +432,14 @@
                             android:gravity="center" />
 
                         <Methdes.MyTextView
-                            android:text="احداثيات الموقع 1"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="0.6"
                             android:gravity="right|center"
-                            android:layout_marginRight="10dp" />
+                            android:text="احداثيات الموقع 1"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -448,12 +462,14 @@
                             android:textSize="12sp" />
 
                         <Methdes.MyTextView
-                            android:text="اسم المنطقة"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="0.6"
                             android:gravity="right|center"
-                            android:layout_marginRight="10dp" />
+                            android:text="اسم المنطقة"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:orientation="horizontal"
@@ -477,12 +493,14 @@
                             android:inputType="textPersonName" />
 
                         <Methdes.MyTextView
-                            android:text="مدة الزيارة"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
                             android:layout_weight="0.6"
                             android:gravity="right|center"
-                            android:layout_marginRight="10dp" />
+                            android:text="مدة الزيارة"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -523,11 +541,13 @@
                             android:textColor="#000" />
 
                         <Methdes.MyTextView
-                            android:text="رقم العميل"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.6"
-                            android:gravity="right|center" />
+                            android:gravity="right|center"
+                            android:text="رقم العميل"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -555,11 +575,13 @@
                             android:textColor="#000" />
 
                         <Methdes.MyTextView
-                            android:text="الملاحظات"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0.4"
-                            android:gravity="right|center" />
+                            android:gravity="right|center"
+                            android:text="الملاحظات"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -685,10 +707,12 @@
 
                         <Methdes.MyTextView
                             android:layout_width="0dp"
-                            android:text="اسم العميل"
-                            android:gravity="center"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.66" />
+                            android:layout_weight="0.66"
+                            android:gravity="center"
+                            android:text="اسم العميل"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
 
 
                     </LinearLayout>

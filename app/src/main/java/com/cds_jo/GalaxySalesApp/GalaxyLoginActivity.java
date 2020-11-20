@@ -95,9 +95,7 @@ public class GalaxyLoginActivity extends FragmentActivity {
                             editor.putString("Login", "Yes");
                             editor.commit();
                             c1.close();
-                            if(ComInfo.ComNo==4) {
-                                startService(new Intent(GalaxyLoginActivity.this, AutoPostLocation.class));
-                            }
+
                             Intent k = new Intent(context,JalMasterActivity.class);
                             startActivity(k);
 
