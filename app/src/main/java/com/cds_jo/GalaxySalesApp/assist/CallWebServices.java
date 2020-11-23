@@ -43,7 +43,7 @@ public class CallWebServices  {
         //URL = "http://10.0.1.166/GIWS/CV.asmx"; //Galaxy1
         //   URL = "http://10.0.1.104:82/CV.asmx"; //Galaxy2
         // URL = "http://192.168.43.36:82/CV.asmx"; //Galaxy2
-         URL = "http://192.168.1.103:82/CV.asmx";
+      //   URL = "http://192.168.1.103:82/CV.asmx";
        //  URL = "http://10.0.1.104:82/CV.asmx";
         // URL = "http://94.249.83.196:3767/CV.asmx";
       //URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل

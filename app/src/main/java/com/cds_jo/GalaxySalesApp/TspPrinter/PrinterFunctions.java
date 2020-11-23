@@ -2582,8 +2582,13 @@ public class PrinterFunctions {
 		for (Cls_Sal_InvItems i : contactList){
 			textToPrint ="  "+ i.getName()+"\n";
 			//textToPrint =textToPrint+ " "+ i.getTotal()+"    " +  i.getTax_Amt()+ "    "+  SToD(i.getQty())*SToD(i.getPrice() ) + "     "+i.getUniteNm()+"     "+i.getQty()+"     "+ i.getItemOrgPrice()   ;
-			textToPrint =textToPrint+ pad( i.getTotal(),maxPadLength )+pad(i.getTax_Amt(),maxPadLength ) +  pad(SToD(i.getQty())*SToD(i.getPrice()  )+"",maxPadLength )   +pad(i.getUniteNm() ,maxPadLength) +pad(i.getQty() ,maxPadLength+2)+  pad(i.getItemOrgPrice() ,maxPadLength)  ;
+			textToPrint =textToPrint+ pad(SToD( i.getTotal())+"",maxPadLength )+pad( SToD(  i.getTax_Amt())+"",maxPadLength ) +  pad(SToD( SToD(i.getQty())*SToD(i.getPrice())+"")+"",maxPadLength )   +pad(i.getUniteNm() ,maxPadLength) +pad(i.getQty() ,maxPadLength+2)+  pad(SToD( i.getItemOrgPrice() )+"",maxPadLength)  ;
 
+			/*if (textToPrint.toString().length()>47){
+				textToPrint =" "+ i.getName()+"\n";
+				textToPrint =textToPrint+ pad(SToD( i.getTotal())+"",maxPadLength-1 )+pad( SToD(  i.getTax_Amt())+"",maxPadLength-1 ) +  pad(SToD( SToD(i.getQty())*SToD(i.getPrice())+"")+"",maxPadLength-1 )   +pad(i.getUniteNm() ,maxPadLength) +pad(i.getQty() ,maxPadLength )+  pad(SToD( i.getItemOrgPrice() )+"",maxPadLength)  ;
+
+			}*/
 			textToPrint =textToPrint+  "\r\n";
 			textToPrint =textToPrint+  "***********************************************";
 			list.add(createRasterCommand(textToPrint, 12, Typeface.BOLD, rasterType));
