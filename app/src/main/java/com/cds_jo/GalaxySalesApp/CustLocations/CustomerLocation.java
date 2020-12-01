@@ -270,10 +270,12 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
                 CameraUpdate zoom = CameraUpdateFactory.zoomTo(17);
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
                 googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                mMap.setMyLocationEnabled(true);
-                mMap.setTrafficEnabled(true);
-                mMap.setBuildingsEnabled(true);
+                try {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                    mMap.setMyLocationEnabled(true);
+                    mMap.setTrafficEnabled(true);
+                    mMap.setBuildingsEnabled(true);
+                }catch (Exception ex){}
                 mMap.setOnMyLocationChangeListener(myLocationChangeListener);
                 mMap.animateCamera(zoom);
             }

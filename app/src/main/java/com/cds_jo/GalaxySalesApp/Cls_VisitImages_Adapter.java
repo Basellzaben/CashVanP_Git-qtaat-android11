@@ -61,7 +61,7 @@ public class Cls_VisitImages_Adapter extends BaseAdapter {
         tv_Desc.setText(obj.getDesc());
 try {
 
-        Methdes.MyTextView tv_Date = ( Methdes.MyTextView) convertView.findViewById(R.id.tv_Date);
+        Methdes.MyTextView tv_Date = ( Methdes.MyTextView) convertView.findViewById(R.id.tv_fromdate);
         tv_Date.setText(obj.getTr_Date());
 
         Methdes.MyTextView tv_time = ( Methdes.MyTextView) convertView.findViewById(R.id.tv_time);

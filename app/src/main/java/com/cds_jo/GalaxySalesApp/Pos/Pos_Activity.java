@@ -27,6 +27,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -104,6 +105,7 @@ import com.cds_jo.GalaxySalesApp.assist.Convert_Sal_Invoice_To_ImgActivity_Tab_1
 import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 import com.cds_jo.GalaxySalesApp.assist.Pop_Confirm_Serial_From_Zero;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -1118,8 +1120,8 @@ public class Pos_Activity extends AppCompatActivity {
             contactList.get(x).setDisAmtFromHdr("0");
         }
 
-       /* CalcTotal();
-        showList();*/
+        CalcTotal() ;
+      //  showList();
          if(DiscountType.equalsIgnoreCase("1")){
              FinalDiscountpercent=SToD(DiscountAmt);
              FinalDiscountAmt=((SToD(DiscountAmt)/100) * SToD(tv_NetTotal.getText().toString())) ;
@@ -1137,8 +1139,11 @@ public class Pos_Activity extends AppCompatActivity {
         for (int x = 0; x < contactList.size(); x++) {
 
             contactList.get(x).setDisPerFromHdr(FinalDiscountpercent+"" );
-            contactList.get(x).setDisAmtFromHdr(( (FinalDiscountpercent*(SToD(contactList.get(x).getTotal())  - SToD(contactList.get(x).getTax_Amt())    ))/100)+"" );
-
+            if (IncludeTax_Flag.isChecked()) {
+                contactList.get(x).setDisAmtFromHdr(((FinalDiscountpercent * (SToD(contactList.get(x).getTotal())  )) / 100) + "");
+            }else{
+                contactList.get(x).setDisAmtFromHdr(((FinalDiscountpercent * (SToD(contactList.get(x).getTotal()) - SToD(contactList.get(x).getTax_Amt()))) / 100) + "");
+            }
         }
         CalcTotal();
         showList();
@@ -1346,11 +1351,20 @@ public class Pos_Activity extends AppCompatActivity {
         CustNm.setText(Nm);
         CustNm.setError(null);
     }
+    private  String GetTotDtl(){
+        double Tot=0.0 ;
+        for (int x = 0; x < contactList.size(); x++) {
+
+            Tot=Tot +  (SToD(contactList.get(x).getItemOrgPrice()+"")* SToD(   contactList.get(x).getQty()) )  ;
+
+        }
+        return  SToD(Tot+"")+"";
+    }
     private void PopSaveInvoice(){
         Bundle bundle = new Bundle();
         bundle.putString("OrederNo",et_OrdeNo.getText().toString());
         bundle.putString("Discount","0");
-        bundle.putString("NetTotal", tv_NetTotal.getText().toString());
+        bundle.putString("NetTotal",  GetTotDtl());
         FragmentManager Manager =  getFragmentManager();
         PopSavePosInvoice obj = new PopSavePosInvoice();
         obj.setArguments(bundle);
@@ -1556,7 +1570,7 @@ public class Pos_Activity extends AppCompatActivity {
         cv.put("hdr_dis_per", FinalDiscountpercent+"");
         cv.put("hdr_dis_value",FinalDiscountAmt+"");
         cv.put("hdr_dis_Type",FinalDiscountType+"");
-        cv.put("disc_Total", dis.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("disc_Total", dis.getText().toString());
 
         cv.put("Cash_flg", cash+"");
         cv.put("Check_flg", check+"");
@@ -2023,7 +2037,12 @@ public class Pos_Activity extends AppCompatActivity {
             contactListItems = contactList.get(x);
             All_Dis = SToD(contactListItems.getDis_Amt()) + SToD(contactListItems.getDisAmtFromHdr()) + SToD(contactListItems.getPro_amt());
             All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr()) + SToD(contactListItems.getPro_dis_Per());
-            pq = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
+
+            if (IncludeTax_Flag.isChecked()) {
+                pq = SToD(contactListItems.getItemOrgPrice()) * SToD(contactListItems.getQty());
+            }else{
+                pq = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
+            }
             opq = SToD(contactListItems.getItemOrgPrice()) * SToD(contactListItems.getQty());
 
             Tax_Total = Tax_Total + (SToD(contactListItems.getTax_Amt().toString()));
@@ -2031,12 +2050,6 @@ public class Pos_Activity extends AppCompatActivity {
 
             if (IncludeTax_Flag.isChecked()) {
                 RowTotal = opq - ((opq) * (All_Dis_Per / 100));//+ SToD(contactListItems.getTax_Amt());
-               /* if( All_Dis_Per > 0) {
-                    Total = Total + ((opq * (All_Dis_Per / 100)) - SToD(contactListItems.getTax_Amt()) + Dis_Amt);
-                }else{
-                    Total = Total + ((opq ) - SToD(contactListItems.getTax_Amt()) );
-
-                }*/
 
 
             } else {
@@ -2051,7 +2064,13 @@ public class Pos_Activity extends AppCompatActivity {
             All_Dis = 0.0;
 
         }
-        Total = V_NetTotal - Tax_Total + Dis_Amt;
+        if (IncludeTax_Flag.isChecked()) {
+            Total = SToD(V_NetTotal+"")   + SToD( Dis_Amt+"");
+        }else{
+            Total = SToD(V_NetTotal+"") - SToD(Tax_Total+"") + SToD(Dis_Amt+"");
+        }
+        Total=SToD(Total+"");
+
         TotalTax.setText(String.valueOf(df.format(Tax_Total)).replace(",", ""));
         Subtotal.setText(String.valueOf(df.format(Total)).replace(",", ""));
         dis.setText(String.valueOf(df.format(Dis_Amt)).replace(",", ""));
@@ -2754,10 +2773,246 @@ public class Pos_Activity extends AppCompatActivity {
         String UserName =  sharedPreferences.getString("UserName", "");
         try {
 
+           String textToPrint="السعر"+"\t"+"   الكمية"+"\t"+" الوحدة  "+"\t"+"المجموع"+"\t"+"الضريبة"+"\t"+"الإجمالي";
+            EditText ed_OrderNotes1=(EditText ) findViewById(R.id.ed_OrderNotes1);
+            ed_OrderNotes1.setText(textToPrint);
+             String ItemLine="";
+            String P ="2.509";
+            String q ="0.1";
+            String u ="333";
+            String tot ="0.216";
+            String tax ="0.035";
+            String net ="0.251";
+            ItemLine = Center1(P)+Center2 (q )+Center3( u)+Center4(tot)+Center5(tax)+Center6(net)+ "\n";
+
+            textToPrint =ItemLine+  "***********************************************" ;
+              P ="11";
+              q ="22";
+              u ="33";
+              tot ="44";
+              tax ="55";
+              net ="66";
+
+            ItemLine = "\n" +Center1(P)+Center2 (q )+Center3( u)+Center4(tot)+Center5(tax)+Center6(net)+ "\n";
+            ItemLine=ItemLine+  "***********************************************" ;
+            textToPrint =textToPrint+ ItemLine;
+            P ="111";
+            q ="222";
+            u ="333";
+            tot ="444";
+            tax ="555";
+            net ="666";
+
+            ItemLine=  "\n" +Center1(P)+Center2 (q )+Center3( u)+Center4(tot)+Center5(tax)+Center6(net) + "\n";
+            ItemLine=ItemLine+  "***********************************************" ;
+            textToPrint =textToPrint+ ItemLine;
+            P ="1188";
+            q ="2222";
+            u ="3";
+            tot ="4444";
+            tax ="5555";
+            net ="6666";
+
+            ItemLine = "\n" +Center1(P)+Center2 (q )+Center3( u)+Center4(tot)+Center5(tax)+Center6(net)+ "\n";
+            ItemLine=ItemLine+  "***********************************************" ;
+            textToPrint =textToPrint+ ItemLine;
+            P ="11111";
+            q ="1";
+            u ="33333";
+            tot ="44444";
+            tax ="55555";
+            net ="66666";
+
+            ItemLine = "\n" +Center1(P)+Center2 (q )+Center3( u)+Center4(tot)+Center5(tax)+Center6(net)+ "\n";
+
+            ItemLine =ItemLine+  "***********************************************";
+            textToPrint =textToPrint+ ItemLine;
+            P ="1111111";
+            q ="222222";
+            u ="33333";
+            tot ="444444";
+            tax ="555555";
+            net ="666666";
+
+            ItemLine = "\n" +Center1(P)+Center2 (q )+Center3(u)+Center4(tot)+Center5(tax)+Center6(net)+ "\n";
+            if(net.length()>5){
+                ItemLine=ItemLine+  "********************************************************" ;
+            }else{
+                ItemLine=ItemLine+  "***********************************************" ;
+            }
+
+            textToPrint =textToPrint+ ItemLine;
+            P ="1";
+            q ="222222";
+            u ="333333";
+            tot ="4444444";
+            tax ="5555555";
+            net ="6666666";
+
+            ItemLine = "\n" +Center1(P)+Center2 (q )+Center3( u)+Center4(tot)+Center5(tax)+Center6(net)+ "\n";
+            Log.d("Lensght",P.length()+"");
+            if(net.length()>5){
+                ItemLine=ItemLine+  "********************************************************" ;
+            }else{
+                ItemLine=ItemLine+  "***********************************************" ;
+            }
+            textToPrint =textToPrint+ ItemLine;
+
+          //  ed_OrderNotes.setText(textToPrint);
+
+
         PrinterFunctions.PrintPos(this, portName, portSettings, "Line", getResources(),  "3inch (80mm)", rasterType,CustNm.getText().toString(),UserName,tv_NetTotal.getText().toString(),contactList,OrdeNo.getText().toString());
       }
         catch (Exception ex){}
 
+    }
+    public static String Center1(String str  ) {
+         String Result =str;
+
+         if (str.length()==1) {
+             Result = "   " + str + "      ";
+         }
+         else if (str.length()==2) {
+             Result = "  " + str + "     ";
+         }
+         else if (str.length()==3) {
+             Result = " " + str + "    ";
+         }
+         else if (str.length()==4) {
+             Result = "" + str + "   ";
+         }
+        else if (str.length()>=5) {
+             Result = " " + str + " ";
+
+         }
+
+
+        return Result;
+    }
+    public static String Center2(String str  ) {
+        String Result =str;
+
+        if (str.length()==1)
+            Result="      "+str+"     ";
+
+        else if (str.length()==2) {
+            Result = "     " + str + "    ";
+        }
+        else if (str.length()==3) {
+            Result = "   " + str + "   ";
+        }
+        else if (str.length()==4) {
+            Result = "  " + str + "  ";
+        }
+        else if (str.length()>=5) {
+            Result =""+  str + " ";
+        }
+
+        return Result;
+    }
+    public static String Center3(String str  ) {
+
+        String Result =str;
+
+        if (str.length()==1)
+            Result="      "+str+"      ";
+
+        else if (str.length()==2) {
+            Result = "     " + str + "    ";
+        }
+        else if (str.length()==3) {
+            Result = "   " + str + "    ";
+        }
+        else if (str.length()==4) {
+            Result = " " + str + "   ";
+        }
+        else if (str.length()==5) {
+            Result = "" + str + "  ";
+        }
+        else if (str.length()>=6) {
+            Result = ""+  str + " ";
+        }
+
+
+        return Result;
+    }
+    public static String Center4(String str  ) {
+        String Result =str;
+
+        if (str.length()==1)
+            Result="      "+str+"      ";
+
+        else if (str.length()==2) {
+            Result = "     " + str + "     ";
+        }
+        else if (str.length()==3) {
+            Result = "   " + str + "     ";
+        }
+        else if (str.length()==4) {
+            Result = "   " + str + "   ";
+        }
+        else if (str.length()==5) {
+            Result = "  " + str + "  ";
+        }
+        else if (str.length()>=6) {
+            Result = ""+ str + " ";
+        }
+
+        return Result;
+    }
+    public static String Center5(String str  ) {
+        String Result =str;
+
+        if (str.length()==1)
+            Result="       "+str+"      ";
+
+        else if (str.length()==2) {
+            Result = "      " + str + "     ";
+        }
+        else if (str.length()==3) {
+            Result = "    " + str + "     ";
+        }
+        else if (str.length()==4) {
+            Result = "   " + str + "    ";
+        }
+        else if (str.length()==5) {
+            Result = " " + str + "    ";
+        }
+        else if (str.length() ==6) {
+            Result = "    "+  str +" " ;
+        }
+
+      else if (str.length()>=7) {
+            Result = ""+  str +" " ;
+        }
+
+
+        return Result;
+        }
+    public static String Center6(String str  ) {
+         String Result =str;
+
+         if (str.length()==1)
+             Result="    "+str+"     ";
+
+         else if (str.length()==2) {
+             Result = "    " + str ;
+         }
+         else if (str.length()==3) {
+             Result = "   " + str;
+         }
+         else if (str.length()==4) {
+             Result = " " + str  ;
+         }
+         else if (str.length()==5) {
+             Result =  str  ;
+         }else if (str.length()==6) {
+             Result =  "  " + str  ;
+         }else if (str.length()>=7) {
+             Result =     str  ;
+         }
+
+        return Result;
     }
     private  void GotoVisitImage(){
     Intent  v = new Intent(this, VisitImges.class);
@@ -4210,21 +4465,27 @@ public class Pos_Activity extends AppCompatActivity {
                         });
 
                     }else if (PostResult<0){
-
+                        _handler.post(new Runnable() {
+                            public void run() {
+                                loadingdialog.dismiss();
                         new SweetAlertDialog(Pos_Activity.this,SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                                 .setTitleText("فاتورة المبيعات")
                                 .setContentText("فشل في عملية الإعتماد")
                                 .setCustomImage(R.drawable.error_new)
                                 .show();
+                            }
+                        });
+
                     } else if (We_Result.ID > 0) {
-                        ContentValues cv = new ContentValues();
-                        TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
-                        cv.put("Post", We_Result.ID);
-                        long i;
-                        i = sql_Handler.Update("Sal_invoice_Hdr", cv, " ifnull(doctype,'1')='"+DocType.toString()+ "'  and   OrderNo='" + DocNo.getText().toString() + "'");
 
                         _handler.post(new Runnable() {
                             public void run() {
+                                ContentValues cv = new ContentValues();
+                                TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
+                                cv.put("Post", We_Result.ID);
+                                long i;
+                                i = sql_Handler.Update("Sal_invoice_Hdr", cv, " ifnull(doctype,'1')='"+DocType.toString()+ "'  and   OrderNo='" + DocNo.getText().toString() + "'");
+
                                 loadingdialog.dismiss();
                                 new SweetAlertDialog(Pos_Activity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                                         .setTitleText("فاتورة المبيعات")
@@ -4254,9 +4515,10 @@ public class Pos_Activity extends AppCompatActivity {
                     }
 
                 } catch (final Exception e) {
-                    loadingdialog.dismiss();
+
                     _handler.post(new Runnable() {
                         public void run() {
+                            loadingdialog.dismiss();
                             AlertDialog alertDialog = new AlertDialog.Builder(
                                     Pos_Activity.this).create();
                             alertDialog.setTitle("فشل في عمليه الاتصال");

@@ -389,8 +389,8 @@ public class VisitImges extends AppCompatActivity {
 
 
              Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-            startActivityForResult(intent, 2);
+             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+             startActivityForResult(intent, 2);
 
 
            /*
@@ -419,14 +419,14 @@ public class VisitImges extends AppCompatActivity {
        // this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         image_path=  "//sdcard/Android/Cv_Images/tmp_image.jpg" ;
-         if (  resultCode == Activity.RESULT_OK) {
+          if (resultCode == Activity.RESULT_OK) {
 
             Bitmap bmp = BitmapFactory.decodeFile(image_path);
              SaveImageFromCammera(bmp);
 
         }
 
-      /*  if(resultCode==Activity.RESULT_OK) {
+       /*  if(resultCode==Activity.RESULT_OK) {
             onCaptureImageResult(data);
         }*/
     }

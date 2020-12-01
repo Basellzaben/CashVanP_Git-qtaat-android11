@@ -23,6 +23,8 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.cds_jo.GalaxySalesApp.Cls_Bank_Search;
+import com.cds_jo.GalaxySalesApp.ComInfo;
+import com.cds_jo.GalaxySalesApp.Companies;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Bank_search_Adapter;
@@ -69,7 +71,10 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
 
         //  int dialogWidth =740; // WindowManager.LayoutParams.WRAP_CONTENT;//340; // specify a value here
         int dialogWidth = 1700; // specify a value here
-      // dialogWidth=1200;
+       dialogWidth=1200;
+        if(ComInfo.ComNo== Companies.Sector.getValue()){
+            dialogWidth = 1700;
+        }
         int dialogHeight = WindowManager.LayoutParams.WRAP_CONTENT;//400; // specify a value here*/
 
 
@@ -290,6 +295,7 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
 
 
         GetDiscountInfo();
+
         return form;
     }
 
@@ -377,7 +383,7 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
 
         }
 
-        ed_Total.setText(c.getString(c.getColumnIndex("TotalWithoutDiscount")));
+      //  ed_Total.setText(c.getString(c.getColumnIndex("TotalWithoutDiscount")));
         c.close();
     }
 
@@ -386,6 +392,23 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
              }catch (Exception d){}
 
 }
+    private  void GetSumDetails(){
+
+        String OrederNo="";
+
+        OrederNo =  getArguments().getString("OrederNo");
+
+        String q= " select     sum( cast( OrgPrice as float) * cast( qty  as float) ) as tot  from Sal_invoice_Det where OrderNo ='"+OrederNo+"'";
+        try {
+            Cursor c = sqlHandler.selectQuery(q);
+            if (c != null && c.getCount() > 0) {
+                c.moveToFirst();
+                ed_Total.setText(SToD(   c.getString(c.getColumnIndex("tot")))+"");
+                c.close();
+            }
+        }catch (Exception d){}
+
+    }
 private  void SetBank(String Check_Paid_Bank){
     Cls_Bank_Search cls_bank_search;
         Cls_Pos_Bank_Adapter cls_pos_bank_adapter = (Cls_Pos_Bank_Adapter) sp_banks.getAdapter();

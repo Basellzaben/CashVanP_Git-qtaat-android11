@@ -53,7 +53,7 @@ public class NewHomePage extends FragmentActivity {
                     lstHomeShow.add(new Cls_Home_Show_Ditial("خروج", R.drawable.log_out, 2,"NewLoginActivity"));
             }else{
                 lstHomeShow = new ArrayList<>();
-
+                lstHomeShow.add(new Cls_Home_Show_Ditial("نقاط البيع", R.drawable.invoice, 3,"Pos.Pos_Activity"));
                 lstHomeShow.add(new Cls_Home_Show_Ditial("الجولات", R.drawable.startvisit, 1,"MainActivity"));
                 lstHomeShow.add(new Cls_Home_Show_Ditial("كشف الحساب", R.drawable.account_statment, 2,"assist.Acc_ReportActivity"));
                 lstHomeShow.add(new Cls_Home_Show_Ditial("فاتورة المبيعات", R.drawable.invoice, 3,"assist.Sale_InvoiceActivity"));
@@ -65,7 +65,9 @@ public class NewHomePage extends FragmentActivity {
                 lstHomeShow.add(new Cls_Home_Show_Ditial("حفظ موقع العميل", R.drawable.gps_icon, 1,"CustLocations.CustomerLocation"));
                 lstHomeShow.add(new Cls_Home_Show_Ditial("صور الجولات", R.drawable.image_man, 1,"VisitImges"));
                 lstHomeShow.add(new Cls_Home_Show_Ditial("الملاحظات", R.drawable.notes_man, 1,"CustomerNotes"));
-                lstHomeShow.add(new Cls_Home_Show_Ditial("خروج", R.drawable.log_out, 1,"NewLoginActivity"));
+              lstHomeShow.add(new Cls_Home_Show_Ditial("خطة الجولات", R.drawable.gps_icon, 1,"ScheduleManActivity"));
+
+              lstHomeShow.add(new Cls_Home_Show_Ditial("خروج", R.drawable.log_out, 1,"NewLoginActivity"));
             }
 
 

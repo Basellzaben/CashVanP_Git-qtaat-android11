@@ -18,6 +18,8 @@ import android.preference.PreferenceManager;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.util.Log;
+import android.widget.Toast;
 
 
 import com.cds_jo.GalaxySalesApp.Cls_Offers_Hdr;
@@ -90,12 +92,12 @@ public class PrinterFunctions {
 	};
 
 	private static StarIOPort portForMoreThanOneFunction = null;
-	
+
 	private static int printableArea = 576; // for raster data
 
 	/**
 	 * This function is used to print a PDF417 barcode to standard Star POS printers
-	 * 
+	 *
 	 * @param context
 	 *     Activity for displaying messages to the user
 	 * @param portName
@@ -122,12 +124,12 @@ public class PrinterFunctions {
 
 		byte[] setBarCodeSize = new byte[] { 0x1b, 0x1d, 0x78, 0x53, 0x30, 0x00, 0x00, 0x00 };
 		switch (limit) {
-		case USE_LIMITS:
-			setBarCodeSize[5] = 0;
-			break;
-		case USE_FIXED:
-			setBarCodeSize[5] = 1;
-			break;
+			case USE_LIMITS:
+				setBarCodeSize[5] = 0;
+				break;
+			case USE_FIXED:
+				setBarCodeSize[5] = 1;
+				break;
 		}
 
 		setBarCodeSize[6] = p1;
@@ -157,7 +159,7 @@ public class PrinterFunctions {
 
 	/**
 	 * This function is used to print a QR Code on standard Star POS printers
-	 * 
+	 *
 	 * @param context
 	 *     Activity for displaying messages to the user
 	 * @param portName
@@ -178,30 +180,30 @@ public class PrinterFunctions {
 
 		byte[] modelCommand = new byte[] { 0x1b, 0x1d, 0x79, 0x53, 0x30, 0x00 };
 		switch (model) {
-		case Model1:
-			modelCommand[5] = 1;
-			break;
-		case Model2:
-			modelCommand[5] = 2;
-			break;
+			case Model1:
+				modelCommand[5] = 1;
+				break;
+			case Model2:
+				modelCommand[5] = 2;
+				break;
 		}
 
 		commands.add(modelCommand);
 
 		byte[] correctionLevelCommand = new byte[] { 0x1b, 0x1d, 0x79, 0x53, 0x31, 0x00 };
 		switch (correctionLevel) {
-		case Low:
-			correctionLevelCommand[5] = 0;
-			break;
-		case Middle:
-			correctionLevelCommand[5] = 1;
-			break;
-		case Q:
-			correctionLevelCommand[5] = 2;
-			break;
-		case High:
-			correctionLevelCommand[5] = 3;
-			break;
+			case Low:
+				correctionLevelCommand[5] = 0;
+				break;
+			case Middle:
+				correctionLevelCommand[5] = 1;
+				break;
+			case Q:
+				correctionLevelCommand[5] = 2;
+				break;
+			case High:
+				correctionLevelCommand[5] = 3;
+				break;
 		}
 		commands.add(correctionLevelCommand);
 
@@ -217,7 +219,7 @@ public class PrinterFunctions {
 
 	/**
 	 * This function opens the cash drawer connected to the printer This function just send the byte 0x07 to the printer which is the open cashdrawer command It is not possible that the OpenCashDraware and OpenCashDrawer2 are running at the same time.
-	 * 
+	 *
 	 * @param context
 	 *     Activity for displaying messages to the user
 	 * @param portName
@@ -235,7 +237,7 @@ public class PrinterFunctions {
 
 	/**
 	 * This function opens the cash drawer connected to the printer This function just send the byte 0x1a to the printer which is the open cashdrawer command The OpenCashDrawer2, delay time and power-on time is 200msec fixed. It is not possible that the OpenCashDraware and OpenCashDrawer2 are running at the same time.
-	 * 
+	 *
 	 * @param context
 	 *     Activity for displaying messages to the user
 	 * @param portName
@@ -253,7 +255,7 @@ public class PrinterFunctions {
 
 	/**
 	 * This function checks the Firmware Informatin of the printer
-	 * 
+	 *
 	 * @param context
 	 *     Activity for displaying messages to the user
 	 * @param portName
@@ -358,7 +360,7 @@ public class PrinterFunctions {
 			boolean dipsw28 = dipswinfo.get("DIPSW28");		// Boot Program Rewrite
 
 			String message = "--DipSwitch1--";
-			 message += "\n (*)Please refer to the specifications for details.";
+			message += "\n (*)Please refer to the specifications for details.";
 
 			Builder dialog = new Builder(context);
 			dialog.setNegativeButton("OK", null);
@@ -730,48 +732,48 @@ public class PrinterFunctions {
 		byte n1 = 0x34;
 		byte n2 = 0;
 		switch (option) {
-		case No_Added_Characters_With_Line_Feed:
-			n2 = 49;
-			break;
-		case Adds_Characters_With_Line_Feed:
-			n2 = 50;
-			break;
-		case No_Added_Characters_Without_Line_Feed:
-			n2 = 51;
-			break;
-		case Adds_Characters_Without_Line_Feed:
-			n2 = 52;
-			break;
+			case No_Added_Characters_With_Line_Feed:
+				n2 = 49;
+				break;
+			case Adds_Characters_With_Line_Feed:
+				n2 = 50;
+				break;
+			case No_Added_Characters_Without_Line_Feed:
+				n2 = 51;
+				break;
+			case Adds_Characters_Without_Line_Feed:
+				n2 = 52;
+				break;
 		}
 		byte n3 = 0;
 		switch (width) {
-		case _2_6:
-			n3 = 49;
-			break;
-		case _3_9:
-			n3 = 50;
-			break;
-		case _4_12:
-			n3 = 51;
-			break;
-		case _2_5:
-			n3 = 52;
-			break;
-		case _3_8:
-			n3 = 53;
-			break;
-		case _4_10:
-			n3 = 54;
-			break;
-		case _2_4:
-			n3 = 55;
-			break;
-		case _3_6:
-			n3 = 56;
-			break;
-		case _4_8:
-			n3 = 57;
-			break;
+			case _2_6:
+				n3 = 49;
+				break;
+			case _3_9:
+				n3 = 50;
+				break;
+			case _4_12:
+				n3 = 51;
+				break;
+			case _2_5:
+				n3 = 52;
+				break;
+			case _3_8:
+				n3 = 53;
+				break;
+			case _4_10:
+				n3 = 54;
+				break;
+			case _2_4:
+				n3 = 55;
+				break;
+			case _3_6:
+				n3 = 56;
+				break;
+			case _4_8:
+				n3 = 57;
+				break;
 		}
 		byte n4 = height;
 		byte[] command = new byte[6 + barcodeData.length + 1];
@@ -815,30 +817,30 @@ public class PrinterFunctions {
 		byte n1 = 0x37;
 		byte n2 = 0;
 		switch (option) {
-		case No_Added_Characters_With_Line_Feed:
-			n2 = 49;
-			break;
-		case Adds_Characters_With_Line_Feed:
-			n2 = 50;
-			break;
-		case No_Added_Characters_Without_Line_Feed:
-			n2 = 51;
-			break;
-		case Adds_Characters_Without_Line_Feed:
-			n2 = 52;
-			break;
+			case No_Added_Characters_With_Line_Feed:
+				n2 = 49;
+				break;
+			case Adds_Characters_With_Line_Feed:
+				n2 = 50;
+				break;
+			case No_Added_Characters_Without_Line_Feed:
+				n2 = 51;
+				break;
+			case Adds_Characters_Without_Line_Feed:
+				n2 = 52;
+				break;
 		}
 		byte n3 = 0;
 		switch (width) {
-		case _2_dots:
-			n3 = 49;
-			break;
-		case _3_dots:
-			n3 = 50;
-			break;
-		case _4_dots:
-			n3 = 51;
-			break;
+			case _2_dots:
+				n3 = 49;
+				break;
+			case _3_dots:
+				n3 = 50;
+				break;
+			case _4_dots:
+				n3 = 51;
+				break;
 		}
 		byte n4 = height;
 		byte[] command = new byte[6 + barcodeData.length + 1];
@@ -882,48 +884,48 @@ public class PrinterFunctions {
 		byte n1 = 0x35;
 		byte n2 = 0;
 		switch (option) {
-		case No_Added_Characters_With_Line_Feed:
-			n2 = 49;
-			break;
-		case Adds_Characters_With_Line_Feed:
-			n2 = 50;
-			break;
-		case No_Added_Characters_Without_Line_Feed:
-			n2 = 51;
-			break;
-		case Adds_Characters_Without_Line_Feed:
-			n2 = 52;
-			break;
+			case No_Added_Characters_With_Line_Feed:
+				n2 = 49;
+				break;
+			case Adds_Characters_With_Line_Feed:
+				n2 = 50;
+				break;
+			case No_Added_Characters_Without_Line_Feed:
+				n2 = 51;
+				break;
+			case Adds_Characters_Without_Line_Feed:
+				n2 = 52;
+				break;
 		}
 		byte n3 = 0;
 		switch (width) {
-		case _2_5:
-			n3 = 49;
-			break;
-		case _4_10:
-			n3 = 50;
-			break;
-		case _6_15:
-			n3 = 51;
-			break;
-		case _2_4:
-			n3 = 52;
-			break;
-		case _4_8:
-			n3 = 53;
-			break;
-		case _6_12:
-			n3 = 54;
-			break;
-		case _2_6:
-			n3 = 55;
-			break;
-		case _3_9:
-			n3 = 56;
-			break;
-		case _4_12:
-			n3 = 57;
-			break;
+			case _2_5:
+				n3 = 49;
+				break;
+			case _4_10:
+				n3 = 50;
+				break;
+			case _6_15:
+				n3 = 51;
+				break;
+			case _2_4:
+				n3 = 52;
+				break;
+			case _4_8:
+				n3 = 53;
+				break;
+			case _6_12:
+				n3 = 54;
+				break;
+			case _2_6:
+				n3 = 55;
+				break;
+			case _3_9:
+				n3 = 56;
+				break;
+			case _4_12:
+				n3 = 57;
+				break;
 		}
 		byte n4 = height;
 		byte[] command = new byte[6 + barcodeData.length + 1];
@@ -967,30 +969,30 @@ public class PrinterFunctions {
 		byte n1 = 0x36;
 		byte n2 = 0;
 		switch (option) {
-		case No_Added_Characters_With_Line_Feed:
-			n2 = 49;
-			break;
-		case Adds_Characters_With_Line_Feed:
-			n2 = 50;
-			break;
-		case No_Added_Characters_Without_Line_Feed:
-			n2 = 51;
-			break;
-		case Adds_Characters_Without_Line_Feed:
-			n2 = 52;
-			break;
+			case No_Added_Characters_With_Line_Feed:
+				n2 = 49;
+				break;
+			case Adds_Characters_With_Line_Feed:
+				n2 = 50;
+				break;
+			case No_Added_Characters_Without_Line_Feed:
+				n2 = 51;
+				break;
+			case Adds_Characters_Without_Line_Feed:
+				n2 = 52;
+				break;
 		}
 		byte n3 = 0;
 		switch (width) {
-		case _2_dots:
-			n3 = 49;
-			break;
-		case _3_dots:
-			n3 = 50;
-			break;
-		case _4_dots:
-			n3 = 51;
-			break;
+			case _2_dots:
+				n3 = 49;
+				break;
+			case _3_dots:
+				n3 = 50;
+				break;
+			case _4_dots:
+				n3 = 51;
+				break;
 		}
 		byte n4 = height;
 		byte[] command = new byte[6 + barcodeData.length + 1];
@@ -1027,18 +1029,18 @@ public class PrinterFunctions {
 
 		byte[] autocutCommand = new byte[] { 0x1b, 0x64, 0x00 };
 		switch (cuttype) {
-		case FULL_CUT:
-			autocutCommand[2] = 48;
-			break;
-		case PARTIAL_CUT:
-			autocutCommand[2] = 49;
-			break;
-		case FULL_CUT_FEED:
-			autocutCommand[2] = 50;
-			break;
-		case PARTIAL_CUT_FEED:
-			autocutCommand[2] = 51;
-			break;
+			case FULL_CUT:
+				autocutCommand[2] = 48;
+				break;
+			case PARTIAL_CUT:
+				autocutCommand[2] = 49;
+				break;
+			case FULL_CUT_FEED:
+				autocutCommand[2] = 50;
+				break;
+			case PARTIAL_CUT_FEED:
+				autocutCommand[2] = 51;
+				break;
 		}
 
 		commands.add(autocutCommand);
@@ -1148,15 +1150,15 @@ public class PrinterFunctions {
 
 		byte[] alignmentCommand = new byte[] { 0x1b, 0x1d, 0x61, 0x00 };
 		switch (alignment) {
-		case Left:
-			alignmentCommand[3] = 48;
-			break;
-		case Center:
-			alignmentCommand[3] = 49;
-			break;
-		case Right:
-			alignmentCommand[3] = 50;
-			break;
+			case Left:
+				alignmentCommand[3] = 48;
+				break;
+			case Center:
+				alignmentCommand[3] = 49;
+				break;
+			case Right:
+				alignmentCommand[3] = 50;
+				break;
 		}
 		commands.add(alignmentCommand);
 
@@ -1298,15 +1300,15 @@ public class PrinterFunctions {
 
 		byte[] alignmentCommand = new byte[] { 0x1b, 0x1d, 0x61, 0x00 };
 		switch (alignment) {
-		case Left:
-			alignmentCommand[3] = 48;
-			break;
-		case Center:
-			alignmentCommand[3] = 49;
-			break;
-		case Right:
-			alignmentCommand[3] = 50;
-			break;
+			case Left:
+				alignmentCommand[3] = 48;
+				break;
+			case Center:
+				alignmentCommand[3] = 49;
+				break;
+			case Right:
+				alignmentCommand[3] = 50;
+				break;
 		}
 		commands.add(alignmentCommand);
 
@@ -1438,15 +1440,15 @@ public class PrinterFunctions {
 
 		byte[] alignmentCommand = new byte[] { 0x1b, 0x1d, 0x61, 0x00 };
 		switch (alignment) {
-		case Left:
-			alignmentCommand[3] = 48;
-			break;
-		case Center:
-			alignmentCommand[3] = 49;
-			break;
-		case Right:
-			alignmentCommand[3] = 50;
-			break;
+			case Left:
+				alignmentCommand[3] = 48;
+				break;
+			case Center:
+				alignmentCommand[3] = 49;
+				break;
+			case Right:
+				alignmentCommand[3] = 50;
+				break;
 		}
 		commands.add(alignmentCommand);
 
@@ -1681,46 +1683,46 @@ public class PrinterFunctions {
 							}
 						}
 
-				        byte[] headerPattern = new byte[]{0x02, 0x45, 0x31, 0x31, 0x1c, 0x1c};
-				        byte[] footerPattern = new byte[]{0x1c, 0x03, 0x0d, 0x0a };
-				        int headerPatternPos = -1;
-				        int fotterPatternPos = -1;
+						byte[] headerPattern = new byte[]{0x02, 0x45, 0x31, 0x31, 0x1c, 0x1c};
+						byte[] footerPattern = new byte[]{0x1c, 0x03, 0x0d, 0x0a };
+						int headerPatternPos = -1;
+						int fotterPatternPos = -1;
 
-				        byte[] data2 = new byte[headerPattern.length];
-				        byte[] data3 = new byte[footerPattern.length];
+						byte[] data2 = new byte[headerPattern.length];
+						byte[] data3 = new byte[footerPattern.length];
 
-				        //Check Start header position
-				        for(int i = 0; i< (mcrData.length - headerPattern.length +1); i++){
-				        	System.arraycopy(mcrData, i, data2, 0, (headerPattern.length));
+						//Check Start header position
+						for(int i = 0; i< (mcrData.length - headerPattern.length +1); i++){
+							System.arraycopy(mcrData, i, data2, 0, (headerPattern.length));
 
-				        	if(Arrays.equals(data2, headerPattern))
-				        	{
-				        		headerPatternPos = i;
-				        		break;
-				        	}
-				        }
+							if(Arrays.equals(data2, headerPattern))
+							{
+								headerPatternPos = i;
+								break;
+							}
+						}
 
-				      //Check Start fotter position
-				        for(int i = headerPatternPos + headerPattern.length; i< (mcrData.length - footerPattern.length +1); i++){
-				       		System.arraycopy(mcrData, i, data3, 0, (footerPattern.length));
+						//Check Start fotter position
+						for(int i = headerPatternPos + headerPattern.length; i< (mcrData.length - footerPattern.length +1); i++){
+							System.arraycopy(mcrData, i, data3, 0, (footerPattern.length));
 
-				        	if(Arrays.equals(data3, footerPattern)){
-				           		fotterPatternPos = i;
-				           		break;
-				        	}
-				        }
+							if(Arrays.equals(data3, footerPattern)){
+								fotterPatternPos = i;
+								break;
+							}
+						}
 
-				    	if((headerPatternPos < 0) || (fotterPatternPos < 0) ){
+						if((headerPatternPos < 0) || (fotterPatternPos < 0) ){
 							Builder dialog1 = new Builder(context);
 							dialog1.setNegativeButton("Ok", null);
 							AlertDialog alert = dialog1.create();
 							alert.setTitle("No data");
 							alert.setMessage("There is nothing available data.");
 							alert.show();
-				    	} else {
-					        byte[] reciveDataList = new byte[fotterPatternPos - headerPatternPos];
+						} else {
+							byte[] reciveDataList = new byte[fotterPatternPos - headerPatternPos];
 
-					        System.arraycopy(mcrData, headerPatternPos, reciveDataList, 0, fotterPatternPos - headerPatternPos);
+							System.arraycopy(mcrData, headerPatternPos, reciveDataList, 0, fotterPatternPos - headerPatternPos);
 
 							Builder dialog1 = new Builder(context);
 							dialog1.setNegativeButton("Ok", null);
@@ -1728,7 +1730,7 @@ public class PrinterFunctions {
 							alert.setTitle("");
 							alert.setMessage(new String(reciveDataList));
 							alert.show();
-				    	}
+						}
 
 						portForMoreThanOneFunction.writePort(new byte[] { 0x04 }, 0, 1);
 						try {
@@ -2331,15 +2333,15 @@ public class PrinterFunctions {
 		}
 
 		Bitmap myBitmap = null;
-	    File imgFile = new  File("//sdcard/Android/Cv_Images/logo.jpg");
+		File imgFile = new  File("//sdcard/Android/Cv_Images/logo.jpg");
 		try {
 			if (imgFile.exists()) {
-			  myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+				myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
 			}
 		}
 		catch (Exception ex){}
-	 	StarBitmap starbitmap = new StarBitmap(myBitmap, false, 600);
+		StarBitmap starbitmap = new StarBitmap(myBitmap, false, 600);
 		if (rasterType == RasterCommand.Standard) {
 			list.add(starbitmap.getImageRasterDataForPrinting_Standard(true));
 		} else {
@@ -2352,10 +2354,10 @@ public class PrinterFunctions {
 		Date=Date+"11:30:11";
 		Date=Date+"\r\n\r\n";
 		String  textToPrint = (
-				        "                     شركة القطاعات                 " +"\r\n"+
+				"                     شركة القطاعات                 " +"\r\n"+
 						"                     عمان - الأردن                  " +"\r\n"+
 						"                    فاتورة المبيعات                " +"\r\n"+
-					    "---------------------------------------------------\r");
+						"---------------------------------------------------\r");
 		list.add(createRasterCommand(textToPrint, 18, Typeface.BOLD, rasterType));
 		list.add(createRasterCommand(Date, 13, Typeface.BOLD, rasterType));
 
@@ -2441,8 +2443,10 @@ public class PrinterFunctions {
 	public static void PrintPos(Context context, String portName, String portSettings, String commandType, Resources res, String strPrintArea, RasterCommand rasterType,String CustName , String ManNm,String Total, ArrayList<Cls_Sal_InvItems> contactList ,String OrdeNo ) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 		String BPrinter_MAC_ID = sharedPreferences.getString("AddressBT", "");
+		//	Toast.makeText(context, "|"+pad("fd",10)  ,Toast.LENGTH_SHORT).show();
 
-		  portName ="BT:"+BPrinter_MAC_ID;
+
+		portName ="BT:"+BPrinter_MAC_ID;
 
 
 		String q,AmtPaid ,Remain,Discount,OrderTotal,Net_Total,Visa_flg,Check_flg, Cash_flg,Paymethod,TaxTotal,OrderDesc;
@@ -2463,7 +2467,7 @@ public class PrinterFunctions {
 
 
 		if (c1 != null && c1.getCount() != 0) {
-			 if (c1.moveToFirst()){
+			if (c1.moveToFirst()){
 				AmtPaid = c1.getString(c1.getColumnIndex("Cust_Amt_Paid") );
 				Remain = c1.getString(c1.getColumnIndex("Remain_Amt") );
 				Discount = c1.getString(c1.getColumnIndex("hdr_dis_value") );
@@ -2481,45 +2485,45 @@ public class PrinterFunctions {
 
 
 
-        if (AmtPaid.equalsIgnoreCase("-1")){
+		if (AmtPaid.equalsIgnoreCase("-1")){
 			AmtPaid="0";
 		}
-        if (Remain.equalsIgnoreCase("-1")){
+		if (Remain.equalsIgnoreCase("-1")){
 			Remain="0";
 		}
 		Paymethod="نقدي";
-       if(Cash_flg.equalsIgnoreCase("1") && Check_flg.equalsIgnoreCase("0") &&Visa_flg.equalsIgnoreCase("0") ){
-		   Paymethod="نقدي";
-	   }
-       if(Cash_flg.equalsIgnoreCase("0") && Check_flg.equalsIgnoreCase("1") &&Visa_flg.equalsIgnoreCase("0") ){
-		   Paymethod="شيكات";
-	   }if(Cash_flg.equalsIgnoreCase("0") && Check_flg.equalsIgnoreCase("0") &&Visa_flg.equalsIgnoreCase("1") ){
-		   Paymethod="فيزا";
-	   }if(Cash_flg.equalsIgnoreCase("1") && Check_flg.equalsIgnoreCase("1") &&Visa_flg.equalsIgnoreCase("0") ){
-		   Paymethod="نقدي،شيكات";
-	   }
-
+		if(Cash_flg.equalsIgnoreCase("1") && Check_flg.equalsIgnoreCase("0") &&Visa_flg.equalsIgnoreCase("0") ){
+			Paymethod="نقدي";
+		}
+		if(Cash_flg.equalsIgnoreCase("0") && Check_flg.equalsIgnoreCase("1") &&Visa_flg.equalsIgnoreCase("0") ){
+			Paymethod="شيكات";
+		}if(Cash_flg.equalsIgnoreCase("0") && Check_flg.equalsIgnoreCase("0") &&Visa_flg.equalsIgnoreCase("1") ){
+			Paymethod="فيزا";
+		}if(Cash_flg.equalsIgnoreCase("1") && Check_flg.equalsIgnoreCase("1") &&Visa_flg.equalsIgnoreCase("0") ){
+			Paymethod="نقدي،شيكات";
+		}
+		String LineP,Lineq,Lineu,Linetot,Linetax,Linenet,ItemLine,textToPrint;
 
 		ArrayList<byte[]> list = new ArrayList<byte[]>();
 
 		printableArea = 576; // Printable area in paper is 576(dot)
 
-		RasterDocument rasterDoc = new RasterDocument(RasSpeed.Medium, RasPageEndMode.FeedAndFullCut, RasPageEndMode.FeedAndFullCut, RasTopMargin.Standard, 0, 0, 0);
+	RasterDocument rasterDoc = new RasterDocument(RasSpeed.Medium, RasPageEndMode.FeedAndFullCut, RasPageEndMode.FeedAndFullCut, RasTopMargin.Standard, 0, 0, 0);
 
-		if (rasterType == RasterCommand.Standard) {
+		 	if (rasterType == RasterCommand.Standard) {
 			list.add(rasterDoc.BeginDocumentCommandData());
 		}
 
 		Bitmap myBitmap = null;
-	    File imgFile = new  File("//sdcard/Android/Cv_Images/logo.jpg");
+		File imgFile = new  File("//sdcard/Android/Cv_Images/logo.jpg");
 		try {
 			if (imgFile.exists()) {
-			  myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+				myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
 
 			}
 		}
 		catch (Exception ex){}
-	 	StarBitmap starbitmap = new StarBitmap(myBitmap, false, 580);
+		StarBitmap starbitmap = new StarBitmap(myBitmap, false, 580);
 		if (rasterType == RasterCommand.Standard) {
 			list.add(starbitmap.getImageRasterDataForPrinting_Standard(true));
 		} else {
@@ -2539,11 +2543,11 @@ public class PrinterFunctions {
 		Date=Date+"الوقت :";
 		Date=Date+Time;
 		Date=Date+"\r\n";
-		String  textToPrint = (
-				        "   شركة القطاعات للإستيراد والتصدير  " +"\r\n"+
+		   textToPrint = (
+				"   شركة القطاعات للإستيراد والتصدير  " +"\r\n"+
 						"                     عمان - الأردن                  " +"\r\n"+
 						"                    فاتورة المبيعات                " +"\r\n"+
-					    "---------------------------------------------------\r");
+						"---------------------------------------------------\r");
 		list.add(createRasterCommand(textToPrint, 18, Typeface.BOLD, rasterType));
 
 
@@ -2552,7 +2556,7 @@ public class PrinterFunctions {
 		list.add(createRasterCommand(textToPrint, 25, Typeface.BOLD, rasterType));
 
 
-	    textToPrint="\t\t\t\t\t\t\t\t\t" + "طريقة الدفع" ;
+		textToPrint="\t\t\t\t\t\t\t\t\t" + "طريقة الدفع" ;
 		textToPrint=textToPrint+" : "+Paymethod + "\r\n" ;
 		list.add(createRasterCommand(textToPrint, 14, Typeface.BOLD, rasterType));
 
@@ -2570,28 +2574,59 @@ public class PrinterFunctions {
 		list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
 
 		textToPrint="السعر"+"\t"+"   الكمية"+"\t"+" الوحدة  "+"\t"+"المجموع"+"\t"+"الضريبة"+"\t"+"الإجمالي";
-		textToPrint=textToPrint+"\r\n"+ "ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ";
+		textToPrint=textToPrint+"\r\n"+ "ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ"+"\n";
 		list.add(createRasterCommand(textToPrint, 14, Typeface.BOLD, rasterType));
 
-		int maxPadLength=10;
-		  if(SToD(Total+"")>1000) {
-			    maxPadLength = 9;
-		  }else{
-			  maxPadLength = 11;
-		  }
+
+		LineP ="0";
+		Lineq ="0";
+		Lineu ="0";
+		Linetot ="0";
+		Linetax ="0";
+		Linenet ="0";
+		Integer TextSize = 12;
+
+
 		for (Cls_Sal_InvItems i : contactList){
-			textToPrint ="  "+ i.getName()+"\n";
-			//textToPrint =textToPrint+ " "+ i.getTotal()+"    " +  i.getTax_Amt()+ "    "+  SToD(i.getQty())*SToD(i.getPrice() ) + "     "+i.getUniteNm()+"     "+i.getQty()+"     "+ i.getItemOrgPrice()   ;
-			textToPrint =textToPrint+ pad(SToD( i.getTotal())+"",maxPadLength )+pad( SToD(  i.getTax_Amt())+"",maxPadLength ) +  pad(SToD( SToD(i.getQty())*SToD(i.getPrice())+"")+"",maxPadLength )   +pad(i.getUniteNm() ,maxPadLength) +pad(i.getQty() ,maxPadLength+2)+  pad(SToD( i.getItemOrgPrice() )+"",maxPadLength)  ;
 
-			/*if (textToPrint.toString().length()>47){
-				textToPrint =" "+ i.getName()+"\n";
-				textToPrint =textToPrint+ pad(SToD( i.getTotal())+"",maxPadLength-1 )+pad( SToD(  i.getTax_Amt())+"",maxPadLength-1 ) +  pad(SToD( SToD(i.getQty())*SToD(i.getPrice())+"")+"",maxPadLength-1 )   +pad(i.getUniteNm() ,maxPadLength) +pad(i.getQty() ,maxPadLength )+  pad(SToD( i.getItemOrgPrice() )+"",maxPadLength)  ;
+		/*	LineP =SToD( i.getItemOrgPrice()).toString();
+			Lineq= i.getQty();
+			Lineu =i.getUniteNm();
+			Linetot =SToD( SToD(i.getQty())*SToD(i.getPrice())+"")+"";
+			Linetax =SToD( i.getTax_Amt()).toString();
+			Linenet =SToD(i.getTotal())  +"";
 
-			}*/
+			textToPrint =" "+ i.getName()+"\n";
+
+			ItemLine =Center6(Linenet)+Center5(Linetax)+Center4(Linetot)+Center3( Lineu)+Center2 (Lineq )+ Center1(LineP)+ "\n";
+			Log.d("textToPrint",ItemLine.length()+"");
+			Log.d("textToPrint","***********************************************".length()+"");
+			TextSize=12;
+
+			if(Linenet.length()>5){
+				TextSize=10;
+				ItemLine=ItemLine+  "********************************************************" ;
+			}else{
+				ItemLine=ItemLine+  "***********************************************" ;
+			}
+			textToPrint =textToPrint+ ItemLine+"\n";
+
+			Log.d("textToPrint",textToPrint);*/
+
+
+			textToPrint =" "+ i.getName()+"\n";
+			textToPrint =textToPrint+"  "+ pad(SToD(i.getTotal())  +"",10 -(SToD( i.getTotal()).toString().length()))+"  | "
+					+pad(SToD(i.getTax_Amt())+"",7- (SToD( i.getTax_Amt()).toString().length() ))+"  | "
+					+pad(SToD( SToD(i.getQty())*SToD(i.getPrice())+"")+"",8-(SToD( SToD(i.getQty())*SToD(i.getPrice())+"")).toString().length() )+"  | "
+					+pad(i.getUniteNm() ,8-(SToD( i.getUniteNm()).toString().length() ))+"  | "
+					+pad(i.getQty() ,7-(SToD( i.getQty()).toString().length() ) )+"  | "
+					+pad(SToD( i.getItemOrgPrice() )+"",7-(SToD( i.getItemOrgPrice()).toString().length()))  ;
+
 			textToPrint =textToPrint+  "\r\n";
-			textToPrint =textToPrint+  "***********************************************";
-			list.add(createRasterCommand(textToPrint, 12, Typeface.BOLD, rasterType));
+			textToPrint =textToPrint+  "***********************************************"+"\n";
+
+
+			list.add(createRasterCommand(textToPrint, TextSize, Typeface.BOLD, rasterType));
 
 		}
 
@@ -2605,11 +2640,11 @@ public class PrinterFunctions {
 		textToPrint=textToPrint+"         : "+contactList.size() ;
 		list.add(createRasterCommand(textToPrint, 20, Typeface.BOLD, rasterType));
 
-        textToPrint="\t\t\t\t\t" + "المجموع" ;
+		textToPrint="\t\t\t\t\t" + "المجموع" ;
 		textToPrint=textToPrint+"            : "+Total ;
 		list.add(createRasterCommand(textToPrint, 20, Typeface.BOLD, rasterType));
 
-        textToPrint="\t\t\t\t\t" + "الخصم" ;
+		textToPrint="\t\t\t\t\t" + "الخصم" ;
 		textToPrint=textToPrint+"              : "+Discount ;
 		list.add(createRasterCommand(textToPrint, 20, Typeface.BOLD, rasterType));
 
@@ -2630,7 +2665,7 @@ public class PrinterFunctions {
 		textToPrint=textToPrint+"    : "+AmtPaid ;
 		list.add(createRasterCommand(textToPrint, 20, Typeface.BOLD, rasterType));
 
-        textToPrint="\t\t\t\t\t" + "الباقي" ;
+		textToPrint="\t\t\t\t\t" + "الباقي" ;
 		textToPrint=textToPrint+"               : "+Remain + "\r\n" ;
 		list.add(createRasterCommand(textToPrint, 20, Typeface.BOLD, rasterType));
 
@@ -2664,7 +2699,154 @@ public class PrinterFunctions {
 
 
 	}
+	public static String Center1(String str  ) {
+		String Result =str;
 
+		if (str.length()==1) {
+			Result = "   " + str + "      ";
+		}
+		else if (str.length()==2) {
+			Result = "  " + str + "     ";
+		}
+		else if (str.length()==3) {
+			Result = " " + str + "    ";
+		}
+		else if (str.length()==4) {
+			Result = "" + str + "   ";
+		}
+		else if (str.length()>=5) {
+			Result = " " + str + " ";
+
+		}
+
+
+		return Result;
+	}
+	public static String Center2(String str  ) {
+		String Result =str;
+
+		if (str.length()==1)
+			Result="      "+str+"     ";
+
+		else if (str.length()==2) {
+			Result = "     " + str + "    ";
+		}
+		else if (str.length()==3) {
+			Result = "   " + str + "   ";
+		}
+		else if (str.length()==4) {
+			Result = "  " + str + "  ";
+		}
+		else if (str.length()>=5) {
+			Result =""+  str + " ";
+		}
+
+		return Result;
+	}
+	public static String Center3(String str  ) {
+
+		String Result =str;
+
+		if (str.length()==1)
+			Result="      "+str+"      ";
+
+		else if (str.length()==2) {
+			Result = "     " + str + "    ";
+		}
+		else if (str.length()==3) {
+			Result = "   " + str + "    ";
+		}
+		else if (str.length()==4) {
+			Result = " " + str + "   ";
+		}
+		else if (str.length()==5) {
+			Result = "" + str + "  ";
+		}
+		else if (str.length()>=6) {
+			Result = ""+  str + " ";
+		}
+
+
+		return Result;
+	}
+	public static String Center4(String str  ) {
+		String Result =str;
+
+		if (str.length()==1)
+			Result="      "+str+"      ";
+
+		else if (str.length()==2) {
+			Result = "     " + str + "     ";
+		}
+		else if (str.length()==3) {
+			Result = "   " + str + "     ";
+		}
+		else if (str.length()==4) {
+			Result = "   " + str + "   ";
+		}
+		else if (str.length()==5) {
+			Result = "  " + str + "  ";
+		}
+		else if (str.length()>=6) {
+			Result = ""+ str + " ";
+		}
+
+		return Result;
+	}
+	public static String Center5(String str  ) {
+		String Result =str;
+
+		if (str.length()==1)
+			Result="       "+str+"      ";
+
+		else if (str.length()==2) {
+			Result = "      " + str + "     ";
+		}
+		else if (str.length()==3) {
+			Result = "    " + str + "     ";
+		}
+		else if (str.length()==4) {
+			Result = "   " + str + "    ";
+		}
+		else if (str.length()==5) {
+			Result = " " + str + "    ";
+		}
+		else if (str.length() ==6) {
+			Result = "    "+  str +" " ;
+		}
+
+		else if (str.length()>=7) {
+			Result = ""+  str +" " ;
+		}
+
+
+		return Result;
+	}
+	public static String Center6(String str  ) {
+		String Result =str;
+
+		if (str.length()==1)
+			Result="    "+str+"     ";
+
+		else if (str.length()==2) {
+			Result = "    " + str ;
+		}
+		else if (str.length()==3) {
+			Result = "   " + str;
+		}
+		else if (str.length()==4) {
+			Result = " " + str  ;
+		}
+		else if (str.length()==5) {
+			Result =  str  ;
+		}else if (str.length()==6) {
+			Result =  "  " + str  ;
+		}else if (str.length()>=7) {
+			Result =     str  ;
+		}
+
+		return Result;
+	}
 
 	public static void PrintSampleReceiptCHT_UTF8(Context context, String portName, String portSettings, String commandType, Resources res, String strPrintArea, RasterCommand rasterType) {
 		if ("Line" == commandType) {
