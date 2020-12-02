@@ -40,20 +40,12 @@ String DocType ="1";
    public View onCreateView( final LayoutInflater inflater   , ViewGroup container  ,Bundle savestate){
         form =inflater.inflate(R.layout.activity_pos__inv__search,container,false);
         DocType = getArguments().getString("doctype") ;
-
-            getDialog().setTitle("البحث في فواتير المبيعات");
-
-
-
+        getDialog().setTitle("البحث في فواتير المبيعات");
         final TextView Search = (TextView)form.findViewById(R.id.tv_Search)  ;
-
         DocType = getArguments().getString("doctype") ;
-
-
-
         items_Lsit=(ListView) form.findViewById(R.id.listView2);
-          cls_search_pos_list  = new ArrayList<cls_Search_po>();
-          cls_search_pos_list.clear();
+        cls_search_pos_list  = new ArrayList<cls_Search_po>();
+        cls_search_pos_list.clear();
         FillList("");
         Search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 

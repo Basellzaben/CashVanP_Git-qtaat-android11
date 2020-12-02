@@ -2483,7 +2483,13 @@ public class PrinterFunctions {
 		}
 
 
-
+            Log.d("POS_PRINT",AmtPaid+"");
+            Log.d("POS_PRINT",Remain+"");
+            Log.d("POS_PRINT",Discount+"");
+            Log.d("POS_PRINT",Net_Total+"");
+            Log.d("POS_PRINT",TaxTotal+"");
+            Log.d("POS_PRINT",Total+"");
+            Log.d("POS_PRINT",OrderDesc+"");
 
 		if (AmtPaid.equalsIgnoreCase("-1")){
 			AmtPaid="0";
@@ -2574,7 +2580,7 @@ public class PrinterFunctions {
 		list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
 
 		textToPrint="السعر"+"\t"+"   الكمية"+"\t"+" الوحدة  "+"\t"+"المجموع"+"\t"+"الضريبة"+"\t"+"الإجمالي";
-		textToPrint=textToPrint+"\r\n"+ "ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ"+"\n";
+		textToPrint=textToPrint + "ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ"+"\n";
 		list.add(createRasterCommand(textToPrint, 14, Typeface.BOLD, rasterType));
 
 

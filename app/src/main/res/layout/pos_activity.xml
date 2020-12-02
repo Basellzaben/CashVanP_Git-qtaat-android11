@@ -819,7 +819,7 @@
                     android:layout_height="0dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginBottom="2dp"
-                    android:layout_weight="1.8"
+                    android:layout_weight="1.7"
                     android:orientation="vertical"
                     android:weightSum="2">
 
@@ -827,109 +827,121 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="0.2"
-                        android:background="#000"
                         android:orientation="horizontal"
-                        android:weightSum="6">
+                        android:weightSum="2">
 
-                        <Methdes.MyTextView
-                            android:id="@+id/tv_Pdsrice"
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="2dp"
-                            android:layout_weight="0.9"
-                            android:background="@color/Gray5"
-                            android:gravity="right|center_vertical"
-                            android:paddingRight="5dp"
-                            android:text="المادة"
-                            android:textColor="#000"
-                            android:textSize="16sp" />
+                            android:layout_weight="1.8"
+                            android:orientation="horizontal"
+                            android:weightSum="6">
 
-                        <Methdes.MyTextView
-                            android:id="@+id/tv_Price"
+                            <Methdes.MyTextView
+                                android:id="@+id/tv_Price"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_cir_white_fill_gray"
+                                android:gravity="center|center_vertical"
+                                android:paddingRight="5dp"
+                                android:text="السعر"
+                                android:textColor="#000"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <Methdes.MyTextView
+                                android:id="@+id/tv_Qty"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_cir_white_fill_gray"
+                                android:gravity="center"
+                                android:text="الكمية"
+                                android:textColor="#000"
+                                android:textIsSelectable="false"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:visibility="visible" />
+
+                            <Methdes.MyTextView
+                                android:id="@+id/tv_Unit"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_cir_white_fill_gray"
+                                android:gravity="center"
+                                android:text="الوحدة"
+                                android:textAlignment="center"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textColor="#000"
+                                android:textSize="18sp"
+                                android:visibility="visible" />
+
+                            <Methdes.MyTextView
+                                android:id="@+id/tv_Tax"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_cir_white_fill_gray"
+                                android:gravity="center"
+                                android:text="الضريبة"
+                                android:textAlignment="center"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textColor="#000"
+                                android:textSize="18sp"
+                                android:visibility="visible" />
+
+                            <Methdes.MyTextView
+                                android:id="@+id/tv_Discount"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_cir_white_fill_gray"
+                                android:gravity="center"
+                                android:text="الخصم"
+                                android:textAlignment="center"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textColor="#000"
+                                android:textSize="18sp"
+                                android:visibility="visible" />
+
+                            <Methdes.MyTextView
+                                android:id="@+id/tv_Total"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:background="@drawable/btn_cir_white_fill_gray"
+                                android:digits="#.000"
+                                android:gravity="center"
+                                android:text="المجموع"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textColor="#000"
+                                android:textSize="18sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="2dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.2"
                             android:background="@color/Gray5"
-                            android:gravity="center|center_vertical"
-                            android:paddingRight="5dp"
-                            android:text="السعر"
-                            android:textColor="#000"
-                            android:textSize="16sp" />
+                            android:orientation="horizontal"
+                            android:weightSum="6">
 
-                        <Methdes.MyTextView
-                            android:id="@+id/tv_Qty"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="2dp"
-                            android:layout_weight="1.1"
-                            android:background="@color/Gray5"
-                            android:gravity="center"
-                            android:text="الكمية"
-                            android:textColor="#000"
-                            android:textIsSelectable="false"
-                            android:textSize="16sp"
-                            android:visibility="visible" />
 
-                        <Methdes.MyTextView
-                            android:id="@+id/tv_Unit"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="2dp"
-                            android:layout_weight="1.1"
-                            android:background="@color/Gray5"
-                            android:gravity="center"
-                            android:text="الوحدة"
-                            android:textAlignment="center"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:visibility="visible" />
-
-                        <Methdes.MyTextView
-                            android:id="@+id/tv_Total"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:background="@color/Gray5"
-                            android:digits="#.000"
-                            android:gravity="center"
-                            android:text="المجموع"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="#000"
-                            android:textSize="16sp" />
-
-                        <Methdes.MyTextView
-                            android:id="@+id/tv_Txotal"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:background="@color/Gray5"
-                            android:digits="#.000"
-                            android:gravity="center"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="#000"
-                            android:textSize="16sp" />
-
-                        <Methdes.MyTextView
-                            android:id="@+id/tv_Tax_Amt"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1.2"
-                            android:gravity="center_horizontal"
-                            android:text="Tax_Amt"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="#000"
-                            android:textSize="16sp"
-                            android:visibility="gone" />
-
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -952,23 +964,25 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.3"
                     android:orientation="horizontal"
                     android:padding="3dp"
-                    android:weightSum="3">
+                    android:weightSum="5">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.8"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:weightSum="2">
 
                         <Methdes.MyTextView
                             android:id="@+id/texstViesw81"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.3"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_gray"
                             android:gravity="center"
                             android:text="عدد المواد"
                             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -977,11 +991,12 @@
 
                         <Methdes.MyTextView
                             android:id="@+id/tv_ItemCount"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.7"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:background="@drawable/btn_cir_white_fill_black"
                             android:gravity="center"
+                            android:text="0"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="#000"
                             android:textSize="18sp" />
@@ -991,26 +1006,27 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1.2"
-                        android:orientation="horizontal">
+                        android:layout_weight="0.9"
+                        android:orientation="vertical"
+                        android:weightSum="2">
 
                         <Methdes.MyTextView
-                            android:id="@+id/textView12"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="1.2"
+                            android:id="@+id/textView11"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_gray"
                             android:gravity="center"
-                            android:text="مجموع الضريبة"
+                            android:text="المجموع"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="#000"
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/et_TotalTax"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.8"
+                            android:id="@+id/et_Total"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:background="@drawable/btn_cir_white_fill_black"
                             android:gravity="center"
                             android:text="0.0"
@@ -1023,15 +1039,83 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_weight="1.1"
+                        android:orientation="vertical"
+                        android:weightSum="2">
+
+                        <Methdes.MyTextView
+                            android:id="@+id/textView80"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_gray"
+                            android:gravity="center"
+                            android:text="مجموع الخصم"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/et_dis"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:gravity="center"
+                            android:text="0.0"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.1"
+                        android:orientation="vertical"
+                        android:weightSum="2">
+
+                        <Methdes.MyTextView
+                            android:id="@+id/textView12"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_gray"
+                            android:gravity="center"
+                            android:text="مجموع الضريبة"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/et_TotalTax"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_black"
+                            android:gravity="center"
+                            android:text="0.0"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#000"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.1"
+                        android:orientation="vertical"
+                        android:weightSum="2">
 
 
                         <Methdes.MyTextView
                             android:id="@+id/textView81"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.7"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/btn_cir_white_fill_gray"
                             android:gravity="center"
                             android:text="الاجمالي"
                             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -1040,9 +1124,9 @@
 
                         <TextView
                             android:id="@+id/tv_NetTotal"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1.3"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             android:background="@drawable/btn_cir_white_fill_black"
                             android:gravity="center"
                             android:text="0.0"
@@ -1259,50 +1343,6 @@
             android:orientation="horizontal"
             android:visibility="gone"
             android:weightSum="8">
-
-            <Methdes.MyTextView
-                android:id="@+id/textView11"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="المجموع  :"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000" />
-
-            <TextView
-                android:id="@+id/et_Total"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/btn_cir_white_fill_black"
-                android:gravity="center"
-                android:text="0.0"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000"
-                android:textSize="14dp" />
-
-            <Methdes.MyTextView
-                android:id="@+id/textView80"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="الخصم :"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000" />
-
-            <TextView
-                android:id="@+id/et_dis"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/btn_cir_white_fill_black"
-                android:gravity="center"
-                android:text="0.0"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000" />
-
 
 
         </LinearLayout>

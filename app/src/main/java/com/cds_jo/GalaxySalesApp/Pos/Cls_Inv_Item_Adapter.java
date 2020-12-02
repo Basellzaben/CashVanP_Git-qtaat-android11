@@ -108,7 +108,7 @@ public class Cls_Inv_Item_Adapter extends BaseAdapter {
 
 
         TextView Disc_Amt = (TextView) convertView.findViewById(R.id.tv_Disc_Amt);
-         Disc_Amt.setText( String.valueOf(  SToD(contactListItems.getDis_Amt()) +  SToD(contactListItems.getPro_amt()) +  SToD(contactListItems.getPro_amt())   )) ;
+         Disc_Amt.setText( String.valueOf(  SToD(contactListItems.getDis_Amt()) +  SToD(contactListItems.getPro_amt()) +  SToD(contactListItems.getPro_amt())  +  SToD(contactListItems.getDisAmtFromHdr())   ) ) ;
 
 
         TextView Total = (TextView) convertView.findViewById(R.id.tv_Total);

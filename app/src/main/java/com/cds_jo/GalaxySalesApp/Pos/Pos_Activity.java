@@ -1969,7 +1969,7 @@ public class Pos_Activity extends AppCompatActivity {
     editor.commit();*/
     }
     private void CalcTax() {
-        Double All_Dis = 0.0;
+
         Double RowTotal = 0.0;
         Double NetRow = 0.0;
         Double TaxAmt = 0.0;
@@ -1983,7 +1983,7 @@ public class Pos_Activity extends AppCompatActivity {
         for (int x = 0; x < contactList.size(); x++) {
             contactListItems = new Cls_Sal_InvItems();
             contactListItems = contactList.get(x);
-            All_Dis = Double.parseDouble(contactListItems.getDis_Amt().replace(",", "")) + Double.parseDouble(contactListItems.getDisAmtFromHdr().replace(",", "")) + Double.parseDouble(contactListItems.getPro_amt().replace(",", ""));
+
             All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr()) + SToD(contactListItems.getPro_dis_Per());
 
             if (IncludeTax_Flag.isChecked()) {
@@ -1993,23 +1993,87 @@ public class Pos_Activity extends AppCompatActivity {
                 contactListItems.setprice(String.valueOf(SToD(contactListItems.getItemOrgPrice())));
 
             }
-            //  contactListItems.setDis_Amt( (SToD(contactListItems.getprice()) * SToD(contactListItems.getQty()))  * (100)   );
+
             RowTotal = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
             TaxFactor = (Double.parseDouble(contactListItems.getTax()) / 100);
             NetRow = RowTotal - (RowTotal * (All_Dis_Per / 100));
-             /*if(Tax_Include.isChecked()) {
-                 TaxAmt = NetRow - ( NetRow / (TaxFactor + 1)) ;
-                  TaxAmt = NetRow - ( NetRow / (TaxFactor + 1)) ;
-             }
-             else {
-                TaxAmt = NetRow  *  TaxFactor ;
-           }*/
+             Log.d("TAX",NetRow+"");
+             Log.d("TAX",TaxFactor+"");
             TaxAmt = NetRow * TaxFactor;
-            contactListItems.setTax_Amt(df.format(TaxAmt).toString());
+
+            contactListItems.setTax_Amt( SToD(TaxAmt +"")+"");
         }
         showList();
     }
     private void CalcTotal() {
+        Double Total, Tax_Total, Dis_Amt, Po_Total;
+        Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        DecimalFormat df = (DecimalFormat) nf;
+        Double All_Dis = 0.0;
+        Double All_Dis_Per = 0.0;
+        Total = 0.0;
+        Tax_Total = 0.0;
+        Dis_Amt = 0.0;
+        Po_Total = 0.0;
+        TextView Subtotal = (TextView) findViewById(R.id.et_Total);
+        TextView TotalTax = (TextView) findViewById(R.id.et_TotalTax);
+        TextView dis = (TextView) findViewById(R.id.et_dis);
+        TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
+
+
+        CalcTax();
+        Double RowTotal = 0.0;
+        Double pq = 0.0;
+        Double opq = 0.0;
+        Double V_NetTotal = 0.0;
+        for (int x = 0; x < contactList.size(); x++) {
+            contactListItems = new Cls_Sal_InvItems();
+            contactListItems = contactList.get(x);
+            All_Dis = SToD(contactListItems.getDis_Amt()) + SToD(contactListItems.getDisAmtFromHdr()) + SToD(contactListItems.getPro_amt());
+            All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr()) + SToD(contactListItems.getPro_dis_Per());
+            pq = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
+            opq = SToD(contactListItems.getItemOrgPrice()) * SToD(contactListItems.getQty());
+
+            Tax_Total = Tax_Total + (SToD(contactListItems.getTax_Amt().toString()));
+         //   Dis_Amt = Dis_Amt + (((opq) * (All_Dis_Per / 100)));
+            Dis_Amt = Dis_Amt +  SToD(contactListItems.getDis_Amt())
+                                     +  SToD(contactListItems.getPro_amt())
+                                         +  SToD(contactListItems.getPro_amt())
+                                            +  SToD(contactListItems.getDisAmtFromHdr())    ;
+
+            if (IncludeTax_Flag.isChecked()) {
+                RowTotal = opq - ((opq) * (All_Dis_Per / 100));//+ SToD(contactListItems.getTax_Amt());
+
+
+
+            } else {
+                RowTotal = pq - ((pq) * (All_Dis_Per / 100)) + SToD(contactListItems.getTax_Amt());
+                Total = Total + pq;
+
+            }
+
+            V_NetTotal = V_NetTotal + SToD(RowTotal.toString().replace(",", ""));
+
+            contactListItems.setTotal((SToD(RowTotal.toString())).toString().replace(",", ""));
+            All_Dis = 0.0;
+
+        }
+        Total = V_NetTotal - Tax_Total + Dis_Amt;
+        Log.d("Dis_Amt",Dis_Amt+"");
+        TotalTax.setText(String.valueOf(df.format(Tax_Total)).replace(",", ""));
+        Subtotal.setText(String.valueOf(df.format(Total)).replace(",", ""));
+        dis.setText(String.valueOf(df.format(Dis_Amt)).replace(",", ""));
+
+
+
+        Po_Total = Po_Total + ((SToD(Subtotal.getText().toString()) - SToD(dis.getText().toString())) + SToD(TotalTax.getText().toString()));
+
+        showList();
+        NetTotal.setText(String.valueOf(df.format(V_NetTotal)));
+
+    }
+    /*private void CalcTotal() {
         Double Total, Tax_Total, Dis_Amt, Po_Total;
         Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
         NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
@@ -2054,21 +2118,17 @@ public class Pos_Activity extends AppCompatActivity {
 
             } else {
                 RowTotal = pq - ((pq) * (All_Dis_Per / 100)) + SToD(contactListItems.getTax_Amt());
-                Total = Total + pq;
+
 
             }
-
+            Total=Total + (SToD(contactListItems.getItemOrgPrice())*SToD(contactListItems.getQty()));
             V_NetTotal = V_NetTotal + SToD(RowTotal.toString().replace(",", ""));
 
             contactListItems.setTotal((SToD(RowTotal.toString())).toString().replace(",", ""));
             All_Dis = 0.0;
 
         }
-        if (IncludeTax_Flag.isChecked()) {
-            Total = SToD(V_NetTotal+"")   + SToD( Dis_Amt+"");
-        }else{
-            Total = SToD(V_NetTotal+"") - SToD(Tax_Total+"") + SToD(Dis_Amt+"");
-        }
+
         Total=SToD(Total+"");
 
         TotalTax.setText(String.valueOf(df.format(Tax_Total)).replace(",", ""));
@@ -2076,18 +2136,12 @@ public class Pos_Activity extends AppCompatActivity {
         dis.setText(String.valueOf(df.format(Dis_Amt)).replace(",", ""));
 
 
-       /* if (Tax_Include.isChecked()){
-            Po_Total = Po_Total + ((Double.parseDouble(Subtotal.getText().toString().replace(",", "")) - Double.parseDouble(dis.getText().toString().replace(",", "")) ) + Double.parseDouble(TotalTax.getText().toString().replace(",", ""))    );
-        }
-        else{
-            Po_Total = Po_Total + ((Double.parseDouble(Subtotal.getText().toString().replace(",", "")) - Double.parseDouble(dis.getText().toString().replace(",","")) )   + Double.parseDouble(TotalTax.getText().toString().replace(",", "")) );
-        }*/
-        Po_Total = Po_Total + ((SToD(Subtotal.getText().toString()) - SToD(dis.getText().toString())) + SToD(TotalTax.getText().toString()));
+
 
         showList();
-        NetTotal.setText(String.valueOf(df.format(V_NetTotal)));
-
-    }
+        NetTotal.setText(SToD(V_NetTotal+"")+"");
+        Subtotal.setText(SToD(Total+"")+"");
+    }*/
     public void btn_show_Pop(View view) {
         showPop();
     }
@@ -2763,7 +2817,7 @@ public class Pos_Activity extends AppCompatActivity {
         k.putExtra("OrderNo", OrdeNo.getText().toString()  );
         k.putExtra("ShowTax", "1");
         k.putExtra("name", "1");
-      //   startActivity(k);
+
          String portName ="";// PrinterTypeActivity.getPortName();
         String portSettings = "";
 
@@ -2772,6 +2826,9 @@ public class Pos_Activity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String UserName =  sharedPreferences.getString("UserName", "");
         try {
+          PrinterFunctions.PrintPos(this, portName, portSettings, "Line", getResources(),  "3inch (80mm)", rasterType,CustNm.getText().toString(),UserName,tv_NetTotal.getText().toString(),contactList,OrdeNo.getText().toString());
+
+/*
 
            String textToPrint="السعر"+"\t"+"   الكمية"+"\t"+" الوحدة  "+"\t"+"المجموع"+"\t"+"الضريبة"+"\t"+"الإجمالي";
             EditText ed_OrderNotes1=(EditText ) findViewById(R.id.ed_OrderNotes1);
@@ -2859,9 +2916,9 @@ public class Pos_Activity extends AppCompatActivity {
             textToPrint =textToPrint+ ItemLine;
 
           //  ed_OrderNotes.setText(textToPrint);
+*/
 
 
-        PrinterFunctions.PrintPos(this, portName, portSettings, "Line", getResources(),  "3inch (80mm)", rasterType,CustNm.getText().toString(),UserName,tv_NetTotal.getText().toString(),contactList,OrdeNo.getText().toString());
       }
         catch (Exception ex){}
 
@@ -3028,12 +3085,16 @@ public class Pos_Activity extends AppCompatActivity {
         EditText et_hdr_Disc = (EditText) findViewById(R.id.et_hdr_Disc);
         TextView et_TotalTax = (TextView) findViewById(R.id.et_TotalTax);
         TextView tv_NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
+        TextView et_Total = (TextView) findViewById(R.id.et_Total);
+        TextView dis = (TextView) findViewById(R.id.et_dis);
 
         CheckBox chk_showTax = (CheckBox) findViewById(R.id.chk_showTax);
-        et_hdr_Disc.setText("0");
+        et_hdr_Disc.setText("0.0");
         CustNm.setText("");
         accno.setText("");
-        et_TotalTax.setText("");
+        et_TotalTax.setText("0.0");
+        et_Total.setText("0.0");
+        dis.setText("0.0");
         CheckBox chk_hdr_disc = (CheckBox) findViewById(R.id.chk_hdr_disc);
 
 
@@ -4017,6 +4078,7 @@ public class Pos_Activity extends AppCompatActivity {
         Set_Order(Order_no.getText().toString());
     }
     public void Set_Order(String No) {
+        DecimalFormat Format = new DecimalFormat("0.000");
         No=No ;
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
         TextView no = (TextView) findViewById(R.id.et_OrdeNo);
@@ -4025,6 +4087,7 @@ public class Pos_Activity extends AppCompatActivity {
 
         TextView tv_NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
         TextView et_TotalTax = (TextView) findViewById(R.id.et_TotalTax);
+        TextView et_Total = (TextView) findViewById(R.id.et_Total);
         TextView et_dis = (TextView) findViewById(R.id.et_dis);
         no.setText(No);
         DriverNm  = (MyTextView) mNav.findViewById(R.id.tv_DriverNm);
@@ -4032,10 +4095,11 @@ public class Pos_Activity extends AppCompatActivity {
         DriverNm.setText("");
         FillAdapter();
         showList();
+        Double LineDis=  GetLineDisTotal();
         String q = "Select  distinct ifnull(s.OrderDesc,'') as OrderDesc, ifnull( s.hdr_dis_per,'0')  as   hdr_dis_per , ifnull( d.DriverNm,'') as drivernm, ifnull( s.hdr_dis_value,0) as hdr_dis_value ,s.Nm ,     s.inovice_type   ,s.include_Tax ,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , s.Nm as  name " +
-                "    from  Sal_invoice_Hdr s   " +
-                "   left join Driver d on d.DriverNo =s.driverno   " +
-                "where  ifnull(s.doctype,'1')='"+DocType.toString()+ "'  and   s.OrderNo = '" + No + "'";
+                "    ,ifnull(Total,'0') as Total  from  Sal_invoice_Hdr s   " +
+                "    left join Driver d on d.DriverNo =s.driverno   " +
+                "    where  ifnull(s.doctype,'1')='"+DocType.toString()+ "'  and   s.OrderNo = '" + No + "'";
 
         Cursor c1 = sqlHandler.selectQuery(q);
         CustNm.setText("");
@@ -4053,28 +4117,24 @@ public class Pos_Activity extends AppCompatActivity {
                 c1.moveToFirst();
                 try {
                     if (c1.getString(c1.getColumnIndex("inovice_type")).equals("0")) {
-
                         CustNm.setText(c1.getString(c1.getColumnIndex("Nm")).toString());
-
                     } else {
                         CustNm.setText(c1.getString(c1.getColumnIndex("name")).toString());
-
                     }
                 } catch (Exception ex) {
-
                     Toast.makeText(this, "لا يمكن استرجاع الحساب", Toast.LENGTH_SHORT).show();
                 }
                 tv_HeaderDscount  = (MyTextView) mNav.findViewById(R.id.tv_HeaderDscount);
-
                 tv_HeaderDscount.setText(c1.getString(c1.getColumnIndex("hdr_dis_per"))+"%");
                 accno.setText(c1.getString(c1.getColumnIndex("acc")));
-                tv_NetTotal.setText(c1.getString(c1.getColumnIndex("Net_Total")));
-                et_TotalTax.setText(c1.getString(c1.getColumnIndex("Tax_Total")));
-                et_dis.setText(c1.getString(c1.getColumnIndex("disc_Total")));
+                tv_NetTotal.setText(SToD(c1.getString(c1.getColumnIndex("Net_Total")))+"");
+                et_TotalTax.setText(SToD(c1.getString(c1.getColumnIndex("Tax_Total")))+"");
+                et_dis.setText( SToD( c1.getString(c1.getColumnIndex("hdr_dis_value")))+LineDis+"");
+
                 ed_OrderNotes.setText(c1.getString(c1.getColumnIndex("OrderDesc")));
                 et_hdr_Disc.setText(c1.getString(c1.getColumnIndex("hdr_dis_value")));
                 DriverNm.setText(c1.getString(c1.getColumnIndex("drivernm")));
-
+                et_Total.setText( SToD( c1.getString(c1.getColumnIndex("Total")))+"");
 
 
                 if (c1.getString(c1.getColumnIndex("include_Tax")).equals("0")) {
@@ -4090,8 +4150,22 @@ public class Pos_Activity extends AppCompatActivity {
         }
 
 
+
         IsChange = false;
         IsNew = false;
+    }
+    private Double GetLineDisTotal(){
+        Double  Dis_Amt;
+        Cls_Sal_InvItems contactListItems  ;
+        Dis_Amt = 0.0;
+       for (int x = 0; x < contactList.size(); x++) {
+            contactListItems = new Cls_Sal_InvItems();
+             contactListItems = contactList.get(x);
+            Dis_Amt = Dis_Amt +  SToD(contactListItems.getDis_Amt())
+                    +  SToD(contactListItems.getPro_amt());
+           }
+       Log.d("Dis_Amt",Dis_Amt+"");
+             return Dis_Amt;
     }
     private void AppledOfferType3(String GroupNo, String ItemFactor, String TotalItem) {
 

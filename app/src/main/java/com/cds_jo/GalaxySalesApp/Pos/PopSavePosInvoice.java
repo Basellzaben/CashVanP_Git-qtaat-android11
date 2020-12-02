@@ -71,7 +71,7 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
 
         //  int dialogWidth =740; // WindowManager.LayoutParams.WRAP_CONTENT;//340; // specify a value here
         int dialogWidth = 1700; // specify a value here
-       dialogWidth=1200;
+         dialogWidth=1200;
         if(ComInfo.ComNo== Companies.Sector.getValue()){
             dialogWidth = 1700;
         }

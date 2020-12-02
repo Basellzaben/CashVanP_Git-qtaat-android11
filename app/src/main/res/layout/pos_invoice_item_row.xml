@@ -31,7 +31,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.8"
-                    android:gravity="right|center_vertical"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="10dp"
                     android:paddingRight="5dp"
                     android:text="no"
                     android:textColor="#000"
@@ -55,25 +56,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="5">
-
-                <Methdes.MyTextView
-                    android:id="@+id/tv_Pdsrice"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.7"
-                    android:gravity="right|center_vertical"
-                    android:paddingRight="5dp"
-                    android:textColor="#000"
-                    android:textSize="16sp" />
+                android:weightSum="6">
 
                 <Methdes.MyTextView
                     android:id="@+id/tv_Price"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_weight="0.9"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:paddingRight="5dp"
                     android:text="TextView"
@@ -85,7 +75,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1.1"
+                    android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:text="Qty"
                     android:textColor="#000"
@@ -98,9 +88,35 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1.1"
+                    android:layout_weight="1"
                     android:text="Unit"
                     android:textAlignment="center"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Tax_Amt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="Tax_Amt"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:visibility="visible" />
+
+                <Methdes.MyTextView
+                    android:id="@+id/tv_Disc_Amt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Disc_Amt"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#000"
                     android:textSize="16sp"
@@ -118,19 +134,6 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#000"
                     android:textSize="16sp" />
-
-                <Methdes.MyTextView
-                    android:id="@+id/tv_Tax_Amt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1.2"
-                    android:gravity="center_horizontal"
-                    android:text="Tax_Amt"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="#000"
-                    android:textSize="16sp"
-                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -201,19 +204,6 @@
         android:text="perdisc"
         android:textColor="#000"
         android:textIsSelectable="false"
-        android:textSize="16sp"
-        android:visibility="gone" />
-
-    <Methdes.MyTextView
-        android:id="@+id/tv_Disc_Amt"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="0"
-        android:gravity="center"
-        android:text="Disc_Amt"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#000"
         android:textSize="16sp"
         android:visibility="gone" />
 

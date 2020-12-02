@@ -52,7 +52,7 @@ public class CallWebServices  {
        //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
         //URL = "http://92.253.127.230:92/CV.asmx";// mo8bl
        //  URL = "http://109.107.238.12:3755/CV.asmx";// السعد
-        URL = "http://79.173.250.118:3755/CV.asmx";// sector
+      //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
     }
     public void GetItem_D(String Item_no, int flag) {
 
