@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private TextView contentTxt;
     private ESCPOSPrinter posPtr;
     ESCPSample3 obj_print = new ESCPSample3();
-    int dayOfWeek;
+    String dayOfWeek;
     SqlHandler sqlHandler;
     TextView TrDate, et_Day, et_StartTime, et_EndTime;
     RelativeLayout EndRound, StartRound;
@@ -131,7 +131,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         tv_Note=(EditText) findViewById(R.id.tv_Note);
 
         Calendar c = Calendar.getInstance();
-        dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+       // dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+          dayOfWeek   = DB.GetValue(this, "ServerDateTime", "DAYWEEK", "1=1");
+
         et_Day = (TextView) findViewById(R.id.et_Day);
         et_Day.setText(GetDayName(dayOfWeek));
 
@@ -493,7 +495,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         ContentValues cv = new ContentValues();
         cv.put("CusNo", CustNo.getText().toString());
         cv.put("ManNo", sharedPreferences.getString("UserID", ""));
-        cv.put("DayNum", String.valueOf(dayOfWeek));
+        cv.put("DayNum", dayOfWeek);
         cv.put("Tr_Data", TrDate.getText().toString());
         cv.put("Start_Time", et_StartTime.getText().toString());
         cv.put("Closed", "0");
@@ -867,43 +869,43 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         if (Week_Num.equalsIgnoreCase("1")) {
 
-            if (dayOfWeek == 7)
+            if (dayOfWeek.equalsIgnoreCase("7") )
                 q = " sat = 1 ";
 
-            if (dayOfWeek == 1)
+            if (dayOfWeek.equalsIgnoreCase("1") )
                 q = " sun = 1 ";
 
-            if (dayOfWeek == 2)
+            if (dayOfWeek.equalsIgnoreCase("2") )
                 q = " mon = 1 ";
 
 
-            if (dayOfWeek == 3)
+            if (dayOfWeek.equalsIgnoreCase("3") )
                 q = " tues = 1 ";
 
-            if (dayOfWeek == 4)
+            if (dayOfWeek.equalsIgnoreCase("4") )
                 q = " wens = 1 ";
 
-            if (dayOfWeek == 5)
+            if (dayOfWeek.equalsIgnoreCase("5") )
                 q = " thurs = 1 ";
         }
         if (Week_Num.equalsIgnoreCase("2")) {
-            if (dayOfWeek == 7)
+            if (dayOfWeek.equalsIgnoreCase("7") )
                 q = " sat1 = 1 ";
 
-            if (dayOfWeek == 1)
+            if (dayOfWeek.equalsIgnoreCase("1") )
                 q = " sun1 = 1 ";
 
-            if (dayOfWeek == 2)
+            if (dayOfWeek.equalsIgnoreCase("2") )
                 q = " mon1 = 1 ";
 
 
-            if (dayOfWeek == 3)
+            if (dayOfWeek.equalsIgnoreCase("3") )
                 q = " tues1 = 1 ";
 
-            if (dayOfWeek == 4)
+            if (dayOfWeek.equalsIgnoreCase("4") )
                 q = " wens1 = 1 ";
 
-            if (dayOfWeek == 5)
+            if (dayOfWeek.equalsIgnoreCase("5") )
                 q = " thurs1 = 1 ";
 
         }
@@ -944,17 +946,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     }
 
-    public String GetDayName(Integer Day) {
+    public String GetDayName(String Day) {
 
 
         String DayNm = "";
-        if (Day == 1) DayNm = "الاحد";
-        else if (Day == 2) DayNm = "الاثنين";
-        else if (Day == 3) DayNm = "الثلاثاء";
-        else if (Day == 4) DayNm = "الاربعاء";
-        else if (Day == 5) DayNm = "الخميس";
-        else if (Day == 6) DayNm = "الجمعة";
-        else if (Day == 7) DayNm = "السبت";
+        if      (Day.equalsIgnoreCase("1")) DayNm = "الاحد";
+        else if (Day.equalsIgnoreCase("2")) DayNm = "الاثنين";
+        else if (Day.equalsIgnoreCase("3")) DayNm = "الثلاثاء";
+        else if (Day.equalsIgnoreCase("4") ) DayNm = "الاربعاء";
+        else if (Day.equalsIgnoreCase("5")) DayNm = "الخميس";
+        else if (Day.equalsIgnoreCase("6")) DayNm = "الجمعة";
+        else if (Day.equalsIgnoreCase("7") ) DayNm = "السبت";
 
 
         return DayNm;
@@ -1047,10 +1049,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         TrDate.setText(currentDateandTime);
 
         Calendar c = Calendar.getInstance();
-        dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+       // dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        DB.GetValue(this , "ServerDateTime", "DAYWEEK", "1=1");
+
         et_Day = (TextView) findViewById(R.id.et_Day);
         et_Day.setText(GetDayName(dayOfWeek));
-
 
         et_StartTime = (TextView) findViewById(R.id.et_StartTime);
         SimpleDateFormat StartTime = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
@@ -1097,7 +1100,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             et_StartTime.setText(c1.getString(c1.getColumnIndex("Start_Time")));
             tv_Note.setText(c1.getString(c1.getColumnIndex("Note")));
 
-            et_Day.setText(GetDayName(Integer.valueOf(c1.getString(c1.getColumnIndex("DayNum")))));
+            et_Day.setText(GetDayName((c1.getString(c1.getColumnIndex("DayNum")))));
             EndRound.setVisibility(View.VISIBLE);
             StartRound.setVisibility(View.INVISIBLE);
             c1.close();
@@ -1451,8 +1454,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void ShowExceptionPop() {
+
         Bundle bundle = new Bundle();
         bundle.putString("Scr", "ExpGps");
+
         FragmentManager Manager = getFragmentManager();
         Select_Customer obj = new Select_Customer();
         obj.setArguments(bundle);

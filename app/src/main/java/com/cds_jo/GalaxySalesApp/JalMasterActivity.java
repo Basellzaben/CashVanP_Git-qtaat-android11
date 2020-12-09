@@ -89,7 +89,7 @@
         setContentView(R.layout.activity_jal_master);
         TextView Un = (TextView) findViewById(R.id.tv_UserName);
 
-        startActivity(new Intent(JalMasterActivity.this, NewHomePage.class));
+        //startActivity(new Intent(JalMasterActivity.this, NewHomePage.class));
 
 
 

@@ -987,7 +987,7 @@
                             android:text="عدد المواد"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="#000"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <Methdes.MyTextView
                             android:id="@+id/tv_ItemCount"
@@ -1020,7 +1020,7 @@
                             android:text="المجموع"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="#000"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/et_Total"
@@ -1053,7 +1053,7 @@
                             android:text="مجموع الخصم"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="#000"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/et_dis"
@@ -1086,7 +1086,7 @@
                             android:text="مجموع الضريبة"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="#000"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/et_TotalTax"
@@ -1120,7 +1120,7 @@
                             android:text="الاجمالي"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="#000"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/tv_NetTotal"

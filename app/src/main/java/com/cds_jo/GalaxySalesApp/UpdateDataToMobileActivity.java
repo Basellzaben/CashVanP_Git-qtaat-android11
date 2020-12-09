@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 152 ;
+    private static final int LASTUPDATE = 154 ;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -1584,6 +1584,41 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                     "( No integer primary key autoincrement,CustNo text null , " +
                     "  ManNo  text null , Notes  text null ,NotesDate  text null" +
                     " ,Posted  integer  null )");
+        } catch (SQLException e) {
+        }
+
+        try {
+            sqlHandler.executeQuery("Alter Table ServerDateTime  Add  COLUMN  MYEAR  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+        sqlHandler.executeQuery("Alter Table ServerDateTime  Add  COLUMN  MMONTH  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+        sqlHandler.executeQuery("Alter Table ServerDateTime  Add  COLUMN  MDAY  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+        sqlHandler.executeQuery("Alter Table ServerDateTime  Add  COLUMN  MHOUR  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+        sqlHandler.executeQuery("Alter Table ServerDateTime  Add  COLUMN  MMINUTE  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+        sqlHandler.executeQuery("Alter Table ServerDateTime  Add  COLUMN  MSECOND  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
+        sqlHandler.executeQuery("Alter Table ServerDateTime  Add  COLUMN  DAYWEEK  text null");
         } catch (SQLException e) {
         }
 
@@ -5135,12 +5170,26 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                     String q = "";
                     JSONObject js = new JSONObject(We_Result.Msg);
 
-                    String js_ServerDate = js.getString("ServerDate");
-                    String js_ServerTime = js.getString("ServerTime");
+                    String js_ServerDate = js.getString("SERVERDATE");
+                    String js_ServerTime = js.getString("SERVERTIME");
+                    String js_MYEAR = js.getString("MYEAR");
+                    String js_MMONTH = js.getString("MMONTH");
+                    String js_MDAY = js.getString("MDAY");
+                    String js_MHOUR= js.getString("MHOUR");
+                    String js_MMINUTE = js.getString("MMINUTE");
+                    String js_MSECOND = js.getString("MSECOND");
+                    String js_DAYWEEK = js.getString("DAYWEEK");
 
-                    q = "INSERT INTO ServerDateTime(ServerDate ,ServerTime ) values ('"
-                            + js_ServerDate
+                    q = "INSERT INTO ServerDateTime(ServerDate ,ServerTime,MYEAR,MMONTH,MDAY,MHOUR,MMINUTE,MSECOND,DAYWEEK ) values ('"
+                                    + js_ServerDate
                             + "','" + js_ServerTime
+                            + "','" + js_MYEAR
+                            + "','" + js_MMONTH
+                            + "','" + js_MDAY
+                            + "','" + js_MHOUR
+                            + "','" + js_MMINUTE
+                            + "','" + js_MSECOND
+                            + "','" + js_DAYWEEK
                             + "')";
                     sqlHandler.executeQuery(q);
                 } catch (final Exception e) {

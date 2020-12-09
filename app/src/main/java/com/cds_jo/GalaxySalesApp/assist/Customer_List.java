@@ -64,8 +64,8 @@ public class Customer_List extends BaseAdapter {
         TextView tv_location = (TextView) convertView.findViewById(R.id.tv_location);
         tv_location.setText(customersesobj.getLocation());
 
-//        TextView tvAddress = (TextView) convertView.findViewById(R.id.tv_address);
-//        tvAddress.setText(customersesobj.getAddress());
+  //    TextView tvAddress = (TextView) convertView.findViewById(R.id.tv_location);
+  //    tvAddress.setText(customersesobj.getAddress());
 //
 //        TextView tvMobile = (TextView) convertView.findViewById(R.id.tv_mobile);
 //        tvMobile.setText(customersesobj.getMobile());

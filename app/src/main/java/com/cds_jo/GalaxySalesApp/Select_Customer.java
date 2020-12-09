@@ -95,13 +95,10 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
         items_Lsit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                /*arg1.setBackgroundColor(Color.GREEN);
-                Object o = items_Lsit.getItemAtPosition(position);
-                String str=(String)o;//As you are using Default String Adapter*/
+
                 Customers customers = (Customers) arg0.getItemAtPosition(position);
                 String nm = customers.getNm();
                 Exist_Pop();
-                //Toast.makeText(getActivity(), nm, Toast.LENGTH_LONG).show();
 
                 if (getArguments().getString("Scr") == "po") {
                     ((OrdersItems) getActivity()).Set_Cust(customers.getAcc(), customers.getNm());
@@ -183,34 +180,75 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
         SqlHandler sqlHandler = new SqlHandler(getActivity());
         items_Lsit=(ListView) form.findViewById(R.id.listView2);
         items_Lsit.setAdapter(null);
-        float t_dept , t_cred,t_bb ,tot ,t_tot,temp,t_rate;
-        t_dept= t_cred=t_bb =tot =t_tot =temp=t_rate =  0 ;
+
         String query ;
 
-        String Cust_type="1";
-        if (getArguments().getString("Scr") == "DoctorReprot") {
-            Cust_type= getArguments().getString("PrvVisitType");
-        }
 
 
         if (  getArguments().getString("Scr") == "ExpGps") {
-            if (t.toString().equals("")) {
-                query = "Select c.no , c.name, c.Location  from Customers  c inner join ManExceptions on c.no=ManExceptions.CustNo and  ManExceptions.ExptCat='1'";//   Customers.Cust_type='"+Cust_type+"'";
-            } else {
-                query = "Select c.no , c.name, c.Location from Customers  c  inner join ManExceptions on c.no=ManExceptions.CustNo and  ManExceptions.ExptCat='1'" +
-                        "   where c.name like '%" + t + "%' or  c.no like '%" + t + "%'";//  And Customers.Cust_type='"+Cust_type+"'";
+
+            if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
+
+
+                if (t.toString().equals("")) {
+                    query = "Select c.no , c.name, c.Location  from Customers  c inner join ManExceptions on c.no=ManExceptions.CustNo and  ManExceptions.ExptCat='1'";//   Customers.Cust_type='"+Cust_type+"'";
+                } else {
+                    query = "Select c.no , c.name, c.Location from Customers  c  inner join ManExceptions on c.no=ManExceptions.CustNo and  ManExceptions.ExptCat='1'" +
+                            "   where c.name like '%" + t + "%' or  c.no like '%" + t + "%'";//  And Customers.Cust_type='"+Cust_type+"'";
+                }
+            }else{
+                if (t.toString().equals("")) {
+                    query = "Select * from Customers  ";//   Customers.Cust_type='"+Cust_type+"'";
+                } else {
+                    query = "Select * from Customers where name like '%" + t + "%' or  no like '%" + t + "%'";//  And Customers.Cust_type='"+Cust_type+"'";
+                }
             }
 
-
         } else {
-                if (t.toString().equals("")){
+
+
+            if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
+                if (t.toString().equals("")) {
                     query = "Select * from Customers  ";//   Customers.Cust_type='"+Cust_type+"'";
-                }
-                else {
+                } else {
                     query = "Select * from Customers where name like '%" + t + "%' or  no like '%" + t + "%'";//  And Customers.Cust_type='"+Cust_type+"'";
                 }
 
+            } else {
+                String dayWeek = DB.GetValue(getActivity(), "ServerDateTime", "DAYWEEK", "1=1");
+                String q = "1=1";
+                if (dayWeek.equalsIgnoreCase( "7")) {
+                    q = " sat = '1' ";
+                }
+                if (dayWeek.equalsIgnoreCase( "1")) {
+                    q = " sun = '1' ";
+                }
+                if (dayWeek.equalsIgnoreCase( "2")){
+                    q = " mon = '1' ";
+                }
+
+                if (dayWeek.equalsIgnoreCase( "3")) {
+                    q = " tues = '1' ";
+                }
+                if (dayWeek.equalsIgnoreCase( "4")) {
+                    q = " wens = '1' ";
+                }
+                if (dayWeek.equalsIgnoreCase("5")) {
+                    q = " thurs = '1' ";
+                }
+                if (dayWeek.equalsIgnoreCase("6")) {
+                    q = " thurs = '111' ";
+                }
+
+                if (t.toString().equals("")) {
+                    query = "Select * from Customers  Where   " +q+" ";//   Customers.Cust_type='"+Cust_type+"'";
+                } else {
+                    query = "Select * from Customers where  "+q+"   AND ( name like '%" + t + "%' or  no like '%" + t + "%' )";//  And Customers.Cust_type='"+Cust_type+"'";
+                }
             }
+        }
+
+
 
         Cursor c = sqlHandler.selectQuery(query);
         ArrayList<Customers> customersesList = new ArrayList<Customers>();
@@ -222,7 +260,7 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
                  customers.setNo(c.getString(c.getColumnIndex("no")));
                  customers.setAcc(c.getString(c.getColumnIndex("no")));
                  customers.setNm(c.getString(c.getColumnIndex("name")));
-                 customers.setLocation(c.getString(c.getColumnIndex("Location")));
+                 customers.setLocation(c.getString(c.getColumnIndex("Address")));
 
                  customersesList.add(customers);
 

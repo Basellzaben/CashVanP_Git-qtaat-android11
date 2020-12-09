@@ -732,7 +732,7 @@ public class Pos_Activity extends AppCompatActivity {
 
             alertDialog = new AlertDialog.Builder(this).create();
             alertDialog.setTitle("فاتورة المبيعات");
-            alertDialog.setCancelable(false);
+            alertDialog.setCancelable(true);
             alertDialog.setMessage(msg);
             alertDialog.setIcon(R.drawable.error_new);
             alertDialog.setButton("رجـــــــوع", new DialogInterface.OnClickListener() {
@@ -1368,7 +1368,7 @@ public class Pos_Activity extends AppCompatActivity {
         FragmentManager Manager =  getFragmentManager();
         PopSavePosInvoice obj = new PopSavePosInvoice();
         obj.setArguments(bundle);
-        obj.setCancelable(false);
+        obj.setCancelable(true);
         obj.show(Manager, null);
     }
     public void btn_save_po(final View view) {
@@ -4299,7 +4299,7 @@ public class Pos_Activity extends AppCompatActivity {
 
 
         builder.setTitle(" عدد المواد المطلوب تحديدها هو : " + TotalItem);
-        builder.setCancelable(false);
+        builder.setCancelable(true);
         builder.setMultiChoiceItems(symtoms, bl, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1, boolean arg2) {
@@ -4507,8 +4507,8 @@ public class Pos_Activity extends AppCompatActivity {
         final String Doc_No = pono.getText().toString();
 
         loadingdialog = ProgressDialog.show(Pos_Activity.this, "الرجاء الانتظار ...",    "العمل جاري على اعتماد  " +tv_ScrTitle.getText().toString(), true);
-        loadingdialog.setCancelable(false);
-        loadingdialog.setCanceledOnTouchOutside(false);
+        loadingdialog.setCancelable(true);
+        loadingdialog.setCanceledOnTouchOutside(true);
         loadingdialog.show();
         final Handler _handler = new Handler();
 

@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layoutDirection="rtl"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <Methdes.MyTextView
                 android:id="@+id/tv_no"
@@ -31,32 +31,32 @@
                 android:text="TT"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="19sp" />
+                android:textSize="18sp" />
 
             <Methdes.MyTextView
                 android:id="@+id/tv_nm"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.3"
-                android:gravity="right|center_vertical"
+                android:layout_weight="1.6"
+                android:gravity="center"
                 android:paddingRight="1dp"
                 android:text="TT"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <Methdes.MyTextView
                 android:id="@+id/tv_location"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="10dp"
-                android:layout_weight="0.5"
+                android:layout_weight="0.7"
                 android:gravity="center"
                 android:paddingLeft="5dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="19sp"
-                android:visibility="gone" />
+                android:textSize="18sp"
+                android:visibility="visible" />
 
         </LinearLayout>
 
