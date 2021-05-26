@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +45,8 @@ ListView lst_Items ;
     String UserID= "";
     Boolean IsNew;
     EditText Maxpo;
+    TextView itemName;
+    String ItemSearch;
     String MaxSaleInvoiceNo = "";
     int AllowSalInvMinus ;
     @Override
@@ -59,10 +63,192 @@ ListView lst_Items ;
         cls_trans_qties = new ArrayList<Cls_Man_Balanc>();
         tv_RowCount = (TextView)findViewById(R.id.tv_RowCount);
         IsNew = true;
+
+        itemName = (EditText)findViewById(R.id.et_ItemName);
+
+        itemName.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                SearchByName(itemName.getText().toString());
+            }
+        });
+
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         UserID= sharedPreferences.getString("UserID", "");
         btn_GetData();
         GetMaxPONo();
+
+
+    }
+    public void SearchByName(String itemName )
+    {
+        ItemSearch=itemName;
+
+        AllowSalInvMinus =Integer.parseInt( DB.GetValue(this,"ComanyInfo","AllowSalInvMinus","1=1"));
+
+        final ProgressDialog progressDialog;
+        final Handler _handler = new Handler();
+//        progressDialog = new ProgressDialog(ManBalanceQtyActivity.this);
+//        progressDialog.setTitle("الرجاء الانتظار");
+//        progressDialog.setMessage("العمل جاري على استرجاع كميات المستودع");
+//        progressDialog.setProgressStyle(progressDialog.STYLE_HORIZONTAL);
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.setProgress(0);
+//        progressDialog.setMax(100);
+//        progressDialog.show();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+        final String currentDateandTime = sdf.format(new Date());
+
+        Calendar cc = Calendar.getInstance();
+        final int dayOfWeek = cc.get(Calendar.DAY_OF_WEEK);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    Integer i;
+                    String q = "";
+
+
+                    cls_trans_qties.clear();
+
+                    Cls_Man_Balanc cls_trans_qty = new Cls_Man_Balanc();
+
+                    SqlHandler sqlHandler = new SqlHandler(ManBalanceQtyActivity.this);
+
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ManBalanceQtyActivity.this);
+                    String u =  sharedPreferences.getString("UserID", "");
+
+                    if(AllowSalInvMinus==1){
+                        q = " Select distinct  ifnull(Unites.Unitno,0)as  Unitno,  ifnull(ms.ser,0) as ser, ifnull(ms.docno,0) as docno ,ifnull(ms.StoreName,0)  as StoreName, ifnull(invf.Item_No,0) as itemno  , ifnull(invf.Item_Name,0) as Item_Name" +
+                                ",ifnull(Unites.UnitName ,0)  as  UnitName ,ifnull(ms.qty,0) as qty   ,ifnull(ms.des,0)as des ,  ifnull(ms.date  ,0)as date" +
+                                "  from  invf left join ManStore  ms   on invf.Item_No =  ms.itemno    left join Unites on Unites.Unitno=  ms.UnitNo where  Item_Name  like '%"+ItemSearch+"%'";
+
+                    }else {
+                        q = "Select distinct   ifnull(Unites.Unitno,0)as  Unitno, ms.ser, ms.docno ,ms.StoreName , ms.itemno , invf.Item_Name   ,Unites.UnitName     ,ms.qty  ,ms.des ,  ms.date " +
+                                "   from  ManStore  ms left join invf on invf.Item_No =  ms.itemno    left join Unites on Unites.Unitno=  ms.UnitNo " +
+                                " where Item_Name  like '%"+ItemSearch+"%'  and ms.SManNo ='" +u.toString()+"'";
+                    }
+
+                    Double qty = 0.0;
+                    Double SaledQtyNotPosted = 0.0 ;
+                    Cursor c =  sqlHandler.selectQuery(q);
+                    i = 0;
+                    if (c != null && c.getCount() != 0) {
+                        if (c.moveToFirst()) {
+                            do {
+
+
+                                cls_trans_qty = new Cls_Man_Balanc();
+
+
+                                cls_trans_qty.setItemno(c.getString(c
+                                        .getColumnIndex("itemno")));
+                                cls_trans_qty.setItem_Name(c.getString(c
+                                        .getColumnIndex("Item_Name")));
+                                cls_trans_qty.setUnitNo(c.getString(c
+                                        .getColumnIndex("Unitno")));
+                                cls_trans_qty.setQtyAcc(SToD(c.getString(c
+                                        .getColumnIndex("qty"))).toString());
+                                cls_trans_qty.setUnitName(c.getString(c
+                                        .getColumnIndex("UnitName")));
+                                SaledQtyNotPosted = GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")));
+                                cls_trans_qty.setQtySaled(SaledQtyNotPosted.toString());
+                                qty = ( (Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - SaledQtyNotPosted));
+                                SaledQtyNotPosted=0.0;
+                                cls_trans_qty.setQty((SToD(qty.toString())).toString());
+
+
+                                cls_trans_qty.setAct_Aty("0");
+                                if (qty<0) {
+                                    cls_trans_qty.setDiff(( (-1)*qty)+"");
+                                }
+
+                                if (qty!=0){
+                                    cls_trans_qties.add(cls_trans_qty);
+                                }
+                                qty = 0.0;
+
+//
+//                                progressDialog.setMax(c.getCount());
+//
+//                                progressDialog.incrementProgressBy(1);
+//
+//                                if (progressDialog.getProgress() == progressDialog.getMax()) {
+//                                    progressDialog.dismiss();
+//                                }
+//
+                             i = i+1;
+
+                            } while (c.moveToNext());
+
+                        }
+                        c.close();
+                    }
+                    _handler.post(new Runnable() {
+                        public void run() {
+                            Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
+                                    ManBalanceQtyActivity.this, cls_trans_qties);
+                            lst_Items.setAdapter(cls_trans_qty_adapter);
+
+
+
+
+                        }
+                    });
+
+//                    final int total = i;
+//                    _handler.post(new Runnable() {
+//                        public void run() {
+//                            tv_RowCount.setText(""+(total));
+////                            progressDialog.dismiss();
+//                            AlertDialog alertDialog = new AlertDialog.Builder(
+//                                    ManBalanceQtyActivity.this).create();
+//
+//                            alertDialog.setMessage("تمت عملية تحديث البيانات بنجاح" + "   " + String.valueOf(total));
+//                            alertDialog.setIcon(R.drawable.tick);
+//                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                }
+//                            });
+//                            // alertDialog.show();
+//
+//                        }
+//                    });
+                } catch (final Exception e) {
+//                    progressDialog.dismiss();
+//                   _handler.post(new Runnable() {
+//                        public void run() {
+//                            AlertDialog alertDialog = new AlertDialog.Builder(
+//                                    ManBalanceQtyActivity.this).create();
+//                            alertDialog.setTitle("فشل في عمليه الاتصال");
+//                            alertDialog.setMessage(e.getMessage().toString());
+//                            alertDialog.setIcon(R.drawable.tick);
+//                            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                }
+//                            });
+//                            alertDialog.show();
+//                        }
+//                    });
+                }
+            }
+        }).start();
+
+
+
 
 
     }

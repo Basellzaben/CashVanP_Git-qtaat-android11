@@ -112,6 +112,7 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_search" />
 
+
             <EditText
                 android:id="@+id/et_OrdeNo"
                 android:layout_width="150dp"
@@ -121,6 +122,20 @@
                 android:enabled="false"
                 android:gravity="center_horizontal"
                 android:inputType="number"
+                android:scrollIndicators="top"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/et_ItemName"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:ems="10"
+                android:layout_marginRight="3dp"
+                android:hint="اسم المادة"
+                android:enabled="true"
+                android:gravity="center_horizontal"
+                android:inputType="text"
                 android:scrollIndicators="top"
                 android:textColor="#000" />
 
