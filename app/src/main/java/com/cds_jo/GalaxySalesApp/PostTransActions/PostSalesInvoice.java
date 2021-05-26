@@ -146,6 +146,7 @@ public class PostSalesInvoice {
                 jsonObject.put("Check_Number", c1.getString(c1.getColumnIndex("Check_Number")));
                 jsonObject.put("Pos_System", c1.getString(c1.getColumnIndex("Pos_System")));
                 jsonObject.put("OrderDesc", c1.getString(c1.getColumnIndex("OrderDesc")));
+               // jsonObject.put("Card_Type", c1.getString(c1.getColumnIndex("Card_Type")));
 
             } catch (JSONException ex) {
                 Result= -1;
@@ -183,7 +184,7 @@ public class PostSalesInvoice {
 
 
         query = "  select distinct   ifnull(pod.DisAmtFromHdr,'0') as DisAmtFromHdr,  ifnull(pod.DisPerFromHdr,'0') as DisPerFromHdr  ,    ifnull(pod.weight,0) as weight   ,       ifnull(pod.Operand,0) as Operand  ,  pod.bounce_qty,pod.dis_per , pod.dis_Amt , pod.OrgPrice , pod.tax_Amt , pod.total ,Unites.UnitName,  invf.Item_Name, pod.itemno,pod.price,pod.qty,pod.tax ,pod.unitNo  " +
-                " , pod.pro_Total    , pod.ProID , pod.Pro_bounce  ,pod.Pro_dis_Per,  pod.Pro_amt    " +
+                " , pod.pro_Total ,    pod.ProID , pod.Pro_bounce  ,pod.Pro_dis_Per,  pod.Pro_amt    " +
                 " from Sal_invoice_Det pod left join invf on invf.Item_No =  pod.itemno    left join Unites on Unites.Unitno=  pod.unitNo " +
                 " Where    ifnull(pod.doctype,'1')='"+DocType.toString()+"' and pod.OrderNo='" + OrderNo.toString() + "'";
 

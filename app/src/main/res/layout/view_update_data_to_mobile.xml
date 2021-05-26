@@ -463,10 +463,11 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:checked="false"
+
                                 android:gravity="center|clip_vertical|right"
-                                android:text=""
+                                android:text="أمر التسليم"
                                 android:textSize="18sp"
-                                android:visibility="gone" />
+                                android:visibility="visible" />
 
                         </LinearLayout>
                     </LinearLayout>

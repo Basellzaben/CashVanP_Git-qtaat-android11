@@ -413,7 +413,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/blue_fill_white"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <Methdes.MyTextView
                     android:id="@+id/textView82"

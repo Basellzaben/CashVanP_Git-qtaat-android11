@@ -160,7 +160,7 @@
             android:orientation="horizontal"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
-            android:weightSum="11">
+            android:weightSum="8.6">
 
             <Methdes.MyTextView
                 android:id="@+id/textView175"
@@ -207,6 +207,7 @@
                 android:text="كمية التزويد"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#fff"
+                android:visibility="gone"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -215,6 +216,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.2"
+                android:visibility="gone"
                 android:gravity="center|center_horizontal"
                 android:text="الكمية المباعة"
                 android:textAppearance="?android:attr/textAppearanceSmall"

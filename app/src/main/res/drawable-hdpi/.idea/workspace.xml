@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3b14cf94-bdaf-46ef-88b9-37628f359bb3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/AbuHaltam/GetBarCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/AbuHaltam/GetBarCodeAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/AbuHaltam/GetDoneBarCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/AbuHaltam/GetDoneBarCodeAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/AbuHaltam/LoginHalitamNew.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/AbuHaltam/SearchFrg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/AbuHaltam/cls_get_items_search.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/AbuHaltam/cls_get_items_search_adabter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/GlobaleVar.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/produce.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../drawable/asw.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../drawable/ic_search_black_24dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../layout/activity_login_halitam_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../layout/fragment_search_frg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../layout/getbarcodedeisgin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../layout/items_search_lay.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../libs/core.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/CusfCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/CusfCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/JalMasterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/JalMasterActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/ManCard/SplashLoginAct.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/ManCard/SplashLoginAct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/PopCus_Qty_Items.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/PopCus_Qty_Items.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/PopEnterInvoiceHeaderDiscount.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/PopEnterInvoiceHeaderDiscount.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/PopSal_Inv_Select_Items.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/PopSal_Inv_Select_Items.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/Pop_Po_Select_Items.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/Pop_Po_Select_Items.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/Pos/PopSavePosInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/Pos/PopSavePosInvoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/Pos/Pos_Activity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/Pos/Pos_Activity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/PreapareManQty.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/PreapareManQty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/RecvVoucherActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/RecvVoucherActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/Select_Customer_Expetion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/Select_Customer_Expetion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/SittingNew.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/SittingNew.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/StartUpActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/StartUpActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/UpdateDataToMobileActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/UpdateDataToMobileActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/XprinterDoc/Xprinter_RecVoucher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/XprinterDoc/Xprinter_RecVoucher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/XprinterDoc/Xprinter_SalesInvoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/XprinterDoc/Xprinter_SalesInvoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/XprinterDoc/Xprinter_SalesOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/XprinterDoc/Xprinter_SalesOrder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/CallWebServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/CallWebServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/Convert_Sal_Invoice_To_ImgActivity_Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/Convert_Sal_Invoice_To_ImgActivity_Line.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/OrdersItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/OrdersItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/PrintReport_TSC.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/PrintReport_TSC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/Sale_InvoiceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/cds_jo/GalaxySalesApp/assist/Sale_InvoiceActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../java/com/google/zxing/integration/android/IntentIntegrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../java/com/google/zxing/integration/android/IntentIntegrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/activity_galaxy_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/activity_galaxy_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/n_activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/n_activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/po_xprint_img.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/po_xprint_img.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/rec_voucher_img_xprinter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/rec_voucher_img_xprinter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/sal_inv_img_line.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/sal_inv_img_line.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/sal_inv_img_xprinter.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/sal_inv_img_xprinter.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/xprinter_recvoucher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/xprinter_recvoucher.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../layout/xprinter_sales_invoice.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../layout/xprinter_sales_invoice.xml" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="10" />
+    <option name="y" value="20" />
+    <option name="width" value="1004" />
+    <option name="height" value="688" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="PackagesPane" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="drawable-hdpi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="drawable-hdpi" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="drawable-hdpi" type="b2602c69:ProjectViewProjectNode" />
+              <item name="drawable-hdpi" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="last_opened_file_path" value="D:/New folder (2)/QR-Code-master/QRCode" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3b14cf94-bdaf-46ef-88b9-37628f359bb3" name="Default Changelist" comment="" />
+      <created>1612687622276</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612687622276</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.23524962" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Resources Explorer" weight="0.32980332" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Flutter Inspector" />
+      <window_info anchor="right" id="Flutter Outline" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Flutter Performance" />
+    </layout>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

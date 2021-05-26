@@ -20,6 +20,7 @@ public class ContactListItems {
     String qty;
     String DisPerFromHdr;
     String Batch;
+    String Bouns;
    String SerialNo;
     public String getStoreNo() {
         return StoreNo;
@@ -75,6 +76,14 @@ public class ContactListItems {
     }
 
     String ExpDate;
+
+    public String getBouns() {
+        return Bouns;
+    }
+
+    public void setBouns(String bouns) {
+        Bouns = bouns;
+    }
 
     public String getItemOrgPrice() {
         return ItemOrgPrice;

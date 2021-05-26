@@ -291,6 +291,8 @@ public class PopCus_Qty_Items extends DialogFragment implements View.OnClickList
       /*  AlertView.showAlert( query,
                 getResources().getString(R.string.dev_check_msg), getActivity());*/
         ArrayList<Cls_Invf> cls_invf_List = new ArrayList<Cls_Invf>();
+      if (GlobaleVar.TaxSts == 0 ){
+
         cls_invf_List.clear();
     Cursor c1 = sqlHandler.selectQuery(query);
         if (c1 != null && c1.getCount() != 0) {
@@ -311,7 +313,30 @@ public class PopCus_Qty_Items extends DialogFragment implements View.OnClickList
             } while (c1.moveToNext());
 
         }
-    }
+    }}
+      else
+      {
+          cls_invf_List.clear();
+          Cursor c1 = sqlHandler.selectQuery(query);
+          if (c1 != null && c1.getCount() != 0) {
+              if (c1.moveToFirst()) {
+                  do {
+                      Cls_Invf cls_invf = new Cls_Invf();
+
+                      cls_invf.setItem_No(c1.getString(c1
+                              .getColumnIndex("Item_No")));
+                      cls_invf.setItem_Name(c1.getString(c1
+                              .getColumnIndex("Item_Name")));
+                      cls_invf.setPrice(c1.getString(c1
+                              .getColumnIndex("Price")));
+
+                      cls_invf_List.add(cls_invf);
+
+                  } while (c1.moveToNext());
+
+              }
+          }
+      }
 
     Cls_Invf_Adapter cls_invf_adapter = new Cls_Invf_Adapter(
             getActivity(), cls_invf_List);

@@ -1,9 +1,11 @@
 package com.cds_jo.GalaxySalesApp;
 
 import android.app.DialogFragment;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +37,8 @@ public class SearchPoActivity extends DialogFragment implements View.OnClickList
         editText4.clearFocus();
         ArrayList<cls_Search_po> cls_search_pos_list  = new ArrayList<cls_Search_po>();
         cls_search_pos_list.clear();
-        String q = "Select distinct po.orderno,po.date    , c.name  , po.acc from Po_Hdr po Left join Customers c on c.no = po.acc ";
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String q = "Select distinct po.orderno,po.date    , c.name  , po.acc from Po_Hdr po Left join Customers c on c.no = po.acc where  Man_Order = '"+sharedPreferences.getString("UserID", "")+"'";
         SqlHandler sqlHandler = new SqlHandler(getActivity());
         Cursor c1 = sqlHandler.selectQuery(q);
 
@@ -52,8 +55,9 @@ public class SearchPoActivity extends DialogFragment implements View.OnClickList
                     cls_search_pos_list.add(cls_searchpos);
                 }while (c1.moveToNext());
             }
+            c1.close();
         }
-        c1.close();
+
 
 
         cls_Search_po_adapter cls_search_po_adapter = new cls_Search_po_adapter(

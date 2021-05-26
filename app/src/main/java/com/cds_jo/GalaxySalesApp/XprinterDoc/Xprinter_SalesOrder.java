@@ -310,7 +310,7 @@ public class Xprinter_SalesOrder extends FragmentActivity {
             view = inflater.inflate(R.layout.po_print_row_x, null);
             tv_no = (TextView) view.findViewById(R.id.tv_no);
             tv_name = (TextView) view.findViewById(R.id.tv_name);
-            tv_Price = (TextView) view.findViewById(R.id.tv_Price);
+            tv_Price = (TextView) view.findViewById(R.id.tv_Price2);
             tv_Qty = (TextView) view.findViewById(R.id.tv_Qty);
             tv_Unit = (TextView) view.findViewById(R.id.tv_Unit);
            // tv_tax = (TextView) view.findViewById(R.id.tv_tax);
@@ -319,7 +319,7 @@ public class Xprinter_SalesOrder extends FragmentActivity {
 
             tv_no.setText(Obj.getno());
             tv_name.setText(Obj.getName());
-            tv_Price.setText(Obj.getprice());
+           tv_Price.setText(Obj.getPrice());
             tv_Qty.setText(Obj.getQty());
             tv_Unit.setText(Obj.getUniteNm() + "");
            // tv_tax.setText(Obj.getTax() + "");
@@ -425,7 +425,7 @@ public class Xprinter_SalesOrder extends FragmentActivity {
 
         try {
             FileOutputStream out = new FileOutputStream(dest);
-            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
             //  bitmap.recycle();
@@ -495,11 +495,11 @@ public class Xprinter_SalesOrder extends FragmentActivity {
                 case 2:
                     //usb connection need special deal with
                     if (PosPrinterDev.PortType.USB!= Xprinter_SalesOrder.portType){
-                        printpicCode(b2);
+                        printpicCode(b1);
                     }else {
-                        showSnackbar("bimap  "+b2.getWidth()+"  height: "+b2.getHeight());
-                        b2=resizeImage(b2,576,false);
-                        printUSBbitamp(b2);
+                        showSnackbar("bimap  "+b1.getWidth()+"  height: "+b1.getHeight());
+                        b1=resizeImage(b1,576,false);
+                        printUSBbitamp(b1);
 
                     }
 

@@ -259,16 +259,13 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
 
         String  footer3 = "" ;
 
-        if(ComInfo.ComNo==3) {
-            footer3 ="ان المواد المشروحة اعلاه قد سلمت بحالة جيدة بعد المعاينة";
 
-        }else{
-            footer3 = " لا تعتبر هذه الفاتورة مدفوعة دون ايصال رسمي من الشركة ،";
-            footer3 = footer3 + " \n" + "إن مجرد توقيع المستلم ادناه يعتبر إقرار منه باستلام البضاعة  المبينة اعلاه بالعدد والسعر المحددين";
-            footer3 = footer3 + " " + "وان المستلم ادناه ملزم بدفع القيمة كاملة عند المطالبة   دون إشعار أو إنذار  ويسقط حقه في توجيه اليمين";
+        footer3 = " لا تعتبر هذه الفاتورة مدفوعة دون ايصال رسمي من الشركة ،";
+        footer3 = footer3 + " \n" + "إن مجرد توقيع المستلم ادناه يعتبر إقرار منه باستلام البضاعة  المبينة اعلاه بالعدد والسعر المحددين";
+        footer3 = footer3 + " " + "وان المستلم ادناه ملزم بدفع القيمة كاملة عند المطالبة   دون إشعار أو إنذار  ويسقط حقه في توجيه اليمين";
 
 
-        }
+
 
         tv_footer3 .setText(footer3);
         ShowTax=getIntent().getStringExtra("ShowTax");
@@ -334,13 +331,13 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
     public void btn_back(View view) {
         finish();
         Intent i = new Intent(this , Sale_InvoiceActivity.class);
-       // startActivity(i);
+        // startActivity(i);
     }
     @Override
     public void onBackPressed() {
         finish();
         Intent i = new Intent(this , Sale_InvoiceActivity.class);
-       // startActivity(i);
+        // startActivity(i);
 
 
     }
@@ -378,7 +375,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                 v.draw(canvas);
 
                 // Convert the output file to Image such as .png
-                bitmap.compress(Bitmap.CompressFormat.PNG, 90, mFileOutStream);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, mFileOutStream);
                 mFileOutStream.flush();
                 mFileOutStream.close();
 
@@ -471,8 +468,8 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
         }
     }
 
-///////////////////////////////////////////////////////////////////////
-public  void ShowRecord( String OrdNo){
+    ///////////////////////////////////////////////////////////////////////
+    public  void ShowRecord( String OrdNo){
 
 
        /* ShapeDrawable shape = new ShapeDrawable(new RectShape());
@@ -481,39 +478,39 @@ public  void ShowRecord( String OrdNo){
         shape.getPaint().setStrokeWidth(2);*/
 
 
-    // Assign the created border to EditText widget
+        // Assign the created border to EditText widget
 
 
-    TextView tv_cusnm =(TextView)findViewById(R.id.tv_cusname);
-    TextView et_Date =(TextView)findViewById(R.id.ed_date);
-    TextView tv_Disc =(TextView)findViewById(R.id.tv_Disc);
-    TextView tv_NetTotal =(TextView)findViewById(R.id.tv_NetTotal);
-    TextView tv_TotalTax =(TextView)findViewById(R.id.tv_TotalTax);
-    TextView tv_Total =(TextView)findViewById(R.id.tv_Total);
+        TextView tv_cusnm =(TextView)findViewById(R.id.tv_cusname);
+        TextView et_Date =(TextView)findViewById(R.id.ed_date);
+        TextView tv_Disc =(TextView)findViewById(R.id.tv_Disc);
+        TextView tv_NetTotal =(TextView)findViewById(R.id.tv_NetTotal);
+        TextView tv_TotalTax =(TextView)findViewById(R.id.tv_TotalTax);
+        TextView tv_Total =(TextView)findViewById(R.id.tv_Total);
 
-    TextView textView11 =(TextView)findViewById(R.id.textView11);
-    TextView textView12 =(TextView)findViewById(R.id.textView12);
-    TextView textView86 =(TextView)findViewById(R.id.textView86);
-    TextView textView88 =(TextView)findViewById(R.id.textView88);
-
-
+        TextView textView11 =(TextView)findViewById(R.id.textView11);
+        TextView textView12 =(TextView)findViewById(R.id.textView12);
+        TextView textView86 =(TextView)findViewById(R.id.textView86);
+        TextView textView88 =(TextView)findViewById(R.id.textView88);
 
 
-    TextView textView5 =(TextView)findViewById(R.id.textView5);
-    TextView textView7 =(TextView)findViewById(R.id.textView7);
-    TextView textView8 =(TextView)findViewById(R.id.textView8);
-    TextView textView9 =(TextView)findViewById(R.id.textView9);
-    TextView textView43 =(TextView)findViewById(R.id.textView43);
-    TextView textView10 =(TextView)findViewById(R.id.textView10);
-    TextView tv_invoc_Type =(TextView)findViewById(R.id.tv_invoc_Type);
-    TextView textView58 =(TextView)findViewById(R.id.textView58);
-    TextView tv_itemCount =(TextView)findViewById(R.id.tv_itemCount);
-    TextView textView107 =(TextView)findViewById(R.id.textView107);
-    TextView tv_includetax =(TextView)findViewById(R.id.tv_includetax);
-    TextView tv_CusBal =(TextView)findViewById(R.id.tv_CusBal);
-    TextView tv_Seq =(TextView)findViewById(R.id.tv_Seq);
 
-    TextView tv_DvNm =(TextView)findViewById(R.id.tv_DvNm);
+
+        TextView textView5 =(TextView)findViewById(R.id.textView5);
+        TextView textView7 =(TextView)findViewById(R.id.textView7);
+        TextView textView8 =(TextView)findViewById(R.id.textView8);
+        TextView textView9 =(TextView)findViewById(R.id.textView9);
+        TextView textView43 =(TextView)findViewById(R.id.textView43);
+        TextView textView10 =(TextView)findViewById(R.id.textView10);
+        TextView tv_invoc_Type =(TextView)findViewById(R.id.tv_invoc_Type);
+        TextView textView58 =(TextView)findViewById(R.id.textView58);
+        TextView tv_itemCount =(TextView)findViewById(R.id.tv_itemCount);
+        TextView textView107 =(TextView)findViewById(R.id.textView107);
+        TextView tv_includetax =(TextView)findViewById(R.id.tv_includetax);
+        TextView tv_CusBal =(TextView)findViewById(R.id.tv_CusBal);
+        TextView tv_Seq =(TextView)findViewById(R.id.tv_Seq);
+
+        TextView tv_DvNm =(TextView)findViewById(R.id.tv_DvNm);
 
        /* textView5.setBackground(shape);
         textView7.setBackground(shape);
@@ -536,25 +533,25 @@ public  void ShowRecord( String OrdNo){
         tv_Disc.setBackground(shape);*/
 
 
-    if (ShowTax.equals("0")) {
-        textView12.setVisibility(View.INVISIBLE);
-        tv_TotalTax.setVisibility(View.INVISIBLE);
-        textView11.setVisibility(View.INVISIBLE);
-        tv_Total.setVisibility(View.INVISIBLE);
-        textView86.setVisibility(View.INVISIBLE);
-        tv_Disc.setVisibility(View.INVISIBLE);
+        if (ShowTax.equals("0")) {
+            textView12.setVisibility(View.INVISIBLE);
+            tv_TotalTax.setVisibility(View.INVISIBLE);
+            textView11.setVisibility(View.INVISIBLE);
+            tv_Total.setVisibility(View.INVISIBLE);
+            textView86.setVisibility(View.INVISIBLE);
+            tv_Disc.setVisibility(View.INVISIBLE);
 
-        textView12.setHeight(0);
-        tv_TotalTax.setHeight(0);
-        textView11.setHeight(0);
-        tv_Total.setHeight(0);
-        textView86.setHeight(0);
-        tv_Disc.setHeight(0);
-
-
+            textView12.setHeight(0);
+            tv_TotalTax.setHeight(0);
+            textView11.setHeight(0);
+            tv_Total.setHeight(0);
+            textView86.setHeight(0);
+            tv_Disc.setHeight(0);
 
 
-    }
+
+
+        }
         /*tv_itemCount.setBackground(shape);
         tv_itemCount.setBackground(shape);
         tv_itemCount.setBackground(shape);
@@ -564,60 +561,60 @@ public  void ShowRecord( String OrdNo){
         textView107.setBackground(shape);
         textView107.setBackground(shape);
         textView107.setBackground(shape);*/
-    String accno="";
+        String accno="";
 
 
 
-    String q = "Select distinct ifnull(s.Seq,'') as  Seq,   ifnull(s.DelveryNm,'') as  DelveryNm , s.include_Tax, s.inovice_type , s.Total , s.Nm,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , c.name  " +
-            "    from  Sal_invoice_Hdr s left join Customers c on c.no =s.acc   where s.OrderNo = '"+OrdNo+"'";
+        String q = "Select distinct ifnull(s.Seq,'') as  Seq,   ifnull(s.DelveryNm,'') as  DelveryNm , s.include_Tax, s.inovice_type , s.Total , s.Nm,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , c.name  " +
+                "    from  Sal_invoice_Hdr s left join Customers c on c.no =s.acc   where s.OrderNo = '"+OrdNo+"'";
 
-    SqlHandler sqlHandler = new SqlHandler(this);
+        SqlHandler sqlHandler = new SqlHandler(this);
 
-    Cursor c1 = sqlHandler.selectQuery(q);
-    if (c1 != null && c1.getCount() != 0) {
-        if (c1.moveToFirst()) {
-            et_Date.setText(c1.getString(c1.getColumnIndex("date")));
-            tv_cusnm.setText(c1.getString(c1.getColumnIndex("name")));
-            if(c1.getString(c1.getColumnIndex("inovice_type")).equals("0")){
-                tv_cusnm.setText(c1.getString(c1.getColumnIndex("Nm")).toString());
-
-            }
-            else
-            {
+        Cursor c1 = sqlHandler.selectQuery(q);
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                et_Date.setText(c1.getString(c1.getColumnIndex("date")));
                 tv_cusnm.setText(c1.getString(c1.getColumnIndex("name")));
-            }
-            tv_Disc.setText(c1.getString(c1.getColumnIndex("disc_Total")));
-            tv_NetTotal.setText(c1.getString(c1.getColumnIndex("Net_Total")));
-            tv_TotalTax.setText(c1.getString(c1.getColumnIndex("Tax_Total")));
-            tv_DvNm.setText(c1.getString(c1.getColumnIndex("DelveryNm")));
+                if(c1.getString(c1.getColumnIndex("inovice_type")).equals("0")){
+                    tv_cusnm.setText(c1.getString(c1.getColumnIndex("Nm")).toString());
 
-            if (c1.getString(c1.getColumnIndex("inovice_type")).toString().equals("0"))
-            {
-                tv_invoc_Type.setText("نقدية");
+                }
+                else
+                {
+                    tv_cusnm.setText(c1.getString(c1.getColumnIndex("name")));
+                }
+                tv_Disc.setText(c1.getString(c1.getColumnIndex("disc_Total")));
+                tv_NetTotal.setText(c1.getString(c1.getColumnIndex("Net_Total")));
+                tv_TotalTax.setText(c1.getString(c1.getColumnIndex("Tax_Total")));
+                tv_DvNm.setText(c1.getString(c1.getColumnIndex("DelveryNm")));
 
-            }
-            else
-            {
-                tv_invoc_Type.setText("ذمم");
-            }
+                if (c1.getString(c1.getColumnIndex("inovice_type")).toString().equals("0"))
+                {
+                    tv_invoc_Type.setText("نقدية");
 
-            if(ComInfo.ComNo==3){
-                tv_invoc_Type.setText("نقدية");
-            }
+                }
+                else
+                {
+                    tv_invoc_Type.setText("ذمم");
+                }
 
-            if (ShowTax.equals("0")) {
-                tv_TotalTax.setText("");
+                if(ComInfo.ComNo==3){
+                    tv_invoc_Type.setText("نقدية");
+                }
 
-            }
-            if (c1.getString(c1.getColumnIndex("include_Tax")).toString().equals("-1")) {
-                tv_includetax.setText("");
-            }
+                if (ShowTax.equals("0")) {
+                    tv_TotalTax.setText("");
+
+                }
+                if (c1.getString(c1.getColumnIndex("include_Tax")).toString().equals("-1")) {
+                    tv_includetax.setText("");
+                }
 
 
 
-            tv_Seq.setText(c1.getString(c1.getColumnIndex("Seq")));
+                //   tv_Seq.setText(c1.getString(c1.getColumnIndex("Seq")));
 
-            accno = c1.getString(c1.getColumnIndex("s.acc"));
+                //   accno = c1.getString(c1.getColumnIndex("s.acc"));
             /*    //if (c1.getString(c1.getColumnIndex("include_Tax")).toString().equals("0")) {
                 ShowTax=getIntent().getStringExtra("ShowTax");
               //  if (ShowTax.equals("0")) {
@@ -631,58 +628,58 @@ public  void ShowRecord( String OrdNo){
              //   }
 */
 
-            tv_Total.setText(c1.getString(c1.getColumnIndex("Total")));
+                tv_Total.setText(c1.getString(c1.getColumnIndex("Total")));
+            }
+            c1.close();
         }
-        c1.close();
-    }
-    showList(OrdNo);
-    if ( ComInfo.ComNo==1 && ShowTax.equalsIgnoreCase("1")) {//  بناءا على طلب محمد البستنجي
-        tv_includetax.setText("");
+        showList(OrdNo);
+        if ( ComInfo.ComNo==1 && ShowTax.equalsIgnoreCase("1")) {//  بناءا على طلب محمد البستنجي
+            tv_includetax.setText("");
 
-    }
-
-    String NetTotal =   DB.GetValue(Xprinter_SalesInvoice.this, "Customers", "CUST_NET_BAL", "no ='" +accno + "' ");
-
-
-    if (NetTotal.equalsIgnoreCase("-1"))
-    {
-        NetTotal="غير مدخله";
-    }
-
-
-    q = "  Select distinct    ifnull( sum(ifnull(RecVoucher.Amnt,0.000)),0.000)     as Amt   from RecVoucher " +
-            " where  RecVoucher.CustAcc ='" + accno + "' and  RecVoucher.Post ='-1'";
-
-    String UnpostedRecVoucher ="0.000";;
-    c1 = sqlHandler.selectQuery(q);
-    if (c1 != null && c1.getCount() != 0) {
-        if (c1.moveToFirst()) {
-            UnpostedRecVoucher = c1.getString(c1.getColumnIndex("Amt"));
         }
-        c1.close();
-    }
+
+        String NetTotal =   DB.GetValue(Xprinter_SalesInvoice.this, "Customers", "CUST_NET_BAL", "no ='" +accno + "' ");
 
 
-
-    q = "Select distinct   ifnull( sum(ifnull(s.Net_Total,0.000)),0.000)   as Amt    " +
-            "  from  Sal_invoice_Hdr s    where    ifnull(s.doctype,'1')='1'  and  " +
-            "  s.acc='" + accno + "'    and  s.Post ='-1'  "; //and s.inovice_type = '-1'
-
-    String UnpostedSales="0.000";
-    Cursor cc = sqlHandler.selectQuery(q);
-    if (cc != null && cc.getCount() != 0) {
-        if (cc.moveToFirst()) {
-            UnpostedSales = cc.getString(cc.getColumnIndex("Amt"));
+        if (NetTotal.equalsIgnoreCase("-1"))
+        {
+            NetTotal="غير مدخله";
         }
-        cc.close();
+
+
+        q = "  Select distinct    ifnull( sum(ifnull(RecVoucher.Amnt,0.000)),0.000)     as Amt   from RecVoucher " +
+                " where  RecVoucher.CustAcc ='" + accno + "' and  RecVoucher.Post ='-1'";
+
+        String UnpostedRecVoucher ="0.000";;
+        c1 = sqlHandler.selectQuery(q);
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                UnpostedRecVoucher = c1.getString(c1.getColumnIndex("Amt"));
+            }
+            c1.close();
+        }
+
+
+
+        q = "Select distinct   ifnull( sum(ifnull(s.Net_Total,0.000)),0.000)   as Amt    " +
+                "  from  Sal_invoice_Hdr s    where    ifnull(s.doctype,'1')='1'  and  " +
+                "  s.acc='" + accno + "'    and  s.Post ='-1'  "; //and s.inovice_type = '-1'
+
+        String UnpostedSales="0.000";
+        Cursor cc = sqlHandler.selectQuery(q);
+        if (cc != null && cc.getCount() != 0) {
+            if (cc.moveToFirst()) {
+                UnpostedSales = cc.getString(cc.getColumnIndex("Amt"));
+            }
+            cc.close();
+        }
+        Double Total =  SToD(NetTotal)+ SToD(UnpostedSales)-SToD(UnpostedRecVoucher ) ;
+        //   Toast.makeText(this,NetTotal +"   "   + UnpostedRecVoucher +"       " +UnpostedSales +" ", Toast.LENGTH_SHORT).show();
+
+
+        tv_CusBal.setText( SToD(Total+"")+"");
+
     }
-    Double Total =  SToD(NetTotal)+ SToD(UnpostedSales)-SToD(UnpostedRecVoucher ) ;
-    //   Toast.makeText(this,NetTotal +"   "   + UnpostedRecVoucher +"       " +UnpostedSales +" ", Toast.LENGTH_SHORT).show();
-
-
-    tv_CusBal.setText( SToD(Total+"")+"");
-
-}
 
     private  Double SToD(String str){
         String f = "";
@@ -710,7 +707,7 @@ public  void ShowRecord( String OrdNo){
 
         return d;
     }
-    private void showList(String OrderNo) {
+    private void showList1(String OrderNo) {
         Intent i = getIntent();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         final String Company = sharedPreferences.getString("CompanyID", "1") ;
@@ -908,7 +905,241 @@ public  void ShowRecord( String OrdNo){
         FillCustomerMsg();
 
     }
+    private void showList(String OrderNo) {
+        Intent i = getIntent();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final String Company = sharedPreferences.getString("CompanyID", "1") ;
 
+        ArrayList<ContactListItems> contactList = new ArrayList<ContactListItems>();
+        contactList.clear();
+        sqlHandler = new SqlHandler(this);
+        String query = "SELECT  distinct sid.itemNo,sid.OrgPrice ,sid.price,sid.tax,u.UnitName  , sid.tax_Amt,  ( ifnull(sid.qty,0) +  ifnull(sid.Pro_bounce,0))  as qty, ifnull(bounce_qty,0)   as bounce_qty  ,invf.Item_Name  ,  sid.total    " +
+                " , ifnull(sid.Pro_dis_Per,0) as Pro_dis_Per ,ifnull(sid.dis_Amt,0) as dis_Amt     FROM Sal_invoice_Det   sid    Left Join Unites u on u.Unitno =sid.unitNo " +
+                "Left Join invf on   invf.Item_No=sid.itemNo  where sid.OrderNo =  '"+  i.getStringExtra("OrderNo").toString()+"'";
+
+        Double Pro = 0.0 ;
+        Double Dis_Amt = 0.0 ;
+        Cursor c1 = sqlHandler.selectQuery(query);
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                do {
+                    ContactListItems contactListItems = new ContactListItems();
+
+                    contactListItems.setno(c1.getString(c1
+                            .getColumnIndex("itemNo")));
+                    contactListItems.setName(c1.getString(c1
+                            .getColumnIndex("Item_Name")));
+                    if (ShowTax.equals("0")) {
+                        contactListItems.setprice(c1.getString(c1
+                                .getColumnIndex("OrgPrice")));
+                    }else {
+                        contactListItems.setprice(c1.getString(c1
+                                .getColumnIndex("price")));
+
+                    }
+
+                    contactListItems.setQty(c1.getString(c1
+                            .getColumnIndex("qty")));
+                    contactListItems.setBounce(c1.getString(c1
+                            .getColumnIndex("bounce_qty")));
+                    contactListItems.setTax(c1.getString(c1
+                            .getColumnIndex("tax_Amt")));
+                    contactListItems.setUnite(c1.getString(c1
+                            .getColumnIndex("UnitName")));
+                    contactListItems.setTotal(c1.getString(c1
+                            .getColumnIndex("total")));
+
+                    contactListItems.setPro_dis_Per(c1.getString(c1
+                            .getColumnIndex("Pro_dis_Per")));
+
+
+                    Pro = Pro + (SToD(c1.getString(c1.getColumnIndex("Pro_dis_Per"))) / 100) * (SToD(c1.getString(c1.getColumnIndex("price"))) * SToD(c1.getString(c1.getColumnIndex("qty"))));
+                    Dis_Amt = Dis_Amt + SToD(c1.getString(c1.getColumnIndex("dis_Amt")));
+                    contactList.add(contactListItems);
+
+
+                } while (c1.moveToNext());
+
+
+            }
+
+
+
+            c1.close();
+        }
+
+
+        TextView textView125 =(TextView)findViewById(R.id.textView125);
+        TextView textView126 =(TextView)findViewById(R.id.textView126);
+        TextView textView196 =(TextView)findViewById(R.id.textView196);
+
+
+        TextView tv_Dis_Pro_amt =(TextView)findViewById(R.id.tv_Dis_Pro_amt);
+        tv_Dis_Pro_amt.setText(SToD(Pro.toString()) + "");
+
+        TextView tv_Dis_amt =(TextView)findViewById(R.id.tv_Dis_amt);
+        tv_Dis_amt.setText(SToD(Dis_Amt.toString()) + "");
+
+        if( SToD(tv_Dis_amt.getText().toString()) ==0.0 &&  SToD(tv_Dis_Pro_amt.getText().toString()) ==0.0 )
+        {
+            tv_Dis_amt.setVisibility(View.INVISIBLE);
+            tv_Dis_amt.setHeight(0);
+            tv_Dis_Pro_amt.setVisibility(View.INVISIBLE);
+            tv_Dis_Pro_amt.setHeight(0);
+
+            textView125.setVisibility(View.INVISIBLE);
+            textView125.setHeight(0);
+            textView126.setVisibility(View.INVISIBLE);
+            textView126.setHeight(0);
+            textView196.setVisibility(View.INVISIBLE);
+            textView196.setHeight(0);
+
+        }
+
+
+
+
+
+
+        LinearLayout Sal_ItemSLayout = (LinearLayout) findViewById(R.id.Sal_ItemSLayout);
+        LinearLayout Sal_ItemSLayout1 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout1);
+        LinearLayout Sal_ItemSLayout2 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout2);
+        LinearLayout Sal_ItemSLayout3 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout3);
+        LinearLayout Sal_ItemSLayout4 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout4);
+        LinearLayout Sal_ItemSLayout5 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout5);
+        LinearLayout Sal_ItemSLayout6 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout6);
+        LinearLayout Sal_ItemSLayout7 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout7);
+
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view;
+
+        TextView tv_no;
+        TextView tv_name;
+        TextView tv_Price;
+        TextView tv_Qty;
+        TextView tv_Unit;
+        TextView tv_tax;
+        TextView tv_total;
+        TextView tv_bonce;
+
+
+
+        TextView tv_itemCount =(TextView)findViewById(R.id.tv_itemCount);
+        tv_itemCount.setText(contactList.size()+"");
+
+        int count = 0;
+
+        for (ContactListItems Obj : contactList){
+
+            view = inflater.inflate(R.layout.sal_invoce_row_tab_10, null);
+
+                /*if  (Company.equals("2")) {
+                    view = inflater.inflate(R.layout.sal_invoce_row_1, null);
+                }*/
+            tv_no = (TextView) view.findViewById(R.id.tv_no);
+            tv_name = (TextView) view.findViewById(R.id.tv_name);
+            tv_Qty = (TextView) view.findViewById(R.id.tv_Qty);
+            tv_Price = (TextView) view.findViewById(R.id.tv_Price2);
+            tv_Unit = (TextView) view.findViewById(R.id.tv_Unit);
+            tv_tax = (TextView) view.findViewById(R.id.tv_tax);
+            tv_total = (TextView) view.findViewById(R.id.tv_total);
+            tv_bonce = (TextView) view.findViewById(R.id.tv_bonce);
+
+
+
+
+            tv_no.setText(Obj.getno());
+            tv_name.setText(Obj.getName());
+            tv_Price.setText(Obj.getprice());
+            tv_Qty.setText(Obj.getQty());
+            tv_Unit.setText(Obj.getUnite() );
+            tv_tax.setText(Obj.getTax());
+            tv_total.setText(Obj.getTotal());
+            tv_tax.setText(Obj.getTax());
+            tv_bonce.setText(Obj.getBounce());
+            tv_tax.setVisibility(View.VISIBLE);
+            if (ShowTax.equals("0")) {
+                tv_tax.setText("");
+                tv_tax.setVisibility(View.INVISIBLE);
+
+            }
+
+            if( count < 10) {
+                Sal_ItemSLayout.addView(view);
+            }else if(count <20){
+                Sal_ItemSLayout1.addView(view);
+            }else if(count <70) {
+                Sal_ItemSLayout2.addView(view);
+            }
+//            }else if(count <60){
+//                Sal_ItemSLayout3.addView(view);
+//            }else if(count <50){
+//                Sal_ItemSLayou`t4.addView(view);
+//            }else if(count <60){
+//                Sal_ItemSLayout5.addView(view);
+//            }else if(count <70){
+//                Sal_ItemSLayout6.addView(view);
+//            }else if(count <80){
+//                Sal_ItemSLayout7.addView(view);
+//            }
+
+
+
+
+            count =count +1 ;
+        }
+
+
+
+        TextView textView130 = (TextView)findViewById(R.id.textView130);
+
+
+        ArrayList<Cls_Offers_Hdr> Offer_Header_List = new ArrayList<Cls_Offers_Hdr>();
+        Offer_Header_List.clear();
+        query = " Select  distinct  Offer_Name, Offer_Date, Offer_Type  from  Offers_Hdr  ";
+        c1 = sqlHandler.selectQuery(query);
+        textView130.setText("");
+        if (c1 != null && c1.getCount() != 0) {
+            textView130.setText("العروض");
+            if (c1.moveToFirst()) {
+                do {
+
+                    Cls_Offers_Hdr obj = new Cls_Offers_Hdr();
+
+                    obj.setOffer_Name(c1.getString(c1
+                            .getColumnIndex("Offer_Name")));
+                    obj.setOffer_Date(c1.getString(c1
+                            .getColumnIndex("Offer_Date")));
+                    obj.setOffer_Type(c1.getString(c1
+                            .getColumnIndex("Offer_Type")));
+                    Offer_Header_List.add(obj);
+
+                } while (c1.moveToNext());
+            }
+            c1.close();
+        }
+
+        LinearLayout Promotion_ItemSLayout = (LinearLayout) findViewById(R.id.Promotion_ItemSLayout);
+
+        LayoutInflater Promotion_inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View Promotion_view;
+
+
+
+        for (Cls_Offers_Hdr Obj : Offer_Header_List){
+
+            Promotion_view = Promotion_inflater.inflate(R.layout.sal_inv_pro_row ,null);
+            tv_name = (TextView) Promotion_view.findViewById(R.id.tv_name);
+
+            tv_name.setText(Obj.getOffer_Name());
+
+            Promotion_ItemSLayout.addView(Promotion_view);
+        }
+
+
+        FillCustomerMsg();
+
+    }
     private  void FillCustomerMsg(){
         String q ;
         q = " Select  distinct    msg   from  CustomersMsg Where SaleManFlg ='4' ";// Where  SaleManFlg =4 Cusno = '' ";
@@ -1045,9 +1276,9 @@ public  void ShowRecord( String OrdNo){
     private void CallPrint(){
         StoreImage();
         Bitmap myBitmap = null;
-         myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
-         Printz(myBitmap);
-     }
+        myBitmap= BitmapFactory.decodeFile("//sdcard//z1.jpg");
+        Printz(myBitmap);
+    }
     private  void StoreImage(){
         LinearLayout lay = (LinearLayout) findViewById(R.id.Mainlayout);
         ReportView = lay;
@@ -1059,7 +1290,7 @@ public  void ShowRecord( String OrdNo){
 
         try {
             FileOutputStream out = new FileOutputStream(dest);
-            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
             //  bitmap.recycle();
@@ -1093,7 +1324,8 @@ public  void ShowRecord( String OrdNo){
             Message message=new Message();
             message.what=1;
             handler.handleMessage(message);
-
+            int width = b1.getWidth();
+            int height = b1.getHeight();
 
             Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();
             Tiny.getInstance().source(b1).asBitmap().withOptions(options).compress(new BitmapCallback() {
@@ -1102,6 +1334,8 @@ public  void ShowRecord( String OrdNo){
                     if (isSuccess){
 //                            Toast.makeText(PosActivity.this,"bitmap: "+bitmap.getByteCount(),Toast.LENGTH_LONG).show();
                         b2=bitmap;
+                        int width = b2.getWidth();
+                        int height = b2.getHeight();
 //                            b2=resizeImage(b1,380,false);
                         Message message=new Message();
                         message.what=2;
@@ -1124,12 +1358,17 @@ public  void ShowRecord( String OrdNo){
             super.handleMessage(msg);
             switch (msg.what){
                 case 1:
-
+                    int width = b1.getWidth();
+                    int height = b1.getHeight();
                     break;
                 case 2:
                     //usb connection need special deal with
                     if (PosPrinterDev.PortType.USB!= Xprinter_SalesInvoice.portType){
-                        printpicCode(b2);
+                         width = b1.getWidth();
+                         height = b1.getHeight();
+                       printpicCode(b1);
+                     // b2=resizeImage(b2,576,false);
+                     //   printUSBbitamp(b2);
                     }else {
                         showSnackbar("bimap  "+b2.getWidth()+"  height: "+b2.getHeight());
                         b2=resizeImage(b2,576,false);
@@ -1165,9 +1404,9 @@ public  void ShowRecord( String OrdNo){
                 b= Bitmap.createBitmap(bitmap,0,i*h,width,h);
             }else {
                 if (i==n-1){
-                    b= Bitmap.createBitmap(bitmap,0,i*h,width,height-i*h);
+                    b= Bitmap.createBitmap(bitmap,0,i*h,width,height-i*h+2);
                 }else {
-                    b= Bitmap.createBitmap(bitmap,0,i*h,width,h);
+                    b= Bitmap.createBitmap(bitmap,0,i*h,width,h+2);
                 }
             }
 
@@ -1234,7 +1473,10 @@ public  void ShowRecord( String OrdNo){
 
     }
     private void printpicCode(final Bitmap printBmp){
-
+      //  printBmp.setWidth(550);
+       // printBmp.setHeight(2030);
+        int width = printBmp.getWidth();
+        int height = printBmp.getHeight();
 
         Xprinter_SalesInvoice.binder.writeDataByYouself(new UiExecute() {
             @Override
@@ -1325,21 +1567,21 @@ public  void ShowRecord( String OrdNo){
         return mBitmap;
     }
     private void showSnackbar(String showstring){ }
-  /*  @Override
-    protected void onDestroy() {        super.onDestroy();
-    binder.disconnectCurrentPort(new UiExecute() {
-            @Override
-            public void onsucess() {
+    /*  @Override
+      protected void onDestroy() {        super.onDestroy();
+      binder.disconnectCurrentPort(new UiExecute() {
+              @Override
+              public void onsucess() {
 
-            }
+              }
 
-            @Override
-            public void onfailed() {
+              @Override
+              public void onfailed() {
 
-            }
-        });
-        unbindService(conn);
-    }*/
+              }
+          });
+          unbindService(conn);
+      }*/
     public static PosPrinterDev.PortType portType;//connect type
     public static Bitmap resizeImage(Bitmap bitmap, int w, boolean ischecked)
     {
@@ -1349,6 +1591,8 @@ public  void ShowRecord( String OrdNo){
         int width = BitmapOrg.getWidth();
         int height = BitmapOrg.getHeight();
         if (width<=w) {
+              bitmap.setHeight(2030);
+            bitmap.setWidth(550);
             return bitmap;
         }
         if (!ischecked) {
@@ -1359,13 +1603,13 @@ public  void ShowRecord( String OrdNo){
             float scaleHeight = ((float) newHeight) / height;
 
             Matrix matrix = new Matrix();
-            matrix.postScale(scaleWidth, scaleHeight);
+            matrix.postScale(width, height);
             // if you want to rotate the Bitmap
             // matrix.postRotate(45);
             resizedBitmap = Bitmap.createBitmap(BitmapOrg, 0, 0, width,
                     height, matrix, true);
         }else {
-            resizedBitmap= Bitmap.createBitmap(BitmapOrg, 0, 0, w, height);
+            resizedBitmap= Bitmap.createBitmap(BitmapOrg, 0, 0, width, height);
         }
 
         return resizedBitmap;

@@ -33,31 +33,39 @@ public class CallWebServices  {
         IPAddress =sharedPreferences.getString("ServerIP", "");
        //1 bustanji 2 bristage 3-salsel 4-goodsystem 5-tariget system 6-
           //URL = "http://"+IPAddress+"/GIWS/CV.asmx";//bustanji or prastaige
-          URL = "http://"+IPAddress+":3755"+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
+      //    URL = "http://"+IPAddress+":3755"+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
+        URL = "http://"+IPAddress+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
 
 
-        //URL = "http://46.185.131.31:9090/CV.asmx";//شركة السلاسل
+  //     URL = "http://46.185.131.31:9090/CV.asmx";//شركة السلاسل
         //URL = "http://192.168.8.101/GIWS/CV.asmx";
         //URL = "http://92.253.93.52:3755/CV.asmx";
         //URL = "http://192.168.1.148/GIWS/CV.asmx";
         //URL = "http://10.0.1.166/GIWS/CV.asmx"; //Galaxy1
         //   URL = "http://10.0.1.104:82/CV.asmx"; //Galaxy2
         // URL = "http://192.168.43.36:82/CV.asmx"; //Galaxy2
-       URL = "http://192.168.1.103:82/CV.asmx";
-       //  URL = "http://10.0.1.104:82/CV.asmx";
+    //   URL = "http://192.168.1.103:82/CV.asmx";
+     //    URL = "http://10.0.1.104:82/CV.asmx";
         // URL = "http://94.249.83.196:3767/CV.asmx";
       //URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
        //URL = "http://192.168.0.103:3755/CV.asmx";
         //URL = "http://92.253.22.118:3733/CV.asmx";// Targit
        //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
         //URL = "http://92.253.127.230:92/CV.asmx";// mo8bl
-     //     URL = "http://109.107.238.12:3755/CV.asmx";// السعد
-      //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
+//URL = "http://109.107.238.12:3755/CV.asmx";// السعد
+URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
+  //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
+//URL = "http://192.168.1.146:82/CV.asmx";// khaldi
+//URL = "http://10.0.1.63:92/CV.asmx";// servar galaxy
+//URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
+ //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
+//URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
     }
     public void GetItem_D(String Item_no, int flag) {
 
         We_Result.Msg="";
         We_Result.ID =-1;
+
 
         SoapObject request = new SoapObject(NAMESPACE, "GetItem_D");
 
@@ -796,6 +804,85 @@ public class CallWebServices  {
 
 
     }
+    public void GetDisCount(String Bransh) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GetDisCount");
+        // Property which holds input parameters
+
+        PropertyInfo parm_ManNo = new PropertyInfo();
+        parm_ManNo.setName("Bransh");
+        parm_ManNo.setValue(Bransh);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+        // Create envelope
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        // Set output SOAP object
+        envelope.setOutputSoapObject(request);
+        // Create HTTP call object
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+        try {
+            androidHttpTransport.call("http://tempuri.org/GetDisCount", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+
+        } catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+
+        }
+
+
+    }
+    public void setcode(String barcode,String orderno) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "setcode");
+        // Property which holds input parameters
+
+        PropertyInfo parm_barcode = new PropertyInfo();
+        parm_barcode.setName("barcode");
+        parm_barcode.setValue(barcode);
+        parm_barcode.setType(String.class);
+        request.addProperty(parm_barcode);
+
+        PropertyInfo parm_orderno = new PropertyInfo();
+        parm_orderno.setName("orderno");
+        parm_orderno.setValue(orderno);
+        parm_orderno.setType(String.class);
+        request.addProperty(parm_orderno);
+        // Create envelope
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        // Set output SOAP object
+        envelope.setOutputSoapObject(request);
+        // Create HTTP call object
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+        try {
+            androidHttpTransport.call("http://tempuri.org/setcode", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+
+        } catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+
+        }
+
+
+    }
     public void Get_DetailsMan(String ManNo) {
 
         We_Result.Msg="";
@@ -820,6 +907,48 @@ public class CallWebServices  {
 
         try {
             androidHttpTransport.call("http://tempuri.org/Get_DetailsMan", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+
+        } catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+
+        }
+
+
+    }
+    public void GetMaxOrder1(int ManNo,int type) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GetMaxOrder1");
+        // Property which holds input parameters
+
+        PropertyInfo parm_ManNo = new PropertyInfo();
+
+        parm_ManNo.setName("ManNo");
+        parm_ManNo.setValue(ManNo);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+        PropertyInfo parm_type = new PropertyInfo();
+        parm_type.setName("type");
+        parm_type.setValue(type);
+        parm_type.setType(String.class);
+        request.addProperty(parm_type);
+        // Create envelope
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        // Set output SOAP object
+        envelope.setOutputSoapObject(request);
+        // Create HTTP call object
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+        try {
+            androidHttpTransport.call("http://tempuri.org/GetMaxOrder1", envelope);
             SoapObject result  = (SoapObject) envelope.getResponse();
             We_Result.Msg =  result.getProperty("Msg").toString();
             We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
@@ -3093,6 +3222,39 @@ return    We_Result.ID;
         return   We_Result.ID;
 
     }
+    public long Save_store_pepr(String Json) {
+        We_Result.Msg =  "";
+        We_Result.ID = -1;
+
+        SoapObject request = new SoapObject(NAMESPACE, "Save_store_pepr");
+        PropertyInfo sayHelloPI = new PropertyInfo();
+        sayHelloPI.setName("JsonStr");
+        sayHelloPI.setValue(Json);
+        sayHelloPI.setType(String.class);
+        request.addProperty(sayHelloPI);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,40000);
+        Object  response =null;
+        try {
+            androidHttpTransport.call( "http://tempuri.org/Save_store_pepr", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (Exception e) {
+
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+        }
+        return   We_Result.ID;
+
+    }
+
     public long  Save_Ret_Sal_Invoice(String Json) {
         We_Result.Msg = "";
         We_Result.ID = -1;
@@ -3261,6 +3423,58 @@ return    We_Result.ID;
         try {
 
             androidHttpTransport.call("http://tempuri.org/GetCopmanyInfo", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+
+        }
+
+    }
+    public void GetDelvary() {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GetDelvary");
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GetDelvary", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+
+        }
+
+    }
+    public void GetSerial() {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GetSerial");
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GetSerial", envelope);
             SoapObject result  = (SoapObject) envelope.getResponse();
             We_Result.Msg =  result.getProperty("Msg").toString();
             We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
@@ -5635,6 +5849,213 @@ return    We_Result.ID;
 
         }
         //Return resTxt to calling object
+
+    }
+    public void GetBarCode(String Item_No) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GetBarCode");
+
+        PropertyInfo parm_AccNo = new PropertyInfo();
+
+        parm_AccNo.setName("Item_No");
+        parm_AccNo.setValue(Item_No);
+        parm_AccNo.setType(String.class);
+
+
+
+        request.addProperty(parm_AccNo);
+
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GetBarCode", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+
+
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+
+
+
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+            en.printStackTrace();
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+            eof.printStackTrace();
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+
+        }
+        //Return resTxt to calling object
+
+    }
+    public void Get_Item(String searsh) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "Get_Item");
+
+
+        PropertyInfo parm_AccNo = new PropertyInfo();
+
+        parm_AccNo.setName("searsh");
+        parm_AccNo.setValue(searsh);
+        parm_AccNo.setType(String.class);
+
+
+
+        request.addProperty(parm_AccNo);
+
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        Object  response =null;
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/Get_Item", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+            en.printStackTrace();
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+            eof.printStackTrace();
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+
+        }
+
+
+    }
+    public void SaveTransProduse(String Json,String TransNo,String Date,String ItemNo,String ItemName) {
+        We_Result.Msg="";
+        We_Result.ID =-1;
+
+        SoapObject request = new SoapObject(NAMESPACE, "SaveDoctorReport");
+        PropertyInfo sayHelloPI = new PropertyInfo();
+        sayHelloPI.setName("JsonStr");
+
+        sayHelloPI.setValue(Json);
+        sayHelloPI.setType(String.class);
+        request.addProperty(sayHelloPI);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,40000);
+
+        try {
+            androidHttpTransport.call( "http://tempuri.org/SaveDoctorReport", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+
+
+    }
+    public void Get_SaveDev(String Json,String ManNo,String OrderNo) {
+        We_Result.Msg="";
+        We_Result.ID =-1;
+
+        SoapObject request = new SoapObject(NAMESPACE, "Get_SaveDev");
+        PropertyInfo sayHelloPI = new PropertyInfo();
+        sayHelloPI.setName("Json");
+
+        sayHelloPI.setValue(Json);
+        sayHelloPI.setType(String.class);
+        request.addProperty(sayHelloPI);
+        PropertyInfo parm_ManNo = new PropertyInfo();
+
+        parm_ManNo.setName("ManNo");
+        parm_ManNo.setValue(ManNo);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+        PropertyInfo parm_OrderNo = new PropertyInfo();
+
+        parm_OrderNo.setName("OrderNo");
+        parm_OrderNo.setValue(OrderNo);
+        parm_OrderNo.setType(String.class);
+        request.addProperty(parm_OrderNo);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,40000);
+
+
+
+        try {
+            androidHttpTransport.call( "http://tempuri.org/Get_SaveDev", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+
+        }
+
 
     }
 }

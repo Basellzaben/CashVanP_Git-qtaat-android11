@@ -67,7 +67,7 @@ import java.util.Locale;
 
 import Methdes.MyTextView;
 
-public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickListener {
+public class  Pop_Po_Select_Items extends DialogFragment implements View.OnClickListener {
     public static final String CALCULATOR_PACKAGE = "com.android.calculator2";
     public static final String CALCULATOR_CLASS = "com.android.calculator2.Calculator";
     View form;
@@ -259,27 +259,8 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
         final List<String> promotion_ls = new ArrayList<String>();
 
         final EditText Price = (EditText) form.findViewById(R.id.et_price);
-        if (ComInfo.ComNo == 1) {
-
-            Price.setFocusable(true);
-            Price.setClickable(true);
-            Price.setInputType(Configuration.KEYBOARD_12KEY);
-            Price.setKeyListener(new DigitsKeyListener());
-        } else {
 
 
-         //   Price.setFocusable(false);
-          //  Price.setClickable(false);
-            Price.setInputType(Configuration.KEYBOARD_12KEY);
-            Price.setKeyListener(new DigitsKeyListener());
-        }
-        //Price.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        // Price.setKeyListener(new DigitsKeyListener());
-        // Price.setRawInputType(Configuration.KEYBOARD_QWERTY);
-      /*  InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(Price, InputMethodManager.SHOW_IMPLICIT);
-*/
 
         final EditText qty = (EditText) form.findViewById(R.id.et_qty);
         EditText tax = (EditText) form.findViewById(R.id.et_tax);
@@ -756,7 +737,7 @@ public class Pop_Po_Select_Items extends DialogFragment implements View.OnClickL
                 Prv.setOnClickListener(this);
                 Nxt.setOnClickListener(this);
 
-                Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.no_image);
+                Bitmap myBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pic);
                 Bitmap imageRounded = Bitmap.createBitmap(myBitmap.getWidth(), myBitmap.getHeight(), myBitmap.getConfig());
                 Canvas canvas = new Canvas(imageRounded);
                 Paint mpaint = new Paint();

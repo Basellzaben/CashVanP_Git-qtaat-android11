@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.Gravity;
@@ -47,6 +48,7 @@ import android.widget.Toast;
 import com.cds_jo.GalaxySalesApp.*;
 import com.cds_jo.GalaxySalesApp.OrderApproval.Show_Orders_Need_Approval;
 import com.cds_jo.GalaxySalesApp.PostTransActions.PostSalesOrder;
+import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesInvoice;
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesOrder;
 import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 import com.google.gson.Gson;
@@ -74,6 +76,7 @@ import javax.xml.transform.sax.SAXSource;
 import Methdes.MyTextView;
 
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import header.Header_Frag;
 import header.SimpleSideDrawer;
 
@@ -84,6 +87,7 @@ public class OrdersItems extends FragmentActivity {
     SqlHandler sqlHandler;
     ListView lv_Items;
     long PostResult = 0;
+    EditText Maxpo1;
     ContentValues cvv;
     AlertDialog.Builder builder;
     ArrayList<ContactListItems> contactList;
@@ -278,7 +282,7 @@ public class OrdersItems extends FragmentActivity {
                 State = c1.getString(c1.getColumnIndex("State"));
                 c1.close();
             }
-
+          //    GlobaleVar.TaxSts= Integer.parseInt(TaxStatus);
             String PromotionFlag = DB.GetValue(this, "Customers", "PromotionFlag", "no='" + accno.getText().toString() + "'");
 
 
@@ -301,12 +305,14 @@ public class OrdersItems extends FragmentActivity {
             tv_Location.setText(Location);
             tv_TaxStatus = (MyTextView) findViewById(R.id.tv_TaxStatus);
             if (TaxStatus.equalsIgnoreCase("1")) {
-                tv_TaxStatus.setText("معفي الضريبة");
                 tv_TaxStatus.setVisibility(View.VISIBLE);
+                tv_TaxStatus.setText("معفي الضريبة");
+
                 CustTaxStatus = "1";
             } else {
-                tv_TaxStatus.setText(" ");
                 tv_TaxStatus.setVisibility(View.INVISIBLE);
+                tv_TaxStatus.setText(" ");
+
                 CustTaxStatus = "0";
             }
 
@@ -1106,6 +1112,43 @@ public class OrdersItems extends FragmentActivity {
     private void FillLocation() {
     }
     public void GetMaxPONo() {
+        Maxpo1 = (EditText) findViewById(R.id.et_OrdeNo);
+        final Handler _handler = new Handler();
+     /*   if(GlobaleVar.per ==1)
+        {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    CallWebServices ws = new CallWebServices(OrdersItems.this);
+                    ws.GetMaxOrder1(Integer.parseInt(UserID), 2);
+                    try {
+                        Integer i;
+                        String q;
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray js_MaxOrder = js.getJSONArray("MaxOrder");
+
+                        Result = js_MaxOrder.get(0).toString();
+
+
+
+
+
+                        _handler.post(new Runnable() {
+                            public void run() {
+
+                                Maxpo1.setText(intToString(Integer.valueOf(Result), 7));
+                            }
+                        });
+                    } catch (final Exception e) {
+
+
+                    }
+                }
+            }).start();
+
+
+        }else {
+*/
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             String u = sharedPreferences.getString("UserID", "");
             u = u.trim();
@@ -1160,6 +1203,7 @@ public class OrdersItems extends FragmentActivity {
             // Maxpo.setText(max);
 
         }
+//}
     public static String intToString(int num, int digits) {
         try {
             String output = Integer.toString(num);
@@ -2041,7 +2085,21 @@ public class OrdersItems extends FragmentActivity {
 
     public void btn_print(View view) {
 
+        EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
+        String q1  = "SELECT distinct *  from  Po_Hdr where    " +
+                "   posted <= 0 AND   OrderNo ='" + OrderNo.getText().toString().trim() + "'";
 
+        Cursor c2 = sqlHandler.selectQuery(q1);
+        if (c2 != null && c2.getCount() != 0) {
+            new SweetAlertDialog(OrdersItems.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                    .setTitleText("'طلب المبيعات")
+                    .setContentText("لا يمكن الطباعة الا بعد الاعتماد")
+                    .setCustomImage(R.drawable.error_new)
+                    .show();
+
+            c2.close();
+            return;
+        }
         if (!obj.CheckAction(this, SCR_NO, SCR_ACTIONS.Print.getValue())) {
             com.cds_jo.GalaxySalesApp.ViewDialog alert = new com.cds_jo.GalaxySalesApp.ViewDialog();
             alert.showDialog(OrdersItems.this, "نأسف أنت لا تملك صلاحية الطباعة", "طلب البيع");
@@ -2069,7 +2127,12 @@ public class OrdersItems extends FragmentActivity {
             k = new Intent(this, Convert_Layout_Img_Tsc.class);
         }else if (ComInfo.ComNo== Companies.beutyLine.getValue()){
             k = new Intent(this, Convert_Layout_Img_Tsc.class);
-        } else{
+        }
+        else if (ComInfo.ComNo == Companies.Afrah.getValue()) {
+            //  k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity_Line.class);
+            k = new Intent(this, Xprinter_SalesOrder.class);
+        }
+        else{
             k = new Intent(this, Convert_Layout_Img.class);
         }
 
@@ -2145,6 +2208,7 @@ public class OrdersItems extends FragmentActivity {
         dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
         long i;
         ContentValues cv = new ContentValues();
         cv.put("orderno", pono.getText().toString().replace("\u202c","").replace("\u202d",""));
@@ -2154,8 +2218,9 @@ public class OrdersItems extends FragmentActivity {
         cv.put("userid", UserID.replace("\u202c","").replace("\u202d",""));
         cv.put("Total", Total.getText().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
         cv.put("Net_Total", NetTotal.getText().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
-        cv.put("Tax_Total", TotalTax.getText().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
+        cv.put("Tax_Total",   TotalTax.getText().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
         cv.put("bounce_Total", "0");
+        cv.put("Man_Order", sharedPreferences.getString("UserID", ""));
         cv.put("posted", "-1");
         cv.put("DayNum", dayOfWeek+"".replace("\u202c","").replace("\u202d","").replace("\u202c","").replace("\u202d",""));
         cv.put("V_OrderNo", sharedPreferences.getString("V_OrderNo", "0").replace("\u202c","").replace("\u202d",""));
@@ -2215,7 +2280,8 @@ public class OrdersItems extends FragmentActivity {
                     cv.put("unitNo", contactListItems.getUnite().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
                     cv.put("dis_per", contactListItems.getDiscount().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
                     cv.put("dis_Amt", contactListItems.getDis_Amt().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
-                    cv.put("bounce_qty", contactListItems.getBounce().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
+                cv.put("bounce_qty", contactListItems.getBounce().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
+
                     cv.put("tax_Amt", contactListItems.getTax_Amt().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
                     cv.put("total", contactListItems.getTotal().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
                     cv.put("ProID", contactListItems.getProID().toString().replace(",", "").replace("\u202c","").replace("\u202d",""));
@@ -2228,7 +2294,9 @@ public class OrdersItems extends FragmentActivity {
 
                     if (contactListItems.getBatch().trim().equalsIgnoreCase("")) {
                         cv.put("Batch", "0");
-                    } else {
+                    }
+                    else
+            {
                         cv.put("Batch", contactListItems.getBatch().trim());
                     }
 
@@ -2346,7 +2414,7 @@ public class OrdersItems extends FragmentActivity {
         String q = "SELECT Distinct *  from  Po_Hdr where   posted >0 AND   orderno ='" + pono.getText().toString() + "'";
         Cursor c1 = sqlHandler.selectQuery(q);
         if (c1 != null && c1.getCount() != 0) {
-
+               GlobaleVar.per=0;
             AlertDialog alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("طلب مبيعات");
@@ -2358,7 +2426,7 @@ public class OrdersItems extends FragmentActivity {
             });
             alertDialog.show();
             c1.close();//7
-            return;
+           return;
         }
 
 
@@ -3559,12 +3627,7 @@ public class OrdersItems extends FragmentActivity {
                 checkItem = true;
             } else {
 
-             /*   q = "Select  ifnull(Count(1),0) as Co  From    Po_dtl   inner  Join  Offers_Groups    on  " +
-                        "    Offers_Groups.item_no = Po_dtl.itemno and " +
-                        "    CAST( Po_dtl.qty as INTEGER)   >=   CAST(Offers_Groups.qty as INTEGER )" +
-                        "    Where grv_no ='" + cls_offers_hdr.getGro_no() + "' and Po_dtl.orderno = '" + pono.getText().toString() + "' and cast(ifnull(Po_dtl.ProID, 0 ) as INTEGER )= 0" +
-                        "    and CAST(Offers_Groups.qty as INTEGER )>0 ";
-*/
+
 
 
                 q = "Select  ifnull(Count(1),0) as Co  From    Po_dtl   inner  Join  Offers_Groups    on  " +
@@ -3600,14 +3663,7 @@ public class OrdersItems extends FragmentActivity {
 
             }
 
-            // CheckOtherWise
-                    /* q = "Select  distinct  *  From  Po_dtl    inner  Join  Offers_Groups   on  " +
-                            "  Offers_Groups.item_no = Po_dtl.itemno and " +
-                            "  Offers_Groups.item_no = Po_dtl.itemno and CAST( Po_dtl.qty as INTEGER)  <   CAST(Offers_Groups.qty as INTEGER )" +
-                            "  Where grv_no ='" + cls_offers_hdr.getGro_no() + "' and Po_dtl.orderno = '" + pono.getText().toString() + "' and cast(ifnull(Po_dtl.ProID, 0 ) as INTEGER )= 0" +
-                            "  and CAST(Offers_Groups.qty as INTEGER )>0 ";
-                    */
-            q = "Select  distinct  *  From  Po_dtl    inner  Join  Offers_Groups   on  " +
+                 q = "Select  distinct  *  From  Po_dtl    inner  Join  Offers_Groups   on  " +
                     "  Offers_Groups.item_no = Po_dtl.itemno and " +
                     "  Offers_Groups.item_no = Po_dtl.itemno and " +
                     " ( CAST( Po_dtl.qty as decimal) *  CAST( ifnull( Po_dtl.Opraned,1) as decimal))   <   ( CAST( Offers_Groups.qty as INTEGER) *  CAST( ifnull( Offers_Groups.unit_rate,1) as decimal))  " +
@@ -3626,13 +3682,7 @@ public class OrdersItems extends FragmentActivity {
                 continue;
 
 
-            ////////////////////////////////////////////////////////////////////////////////////////
-            //CheckGeroupQty
-          /*  String q1 = "    Select   ifnull( sum(  CAST( Po_dtl.qty as INTEGER) *   CAST( ifnull( Po_dtl.Opraned,1) as decimal)   ),0) as qty " +
-                    "  From    Offers_Groups    " +
-                    "  Where  grv_no ='" + cls_offers_hdr.getGro_no() +"'";
 
-*/
 
             if (offer_groups_List.get(0).getGro_qty().equalsIgnoreCase("0")) {
                 CheckGeroupQty = true;
@@ -3649,10 +3699,22 @@ public class OrdersItems extends FragmentActivity {
                     c1.moveToFirst();
                     OrderQty = (c1.getString(c1.getColumnIndex("qty")));
                     c1.close();
+                    int a2;
+                    int a1= (Integer.parseInt(OrderQty));
+                    if (offer_groups_List.get(0).getGro_qty().equals(""))
+                    {
+                         a2 = 0;
+                    }else
+                    {
+                        a2 =Integer.parseInt(offer_groups_List.get(0).getGro_qty());
+                    }
 
+                    double a3 = SToD(offer_groups_List.get(0).getUnit_rate() + "");
+// يجب تعديل معامل تحويل المجموعة
+                    if (Integer.parseInt(OrderQty) >= a2 * SToD(offer_groups_List.get(0).getUnit_rate() + "")) {
 
-                    if (Integer.parseInt(OrderQty) >= Integer.parseInt(offer_groups_List.get(0).getGro_qty()) * SToD(offer_groups_List.get(0).getUnit_rate() + "")) {
-                        GroupFactor = (Integer.parseInt(OrderQty) / (Integer.parseInt(offer_groups_List.get(0).getGro_qty()) * SToD(offer_groups_List.get(0).getUnit_rate() + ""))) + "";
+                  //      GroupFactor = (Integer.parseInt(OrderQty) / (Integer.parseInt(offer_groups_List.get(0).getGro_qty()) * SToD(offer_groups_List.get(0).getUnit_rate() + ""))) + "";
+                        GroupFactor = (Integer.parseInt(OrderQty) /( a2 * SToD(offer_groups_List.get(0).getUnit_rate() + ""))) + "";
                         CheckGeroupQty = true;
                     }
 
@@ -3682,11 +3744,6 @@ public class OrdersItems extends FragmentActivity {
                     if (SToD(OrderAmt) >= SToD(offer_groups_List.get(0).getGro_amt())) {
                         CheckGroupAmt = true;
 
-               /* if(SToD(offer_groups_List.get(0).getGro_amt())>0) {
-                    GroupAmtFactor = (SToD(OrderAmt) / SToD(offer_groups_List.get(0).getGro_amt())) + "";
-                    GroupAmtFactorInt = Integer.parseInt(GroupAmtFactor);
-                    Toast.makeText(this,GroupAmtFactorInt+"",Toast.LENGTH_SHORT).show();
-                }*/
                     }
                 }
             }
@@ -3767,20 +3824,55 @@ public class OrdersItems extends FragmentActivity {
                 "    Where  itemno in ( select  item_no  from Offers_Groups where grv_no ='" + Grv_no + "')  and orderno='" + pono.getText() + "'  and ProID='0'";
 
 
+
+
+
              if (offer_groups_List.get(0).getItem_no().equalsIgnoreCase("0")) {
-            s = " Update Po_dtl Set ProID='" + Grv_no + "' ,Pro_bounce ='0'  , pro_Total ='" + dis_Per + "' ,  " +
+              s = " Update Po_dtl Set ProID='" + Grv_no + "' ,Pro_bounce ='0'  , pro_Total ='" + dis_Per + "' ,  " +
                     "    Pro_amt =   (cast(  OrgPrice as real )*   cast(  qty as integer ) * " + (SToD(dis_Per) / 100) + ") , Pro_dis_Per='" + dis_Per + "'" +
                     "    Where       orderno='" + pono.getText() + "'  and ProID='0'";
 
         }
 
 
+
+
+
         sqlHandler.executeQuery(s);
+
 
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
         TextView Order_no = (TextView) findViewById(R.id.et_OrdeNo);
         TextView accno = (TextView) findViewById(R.id.tv_acc);
         Set_Order(Order_no.getText().toString(), CustNm.getText().toString(), accno.getText().toString());
+        //////////////////////////////////
+        TextView Total = (TextView) findViewById(R.id.et_Total);
+        TextView dis = (TextView) findViewById(R.id.et_dis);
+        TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
+        TextView TotalTax = (TextView) findViewById(R.id.et_TotalTax);
+        CheckBox Tax_Include = (CheckBox) findViewById(R.id.chk_Tax_Include);
+        ContentValues cv = new ContentValues();
+        cv.put("Total", Total.getText().toString()  );
+        cv.put("Net_Total", NetTotal.getText().toString() );
+        cv.put("Tax_Total",   TotalTax.getText().toString()   );
+        if (Tax_Include.isChecked()) {
+            cv.put("include_Tax", "0");
+        } else {
+            cv.put("include_Tax", "-1");
+        }
+        cv.put("disc_Total", dis.getText().toString());
+        sqlHandler.Update("Po_Hdr", cv, "orderno ='" + pono.getText().toString() + "'");
+
+
+
+
+
+
+
+
+
+
+        ///////////////////////////////////////////
 
     }
 
@@ -3853,13 +3945,13 @@ public class OrdersItems extends FragmentActivity {
                     cv.put("dis_Amt", "0");
                     cv.put("dis_per", "0");
                     cv.put("OrgPrice", "0");
-                    cv.put("bounce_qty", "0");
+                    cv.put("bounce_qty", String.valueOf(Integer.parseInt(ItemFactor) * Double.parseDouble(c1.getString(c1.getColumnIndex("QTY")))));
                     cv.put("bounce_unitno", "0");
                     cv.put("tax_Amt", "0");
                     cv.put("total", "0");
                     cv.put("net_total", "0");
                     cv.put("ProID", GroupNo);
-                    cv.put("Pro_bounce", String.valueOf(Integer.parseInt(ItemFactor) * Double.parseDouble(c1.getString(c1.getColumnIndex("QTY")))));
+                    cv.put("Pro_bounce","0");
                     cv.put("Pro_dis_Per", "0");
                     cv.put("Pro_amt", "0");
                     cv.put("Pro_Type", "3");
@@ -4035,7 +4127,7 @@ public class OrdersItems extends FragmentActivity {
                     cv.put("dis_Amt", "0");
                     cv.put("dis_per", "0");
                     cv.put("OrgPrice", "0");
-                    cv.put("bounce_qty", "0");
+                    cv.put("bounce_qty",  (c1.getString(c1.getColumnIndex("GiftsQty"))));
                     cv.put("bounce_unitno", "0");
                     cv.put("tax_Amt", "0");
                     cv.put("total", "0");
@@ -4091,18 +4183,21 @@ public class OrdersItems extends FragmentActivity {
 
         String CatNo = DB.GetValue(this, "Customers", "catno", "no='" + tv_acc.getText().toString() + "'");
         String PromotionFlag = DB.GetValue(this, "Customers", "PromotionFlag", "no='" + tv_acc.getText().toString() + "'");
-
+        Log.d("offer",PromotionFlag);
         if (PromotionFlag.equalsIgnoreCase("1")) {
             cls_offers_hdrsNew.clear();
         } else {
-            CatNo="0";// for demo
-
-            String q = "   SELECT    *   FROM Offers_Hdr inner join Offers_Groups on Offers_Groups.grv_no=  Offers_Hdr.gro_no " +
-                    "      WHERE   ( Offers_Groups.gro_type='1' or  Offers_Groups.gro_type='2' )  " +
-                    "      and     Offer_No not in ( Select ProID  From Po_dtl where    orderno='" + pono.getText() + "' )  and  Offers_Hdr.Cate_Offer='" + CatNo + "'" +
-                    "      Order by CAST( Offer_priority as INTEGER)   asc   ";
 
 
+//            String q = "   SELECT    *   FROM Offers_Hdr inner join Offers_Groups on Offers_Groups.grv_no=  Offers_Hdr.gro_no " +
+//                    "      WHERE   ( Offers_Groups.gro_type='1' or  Offers_Groups.gro_type='2' )  " +
+//                    "      and     Offer_No not in ( Select ProID  From Po_dtl where    orderno='" + pono.getText() + "' )  and  Offers_Hdr.Cate_Offer='" + CatNo + "'" +
+//                    "      Order by CAST( Offer_priority as INTEGER)   asc   ";
+            String q = "   SELECT    *   FROM Offers_Hdr left join Offers_Groups on Offers_Groups.grv_no=  Offers_Hdr.gro_no " +
+                   "      WHERE     Offer_No not in ( Select ProID  From Po_dtl where    orderno='" + pono.getText() + "' )  and  Offers_Hdr.Cate_Offer='" + CatNo + "'" +
+                   "      Order by CAST( Offer_priority as INTEGER)   asc   ";
+
+            Log.d("offer",q);
             Cursor c1 = sqlHandler.selectQuery(q);
             Cls_Offers_Hdr cls_offers_hdr;
             cls_offers_hdrsNew.clear();
@@ -4110,6 +4205,7 @@ public class OrdersItems extends FragmentActivity {
                 if (c1.getCount() > 0) {
                     c1.moveToFirst();
                     do {
+                        Log.d("offer",c1.getString(c1.getColumnIndex("Offer_Name")));
                         cls_offers_hdr = new Cls_Offers_Hdr();
                         cls_offers_hdr.setOffer_Name(c1.getString(c1.getColumnIndex("Offer_Name")));
                         cls_offers_hdr.setID(c1.getString(c1.getColumnIndex("ID")));
@@ -4132,12 +4228,7 @@ public class OrdersItems extends FragmentActivity {
                 }
                 c1.close();
             }
-            //  Bundle bundle = new Bundle();
-            // bundle.putParcelableArrayList("Scr", cls_offers_hdrs);
-            // FragmentManager Manager =  getFragmentManager();
-            /// PromotionEffict obj = new PromotionEffict();
-            //  obj.setArguments(bundle);
-            //  obj.show(Manager, null);
+
 
         }
     }

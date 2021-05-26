@@ -714,33 +714,6 @@ import java.util.Locale;
             tv_CusBal.setText( SToD(Total+"")+"");
 
         }
-
-        private  Double SToD(String str){
-            String f = "";
-            final NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
-            final DecimalFormat df = (DecimalFormat)nf;
-            str = str.replace(",","");
-            Double d = 0.0;
-            if (str.length()==0) {
-                str = "0";
-            }
-            if (str.length()>0)
-                try {
-                    d =  Double.parseDouble(str);
-                    str = df.format(d).replace(",", "");
-
-                }
-                catch (Exception ex)
-                {
-                    str="0";
-                }
-
-            df.setParseBigDecimal(true);
-
-            d = Double.valueOf(str.trim()).doubleValue();
-
-            return d;
-        }
         private void showList(String Orderno) {
             Intent i = getIntent();
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -839,6 +812,33 @@ import java.util.Locale;
             FillCustomerMsg();
 
         }
+        private  Double SToD(String str){
+            String f = "";
+            final NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+            final DecimalFormat df = (DecimalFormat)nf;
+            str = str.replace(",","");
+            Double d = 0.0;
+            if (str.length()==0) {
+                str = "0";
+            }
+            if (str.length()>0)
+                try {
+                    d =  Double.parseDouble(str);
+                    str = df.format(d).replace(",", "");
+
+                }
+                catch (Exception ex)
+                {
+                    str="0";
+                }
+
+            df.setParseBigDecimal(true);
+
+            d = Double.valueOf(str.trim()).doubleValue();
+
+            return d;
+        }
+
 
         private  void FillCustomerMsg(){
             String q ;

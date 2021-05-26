@@ -104,6 +104,7 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.xprinter_man_summery);
+        Toast.makeText(this, "2", Toast.LENGTH_SHORT).show();
         //bind service，get ImyBinder object
         Intent intent=new Intent(this,PosprinterService.class);
         bindService(intent, conn, BIND_AUTO_CREATE);
@@ -669,11 +670,11 @@ private String GetNewCustomerCount() {
                 case 2:
                     //usb connection need special deal with
                     if (PosPrinterDev.PortType.USB!= Xprinter_ManSummeryTo_img.portType){
-                        printpicCode(b2);
+                        printpicCode(b1);
                     }else {
-                        showSnackbar("bimap  "+b2.getWidth()+"  height: "+b2.getHeight());
-                        b2=resizeImage(b2,576,false);
-                        printUSBbitamp(b2);
+                        showSnackbar("bimap  "+b2.getWidth()+"  height: "+b1.getHeight());
+                        b2=resizeImage(b1,576,false);
+                        printUSBbitamp(b1);
 
                     }
 

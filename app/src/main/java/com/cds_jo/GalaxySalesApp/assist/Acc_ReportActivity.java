@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Locale;
 
 import Methdes.MyTextView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import header.Header_Frag;
 
 //import com.loopj.android.http.HttpGet;// temp
@@ -456,7 +457,8 @@ public class Acc_ReportActivity extends AppCompatActivity {
                             cls_acc_report1.setDept( Per.format(Double.parseDouble( S_dept))+"");
                             cls_acc_report1.setCred(Per.format(Double.parseDouble(S_cred))+"");
                             cls_acc_report1.setRate(Per.format(Double.parseDouble( S_rate))+"");
-                            cls_acc_report1.setTot(CUST_NET_BAL);
+                            //cls_acc_report1.setTot(CUST_NET_BAL);
+                            cls_acc_report1.setTot(S_tot);
 
 
                             cls_acc_reportsList.add(cls_acc_report1);
@@ -519,6 +521,25 @@ public class Acc_ReportActivity extends AppCompatActivity {
 
     public void btnPrint(View view) {
 
+        int x1=0;
+        int  Po_Hdr = Integer.parseInt(DB.GetValue(this, "Po_Hdr", "ifnull(count(*),0)", "posted <= 0"));
+        int  Sal_invoice_Hdr = Integer.parseInt(DB.GetValue(this, "Sal_invoice_Hdr", "ifnull(count(*),0)", "Post <= 0"));
+        int  Sal_return_Hdr = Integer.parseInt(DB.GetValue(this, "Sal_return_Hdr", "ifnull(count(*),0)", "Post <= 0"));
+        if(Po_Hdr ==0 ||Sal_invoice_Hdr==0||Sal_return_Hdr==0)
+        {
+            x1 = 1;
+        }
+        if(x1==1)
+        {
+            new SweetAlertDialog(Acc_ReportActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                    .setTitleText("كشف الحساب")
+                    .setContentText("لا يمكن الطباعة الا بعد الاعتماد جميع الفواتير")
+                    .setCustomImage(R.drawable.error_new)
+                    .show();
+
+
+            return;
+        }
         TextView tv_acc = (TextView)findViewById(R.id.tv_acc);
         TextView tv_cusnm = (TextView)findViewById(R.id.tv_cusnm);
         EditText ed_ToDate = (EditText)findViewById(R.id.ed_ToDate);
@@ -568,7 +589,8 @@ public class Acc_ReportActivity extends AppCompatActivity {
             i = sqlHandler.Insert("ACC_REPORT", null, cv);
         }
 
-        Intent k = new Intent(this,Convert_ccReportTo_ImgActivity.class);
+        Intent k = new Intent(this,Xpinter_Acc.class);
+     //Intent k = new Intent(this,Convert_ccReportTo_ImgActivity.class);
 
 
         k.putExtra("Scr", "po");
@@ -583,7 +605,25 @@ public class Acc_ReportActivity extends AppCompatActivity {
 
     }
     public void btnPrint2(View view) {
+        int x1=0;
+        int  Po_Hdr = Integer.parseInt(DB.GetValue(this, "Po_Hdr", "ifnull(count(*),0)", "posted <= 0"));
+        int  Sal_invoice_Hdr = Integer.parseInt(DB.GetValue(this, "Sal_invoice_Hdr", "ifnull(count(*),0)", "Post <= 0"));
+        int  Sal_return_Hdr = Integer.parseInt(DB.GetValue(this, "Sal_return_Hdr", "ifnull(count(*),0)", "Post <= 0"));
+        if(Po_Hdr ==0 ||Sal_invoice_Hdr==0||Sal_return_Hdr==0)
+        {
+            x1 = 1;
+        }
+        if(x1==1)
+        {
+            new SweetAlertDialog(Acc_ReportActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                    .setTitleText("كشف الحساب")
+                    .setContentText("لا يمكن الطباعة الا بعد الاعتماد جميع الفواتير")
+                    .setCustomImage(R.drawable.error_new)
+                    .show();
 
+
+            return;
+        }
         Intent k = new Intent(this,Convert_ccReport2To_ImgActivity.class);
         k.putExtra("Scr", "po");
         TextView   CustNm =(TextView)findViewById(R.id.tv_cusnm);

@@ -44,7 +44,7 @@ String DocType ="1";
         }else if (DocType.equalsIgnoreCase("2")) {
             getDialog().setTitle("البحث في إرجاع المبيعات");
         }else {
-            getDialog().setTitle("البحث في سند تسليم بضاعة  ");
+            getDialog().setTitle("البحث في سند أخراج  ");
         }
 
 

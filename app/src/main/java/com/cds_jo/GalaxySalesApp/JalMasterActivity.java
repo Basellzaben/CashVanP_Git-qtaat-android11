@@ -61,7 +61,7 @@
     GridView gridView;
     ArrayList<Items> gridArray = new ArrayList<Items>();
     JalImageGridAdapter customGridAdapter;
-
+       String UserID="";
     GetPermession obj;
     SqlHandler sqlHandler;
     private String getday() {
@@ -89,13 +89,13 @@
         setContentView(R.layout.activity_jal_master);
         TextView Un = (TextView) findViewById(R.id.tv_UserName);
 
-        //startActivity(new Intent(JalMasterActivity.this, NewHomePage.class));
+//startActivity(new Intent(JalMasterActivity.this, NewHomePage.class));
 
 
 
         String q=DB.GetValue(this,"cardMan","no","1=1");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        final String UserID = sharedPreferences.getString("UserID", "");
+      UserID = sharedPreferences.getString("UserID", "");
         String query = "Select DateLogin From TimeLogin where manNo ='"+UserID +"'";
         sqlHandler = new SqlHandler(this);
         Cursor c1 = sqlHandler.selectQuery(query);
@@ -103,10 +103,8 @@
             if (c1.moveToFirst()) {
                 try{
                     String day=getday();
-
                     String d=c1.getString(c1
                             .getColumnIndex("DateLogin"));
-
                     DateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     Date d1 = sdf.parse(d);
                     Date day2 = sdf.parse(day);
@@ -168,14 +166,15 @@ try {
         Animation translatebu= AnimationUtils.loadAnimation(this, R.anim.animationfile);
 
         String msg="";
-        msg =msg+" *** " +"كل عام وانتم بالف خير بمناسبة عيد الفطر السعيد  ";
+   //     msg =msg+" *** " +"كل عام وانتم بالف خير بمناسبة عيد الفطر السعيد  ";
+        msg =msg+" *** " +"يوجد اجتماع اليوم على تمام الساعة التاسعة  ";
         msg =msg+" *** "  ;
 
         tv_News.setVisibility(View.INVISIBLE);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
         String currentDateandTime = sdf.format(new Date());
 
-        if(currentDateandTime.equalsIgnoreCase("2017/06/24") ){
+        if(currentDateandTime.equalsIgnoreCase("2021/02/22") ){
             tv_News.setVisibility(View.VISIBLE);
             tv_News.setText(msg);
             tv_News.startAnimation(translatebu);
@@ -301,8 +300,8 @@ try {
                 gridArray.add(new Items(trans_from_store, "استعراض كميات المستودع", "30022"));
             if (1 == 1)
                 gridArray.add(new Items(Transfer, "تحديث البيانات", "30008"));
-            if (obj.CheckAction(JalMasterActivity.this, "30021", SCR_ACTIONS.open.getValue()))
-                gridArray.add(new Items(ItemCostReport, "استعلام كلفة مادة", "30021"));
+          /*  if (obj.CheckAction(JalMasterActivity.this, "30021", SCR_ACTIONS.open.getValue()))
+                gridArray.add(new Items(ItemCostReport, "استعلام كلفة مادة", "30021"));*/
             if (obj.CheckAction(JalMasterActivity.this, "30010", SCR_ACTIONS.open.getValue()))
                 gridArray.add(new Items(schedule, "جدول زيارات العميل", "30010"));
              /*       if (obj.CheckAction(JalMasterActivity.this, "30011", SCR_ACTIONS.open.getValue()))
@@ -398,10 +397,10 @@ try {
                        k = new Intent(v.getContext(),UpdateDataToMobileActivity.class);
                        break;
 
-                   case "30021":
+                   /*case "30021":
                        k = new Intent(v.getContext(),ItemCostActivity.class);
                        break;
-
+*/
                    case "30010":
                        k = new Intent(v.getContext(),ScheduleManActivity.class);
                        break;
@@ -472,8 +471,8 @@ try {
                        alert.showDialog(JalMasterActivity.this, "نأسف أنت لا تملك صلاحية فتح هذه الشاشة", "فاتورة المبيعات ");
                    } else {
                        ComInfo.DocType = 1;
-                       //Intent k = new Intent(v.getContext(), Sale_InvoiceActivity.class);
-                       Intent k = new Intent(v.getContext(), Pos_Activity.class);
+                         Intent k = new Intent(v.getContext(), Sale_InvoiceActivity.class);
+                      // Intent k = new Intent(v.getContext(), Pos_Activity.class);
                        startActivity(k);
                    }
                } else if (position == 2) {
@@ -531,7 +530,7 @@ try {
                    } else {
 
                        ComInfo.DocType = 3;
-                       Intent k = new Intent(v.getContext(), Sale_InvoiceActivity.class);
+                       Intent k = new Intent(v.getContext(), Delivery_VoucherAct.class);
                        startActivity(k);
                    }
 
@@ -542,7 +541,7 @@ try {
 
 
 
-               } else if (position == 12) {
+               } else if (position == 11) {
 
                    if (!obj.CheckAction(v.getContext(), "30007", SCR_ACTIONS.open.getValue())) {
                        ViewDialog alert = new ViewDialog();
@@ -628,7 +627,7 @@ try {
                    // }
 
 
-               } else if (position == 10) {
+               } else if (position == 99) {
                    /*final String pass = DB.GetValue(JalMasterActivity.this, "Tab_Password", "Password", "PassNo = 1");
                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(JalMasterActivity.this);
                    alertDialog.setTitle(DB.GetValue(JalMasterActivity.this, "Tab_Password", "PassDesc", "PassNo = 1"));
@@ -675,7 +674,7 @@ try {
                    Intent k = new Intent(v.getContext(), NotificationActivity.class);
                    startActivity(k);
 
-               } else if (position == 11) {
+               } else if (position == 10) {
                    if (!obj.CheckAction(v.getContext(), "30010", SCR_ACTIONS.open.getValue())) {
                        ViewDialog alert = new ViewDialog();
                        alert.showDialog(JalMasterActivity.this, "نأسف أنت لا تملك صلاحية فتح هذه الشاشة", "جدول الزيارات");
@@ -721,59 +720,19 @@ try {
                    }
 
 
-               } else if (position == 13) {
-                 if(ComInfo.ComNo!=3) {
-                     Intent k = new Intent(v.getContext(), SittingNew.class);
-                     startActivity(k);
-                 }else {
-                     final String pass = DB.GetValue(JalMasterActivity.this, "Tab_Password", "Password", "PassNo = 7");
-                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(JalMasterActivity.this);
-                     alertDialog.setTitle(DB.GetValue(JalMasterActivity.this, "Tab_Password", "PassDesc", "PassNo = 7"));
+               } else if (position == 12) {
 
-                     alertDialog.setMessage("الرجاء ادخال كلمة المرور الخاصة بفتح هذه الشاشة");
 
-                     final EditText input = new EditText(JalMasterActivity.this);
-                     input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                     input.setTransformationMethod(new PasswordTransformationMethod());
-                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                             LinearLayout.LayoutParams.MATCH_PARENT,
-                             LinearLayout.LayoutParams.MATCH_PARENT);
-                     input.setLayoutParams(lp);
-                     alertDialog.setView(input);
-                     alertDialog.setIcon(R.drawable.key);
-
-                     alertDialog.setPositiveButton("موافق",
-                             new DialogInterface.OnClickListener() {
-                                 public void onClick(DialogInterface dialog, int which) {
-                                     String password = input.getText().toString();
-
-                                     if (pass.equals(password)) {
+                                     if (UserID.equalsIgnoreCase("admin")) {
                                          Intent k = new Intent(JalMasterActivity.this, SittingNew.class);
                                          startActivity(k);
                                      } else {
                                          Toast.makeText(getApplicationContext(),
-                                                 "كلمة المرور غير صحيحة", Toast.LENGTH_SHORT).show();
+                                                 "لا يمكن  فتح الشاشة", Toast.LENGTH_SHORT).show();
                                      }
-                                 }
-                             });
-
-                     alertDialog.setNegativeButton("لا",
-                             new DialogInterface.OnClickListener() {
-                                 public void onClick(DialogInterface dialog, int which) {
-                                     dialog.cancel();
-                                 }
-                             });
-
-                     alertDialog.show();
 
 
-                 }
-
-
-
-
-
-               } else if (position == 14) {
+               } else if (position == 13) {
                    if (!obj.CheckAction(v.getContext(), "30015", SCR_ACTIONS.open.getValue())) {
                        ViewDialog alert = new ViewDialog();
                        alert.showDialog(JalMasterActivity.this, "نأسف أنت لا تملك صلاحية فتح هذه الشاشة", "تجهيز الكميات");
@@ -830,7 +789,7 @@ try {
                    alertDialog.show();
 */
 
-               } else if (position == 15) {
+               } else if (position == 14) {
                  /*  if( !obj.CheckAction(v.getContext(),"30017",  SCR_ACTIONS.open.getValue())){
                        AlertDialog alertDialog = new AlertDialog.Builder(v.getContext()).create();
                        alertDialog.setTitle( "جرد كميات المندوب"+"  "+ "30017");
@@ -891,7 +850,7 @@ try {
                    alertDialog.show();
 
 
-               } else if (position == 16) {
+               } else if (position == 15) {
 
                    if (!obj.CheckAction(v.getContext(), "30016", SCR_ACTIONS.open.getValue())) {
                        ViewDialog alert = new ViewDialog();
@@ -903,7 +862,7 @@ try {
                    }
 
 
-               } else if (position == 17) {
+               } else if (position == 16) {
                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
                    SharedPreferences.Editor editor = sharedPreferences.edit();
                    editor.putString("Login", "No");
@@ -912,7 +871,7 @@ try {
                    startActivity(k);
 
 
-               } else if (position == 20) {
+               } else if (position == 19) {
 
                    Intent k = new Intent(v.getContext(), DoctorReportActivity.class);
                    startActivity(k);

@@ -15,8 +15,9 @@ import java.util.Locale;
 
 public class SqlHandler {
 
-        public static final String DATABASE_NAME = "/mnt/sdcard/Android/data/Galaxy/CVDB.db";
-    public static final int DATABASE_VERSION =37;
+    public static final String DATABASE_NAME = "/mnt/sdcard/Android/data/Galaxy/CVDB.db";
+      //public static final String DATABASE_NAME = "/mnt/sdcard/Android/CVDB.db";
+    public static final int DATABASE_VERSION =40;
     Context context;
     SQLiteDatabase sqlDatabase;
     SqlDbHelper dbHelper;
@@ -112,6 +113,7 @@ public class SqlHandler {
 
             sqlDatabase = dbHelper.getWritableDatabase();
             i= sqlDatabase.update(Table, contentValues, WhereStr, null);
+         //   i= sqlDatabase.update(Table, contentValues, WhereStr, null);
 
         } catch (Exception e) {
 

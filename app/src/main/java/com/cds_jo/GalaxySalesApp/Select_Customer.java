@@ -241,7 +241,7 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
                 }
 
                 if (t.toString().equals("")) {
-                    query = "Select * from Customers  Where   " +q+" ";//   Customers.Cust_type='"+Cust_type+"'";
+                        query = "Select * from Customers  Where   " +q+" ";//   Customers.Cust_type='"+Cust_type+"'";
                 } else {
                     query = "Select * from Customers where  "+q+"   AND ( name like '%" + t + "%' or  no like '%" + t + "%' )";//  And Customers.Cust_type='"+Cust_type+"'";
                 }

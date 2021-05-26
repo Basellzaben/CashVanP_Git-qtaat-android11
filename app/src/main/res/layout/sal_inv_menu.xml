@@ -58,6 +58,30 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/Lytbutton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_cir_white_fill_black"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <Methdes.MyTextView
+                android:id="@+id/texيtV24661"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@color/main_cyan_stroke_color"
+                android:gravity="center"
+                android:text="الملاحظات"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/LytCustAmt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

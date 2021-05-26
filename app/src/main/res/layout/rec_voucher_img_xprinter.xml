@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:id="@+id/Mainlayout"
-        android:layout_width="430dp"
+        android:layout_width="550dp"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:background="#FFFFFF"
@@ -26,7 +26,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ukranialogo" />
+                android:src="@drawable/asw" />
         </LinearLayout>
 
         <LinearLayout
@@ -42,7 +42,9 @@
                 android:text="مجموعة المجرة الدولية"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="20dp" />
+                android:textSize="35dp"
+                android:textColor="#000"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -58,7 +60,7 @@
                 android:text="سند القبض"
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="20dp" />
+                android:textSize="30dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,10 +77,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:background="#fff"
-                android:text="رقم القبض    :"
+                android:text="رقم القبض :"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="27dp" />
 
             <TextView
                 android:id="@+id/et_OrdeNo"
@@ -87,7 +89,7 @@
                 android:layout_weight="1.4"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp" />
 
         </LinearLayout>
 
@@ -104,10 +106,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:gravity="right"
-                android:text="التاريخ          :"
+                android:text="التاريخ  :"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="27dp" />
 
             <TextView
                 android:id="@+id/et_Date"
@@ -116,7 +118,7 @@
                 android:layout_weight="1.4"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp" />
 
         </LinearLayout>
 
@@ -131,15 +133,16 @@
                 android:id="@+id/textView47"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="نوع القبض        :"
+                android:text="نوع القبض:"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="16sp" />
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/tv_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="27dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000" />
 
@@ -148,6 +151,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="27dp"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
@@ -156,6 +160,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="العملة   :"
+                android:textSize="27dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000" />
 
@@ -163,6 +168,7 @@
                 android:id="@+id/tv_Cur"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:textSize="27dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000" />
         </LinearLayout>
@@ -184,7 +190,7 @@
                 android:text="اسم الحساب   :"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="16sp" />
+                android:textSize="27dp" />
 
             <TextView
                 android:id="@+id/tv_cusnm"
@@ -195,7 +201,7 @@
                 android:gravity="right"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -214,7 +220,7 @@
                 android:text="رقم الحساب    :"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="16sp" />
+                android:textSize="27dp"/>
 
             <TextView
                 android:id="@+id/tv_acc"
@@ -225,7 +231,7 @@
                 android:focusableInTouchMode="false"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -247,7 +253,7 @@
                 android:text="مبلغ القبض      :"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp" />
 
             <TextView
                 android:id="@+id/et_Amt"
@@ -257,7 +263,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
                 android:textIsSelectable="false"
-                android:textSize="15dp" />
+                android:textSize="27dp"  />
 
         </LinearLayout>
 
@@ -275,14 +281,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:text="المبلغ النقدي    :"
+                android:textColor="#000"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000" />
+                android:textSize="27dp" />
 
             <TextView
                 android:id="@+id/tv_Cash"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.4"
+                android:textSize="27dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000" />
 
@@ -301,6 +309,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
+                android:textSize="27dp"
                 android:text="مبلغ الشيكات  :"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000" />
@@ -310,6 +319,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.4"
+                android:textSize="27dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000" />
         </LinearLayout>
@@ -327,10 +337,11 @@
                 android:id="@+id/textView36"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="ملاحظات        :"
+                android:text="ملاحظات :"
+
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/et_notes"
@@ -340,7 +351,7 @@
                 android:gravity="right"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="16sp" />
+                android:textSize="25dp" />
 
         </LinearLayout>
 
@@ -359,7 +370,7 @@
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp"  />
         </LinearLayout>
 
         <LinearLayout
@@ -380,7 +391,7 @@
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp"  />
 
             <TextView
                 android:id="@+id/textView35"
@@ -391,7 +402,7 @@
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp"  />
 
             <TextView
                 android:id="@+id/textView33"
@@ -402,7 +413,7 @@
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp"  />
 
             <TextView
                 android:id="@+id/textView18"
@@ -413,7 +424,7 @@
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp"  />
 
             <TextView
                 android:id="@+id/textView6"
@@ -424,7 +435,7 @@
                 android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp"  />
 
         </LinearLayout>
 
@@ -462,7 +473,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
                 android:textIsSelectable="false"
-                android:textSize="15dp" />
+                android:textSize="27dp"  />
 
             <TextView
                 android:id="@+id/tv_UserNm"
@@ -472,7 +483,7 @@
                 android:gravity="right"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15sp" />
+                android:textSize="27dp"  />
 
 
         </LinearLayout>
@@ -492,7 +503,7 @@
                 android:text="توقيع المندوب"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="27dp"  />
 
         </LinearLayout>
 
@@ -511,11 +522,12 @@
                 android:background="@drawable/blue_fill_white"
                 android:gravity="center"
                 android:textColor="#000"
-                android:textSize="15sp" />
+                android:textSize="27dp"  />
 
             <TextView
                 android:id="@+id/textView251"
                 android:layout_width="wrap_content"
+                android:textSize="27dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 

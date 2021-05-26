@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:id="@+id/Mainlayout"
-        android:layout_width="420dp"
+        android:layout_width="550dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="#FFFFFF"
@@ -28,7 +28,7 @@
                 android:text="مجموعة المجرة الدولية"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#000"
-                android:textSize="20dp" />
+                android:textSize="30dp" />
 
         </LinearLayout>
 
@@ -47,7 +47,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#000"
                 android:textIsSelectable="false"
-                android:textSize="20dp" />
+                android:textSize="25dp" />
 
         </LinearLayout>
 
@@ -66,7 +66,7 @@
                 android:text="01-01-2017"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="17dp" />
 
         </LinearLayout>
 
@@ -114,7 +114,7 @@
                     android:paddingRight="10dp"
                     android:text="بداية اول جولة"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -130,6 +130,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="00:00:00"
+                    android:textSize="20sp"
                     android:textColor="#000" />
             </LinearLayout>
 
@@ -148,7 +149,7 @@
                     android:paddingRight="10dp"
                     android:text="بداية اخر جولة"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -164,6 +165,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="00:00:00"
+                    android:textSize="20sp"
                     android:textColor="#000" />
             </LinearLayout>
 
@@ -192,7 +194,7 @@
                     android:paddingRight="10dp"
                     android:text="نوع المستند"
                     android:textColor="#000"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -210,7 +212,7 @@
                     android:gravity="center"
                     android:text="اجمالي المبلغ"
                     android:textColor="#000"
-                    android:textSize="15sp" />
+                    android:textSize="25sp" />
 
                 <Methdes.MyTextView
                     android:id="@+id/tv_SalesCountT"
@@ -220,7 +222,7 @@
                     android:gravity="center"
                     android:text="العدد"
                     android:textColor="#000"
-                    android:textSize="15sp" />
+                    android:textSize="25sp" />
 
             </LinearLayout>
 
@@ -249,7 +251,7 @@
                     android:paddingRight="10dp"
                     android:text="مبيعات ذمم"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -265,6 +267,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+
+
+                    android:textSize="20sp"
                     android:text="0.000"
                     android:textColor="#000" />
 
@@ -273,6 +278,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textSize="20sp"
                     android:gravity="center"
                     android:text="0"
                     android:textColor="#000" />
@@ -305,7 +311,7 @@
                     android:paddingRight="10dp"
                     android:text="مبيعات نقدي"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -322,6 +328,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0.000"
+                    android:textSize="20sp"
                     android:textColor="#000" />
 
                 <TextView
@@ -330,6 +337,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textSize="20sp"
                     android:text="0"
                     android:textColor="#000" />
 
@@ -360,7 +368,7 @@
                     android:paddingRight="10dp"
                     android:text="قبض نقدي"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -376,6 +384,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textSize="20sp"
                     android:text="0.000"
                     android:textColor="#000" />
 
@@ -386,6 +395,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0"
+                    android:textSize="20sp"
                     android:textColor="#000" />
 
             </LinearLayout>
@@ -416,7 +426,7 @@
                     android:paddingRight="10dp"
                     android:text="قبض شيكات"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -433,6 +443,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="0.000"
+                    android:textSize="20sp"
                     android:textColor="#000" />
 
                 <TextView
@@ -440,6 +451,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:textSize="20sp"
                     android:gravity="center"
                     android:text="0"
                     android:textColor="#000" />
@@ -472,7 +484,7 @@
                     android:paddingRight="10dp"
                     android:text="طلبات بيع"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -488,6 +500,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textSize="20sp"
                     android:text="0.000"
                     android:textColor="#000" />
 
@@ -497,6 +510,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textSize="20sp"
                     android:text="0"
                     android:textColor="#000" />
 
@@ -529,7 +543,7 @@
                     android:paddingRight="10dp"
                     android:text="الحركات الغير مرحلة"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -544,6 +558,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="0"
+                    android:textSize="20sp"
                     android:textColor="#000" />
             </LinearLayout>
 
@@ -573,7 +588,7 @@
                     android:paddingRight="10dp"
                     android:text="العملاء الجدد"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -588,6 +603,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="0"
+                    android:textSize="20sp"
                     android:textColor="#000" />
             </LinearLayout>
 
@@ -617,7 +633,7 @@
                 android:paddingRight="10dp"
                 android:text="العملاء الذين تمت زيارتهم"
                 android:textColor="#000"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -632,6 +648,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="0"
+                android:textSize="20sp"
                 android:textColor="#000" />
         </LinearLayout>
 
@@ -661,7 +678,7 @@
                     android:paddingRight="10dp"
                     android:text="العملاء الذين لم تتم زيارتهم"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -676,6 +693,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="0"
+                    android:textSize="20sp"
                     android:textColor="#000" />
             </LinearLayout>
 
@@ -705,7 +723,7 @@
                     android:paddingRight="10dp"
                     android:text="عدد الزيارات الناجحة"
                     android:textColor="#000"
-                    android:textSize="15sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -719,6 +737,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:textSize="20sp"
                     android:text="0"
                     android:textColor="#000" />
             </LinearLayout>
@@ -817,7 +836,7 @@
                         android:paddingRight="10dp"
                         android:text="العملاء اللذين تم بيعهم ولايوجد لهم سند قبض"
                         android:textColor="#000"
-                        android:textSize="13sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -832,6 +851,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="0"
+                        android:textSize="20sp"
                         android:textColor="#000" />
                 </LinearLayout>
             </LinearLayout>
@@ -868,7 +888,7 @@
                 android:text="توقيع المندوب"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textView89"
@@ -879,7 +899,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000"
                 android:textIsSelectable="false"
-                android:textSize="15dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_qty"
@@ -887,7 +907,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#000"
-                android:textSize="15dp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 

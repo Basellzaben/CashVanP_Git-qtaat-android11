@@ -392,7 +392,7 @@ public class Xprinter_RecVoucher extends FragmentActivity {
 
         try {
             FileOutputStream out = new FileOutputStream(dest);
-            b.compress(Bitmap.CompressFormat.JPEG, 70, out);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, out);
             out.flush();
             out.close();
             //  bitmap.recycle();
@@ -462,11 +462,11 @@ public class Xprinter_RecVoucher extends FragmentActivity {
                 case 2:
                     //usb connection need special deal with
                     if (PosPrinterDev.PortType.USB!= Xprinter_RecVoucher.portType){
-                        printpicCode(b2);
+                        printpicCode(b1);
                     }else {
                         showSnackbar("bimap  "+b2.getWidth()+"  height: "+b2.getHeight());
-                        b2=resizeImage(b2,576,false);
-                        printUSBbitamp(b2);
+                        b2=resizeImage(b1,576,false);
+                        printUSBbitamp(b1);
 
                     }
 

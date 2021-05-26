@@ -383,7 +383,7 @@
                     android:background="@drawable/blue_fill_white"
                     android:orientation="horizontal"
                     android:padding="4dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:weightSum="2">
 
                     <LinearLayout
@@ -485,7 +485,7 @@
                     android:background="@drawable/blue_fill_white"
                     android:orientation="horizontal"
                     android:padding="4dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:weightSum="2">
 
                     <LinearLayout

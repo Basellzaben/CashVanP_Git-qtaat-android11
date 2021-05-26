@@ -12,8 +12,10 @@ import android.view.View;
 
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_ManSummeryTo_img;
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_RecVoucher;
+import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesInvoice;
 import com.cds_jo.GalaxySalesApp.assist.Convert_ManSummery_To_Img;
 import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img;
+import com.cds_jo.GalaxySalesApp.assist.ManAttenActivity;
 
 
 import Methdes.MyTextView;
@@ -23,6 +25,7 @@ public class ManSummeryNew extends FragmentActivity {
     private Context context = ManSummeryNew.this;
     private MyTextView T1, T2, T3, T4, T5, T6;
     private Fragment frag;
+    private Xprinter_ManSummeryTo_img flag1;
     private android.support.v4.app.FragmentManager fragmentManager;
 
     @Override
@@ -211,20 +214,21 @@ public class ManSummeryNew extends FragmentActivity {
                 T6.setBackgroundColor(getResources().getColor(R.color.Blue));
                 T6.setTextColor(Color.WHITE);
 
+                Intent k = new Intent(ManSummeryNew.this, Xprinter_ManSummeryTo_img.class);
+                startActivity(k);
 
 
+/*            if (ComInfo.ComNo == Companies.Ukrania.getValue()) {
 
-             /*   if (ComInfo.ComNo == Companies.Ukrania.getValue()) {
-                    Intent  k = new Intent(ManSummeryNew.this, Xprinter_ManSummeryTo_img.class);
-                    startActivity(k);
-                }else{*/
-                    frag = new Convert_ManSummery_To_Img();
-                    fragmentManager = getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
-              //  }
+                }else{
+                frag = new Convert_ManSummery_To_Img();
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
+            }*/
+            //  }
 
+        }
 
-            }
         });
 
     }
@@ -240,7 +244,14 @@ public class ManSummeryNew extends FragmentActivity {
     }
 
     public void btn_print() {
-        Intent k = new Intent(this, Convert_ManSummery_To_Img.class);
-        startActivity(k);
+        if (ComInfo.ComNo == Companies.Afrah.getValue()) {
+            Intent k = new Intent(this, Xprinter_ManSummeryTo_img.class);
+            startActivity(k);
+        }
+        else {
+          //  Intent k = new Intent(this, Convert_ManSummery_To_Img.class);
+            Intent k = new Intent(this, Xprinter_ManSummeryTo_img.class);
+            startActivity(k);
+        }
     }
 }

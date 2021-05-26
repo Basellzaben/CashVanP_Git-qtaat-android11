@@ -36,7 +36,7 @@
                 android:layout_margin="20dp"
                 android:background="@drawable/btn_cir_white_fill_black"
                 android:nestedScrollingEnabled="false"
-                android:text="طباعة"
+                android:text="1طباعة"
                 android:textSize="25sp" />
 
         </LinearLayout>

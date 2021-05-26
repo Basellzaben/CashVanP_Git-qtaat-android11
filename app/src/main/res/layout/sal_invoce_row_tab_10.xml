@@ -89,8 +89,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:visibility="visible"
                     android:gravity="center_horizontal"
-                    android:text="Qty"
+                    android:text=" "
                     android:textColor="#000"
                     android:textIsSelectable="false"
                     android:textSize="18dp" />

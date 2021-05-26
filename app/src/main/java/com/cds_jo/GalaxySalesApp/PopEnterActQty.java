@@ -87,7 +87,7 @@ public class PopEnterActQty extends DialogFragment implements View.OnClickListen
     }
 private void CalcDiff (){
     double r = 0.0;
-    r= (SToD(ed_qty.getText().toString()) - SToD(et_Act_qty.getText().toString())) ;
+    r= ( SToD(et_Act_qty.getText().toString())-SToD(ed_qty.getText().toString())) ;
     ed_diff.setText( SToD(r+"")+"");
 }
     private  Double SToD(String str){

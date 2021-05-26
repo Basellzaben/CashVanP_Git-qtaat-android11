@@ -63,7 +63,7 @@ public class Convert_ManSummery_To_Img extends Fragment {
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.
                 getDefaultAdapter();
 
-
+        Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String u = sharedPreferences.getString("UserName", "");

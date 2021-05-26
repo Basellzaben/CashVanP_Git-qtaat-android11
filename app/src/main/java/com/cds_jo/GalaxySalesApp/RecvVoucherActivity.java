@@ -34,6 +34,7 @@ import android.widget.Toast;
 
  import com.cds_jo.GalaxySalesApp.PostTransActions.PostPayments;
  import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_RecVoucher;
+ import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesInvoice;
  import com.cds_jo.GalaxySalesApp.assist.CheckAdapter;
 
 import com.cds_jo.GalaxySalesApp.assist.Cls_Check;
@@ -1440,7 +1441,12 @@ try {
         }  else  if (ComInfo.ComNo== Companies.beutyLine.getValue()) {
                 k = new Intent(this, Convert_RecVouch_To_Img_Tab10.class);
 
-        } else {
+        }
+        else if (ComInfo.ComNo == Companies.Afrah.getValue()) {
+            //  k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity_Line.class);
+            k = new Intent(this, Xprinter_RecVoucher.class);
+        }
+        else {
               k = new Intent(this, Convert_RecVouch_To_Img.class);
 
         }

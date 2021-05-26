@@ -57,6 +57,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.Arrays;
+
+import com.cds_jo.GalaxySalesApp.AbuHaltam.GetDoneBarCode;
+import com.cds_jo.GalaxySalesApp.AbuHaltam.GetDoneBarCodeAdapter;
+import com.cds_jo.GalaxySalesApp.AbuHaltam.ProductionlineAct;
 import com.cds_jo.GalaxySalesApp.AlertChoiceItem;
 import com.cds_jo.GalaxySalesApp.Cls_Offers_Dtl_Gifts;
 import com.cds_jo.GalaxySalesApp.Cls_Offers_Groups;
@@ -68,6 +72,8 @@ import com.cds_jo.GalaxySalesApp.Companies;
 import com.cds_jo.GalaxySalesApp.ContactListItems;
 import com.cds_jo.GalaxySalesApp.DB;
 
+import com.cds_jo.GalaxySalesApp.Delivery_VoucherAct;
+import com.cds_jo.GalaxySalesApp.GlobaleVar;
 import com.cds_jo.GalaxySalesApp.JalMasterActivity;
 import com.cds_jo.GalaxySalesApp.NewHomePage.Cls_Home_Show_Ditial;
 import com.cds_jo.GalaxySalesApp.NewHomePage.Cls_Home_Show_Ditial_Adapter;
@@ -104,10 +110,12 @@ import com.cds_jo.GalaxySalesApp.assist.Convert_Sal_Invoice_To_ImgActivity_Prest
 import com.cds_jo.GalaxySalesApp.assist.Convert_Sal_Invoice_To_ImgActivity_Tab_10;
 import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 import com.cds_jo.GalaxySalesApp.assist.Pop_Confirm_Serial_From_Zero;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
+//import org.apache.commons.lang3.StringUtils;
+//import org.json.JSONArray;
+//import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -131,7 +139,7 @@ public class Pos_Activity extends AppCompatActivity {
     TextView tv;
     RelativeLayout.LayoutParams lp;
     Drawable greenProgressbar;
-
+    public final int CUSTOMIZED_REQUEST_CODE = 0x0000ffff;
     SqlHandler sqlHandler;
     ListView lvCustomList;
     Integer DoPrint = 0 ,DocType = 1;
@@ -329,6 +337,7 @@ public class Pos_Activity extends AppCompatActivity {
     android.support.v7.app.AlertDialog alertDialog2;
     EditText   et_OrdeNo;
     TextView tv_acc;
+    TextView tv_cusnm;
      MyTextView tv_CpmpanyName,tv_UserNm;
 
 
@@ -359,7 +368,8 @@ public class Pos_Activity extends AppCompatActivity {
         setContentView(R.layout.pos_activity);
 
 
-
+GlobaleVar.cusname="";
+GlobaleVar.tvtotal="";
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         this.setTitle(sharedPreferences.getString("CompanyNm", "") + "/" + sharedPreferences.getString("Address", ""));
         // setContentView(R.layout.activity_sale__invoice);
@@ -432,7 +442,22 @@ public class Pos_Activity extends AppCompatActivity {
         chk_Type = (CheckBox) findViewById(R.id.chk_Type);
         chk_Type.setTypeface(Typeface.createFromAsset(this.getAssets(), "Hacen Tunisia Lt.ttf"));
 
-
+//        chk_Type.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(isChecked)
+//                {
+//                 String   cash_bill= DB.GetValue(Pos_Activity.this,"ComanyInfo","Acc_Cash","1=1");
+//                    tv_acc.setText(cash_bill);
+//                    tv_cusnm.setText("حساب نقدي");
+//                }
+//                else
+//                {
+//                    tv_acc.setText("0");
+//                    tv_cusnm.setText("");
+//                }
+//            }
+//        });
         fill_Offers_Group();
 
         //btn_Payment=(Button) findViewById(R.id.Lytbutton);
@@ -554,6 +579,7 @@ public class Pos_Activity extends AppCompatActivity {
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
 
         final TextView accno = (TextView) findViewById(R.id.tv_acc);
+         TextView tv_cusnm = (TextView) findViewById(R.id.tv_cusnm);
         accno.setText(sharedPreferences.getString("CustNo", ""));
         CustNm.setText(sharedPreferences.getString("CustNm", ""));
 
@@ -840,7 +866,10 @@ public class Pos_Activity extends AppCompatActivity {
 
         tv_SearchValue.setVisibility(View.GONE);
         chk_Type.setChecked(true);
-
+        String cash_bill;
+        cash_bill= DB.GetValue(this,"ComanyInfo","Acc_Cash","1=1");
+        tv_acc.setText(cash_bill);
+        tv_cusnm.setText("حساب نقدي");
         tv_BarcodeValue.setVisibility(View.VISIBLE);
         tv_BarcodeValue.setRawInputType(InputType.TYPE_NULL);
         tv_BarcodeValue.setFocusable(true);
@@ -861,37 +890,54 @@ public class Pos_Activity extends AppCompatActivity {
     }
     private void GetItemByBarcode(String Key){
 
-        String query = "Select  distinct invf.Item_No ,invf.Item_Name, invf.tax, ifnull(UnitItems.Weight,0) as weight,    UnitItems.unitno ,UnitItems.Min ,ifnull(UnitItems.price,0) as price,Unites.UnitName " +
-                "    , ifnull(Operand,1) as Operand from UnitItems  " +
-                "   left join  Unites on Unites.Unitno =UnitItems.unitno  " +
-                "    left join  invf on invf.Item_No =UnitItems.item_no  " +
-                "   where UnitItems.barcode ='" + Key + "' order by   UnitItems.Min desc" ;
+        String    query1 = "Select  Item_No  from Inv_Sal  where status ='0' and sal = '"+Key+"' " ;
+
+        sqlHandler = new SqlHandler(this);
 
 
 
+        Cursor c2 = sqlHandler.selectQuery(query1);
 
 
-        Cursor c1 = sqlHandler.selectQuery(query);
-        Cls_UnitItems cls_unitItems = new Cls_UnitItems();
+        if (c2 != null && c2.getCount() != 0) {
+            if (c2.moveToFirst()) {
+//String a=c1.getString(c1.getColumnIndex("Sal"));
+                String b1 = c2.getString(c2.getColumnIndex("Item_No"));
+                Toast.makeText(this,b1,Toast.LENGTH_SHORT).show();
+                String query = "Select  distinct invf.Item_No ,invf.Item_Name, invf.tax, ifnull(UnitItems.Weight,0) as weight,    UnitItems.unitno ,UnitItems.Min ,ifnull(UnitItems.price,0) as price,Unites.UnitName " +
+                        "    , ifnull(Operand,1) as Operand from UnitItems  " +
+                        "   left join  Unites on Unites.Unitno =UnitItems.unitno  " +
+                        "    left join  invf on invf.Item_No =UnitItems.item_no  " +
+                        "   where UnitItems.item_no ='" + b1 + "' order by   UnitItems.Min desc" ;
 
-        if (c1 != null && c1.getCount() != 0) {
-            if (c1.moveToFirst()) {
-                cls_unitItems = new Cls_UnitItems();
-                cls_unitItems.setUnitno(c1.getString(c1.getColumnIndex("unitno")));
-                cls_unitItems.setUnitDesc(c1.getString(c1.getColumnIndex("UnitName")));
-                cls_unitItems.setPrice(c1.getString(c1.getColumnIndex("price")));
-                cls_unitItems.setMin(c1.getString(c1.getColumnIndex("Min")));
-                cls_unitItems.setOperand(c1.getString(c1.getColumnIndex("Operand")));
-                cls_unitItems.setWeight(c1.getString(c1.getColumnIndex("weight")));
-                cls_unitItems.setItemName(c1.getString(c1.getColumnIndex("Item_Name")));
-                cls_unitItems.setTax(c1.getString(c1.getColumnIndex("tax")));
-                cls_unitItems.setItem_no(c1.getString(c1.getColumnIndex("Item_No")));
+                Cursor c1 = sqlHandler.selectQuery(query);
+                Cls_UnitItems cls_unitItems = new Cls_UnitItems();
 
-            }
-            c1.close();
+                if (c1 != null && c1.getCount() != 0) {
+                    if (c1.moveToFirst()) {
+                        cls_unitItems = new Cls_UnitItems();
+                        cls_unitItems.setUnitno(c1.getString(c1.getColumnIndex("unitno")));
+                        cls_unitItems.setUnitDesc(c1.getString(c1.getColumnIndex("UnitName")));
+                        cls_unitItems.setPrice(c1.getString(c1.getColumnIndex("price")));
+                        cls_unitItems.setMin(c1.getString(c1.getColumnIndex("Min")));
+                        cls_unitItems.setOperand(c1.getString(c1.getColumnIndex("Operand")));
+                        cls_unitItems.setWeight(c1.getString(c1.getColumnIndex("weight")));
+                        cls_unitItems.setItemName(c1.getString(c1.getColumnIndex("Item_Name")));
+                        cls_unitItems.setTax(c1.getString(c1.getColumnIndex("tax")));
+                        cls_unitItems.setItem_no(c1.getString(c1.getColumnIndex("Item_No")));
+
+                    }
+                    c1.close();
 
 
-          Save_List(cls_unitItems.getItem_no(),cls_unitItems.getPrice(),"1",cls_unitItems.getTax(),cls_unitItems.getUnitno(),"0","0",cls_unitItems.getItemName(),cls_unitItems.getUnitDesc(),"0",cls_unitItems.getOperand(),"0");
+                    Save_List(cls_unitItems.getItem_no(), cls_unitItems.getPrice(), "1", cls_unitItems.getTax(), cls_unitItems.getUnitno(), "0", "0", cls_unitItems.getItemName(), cls_unitItems.getUnitDesc(), "0", cls_unitItems.getOperand(), "0");
+                }
+        }else{
+            Toast.makeText(this," غير موجود " +Key,Toast.LENGTH_SHORT).show();
+        }
+
+
+
 
         }else{
             Toast.makeText(this," غير موجود " +Key,Toast.LENGTH_SHORT).show();
@@ -1091,7 +1137,7 @@ public class Pos_Activity extends AppCompatActivity {
 
 
     }
-    public  void InsertDiscount(String DiscountAmt , String DiscountType, int  cash, int check, int Visa , String Check_Paid_Amt , String Visa_Paid_Amt , String Cash_Paid_Amt , String Cust_Amt_Paid , String RemainAm  , String Check_Paid_Date, String Check_Paid_Bank, String Check_Paid_Person , String Visa_Paid_Expire_Date, String Visa_Paid_Type, String Check_Number,String Print_Flg){
+    public  void InsertDiscount(String DiscountAmt , String DiscountType, int  cash, int check, int Visa , String Check_Paid_Amt , String Visa_Paid_Amt , String Cash_Paid_Amt , String Cust_Amt_Paid , String RemainAm  , String Check_Paid_Date, String Check_Paid_Bank, String Check_Paid_Person , String Visa_Paid_Expire_Date, String Visa_Paid_Type, String Check_Number,String Print_Flg,String type_card){
            double ItemWieght=0.0;
 
 
@@ -1140,14 +1186,16 @@ public class Pos_Activity extends AppCompatActivity {
 
             contactList.get(x).setDisPerFromHdr(FinalDiscountpercent+"" );
             if (IncludeTax_Flag.isChecked()) {
-                contactList.get(x).setDisAmtFromHdr(((FinalDiscountpercent * (SToD(contactList.get(x).getTotal())  )) / 100) + "");
+                double a = ((FinalDiscountpercent * (SToD(contactList.get(x).getTotal())  )) );
+                String w= String.format(Locale.ENGLISH,"%.5f", a/100);
+                contactList.get(x).setDisAmtFromHdr(w);
             }else{
                 contactList.get(x).setDisAmtFromHdr(((FinalDiscountpercent * (SToD(contactList.get(x).getTotal()) - SToD(contactList.get(x).getTax_Amt()))) / 100) + "");
             }
         }
         CalcTotal();
         showList();
-        Save_Recod_Po(  cash, check, Visa , Check_Paid_Amt , Visa_Paid_Amt , Cash_Paid_Amt , Cust_Amt_Paid ,  RemainAm,  Check_Paid_Date,   Check_Paid_Bank,   Check_Paid_Person ,   Visa_Paid_Expire_Date,   Visa_Paid_Type ,Check_Number,DiscountAmt,Print_Flg );
+        Save_Recod_Po(  cash, check, Visa , Check_Paid_Amt , Visa_Paid_Amt , Cash_Paid_Amt , Cust_Amt_Paid ,  RemainAm,  Check_Paid_Date,   Check_Paid_Bank,   Check_Paid_Person ,   Visa_Paid_Expire_Date,   Visa_Paid_Type ,Check_Number,DiscountAmt,Print_Flg,type_card );
     }
 
     private void Get_CatNo(String ACC_NO) {
@@ -1361,6 +1409,12 @@ public class Pos_Activity extends AppCompatActivity {
         return  SToD(Tot+"")+"";
     }
     private void PopSaveInvoice(){
+        TextView CustNm1 = (TextView) findViewById(R.id.tv_cusnm);
+        TextView totalnet1 = (TextView) findViewById(R.id.tv_NetTotal);
+
+        GlobaleVar.cusname=CustNm1.getText().toString();
+        GlobaleVar.tvtotal=totalnet1.getText().toString();
+
         Bundle bundle = new Bundle();
         bundle.putString("OrederNo",et_OrdeNo.getText().toString());
         bundle.putString("Discount","0");
@@ -1486,7 +1540,12 @@ public class Pos_Activity extends AppCompatActivity {
        sum=SToD(sum+"");
        return  sum+"";
    }
-    public void Save_Recod_Po(int  cash,int check,int Visa ,String Check_Paid_Amt ,String Visa_Paid_Amt ,String Cash_Paid_Amt ,String Cust_Amt_Paid , String RemainAm ,String Check_Paid_Date, String Check_Paid_Bank, String Check_Paid_Person , String Visa_Paid_Expire_Date, String Visa_Paid_Type,String Check_Number ,String DiscountAmt,String Print_Flg) {
+    public void Save_Recod_Po(int  cash,int check,int Visa ,String Check_Paid_Amt ,String Visa_Paid_Amt ,String Cash_Paid_Amt ,String Cust_Amt_Paid , String RemainAm ,String Check_Paid_Date, String Check_Paid_Bank, String Check_Paid_Person , String Visa_Paid_Expire_Date, String Visa_Paid_Type,String Check_Number ,String DiscountAmt,String Print_Flg,String type_card) {
+
+        GlobaleVar.barcode = "";
+        GlobaleVar.bounse = "";
+        GlobaleVar.dis = "";
+        GlobaleVar.type_dis = "0";
         Integer Seq = 0;
         CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
         TextView custNm = (TextView) findViewById(R.id.tv_cusnm);
@@ -1587,6 +1646,7 @@ public class Pos_Activity extends AppCompatActivity {
         cv.put("Visa_Paid_Type", Visa_Paid_Type+"");
         cv.put("Check_Number", Check_Number+"");
         cv.put("Pos_System", "1");
+        cv.put("Card_Type", type_card+"");
 
 
         if (IsNew == true) {
@@ -1715,9 +1775,9 @@ public class Pos_Activity extends AppCompatActivity {
             if (Print_Flg.equalsIgnoreCase("1")){
                 DoPrint();
             }
-
-            DoShare();
-
+            if(ComInfo.ComNo== Companies.Sector.getValue()) {
+                DoShare();
+            }
 
 
             IsNew =  false;
@@ -1907,7 +1967,22 @@ public class Pos_Activity extends AppCompatActivity {
                         i = sqlHandler.Insert("RecCheck", null, cv);
                 }
         }
-    private  void  UpDateRecMaxOrderNo() {//
+        public void chk_Type12 (View view)
+        {
+            TextView tv_cusnm = (TextView) findViewById(R.id.tv_cusnm);
+            if(chk_Type.isChecked())
+                {
+                 String   cash_bill= DB.GetValue(Pos_Activity.this,"ComanyInfo","Acc_Cash","1=1");
+                    tv_acc.setText(cash_bill);
+                    tv_cusnm.setText("حساب نقدي");
+                }
+                else
+                {
+                    tv_acc.setText("");
+                    tv_cusnm.setText("");
+                }
+        }
+    private  void  UpDateRecMaxOrderNo() {
 
         try {
 
@@ -2810,6 +2885,21 @@ public class Pos_Activity extends AppCompatActivity {
         DoPrint();
 }
     private void DoPrint() {
+
+        String q  = "SELECT distinct *  from  Sal_invoice_Hdr where    " +
+                "   Post <= 0 AND   OrderNo ='" + OrderNo.getText().toString().trim() + "'";
+
+        Cursor c1 = sqlHandler.selectQuery(q);
+        if (c1 != null && c1.getCount() != 0) {
+            new SweetAlertDialog(Pos_Activity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                    .setTitleText("فاتورة المبيعات")
+                    .setContentText("لا يمكن الطباعة الا بعد الاعتماد")
+                    .setCustomImage(R.drawable.error_new)
+                    .show();
+
+            c1.close();
+            return;
+        }
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
         Intent k;
@@ -2826,7 +2916,7 @@ public class Pos_Activity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String UserName =  sharedPreferences.getString("UserName", "");
         try {
-          PrinterFunctions.PrintPos(this, portName, portSettings, "Line", getResources(),  "3inch (80mm)", rasterType,CustNm.getText().toString(),UserName,tv_NetTotal.getText().toString(),contactList,OrdeNo.getText().toString());
+         // PrinterFunctions.PrintPos(this, portName, portSettings, "Line", getResources(),  "3inch (80mm)", rasterType,CustNm.getText().toString(),UserName,tv_NetTotal.getText().toString(),contactList,OrdeNo.getText().toString());
 
 /*
 
@@ -3077,7 +3167,10 @@ public class Pos_Activity extends AppCompatActivity {
 }
     public void btn_new(View view) {
 
-
+        GlobaleVar.barcode = "";
+        GlobaleVar.bounse = "";
+        GlobaleVar.dis = "";
+        GlobaleVar.type_dis = "0";
         GetMaxPONo();
         showList();
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
@@ -3087,11 +3180,11 @@ public class Pos_Activity extends AppCompatActivity {
         TextView tv_NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
         TextView et_Total = (TextView) findViewById(R.id.et_Total);
         TextView dis = (TextView) findViewById(R.id.et_dis);
-
+    //   SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         CheckBox chk_showTax = (CheckBox) findViewById(R.id.chk_showTax);
         et_hdr_Disc.setText("0.0");
-        CustNm.setText("");
-        accno.setText("");
+     //   accno.setText(sharedPreferences.getString("CustNo", ""));
+        //CustNm.setText(sharedPreferences.getString("CustNm", ""));
         et_TotalTax.setText("0.0");
         et_Total.setText("0.0");
         dis.setText("0.0");
@@ -3105,13 +3198,17 @@ public class Pos_Activity extends AppCompatActivity {
         chk_hdr_disc.setChecked(false);
         BalanceQtyTrans = false;
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        /*SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         accno.setText(sharedPreferences.getString("CustNo", ""));
-        CustNm.setText(sharedPreferences.getString("CustNm", ""));
+        CustNm.setText(sharedPreferences.getString("CustNm", ""));*/
+        String cash_bill;
+        cash_bill= DB.GetValue(this,"ComanyInfo","Acc_Cash","1=1");
+        accno.setText(cash_bill);
+        CustNm.setText("حساب نقدي");
         DriverNm.setText("");
 
-            accno.setText("");
-        CustNm.setText("");
+          //  accno.setText("");
+     //   CustNm.setText("");
         tv_NetTotal.setText("0.0");
 
 
@@ -3132,7 +3229,7 @@ public class Pos_Activity extends AppCompatActivity {
 
 
         tv_HeaderDscount.setText("0.0%");
-        GetUserAccount();
+       // GetUserAccount();
 
 
 
@@ -4566,9 +4663,12 @@ public class Pos_Activity extends AppCompatActivity {
                                         .setContentText("تمت عملية الأعتماد  بنجاح")
                                         .setCustomImage(R.drawable.tick)
                                         .show();
+                                setCode();
 
-
-
+                                GlobaleVar.barcode = "";
+                                GlobaleVar.bounse = "";
+                                GlobaleVar.dis = "";
+                                GlobaleVar.type_dis = "0";
 
                             }
                         });
@@ -4609,6 +4709,29 @@ public class Pos_Activity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    private void setCode() {
+        final Handler _handler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                CallWebServices ws = new CallWebServices(Pos_Activity.this);
+                ws.setcode(GlobaleVar.barcode,et_OrdeNo.getText().toString());
+                try {
+                    _handler.post(new Runnable() {
+                        public void run() {
+
+                        }});
+
+
+                } catch (final Exception e) {
+
+                }
+            }
+        }).start();
+
     }
 
     @Override
@@ -4778,7 +4901,9 @@ public class Pos_Activity extends AppCompatActivity {
         tv_BarcodeValue.setText("");
         tv_BarcodeValue.requestFocus();
         hideKeyboard(view);
+        new IntentIntegrator(this).initiateScan();
     }
+
 
     public void btn_Seach(View view) {
         tv_SearchValue.setVisibility(View.VISIBLE);
@@ -4810,5 +4935,35 @@ public class Pos_Activity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != CUSTOMIZED_REQUEST_CODE && requestCode != IntentIntegrator.REQUEST_CODE) {
+            // This is important, otherwise the result will not be passed to the fragment
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+        switch (requestCode) {
+            case CUSTOMIZED_REQUEST_CODE: {
+                Toast.makeText(this, "REQUEST_CODE = " + requestCode, Toast.LENGTH_LONG).show();
+                break;
+            }
+            default:
+                break;
+        }
+
+        IntentResult result = IntentIntegrator.parseActivityResult(0x0000c0de,resultCode, data);
+
+        if(result.getContents() == null) {
+            int originalIntent = result.getOrientation();
+            if (originalIntent == 0) {
+
+            }
+
+        } else {
+            Log.d("MainActivity", "Scanned");
+
+            GetItemByBarcode(result.getContents());
+        }
+    }
 
 }

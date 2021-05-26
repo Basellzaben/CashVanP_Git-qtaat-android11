@@ -413,7 +413,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/blue_fill_white"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <Methdes.MyTextView
                     android:id="@+id/textView82"
@@ -430,7 +430,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:checked="false"
+                    android:checked="true"
                     android:text="نقدي" />
 
             </LinearLayout>
@@ -438,7 +438,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1.5"
                 android:background="@drawable/blue_fill_white"
                 android:orientation="horizontal"
                 android:visibility="visible">
@@ -527,7 +527,36 @@
 
 
             </LinearLayout>-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:weightSum="2">
 
+                <Methdes.MyTextView
+                    android:id="@+id/textView561"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="show_dis"
+                    android:text="الخصم النهائي :"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000" />
+
+                <TextView
+                    android:id="@+id/tv_CustNetTotal1"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
+                    android:gravity="center"
+                    android:textColor="#000" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout

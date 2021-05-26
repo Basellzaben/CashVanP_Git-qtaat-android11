@@ -19,6 +19,7 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -173,6 +174,7 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
         getDialog().setTitle("Galaxy");
         FillDeptf();
         ComInfo.ComNo = Integer.parseInt(DB.GetValue(getActivity(), "ComanyInfo", "CompanyID", "1=1"));
+
         final Spinner item_cat = (Spinner) form.findViewById(R.id.sp_item_cat);
         Manpassword = "";
         item_cat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -522,12 +524,13 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
                 DecimalFormat df = (DecimalFormat) nf;
                 Double LastPrice = 0.0;
                 LastPrice = GetCustLastPrice(ItemNo, o.getUnitno().toString());
-                if (ComInfo.ComNo == 1 || ComInfo.ComNo == Companies.tariget.getValue() || ComInfo.ComNo == Companies.Ukrania.getValue() || ComInfo.ComNo == Companies.Arabian.getValue()) {
-                    if (LastPrice > 0) {
+                if (ComInfo.ComNo == 1  &&   LastPrice > 0 ) {
+
                         Price.setText(LastPrice.toString().replace(",", ""));
                     } else {
                         Price.setText(String.valueOf(df.format(SToD(o.getPrice().toString()))).replace(",", ""));
-                    }
+                        Log.d("getPrice()",o.getPrice()+"");
+
                 }
 
                 UnitNo = o.getUnitno().toString();
@@ -536,11 +539,10 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
                 min = Float.valueOf(o.getMin());
                 Weight.setText(o.getWeight().toString());
                 TotalWeight = o.getWeight().toString();
-//get_min_price();
                 checkStoreQty();
-                if (ComInfo.ComNo == Companies.Arabian.getValue() || ComInfo.ComNo == Companies.beutyLine.getValue()) {
-                    get_min_price();
-                }
+                //يجب تعديها محمد
+               //et_min_price();
+                get_min_price();
             }
 
             @Override
@@ -576,13 +578,13 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
 
                 str = (String) o.getItem_Name();
 
-// Toast.makeText(getActivity(),str,Toast.LENGTH_LONG).show();
+
                 getDialog().setTitle(str);
                 tv_SelectedItem.setText(str);
                 fillUnit(o.getItem_No().toString());
                 ItemNo = o.getItem_No().toString();
 
-// itemnm.setText(str);
+
 
                 Price.setError(null);
                 Price.clearFocus();
@@ -950,41 +952,12 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
     }
 
     private void get_min_price() {
-
-        if (ComInfo.ComNo == Companies.Arabian.getValue()) {
-            Cust_No = getArguments().getString("CustomerNo");
-            String q = " Select  ifnull( Price,0) as min_price ,ifnull(Price,0) as Price  , ifnull(Dis,0) as dis " +
-                    "   from PriceList where Item_No = '" + ItemNo + "'   " +
-                    "   And Cust_No = '" + Cust_No + "' and Unit_No ='" + UnitNo + "'";
-            Cursor c1 = sqlHandler.selectQuery(q);
-            if (c1 != null && c1.getCount() != 0) {
-                if (c1.getCount() > 0) {
-                    c1.moveToFirst();
-                    min_price = SToD(Operand) * SToD(c1.getString(c1.getColumnIndex("min_price")));
-                    min_price = SToD(min_price.toString());
-                    Custdis = SToD(c1.getString(c1.getColumnIndex("dis")));
-                    Custdis = SToD(Custdis.toString());
-                    Custprice = SToD(c1.getString(c1.getColumnIndex("Price")));
-
-                    if (Custprice > 0) {
-                        Price.setText(SToD(Custprice.toString()) + "");
-                    }
-
-
-                }
-                c1.close();
-            }
-        } else {
-
-
-            min_price = 0.0;
+              min_price = 0.0;
             String CatNo = "";
             CatNo = getArguments().getString("CatNo");
+             Log.d("CatNo",CatNo);
 
 
-            if (ComInfo.ComNo == 2) {
-                CatNo = "3";
-            }
 
             if (CatNo != "0") {
                 String q = " Select  ifnull( MinPrice,0) as min_price ,ifnull(Price,0) as Price  , ifnull(dis,0) as dis " +
@@ -1004,23 +977,14 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
                         Custdis = SToD(Custdis.toString());
                         Custprice = SToD(c1.getString(c1.getColumnIndex("Price")));
 
-                        if (ComInfo.ComNo == 2) {
+
 
                             if (Custprice > 0) {
-                                Price.setText(SToD(Custprice.toString()) + "");
+                                Price.setText(SToD(Custprice.toString()) * SToD(Operand) + "");
                             }
-                            Toast.makeText(getActivity(), "سعر التجزئة :" + ":" + String.valueOf(Custprice), Toast.LENGTH_SHORT).show();
-                        } else if (ComInfo.ComNo == 3) {
-                            if (Custprice > 0) {
-                                Price.setText(SToD(Custprice.toString()) + "");
-                            }
+                          //  Toast.makeText(getActivity(), "سعر الفئة :" + ":" + String.valueOf(Custprice), Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            Price.setText(SToD(Custprice.toString()) + "");
-                        }
-/* if(ComInfo.ComNo ==1 ) {
-Toast.makeText(getActivity(), "ادنى سعر للبيع " + ":" + String.valueOf(min_price), Toast.LENGTH_SHORT).show();
-}*/
+
                     }
                     c1.close();
                 } else {
@@ -1034,7 +998,7 @@ Toast.makeText(getActivity(), "ادنى سعر للبيع " + ":" + String.value
                     Price.setText(SToD(LocalPrice.toString()) + "");
                 }
             }
-        }
+
         EditText bo = (EditText) form.findViewById(R.id.et_bo);
         bo.requestFocus();
     }
@@ -1277,7 +1241,39 @@ Toast.makeText(getActivity(), "ادنى سعر للبيع " + ":" + String.value
 
 
             }
+            if (getArguments().getString("Scr") == "Del_inv") {
 
+                if (AllowSalInvMinus == 1 || ComInfo.DocType == 2) {
+                    if (filter.getText().toString().equals("")) {
+                        query = "Select distinct invf.Item_No , invf.Item_Name,invf.Price, invf.tax   from invf  ";
+
+                    } else {
+                        query = "Select distinct  invf.Item_No , invf.Item_Name,invf.Price, invf.tax from  invf " +
+                                "    where Item_Name  like '%" + filter.getText().toString() + "%'  or  Item_No like '%" + filter.getText().toString() + "%'  ";
+                    }
+                } else {
+                    if (filter.getText().toString().equals("")) {
+                        query = "Select   distinct invf.Item_No , invf.Item_Name,invf.Price, invf.tax   from invf  " +
+                                " inner join ManStore   on ManStore.itemno =   invf.Item_No And   CAST(  ifnull(ManStore.qty,0) as decimal)>0  where 1=1 ";
+                    } else {
+                        query = "Select distinct  invf.Item_No , invf.Item_Name,invf.Price, invf.tax from  invf " +
+                                " inner join ManStore   on ManStore.itemno =   invf.Item_No And   CAST(  ifnull(ManStore.qty,0) as decimal)>0  where Item_Name  like '%" + filter.getText().toString() + "%'  or  Item_No like '%" + filter.getText().toString() + "%'  ";
+                    }
+                }
+
+                Spinner item_cat = (Spinner) form.findViewById(R.id.sp_item_cat);
+                Integer indexValue = item_cat.getSelectedItemPosition();
+
+                if (indexValue > 0) {
+
+                    Cls_Deptf o = (Cls_Deptf) item_cat.getItemAtPosition(indexValue);
+
+                    query = query + "and    Type_No = '" + o.getType_No().toString() + "'";
+
+                }
+
+
+            }
         }
 
         Spinner item_cat = (Spinner) form.findViewById(R.id.sp_item_cat);
@@ -1820,6 +1816,26 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                     }
                 } else {
                     ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""));
+
+                }
+                if (!Manpassword.equalsIgnoreCase("")) {
+                    UpdateCode_ForPrice(Manpassword);
+
+                }
+                Manpassword = "";
+                Price.setEnabled(false);
+                chkEnbledPrice.setChecked(false);
+            }
+            if (getArguments().getString("Scr") == "Del_inv") {
+
+
+                if (UpdateItem != null) {
+                    if (UpdateItem.size() > 0) {
+                        ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), "0", UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString());
+                        this.dismiss();
+                    }
+                } else {
+                   // ((Delivery_VoucherAct) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), "0", UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""));
 
                 }
                 if (!Manpassword.equalsIgnoreCase("")) {

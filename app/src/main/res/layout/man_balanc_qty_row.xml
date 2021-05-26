@@ -11,7 +11,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="0dp"
-        android:weightSum="11">
+        android:weightSum="8.6">
 
         <TextView
             android:id="@+id/tv_Item_No"
@@ -50,6 +50,7 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1.2"
+            android:visibility="gone"
             android:gravity="center|center_horizontal"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -61,6 +62,7 @@
             android:layout_height="match_parent"
             android:layout_margin="0dp"
             android:layout_weight="1.2"
+            android:visibility="gone"
             android:gravity="center|center_horizontal"
             android:text="Small Text"
             android:textAppearance="?android:attr/textAppearanceSmall"

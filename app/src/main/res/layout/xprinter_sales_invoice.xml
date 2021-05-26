@@ -19,7 +19,7 @@
 
             <include
                 android:id="@+id/f_view"
-                layout="@layout/sal_inv_img_xprinter"
+                layout="@layout/sal_inv_img_line"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/btn_Print" />
@@ -60,7 +60,6 @@
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:padding="0dp"
-                    android:visibility="invisible"
                     android:weightSum="6">
 
                     <LinearLayout
@@ -228,6 +227,7 @@
                 android:layout_weight="1"
                 android:background="@color/Pink"
                 android:nestedScrollingEnabled="false"
+                android:onClick="Do_PRINT"
                 android:text="طباعة "
                 android:textColor="@android:color/white"
                 android:textSize="25sp" />

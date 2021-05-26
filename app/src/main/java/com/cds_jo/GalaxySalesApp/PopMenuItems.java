@@ -476,6 +476,52 @@ public class PopMenuItems  extends DialogFragment implements View.OnClickListene
             Res = Res / SToD(Operand);
             Store_Qty.setText(Res.toString());
         }
+        else if (getArguments().getString("Scr") == "Dev_inv") {
+
+
+
+            Double Order_qty = 0.0;
+            Double Res = 0.0;
+
+
+            String query = "SELECT   ifnull( qty,0)   as  qty   from ManStore where  itemno = '" + ItemNo + "'  ";
+            Cursor c1 = sqlHandler.selectQuery(query);
+
+            Double Store_qty = 0.0;
+            if (c1 != null && c1.getCount() != 0) {
+                if (c1.getCount() > 0) {
+                    c1.moveToFirst();
+                    Store_qty = Double.parseDouble(c1.getString(c1.getColumnIndex("qty")));
+                }
+            }
+            c1.close();
+
+            query = "SELECT       (ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0)  +   ifnull( sum  ( ifnull( sid.bounce_qty,0)  * (ifnull( sid.Operand,1))) ,0) +  ifnull( sum  ( ifnull( sid.Pro_bounce,0)  * (ifnull( sid.Operand,1))) ,0))  as Sal_Qty  from  Sal_invoice_Hdr  sih inner join Sal_invoice_Det sid on  sid.OrderNo = sih.OrderNo" +
+                    " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
+                    "    where  sih.Post = -1 and ui.item_no ='" + ItemNo + "'";
+            //   "    where  QtyStoreSer = "+MaxStoreQtySer+" and ui.item_no ='"+ItemNo+"'";
+
+
+            if (UpdateItem != null && UpdateItem.size() > 0) {
+
+                query = query + "And sid.OrderNo !='"+ getArguments().getString("OrderNo")+"'" ;
+            }
+            c1 = sqlHandler.selectQuery(query);
+
+            Double Sal_Qty = 0.0;
+            if (c1 != null && c1.getCount() != 0) {
+                if (c1.getCount() > 0) {
+                    c1.moveToFirst();
+                    Sal_Qty = Double.parseDouble((c1.getString(c1.getColumnIndex("Sal_Qty"))).toString());
+                }
+            }
+            c1.close();
+
+
+            Res = Store_qty - Sal_Qty - Order_qty;
+            Res = Res / SToD(Operand);
+            Store_Qty.setText(Res.toString());
+        }
         else {
             Store_Qty.setText("");
         }
@@ -635,7 +681,30 @@ else {
                     }
 
 
+                }
+            if (getArguments().getString("Scr") == "Del_inv") {
+                if (filter.getText().toString().equals("")) {
+                    query = "Select distinct invf.Item_No , invf.Item_Name,invf.Price, invf.tax   from invf  " +
+                            " inner join ManStore   on ManStore.itemno =   invf.Item_No And   CAST(  ifnull(ManStore.qty,0) as decimal)>0  where 1=1 ";
                 } else {
+                    query = "Select distinct  invf.Item_No , invf.Item_Name,invf.Price, invf.tax from  invf " +
+                            " inner join ManStore   on ManStore.itemno =   invf.Item_No And   CAST(  ifnull(ManStore.qty,0) as decimal)>0  where Item_Name  like '%" + filter.getText().toString() + "%'  or  Item_No like '%" + filter.getText().toString() + "%'  ";
+                }
+
+                Spinner item_cat = (Spinner) form.findViewById(R.id.sp_item_cat);
+                Integer indexValue = item_cat.getSelectedItemPosition();
+
+                if (indexValue > 0) {
+
+                    Cls_Deptf o = (Cls_Deptf) item_cat.getItemAtPosition(indexValue);
+
+                    query = query + "and    Type_No = '" + o.getType_No().toString() + "'";
+
+                }
+
+
+            }
+                else {
                     if (filter.getText().toString().equals("")) {
                         query = "Select distinct  * from invf where 1=1 ";
                     } else {

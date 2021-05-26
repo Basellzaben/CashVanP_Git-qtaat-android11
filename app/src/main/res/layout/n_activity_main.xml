@@ -322,11 +322,12 @@
                             android:id="@+id/btn_Save_Location"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="5dp"
                             android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="@color/Blue"
-                            android:onClick="Save_Cust_Location">
+                            android:onClick="Save_Cust_Location"
+                            android:visibility="gone">
 
                             <Methdes.MyTextView
                                 android:layout_width="match_parent"

@@ -720,7 +720,7 @@ public class SittingNew extends FragmentActivity {
     }
 
     public void GoToHome(View view) {
-        Intent k = new Intent(this, NewHomePage.class);
+        Intent k = new Intent(this, JalMasterActivity.class);
         startActivity(k);
     }
 

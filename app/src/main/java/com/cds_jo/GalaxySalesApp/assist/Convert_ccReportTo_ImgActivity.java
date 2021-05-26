@@ -184,33 +184,6 @@ try {
       showList(OrdNo);
 
     }
-
-    private  Double SToD(String str){
-        String f = "";
-        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
-        final DecimalFormat df = (DecimalFormat)nf;
-        str = str.replace(",","");
-        Double d = 0.0;
-        if (str.length()==0) {
-            str = "0";
-        }
-        if (str.length()>0)
-            try {
-                d =  Double.parseDouble(str);
-                str = df.format(d).replace(",", "");
-
-            }
-            catch (Exception ex)
-            {
-                str="0";
-            }
-
-        df.setParseBigDecimal(true);
-
-        d = Double.valueOf(str.trim()).doubleValue();
-
-        return d;
-    }
     private void showList(String OrderNo) {
         Intent i = getIntent();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -223,7 +196,7 @@ try {
 
 
 
-               // "Left Join invf on   invf.Item_No=sid.itemNo  where sid.OrderNo =  '"+  i.getStringExtra("OrderNo").toString()+"'";
+        // "Left Join invf on   invf.Item_No=sid.itemNo  where sid.OrderNo =  '"+  i.getStringExtra("OrderNo").toString()+"'";
         TextView tv_cusnm =(TextView)findViewById(R.id.tv_cusname);
         TextView tv_fdate =(TextView)findViewById(R.id.tv_fdate);
         TextView tv_tdate =(TextView)findViewById(R.id.tv_tdate);
@@ -231,12 +204,12 @@ try {
         Cursor c1 = sqlHandler.selectQuery(query);
         if (c1 != null && c1.getCount() != 0) {
             if (c1.moveToFirst()) {
-                    tv_cusnm.setText(c1.getString(c1
-                            .getColumnIndex("Cust_Nm")));
-                    tv_fdate.setText(c1.getString(c1
-                            .getColumnIndex("FDate")));
-                    tv_tdate.setText(c1.getString(c1
-                            .getColumnIndex("TDate")));
+                tv_cusnm.setText(c1.getString(c1
+                        .getColumnIndex("Cust_Nm")));
+                tv_fdate.setText(c1.getString(c1
+                        .getColumnIndex("FDate")));
+                tv_tdate.setText(c1.getString(c1
+                        .getColumnIndex("TDate")));
                 do {
                     Cls_Acc_Report contactListItems = new Cls_Acc_Report();
 
@@ -272,45 +245,45 @@ try {
 
 
 
-            LinearLayout Sal_ItemSLayout = (LinearLayout) findViewById(R.id.Sal_ItemSLayout);
-            LinearLayout Sal_ItemSLayout2 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout2);
-            LinearLayout Sal_ItemSLayout3 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout3);
-            LinearLayout Sal_ItemSLayout4 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout4);
+        LinearLayout Sal_ItemSLayout = (LinearLayout) findViewById(R.id.Sal_ItemSLayout);
+        LinearLayout Sal_ItemSLayout2 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout2);
+        LinearLayout Sal_ItemSLayout3 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout3);
+        LinearLayout Sal_ItemSLayout4 = (LinearLayout) findViewById(R.id.Sal_ItemSLayout4);
 
-            LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view;
+        LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view;
 
-            TextView tv_Des;
-            TextView Cred;
-            TextView Dept;
-            TextView Tot;
-           int index = 0;
-            for (Cls_Acc_Report Obj : contactList){
+        TextView tv_Des;
+        TextView Cred;
+        TextView Dept;
+        TextView Tot;
+        int index = 0;
+        for (Cls_Acc_Report Obj : contactList){
 
-               view = inflater.inflate(R.layout.report_img_row, null);
+            view = inflater.inflate(R.layout.report_img_row, null);
 
-                tv_Des = (TextView) view.findViewById(R.id.tv_Des);
-                Cred = (TextView) view.findViewById(R.id.tv_Cred);
-                Dept = (TextView) view.findViewById(R.id.tv_Dept);
-                Tot = (TextView) view.findViewById(R.id.tv_Tot);
+            tv_Des = (TextView) view.findViewById(R.id.tv_Des);
+            Cred = (TextView) view.findViewById(R.id.tv_Cred);
+            Dept = (TextView) view.findViewById(R.id.tv_Dept);
+            Tot = (TextView) view.findViewById(R.id.tv_Tot);
 
 
-                tv_Des.setText(Obj.getDes());
-                Cred.setText(Obj.getCred());
-                Dept.setText(Obj.getDept());
-                Tot.setText(Obj.getTot());
+            tv_Des.setText(Obj.getDes());
+            Cred.setText(Obj.getCred());
+            Dept.setText(Obj.getDept());
+            Tot.setText(Obj.getTot());
 
-                if(  index<=11) {
-                    Sal_ItemSLayout.addView(view);
-                }else if(index<=21){
-                    Sal_ItemSLayout2.addView(view);
-                }else if(index<=31){
-                    Sal_ItemSLayout3.addView(view);
-                 }else if(index<=41){
-                    Sal_ItemSLayout4.addView(view);
-                }
-                index=index+1;
+            if(  index<=11) {
+                Sal_ItemSLayout.addView(view);
+            }else if(index<=21){
+                Sal_ItemSLayout2.addView(view);
+            }else if(index<=31){
+                Sal_ItemSLayout3.addView(view);
+            }else if(index<=41){
+                Sal_ItemSLayout4.addView(view);
             }
+            index=index+1;
+        }
 
 
 
@@ -318,6 +291,33 @@ try {
 
 
     }
+    private  Double SToD(String str){
+        String f = "";
+        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+        final DecimalFormat df = (DecimalFormat)nf;
+        str = str.replace(",","");
+        Double d = 0.0;
+        if (str.length()==0) {
+            str = "0";
+        }
+        if (str.length()>0)
+            try {
+                d =  Double.parseDouble(str);
+                str = df.format(d).replace(",", "");
+
+            }
+            catch (Exception ex)
+            {
+                str="0";
+            }
+
+        df.setParseBigDecimal(true);
+
+        d = Double.valueOf(str.trim()).doubleValue();
+
+        return d;
+    }
+
     public void btn_share(View view) {
         TextView ed_Mobile =(EditText)findViewById(R.id.ed_Mobile);
         TextView tv_cusnm =(TextView)findViewById(R.id.tv_cusname);

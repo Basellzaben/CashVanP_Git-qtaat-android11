@@ -712,11 +712,19 @@ ListView lst_Items ;
         Do_print();
     }
     public void Do_print() {
-
-        Intent i = new Intent(this,Convert_Man_Balance_Qty_To_Img.class);
+if(ComInfo.ComNo==12){
+        Intent i = new Intent(this,XPinter_Man_Balance_Qty.class);
         i.putExtra("OrderNo", Maxpo.getText().toString());
 
         startActivity(i);
+    }
+    else
+{
+    Intent i = new Intent(this,Convert_Man_Balance_Qty_To_Img.class);
+    i.putExtra("OrderNo", Maxpo.getText().toString());
+
+    startActivity(i);
+}
     }
 
     public void btn_ConvertToInvoice(View view) {

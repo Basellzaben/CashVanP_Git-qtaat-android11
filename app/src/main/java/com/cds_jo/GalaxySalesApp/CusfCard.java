@@ -324,32 +324,32 @@ public class CusfCard extends FragmentActivity implements OnMapReadyCallback {
         }
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+            .findFragmentById(R.id.map);
+    mapFragment.getMapAsync(this);
 
-        mapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                LatLng sydney = new LatLng(Lat, Lng);
-                googleMap.addMarker(new MarkerOptions().title("Paris").position(sydney));
-                CameraUpdate zoom = CameraUpdateFactory.zoomTo(17);
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
-                googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                mMap.setMyLocationEnabled(true);
-                mMap.setBuildingsEnabled(true);
-                mMap.animateCamera(zoom);
-                mMap.setOnMyLocationChangeListener(myLocationChangeListener);
-            }
-        });
-
-        String folder_main = "/Android/CashVan_Images/Customer_CardImages/"+OrderNo.getText();
-        File f ;
-        f = new File(Environment.getExternalStorageDirectory(), folder_main);
-        if (!f.exists()) {
-            f.mkdirs();
+    mapFragment.getMapAsync(new OnMapReadyCallback() {
+        @Override
+        public void onMapReady(GoogleMap googleMap) {
+            LatLng sydney = new LatLng(Lat, Lng);
+            googleMap.addMarker(new MarkerOptions().title("Paris").position(sydney));
+            CameraUpdate zoom = CameraUpdateFactory.zoomTo(17);
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
+            googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            //mMap.setMyLocationEnabled(true);
+            mMap.setBuildingsEnabled(true);
+            mMap.animateCamera(zoom);
+            mMap.setOnMyLocationChangeListener(myLocationChangeListener);
         }
+    });
+
+    String folder_main = "/Android/CashVan_Images/Customer_CardImages/" + OrderNo.getText();
+    File f;
+    f = new File(Environment.getExternalStorageDirectory(), folder_main);
+    if (!f.exists()) {
+        f.mkdirs();
+    }
 
     }
     private GoogleMap.OnMyLocationChangeListener myLocationChangeListener = new GoogleMap.OnMyLocationChangeListener() {

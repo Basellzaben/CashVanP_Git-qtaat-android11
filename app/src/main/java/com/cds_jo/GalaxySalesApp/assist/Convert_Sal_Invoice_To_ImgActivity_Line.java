@@ -447,9 +447,14 @@ try {
         mButton.setBackground(getResources().getDrawable(R.drawable.blue_fill_white));
         mButton.setTextColor(getResources().getColor(R.color.Blue));
         LinearLayout lay = (LinearLayout) findViewById(R.id.Invoice_Header);
-        PrintReport_TSC obj = new PrintReport_TSC(Convert_Sal_Invoice_To_ImgActivity_Line.this,
+
+
+     /*   PrintReport_TSC obj = new PrintReport_TSC(Convert_Sal_Invoice_To_ImgActivity_Line.this,
                 Convert_Sal_Invoice_To_ImgActivity_Line.this,lay, 570, 1);
 
+*/
+        PrintReport_TSC obj = new PrintReport_TSC(Convert_Sal_Invoice_To_ImgActivity_Line.this,
+                Convert_Sal_Invoice_To_ImgActivity_Line.this,lay, 570, 1);
 
 
         lay = (LinearLayout) findViewById(R.id.Invoice_Header);

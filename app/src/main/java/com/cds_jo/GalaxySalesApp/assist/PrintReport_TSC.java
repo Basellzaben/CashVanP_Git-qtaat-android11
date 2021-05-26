@@ -35,6 +35,7 @@ import com.example.tscdll.TSCActivity;
  * Created by Hp on 30/05/2016.
  */
 public class PrintReport_TSC {
+
     Context context;
     Activity Activity;
     String BPrinter_MAC_ID;

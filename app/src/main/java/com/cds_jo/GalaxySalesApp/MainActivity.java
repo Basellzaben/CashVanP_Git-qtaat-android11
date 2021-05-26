@@ -675,8 +675,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         cv.put("Note", tv_Note.getText().toString());
 
 
-        long i;
-        i = sqlHandler.Update("SaleManRounds", cv, "Closed =0");
+        Long i;
+       i = sqlHandler.Update("SaleManRounds", cv, "Closed =0");
+  //    i= sqlHandler.executeQuery("update  ManLogTrans set Tr_Data ='"+TrDate.getText().toString()+"' , End_Time = '"+et_EndTime.getText().toString()+"' ,Closed = 1 ,Note = '"+ tv_Note.getText().toString()+"' where Closed = 0");
         AlertDialog alertDialog = new AlertDialog.Builder(
                 this).create();
 

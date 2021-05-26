@@ -15,7 +15,6 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,17 +32,14 @@ import com.cds_jo.GalaxySalesApp.Cls_Sal_InvItems;
 import com.cds_jo.GalaxySalesApp.Cls_Sal_Inv_Adapter;
 import com.cds_jo.GalaxySalesApp.ComInfo;
 import com.cds_jo.GalaxySalesApp.Companies;
-import com.cds_jo.GalaxySalesApp.Convert_Sal_Return_To_ImgActivity_Line;
 import com.cds_jo.GalaxySalesApp.DB;
 import com.cds_jo.GalaxySalesApp.JalMasterActivity;
-import com.cds_jo.GalaxySalesApp.MainActivity;
+import com.cds_jo.GalaxySalesApp.PopEnterInvoiceHeaderDiscount;
 import com.cds_jo.GalaxySalesApp.PopSal_return_Select_Items;
+import com.cds_jo.GalaxySalesApp.Pos.Pos_Activity;
 import com.cds_jo.GalaxySalesApp.PostSalesreturn;
-import com.cds_jo.GalaxySalesApp.PostTransActions.PostSalesInvoice;
 //import com.cds_jo.GalaxySalesApp.PostTransActions.PostSalesreturn;
 import com.cds_jo.GalaxySalesApp.R;
-import com.cds_jo.GalaxySalesApp.SCR_ACTIONS;
-import com.cds_jo.GalaxySalesApp.Sal_Inv_SearchActivity;
 //import com.cds_jo.GalaxySalesApp.Sal_Inv_return_SearchActivity;
 import com.cds_jo.GalaxySalesApp.Sal_return_SearchActivity;
 import com.cds_jo.GalaxySalesApp.SearchManBalanceQty;
@@ -51,7 +47,6 @@ import com.cds_jo.GalaxySalesApp.Select_Cash_Customer;
 import com.cds_jo.GalaxySalesApp.Select_Customer;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.cds_jo.GalaxySalesApp.We_Result;
-import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -64,6 +59,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import Methdes.MyTextView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import header.Header_Frag;
 import header.SimpleSideDrawer;
 
@@ -76,6 +72,8 @@ public class Sale_ReturnActivity extends FragmentActivity {
     ListView lvCustomList;
     Integer DoPrint = 0 ,DocType = 2,DocTypeinv=1;
     String CatNo = "-1";
+    String   FinalDiscountType="0" ;// 1 نسبة    2 مبلغ
+    double FinalDiscountpercent=0.0,FinalDiscountAmt ;
     ArrayList<Cls_Sal_InvItems> contactList;
     Boolean IsNew;
     Boolean IsChange, BalanceQtyTrans;
@@ -92,7 +90,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
     TextView tv_CustCelling;
     MyTextView tv_ScrTitle ;
     EditText OrderNo ;
-    TextView tv_NetTotal;
+    TextView tv_NetTotal,etTotal,tv_CustNetTotal1;
     private Double SToD(String str) {
         str=str ;
         String f = "";
@@ -208,12 +206,13 @@ public class Sale_ReturnActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sale__return);
-
+        etTotal = (TextView) findViewById(R.id.et_Total);
         hideSoftKeyboard();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         this.setTitle(sharedPreferences.getString("CompanyNm", "") + "/" + sharedPreferences.getString("Address", ""));
         hideSoftKeyboard();
         OrderNo = (EditText) findViewById(R.id.et_OrdeNo);
+        tv_CustNetTotal1 = (TextView) findViewById(R.id.tv_CustNetTotal1);
 
         try {
             trimCache(this);
@@ -373,14 +372,17 @@ public class Sale_ReturnActivity extends FragmentActivity {
                             .getColumnIndex("UnitName")));
                     contactListItems.setBounce(c1.getString(c1
                             .getColumnIndex("bounce_qty")));
-                    contactListItems.setDiscount("0");
-                    contactListItems.setDis_Amt("0");
 
+                    contactListItems.setDiscount(c1.getString(c1
+                            .getColumnIndex("dis_per")));
+                    contactListItems.setDis_Amt(c1.getString(c1
+                            .getColumnIndex("dis_Amt")));
 
                     contactListItems.setUnite(c1.getString(c1
                             .getColumnIndex("unitNo")));
 
-                    contactListItems.setWeight("0");
+                    contactListItems.setWeight(c1.getString(c1
+                            .getColumnIndex("weight")));
                     contactListItems.setOperand(c1.getString(c1
                             .getColumnIndex("Operand")));
                     contactListItems.setTax_Amt(c1.getString(c1
@@ -388,14 +390,25 @@ public class Sale_ReturnActivity extends FragmentActivity {
                     contactListItems.setTotal(c1.getString(c1
                             .getColumnIndex("Total")));
 
-                    contactListItems.setProID("0");
-                    contactListItems.setPro_bounce("0");
-                    contactListItems.setPro_dis_Per("0");
+                    contactListItems.setProID(c1.getString(c1
+                            .getColumnIndex("ProID")));
+
+                    contactListItems.setPro_bounce(c1.getString(c1
+                            .getColumnIndex("Pro_bounce")));
+
+                    contactListItems.setPro_dis_Per(c1.getString(c1
+                            .getColumnIndex("Pro_dis_Per")));
+
                     contactListItems.setPro_amt("0");
+
                     contactListItems.setPro_Total("0");
+
                     contactListItems.setProType("0");
-                    contactListItems.setDisPerFromHdr("0");
-                    contactListItems.setDisAmtFromHdr("0");
+
+                    contactListItems.setDisPerFromHdr(c1.getString(c1
+                            .getColumnIndex("DisPerFromHdr")));
+                    contactListItems.setDisAmtFromHdr(c1.getString(c1
+                            .getColumnIndex("DisAmtFromHdr")));
                     contactListItems.setDamaged(c1.getString(c1
                             .getColumnIndex("Damaged")));
                     contactListItems.setNote(c1.getString(c1
@@ -534,11 +547,11 @@ public class Sale_ReturnActivity extends FragmentActivity {
             cv.put("include_Tax", "-1");
         }
 
-       /* if (chk_Type.isChecked()) {
-            cv.put("return_type", "0");
-        } else {
+        if (chk_Type.isChecked()) {
             cv.put("return_type", "-1");
-        }*/
+        } else {
+            cv.put("return_type", "0");
+        }
 
         cv.put("disc_Total", dis.getText().toString());
 
@@ -570,8 +583,8 @@ public class Sale_ReturnActivity extends FragmentActivity {
                     cv.put("tax_Amt", SToD(contactListItems.getTax_Amt().toString()));
                     cv.put("total", SToD(contactListItems.getTotal().toString()));
                     cv.put("ProID", "0");
-                    cv.put("Pro_bounce","0");
-                    cv.put("Pro_dis_Per", "0");
+                    cv.put("Pro_bounce", SToD(contactListItems.getBounce().toString()));
+                    cv.put("Pro_dis_Per", SToD(contactListItems.getDiscount().toString()));
                     cv.put("Pro_amt", "0");
                     cv.put("pro_Total", "0");
                     cv.put("OrgPrice", SToD(contactListItems.getItemOrgPrice().toString()));
@@ -636,10 +649,11 @@ public class Sale_ReturnActivity extends FragmentActivity {
         CustAmtDt();
         if (i > 0) {
             UpDateMaxOrderNo();
+            tv_ScrTitle=(MyTextView) findViewById(R.id.tv_ScrTitle);
             alertDialog.setTitle(tv_ScrTitle.getText().toString());
             alertDialog.setMessage("تمت عمليةالتخزين  بنجاح");
             IsChange = false;
-            chk_Type.setEnabled(false);
+           // chk_Type.setEnabled(false);
             IsNew = false;
             alertDialog.setIcon(R.drawable.tick);
             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -666,6 +680,121 @@ public class Sale_ReturnActivity extends FragmentActivity {
         sqlHandler.executeQuery(query);
     }
     private void CalcTax() {
+        Double All_Dis = 0.0;
+        Double RowTotal = 0.0;
+        Double NetRow = 0.0;
+        Double TaxAmt = 0.0;
+        Double TaxFactor = 0.0;
+        Double All_Dis_Per = 0.0;
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        DecimalFormat df = (DecimalFormat) nf;
+
+
+        Cls_Sal_InvItems contactListItems;
+        for (int x = 0; x < contactList.size(); x++) {
+            contactListItems = new Cls_Sal_InvItems();
+            contactListItems = contactList.get(x);
+            All_Dis = Double.parseDouble(contactListItems.getDis_Amt().replace(",", "")) + Double.parseDouble(contactListItems.getDisAmtFromHdr().replace(",", "")) + Double.parseDouble(contactListItems.getPro_amt().replace(",", ""));
+            All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr()) + SToD(contactListItems.getPro_dis_Per());
+
+            if (IncludeTax_Flag.isChecked()) {
+
+                contactListItems.setprice(SToD(String.valueOf((SToD(contactListItems.getItemOrgPrice())) / ((SToD(contactListItems.getTax()) / 100) + 1))).toString());
+            } else {
+                contactListItems.setprice(String.valueOf(SToD(contactListItems.getItemOrgPrice())));
+
+            }
+            //  contactListItems.setDis_Amt( (SToD(contactListItems.getprice()) * SToD(contactListItems.getQty()))  * (100)   );
+            RowTotal = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
+            TaxFactor = (Double.parseDouble(contactListItems.getTax()) / 100);
+            NetRow = RowTotal - (RowTotal * (All_Dis_Per / 100));
+             /*if(Tax_Include.isChecked()) {
+                 TaxAmt = NetRow - ( NetRow / (TaxFactor + 1)) ;
+                  TaxAmt = NetRow - ( NetRow / (TaxFactor + 1)) ;
+             }
+             else {
+                TaxAmt = NetRow  *  TaxFactor ;
+           }*/
+            TaxAmt = NetRow * TaxFactor;
+            contactListItems.setTax_Amt(df.format(TaxAmt).toString());
+        }
+        showList();
+    }
+    private void CalcTotal() {
+        Double Total, Tax_Total, Dis_Amt, Po_Total;
+        Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        DecimalFormat df = (DecimalFormat) nf;
+        Double All_Dis = 0.0;
+        Double All_Dis_Per = 0.0;
+        Total = 0.0;
+        Tax_Total = 0.0;
+        Dis_Amt = 0.0;
+        Po_Total = 0.0;
+        TextView Subtotal = (TextView) findViewById(R.id.et_Total);
+        TextView TotalTax = (TextView) findViewById(R.id.et_TotalTax);
+        TextView dis = (TextView) findViewById(R.id.et_dis);
+        TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
+
+        Double TaxVal = 0.0;
+        double TaxFactor = 0.0;
+        CalcTax();
+        Double RowTotal = 0.0;
+        Double pq = 0.0;
+        Double opq = 0.0;
+        Double V_NetTotal = 0.0;
+        for (int x = 0; x < contactList.size(); x++) {
+            contactListItems = new Cls_Sal_InvItems();
+            contactListItems = contactList.get(x);
+            All_Dis = SToD(contactListItems.getDis_Amt()) + SToD(contactListItems.getDisAmtFromHdr()) + SToD(contactListItems.getPro_amt());
+            All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr()) + SToD(contactListItems.getPro_dis_Per());
+            pq = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
+            opq = SToD(contactListItems.getItemOrgPrice()) * SToD(contactListItems.getQty());
+
+            Tax_Total = Tax_Total + (SToD(contactListItems.getTax_Amt().toString()));
+            Dis_Amt = Dis_Amt + (((opq) * (All_Dis_Per / 100)));
+
+            if (IncludeTax_Flag.isChecked()) {
+                RowTotal = opq - ((opq) * (All_Dis_Per / 100));//+ SToD(contactListItems.getTax_Amt());
+               /* if( All_Dis_Per > 0) {
+                    Total = Total + ((opq * (All_Dis_Per / 100)) - SToD(contactListItems.getTax_Amt()) + Dis_Amt);
+                }else{
+                    Total = Total + ((opq ) - SToD(contactListItems.getTax_Amt()) );
+
+                }*/
+
+
+            } else {
+                RowTotal = pq - ((pq) * (All_Dis_Per / 100)) + SToD(contactListItems.getTax_Amt());
+                Total = Total + pq;
+
+            }
+
+            V_NetTotal = V_NetTotal + SToD(RowTotal.toString().replace(",", ""));
+
+            contactListItems.setTotal((SToD(RowTotal.toString())).toString().replace(",", ""));
+            All_Dis = 0.0;
+
+        }
+        Total = V_NetTotal - Tax_Total + Dis_Amt;
+        TotalTax.setText(String.valueOf(df.format(Tax_Total)).replace(",", ""));
+        Subtotal.setText(String.valueOf(df.format(Total)).replace(",", ""));
+        dis.setText(String.valueOf(df.format(Dis_Amt)).replace(",", ""));
+
+
+       /* if (Tax_Include.isChecked()){
+            Po_Total = Po_Total + ((Double.parseDouble(Subtotal.getText().toString().replace(",", "")) - Double.parseDouble(dis.getText().toString().replace(",", "")) ) + Double.parseDouble(TotalTax.getText().toString().replace(",", ""))    );
+        }
+        else{
+            Po_Total = Po_Total + ((Double.parseDouble(Subtotal.getText().toString().replace(",", "")) - Double.parseDouble(dis.getText().toString().replace(",","")) )   + Double.parseDouble(TotalTax.getText().toString().replace(",", "")) );
+        }*/
+        Po_Total = Po_Total + ((SToD(Subtotal.getText().toString()) - SToD(dis.getText().toString())) + SToD(TotalTax.getText().toString()));
+
+        showList();
+        NetTotal.setText(String.valueOf(df.format(V_NetTotal)));
+        CustAmtDt();
+    }
+   /* private void CalcTax() {
         Double All_Dis = 0.0;
         Double RowTotal = 0.0;
         Double NetRow = 0.0;
@@ -753,19 +882,19 @@ public class Sale_ReturnActivity extends FragmentActivity {
         dis.setText(String.valueOf(df.format(Dis_Amt)).replace(",", ""));
 
 
-       /* if (Tax_Include.isChecked()){
+       *//* if (Tax_Include.isChecked()){
             Po_Total = Po_Total + ((Double.parseDouble(Subtotal.getText().toString().replace(",", "")) - Double.parseDouble(dis.getText().toString().replace(",", "")) ) + Double.parseDouble(TotalTax.getText().toString().replace(",", ""))    );
         }
         else{
             Po_Total = Po_Total + ((Double.parseDouble(Subtotal.getText().toString().replace(",", "")) - Double.parseDouble(dis.getText().toString().replace(",","")) )   + Double.parseDouble(TotalTax.getText().toString().replace(",", "")) );
-        }*/
+        }*//*
         Po_Total = Po_Total + ((SToD(Subtotal.getText().toString()) - SToD(dis.getText().toString())) + SToD(TotalTax.getText().toString()));
 
         showList();
         NetTotal.setText(String.valueOf(df.format(V_NetTotal)));
         CustAmtDt();
 
-    }
+    }*/
     public void btn_show_Pop(View view) {
         showPop();
     }
@@ -1045,7 +1174,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
         }
 
     }
-    public void Save_List(String ItemNo, String p, String q, String t, String u, String dis, String bounce, String ItemNm, String UnitName, String dis_Amt, String Operand,String Weight,String Damaged,String Note ) {
+    public void Save_List(String ItemNo, String p, String q, String t, String u, String dis, String bounce, String ItemNm, String UnitName, String dis_Amt, String Operand,String Weight,String Damaged,String Note,String dis1 ) {
         if (bounce.toString().equals(""))
             bounce = "0";
         if (dis.toString().equals(""))
@@ -1103,7 +1232,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
         contactListItems.setTax(String.valueOf(Tax));
         contactListItems.setUnite(u);
         contactListItems.setBounce(bounce);
-        contactListItems.setDiscount(dis);
+        contactListItems.setDiscount(dis1);
         contactListItems.setProID("0");
         contactListItems.setDis_Amt(dis_Amt);
         contactListItems.setUniteNm(UnitName);
@@ -1211,7 +1340,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
         FillAdapter();
         showList();
-        String q = " Select  distinct  ifnull( s.hdr_dis_per,'0')  as   hdr_dis_per, ifnull( s.hdr_dis_value,0) as hdr_dis_value ,s.Nm   ,s.include_Tax ,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , c.name,s.doctype " +
+        String q = " Select  distinct  ifnull( s.hdr_dis_per,'0')  as   hdr_dis_per, ifnull( s.hdr_dis_value,0) as hdr_dis_value ,s.Nm   ,s.include_Tax ,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , c.name,s.doctype , s.return_type " +
                 "    from  Sal_return_Hdr s   " +
                 "    left join Customers c on c.no =s.acc   " +
                 "    where     s.Orderno = '" + No + "'";
@@ -1224,7 +1353,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
 
         CheckBox chk_hdrdiscount = (CheckBox) findViewById(R.id.chk_hdr_disc);
-        chk_Type.setChecked(false);
+        chk_Type.setChecked(true);
         IncludeTax_Flag.setChecked(false);
         chk_hdrdiscount.setChecked(false);
         if (c1 != null && c1.getCount() != 0) {
@@ -1247,6 +1376,9 @@ public class Sale_ReturnActivity extends FragmentActivity {
                 if (c1.getString(c1.getColumnIndex("include_Tax")).equals("0")) {
                     IncludeTax_Flag.setChecked(true);
                 }
+                if (c1.getString(c1.getColumnIndex("return_type")).equals("-1")) {
+                    chk_Type.setChecked(true);
+                }
 
 
             }
@@ -1256,12 +1388,35 @@ public class Sale_ReturnActivity extends FragmentActivity {
         IsNew = false;
     }
     public void btn_print(View view) {
+EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
+        String q  = "SELECT distinct *  from  Sal_return_Hdr where    " +
+                "   Post <= 0 AND   OrderNo ='" + OrderNo.getText().toString().trim() + "'";
 
+        Cursor c1 = sqlHandler.selectQuery(q);
+        if (c1 != null && c1.getCount() != 0) {
+            new SweetAlertDialog(Sale_ReturnActivity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                    .setTitleText("مرتجع المبيعات")
+                    .setContentText("لا يمكن الطباعة الا بعد الاعتماد")
+                    .setCustomImage(R.drawable.error_new)
+                    .show();
 
+            c1.close();
+            return;
+        }
+        TextView et_TotalTax = (TextView) findViewById(R.id.et_TotalTax);
+        TextView et_dis = (TextView) findViewById(R.id.et_dis);
+        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        //TextView tv_OrderNo = (TextView) findViewById(R.id.tv_OrderNo);
             Intent k;
-            k = new Intent(this, Convert_Sal_Return_To_ImgActivity_Line.class);
-            k.putExtra("Orderno", OrderNo.getText().toString().replace("\u202c","").replace("\u202d",""));
-            startActivity(k);
+            k = new Intent(Sale_ReturnActivity.this, Xprinter_SalesReturn.class);
+       k.putExtra("Orderno", OrderNo.getText().toString().replace("\u202c","").replace("\u202d",""));
+       k.putExtra("nettotal", tv_NetTotal.getText().toString().replace("\u202c","").replace("\u202d",""));
+       k.putExtra("total", etTotal.getText().toString().replace("\u202c","").replace("\u202d",""));
+       k.putExtra("totaltax", et_TotalTax.getText().toString().replace("\u202c","").replace("\u202d",""));
+       k.putExtra("totaldis", et_dis.getText().toString().replace("\u202c","").replace("\u202d",""));
+       k.putExtra("cusname", CustNm.getText().toString().replace("\u202c","").replace("\u202d",""));
+    //   k.putExtra("tOrderNo", tv_OrderNo.getText().toString().replace("\u202c","").replace("\u202d",""));
+         startActivity(k);
 
 
 
@@ -1290,8 +1445,8 @@ public class Sale_ReturnActivity extends FragmentActivity {
         CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
         IsNew = true;
         IncludeTax_Flag.setChecked(true);
-        chk_Type.setChecked(false);
-        chk_Type.setEnabled(true);
+        chk_Type.setChecked(true);
+      //  chk_Type.setEnabled(true);
         chk_hdr_disc.setChecked(false);
         BalanceQtyTrans = false;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -1646,7 +1801,69 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
         // Gf_Calc_Promotion();
     }
+    public   void InsertDiscount(String DiscountAmt , String DiscountType   ){
+        double ItemWieght=0.0;
 
+        for (int x = 0; x < contactList.size(); x++) {
+            // ItemWieght=((SToD( contactList.get(x).getTotal())/SToD(tv_NetTotal.getText().toString()))*100);
+            // contactList.get(x).setDisPerFromHdr((((ItemWieght*FinalDiscountpercent)/100))+"");
+            contactList.get(x).setDisPerFromHdr("0");
+            contactList.get(x).setDisAmtFromHdr("0");
+        }
+
+        CalcTotal();
+        showList();
+        if(DiscountType.equalsIgnoreCase("1")){
+            FinalDiscountpercent=SToD(DiscountAmt);
+            FinalDiscountAmt=((SToD(DiscountAmt)/100) * SToD(etTotal.getText().toString())) ;
+            FinalDiscountAmt=SToD(FinalDiscountAmt+"");
+        }else {
+            if (IncludeTax_Flag.isChecked()) {
+                FinalDiscountpercent = SToD(DiscountAmt) / SToD(tv_NetTotal.getText().toString());
+                FinalDiscountpercent = FinalDiscountpercent * 100;
+                FinalDiscountAmt = SToD(DiscountAmt);
+                FinalDiscountpercent = SToD(FinalDiscountpercent + "");
+            } else
+            {
+                FinalDiscountpercent = SToD(DiscountAmt) / SToD(etTotal.getText().toString());
+                FinalDiscountpercent = FinalDiscountpercent * 100;
+                FinalDiscountAmt = SToD(DiscountAmt);
+                FinalDiscountpercent = SToD(FinalDiscountpercent + "");
+            }
+        }
+        FinalDiscountType=DiscountType;
+        tv_CustNetTotal1.setText(SToD((FinalDiscountpercent)+"")+"%");
+
+
+        for (int x = 0; x < contactList.size(); x++) {
+
+            contactList.get(x).setDisPerFromHdr(FinalDiscountpercent+"" );
+            contactList.get(x).setDisAmtFromHdr(( (FinalDiscountpercent*(SToD(contactList.get(x).getTotal())    ))/100)+"" );
+
+        }
+
+        CalcTotal();
+        showList();
+
+        Save_Recod_Po();
+    }
+    public void show_dis(View v)
+    {
+        Bundle bundle = new Bundle();
+        bundle.putString("OrederNo",OrderNo.getText().toString());
+        bundle.putString("Discount","0");
+        if(IncludeTax_Flag.isChecked()) {
+            bundle.putString("NetTotal", tv_NetTotal.getText().toString());
+        }
+        else
+        {
+            bundle.putString("NetTotal", etTotal.getText().toString());
+        }
+        FragmentManager Manager =  getFragmentManager();
+        PopEnterReHeaderDiscount1 obj = new PopEnterReHeaderDiscount1();
+        obj.setArguments(bundle);
+        obj.show(Manager, null);
+    }
 }
 
 

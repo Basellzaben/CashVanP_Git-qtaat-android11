@@ -2,11 +2,17 @@
 package com.cds_jo.GalaxySalesApp.Pos;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -14,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -21,16 +28,27 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cds_jo.GalaxySalesApp.AbuHaltam.CodeDisFrg;
+import com.cds_jo.GalaxySalesApp.AbuHaltam.RequstCodeFrq;
 import com.cds_jo.GalaxySalesApp.Cls_Bank_Search;
 import com.cds_jo.GalaxySalesApp.ComInfo;
 import com.cds_jo.GalaxySalesApp.Companies;
+import com.cds_jo.GalaxySalesApp.DB;
+import com.cds_jo.GalaxySalesApp.GlobaleVar;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
+import com.cds_jo.GalaxySalesApp.We_Result;
+import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Bank_search_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Cur;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Cur_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -42,6 +60,8 @@ import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 
 /**
  * Created by Hp on 07/02/2016.
@@ -50,17 +70,21 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class PopSavePosInvoice extends DialogFragment implements View.OnClickListener {
     View form;
     NumberPicker np;
-    Button btnSave,btn_Back;
-    EditText et_Discount, ed_Total, ed_AfterDiscount ;
+    Button btnSave,btn_Back,btnRcode;
+   public EditText et_Discount, ed_Total, ed_AfterDiscount ,ed_bounse;
     EditText ed_Check_Paid_Amt,ed_Visa_Paid_Amt,ed_Cash_Paid_Amt,ed_Cust_Amt_Paid,ed_RemainAmt,ed_Check_Number,ed_Check_Bank_Name,ed_Check_Date,ed_Visa_Number,ed_Visa_Expire_Date;
-    RadioButton rdoPrecent, rdoAmt;
+    RadioButton rdoPrecent, rdoAmt,rdoviza,rdocrdit;
     String DiscountMethod="1";
-    CheckBox cbx_Cash,cbx_Check,cbx_Visa,chk_print;
+    public CheckBox cbx_Cash,cbx_Check,cbx_Visa,chk_print;
     SqlHandler sqlHandler ;
+    ProgressDialog progressdialog;
+    EditText et_Input;
     Spinner sp_banks;
+    SharedPreferences sharedPreferences;
     ArrayList<Cls_Bank_Search> cls_bank_searches;
     String bankNo="";
     String Print_Flg="0";
+    String type_card="";
     @Override
     public void onStart() {
         super.onStart();
@@ -73,7 +97,10 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
         int dialogWidth = 1700; // specify a value here
          dialogWidth=1200;
         if(ComInfo.ComNo== Companies.Sector.getValue()){
-            dialogWidth = 1700;
+            dialogWidth = 1200;
+        }
+        if(ComInfo.ComNo== Companies.Afrah.getValue()){
+            dialogWidth = 1200;
         }
         int dialogHeight = WindowManager.LayoutParams.WRAP_CONTENT;//400; // specify a value here*/
 
@@ -88,9 +115,13 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
         getDialog().setTitle("الخصم النهائي على الفاتورة");
         sp_banks = (Spinner) form.findViewById(R.id.sp_banks);
         rdoPrecent = (RadioButton) form.findViewById(R.id.rdoPrecent);
+        rdoviza = (RadioButton) form.findViewById(R.id.rdoviza);
+        rdocrdit = (RadioButton) form.findViewById(R.id.rdocrdit);
         rdoAmt = (RadioButton) form.findViewById(R.id.rdoAmt);
         rdoPrecent.setChecked(true);
+        rdoviza.setChecked(true);
         et_Discount = (EditText) form.findViewById(R.id.et_Discount);
+        ed_bounse = (EditText) form.findViewById(R.id.ed_bounse);
         ed_Total = (EditText) form.findViewById(R.id.ed_Total);
         ed_AfterDiscount = (EditText) form.findViewById(R.id.ed_AfterDiscount);
 
@@ -130,6 +161,7 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
         btnSave = (Button) form.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(this);
         btn_Back = (Button) form.findViewById(R.id.btn_Back);
+        btnRcode = (Button) form.findViewById(R.id.btnRcode);
         btn_Back.setOnClickListener(this);
         rdoPrecent.setOnClickListener(this);
         rdoAmt.setOnClickListener(this);
@@ -289,7 +321,15 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
         });
 
 
+        btnRcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               /* CodeDisFrg exampleDialog = new CodeDisFrg();
+                exampleDialog.show(getFragmentManager(), "example dialog");*/
+                ShowCodePop();
+            }
 
+        });
 
 
 
@@ -336,7 +376,7 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
 
         String q= " select      ifnull(Cash_flg,'0') as Cash_flg ,  ifnull(Check_flg,'0') as Check_flg , ifnull(Visa_flg,'0') as Visa_flg , ifnull(Cash_Paid_Amt,'0') as Cash_Paid_Amt, ifnull(Cust_Amt_Paid,'0') as  Cust_Amt_Paid, ifnull(Remain_Amt,'0') as Remain_Amt , ifnull(Check_Paid_Amt,'0')  as Check_Paid_Amt" +
                             " , ifnull(Check_Paid_Date,'') as Check_Paid_Date,  ifnull(Check_Paid_Bank,'') as Check_Paid_Bank, ifnull(Check_Paid_Person,'') as Check_Paid_Person,  ifnull(Visa_Paid_Amt,'0') as Visa_Paid_Amt , ifnull(Visa_Paid_Expire_Date,'') as Visa_Paid_Expire_Date" +
-                            " , ifnull(Visa_Paid_Type,'0') as Visa_Paid_Type   , ifnull(Check_Number ,'0') as Check_Number " +
+                            " , ifnull(Visa_Paid_Type,'0') as Visa_Paid_Type   , ifnull(Check_Number ,'0') as Check_Number , ifnull(Card_Type ,'0') as Card_Type " +
                             " , ifnull( hdr_dis_per,'0') as hdr_dis_per ,ifnull(hdr_dis_value ,'0') as hdr_dis_value " +
                             " ,ifnull(hdr_dis_Type,'1') as hdr_dis_Type  , ifnull(TotalWithoutDiscount,'0') as TotalWithoutDiscount   from Sal_invoice_Hdr where OrderNo ='"+OrederNo+"'";
         try {
@@ -353,6 +393,14 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
         if (c.getString(c.getColumnIndex("Visa_flg")).equalsIgnoreCase("1")) {
             cbx_Visa.setChecked(true);
         }
+
+        if (c.getString(c.getColumnIndex("Card_Type")).equalsIgnoreCase("1")) {
+            rdoviza.setChecked(true);
+        }
+        if (c.getString(c.getColumnIndex("Card_Type")).equalsIgnoreCase("1")) {
+            rdocrdit.setChecked(true);
+        }
+
 
         Check_Paid_Bank =c.getString(c.getColumnIndex("Check_Paid_Bank"));
         ed_Cash_Paid_Amt.setText(SToD( c.getString(c.getColumnIndex("Cash_Paid_Amt")))+"");
@@ -599,8 +647,13 @@ private  void SetBank(String Check_Paid_Bank){
                 }else{
                     Print_Flg="0";
                 }
+                if (rdoviza.isChecked()){
+                    type_card="1";
+                }else{
+                    type_card="0";
+                }
             ((Pos_Activity) getActivity()).InsertDiscount(et_Discount.getText().toString(), DiscountMethod,cash,check,Visa, ed_Check_Paid_Amt.getText().toString(),ed_Visa_Paid_Amt.getText().toString(),ed_Cash_Paid_Amt.getText().toString(),ed_Cust_Amt_Paid.getText().toString(),ed_RemainAmt.getText().toString(),ed_Check_Date.getText().toString(), bankNo
-                          ,"",ed_Visa_Expire_Date.getText().toString(),ed_Visa_Number.getText().toString(),ed_Check_Number.getText().toString(),Print_Flg);
+                          ,"",ed_Visa_Expire_Date.getText().toString(),ed_Visa_Number.getText().toString(),ed_Check_Number.getText().toString(),Print_Flg,type_card);
                 this.dismiss();
             }
         } else if (v == rdoPrecent) {
@@ -645,6 +698,145 @@ private  void SetBank(String Check_Paid_Bank){
         }
 
         return valid;
+    }
+public void setdis()
+{
+    et_Discount = (EditText) form.findViewById(R.id.et_Discount);
+    ed_bounse = (EditText) form.findViewById(R.id.ed_bounse);
+    et_Discount.setText(GlobaleVar.dis);
+    ed_bounse.setText(GlobaleVar.bounse);
+   if(GlobaleVar.type_dis=="1")
+   {
+       cbx_Check.setChecked(true);
+   }
+   else
+   {
+       cbx_Cash.setChecked(true);
+   }
+
+}
+    private void ShowCodePop() {
+
+        final Dialog dialog = new Dialog(this.getActivity());
+        dialog.setContentView(R.layout.fragment_code_dis_frg);
+
+        dialog.setCancelable(true);
+        et_Input = (EditText) dialog.findViewById(R.id.et_Input);
+
+        Button Update = (Button) dialog.findViewById(R.id.Update);
+        Update.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Hacen Tunisia Lt.ttf"));
+        Update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        Button Show = (Button) dialog.findViewById(R.id.Show);
+        Show.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Hacen Tunisia Lt.ttf"));
+
+        Button Accept = (Button) dialog.findViewById(R.id.Accept);
+        Accept.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Hacen Tunisia Lt.ttf"));
+
+        Button btnCancel = (Button) dialog.findViewById(R.id.Cancel);
+         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+
+                    InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+
+                } catch (Exception e) {
+
+                }
+
+               /* EditText d = (EditText) form.findViewById(R.id.et_disc_per);
+                d.setFocusable(true);
+                d.setInputType(InputType.TYPE_NULL);*/
+                dialog.dismiss();
+            }
+        });
+        Show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RequstCodeFrq exampleDialog = new RequstCodeFrq();
+                exampleDialog.show(getFragmentManager(), "example dialog");
+            }
+        });
+        Accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                PopSavePosInvoice s =new PopSavePosInvoice();
+              /*  s.ed_bounse.setText(GlobaleVar.bounse);
+                s.et_Discount.setText(GlobaleVar.dis);*/
+
+                ed_bounse.setText(GlobaleVar.bounse);
+                et_Discount.setText(GlobaleVar.dis);
+
+                if(GlobaleVar.type_dis=="1")
+                {
+                    rdoPrecent.setChecked(true);
+                }
+                else
+                {
+                    rdoAmt.setChecked(true);
+                }
+                dialog.dismiss();
+            }
+        });
+        Update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressdialog = new ProgressDialog(getActivity());
+                progressdialog.setMessage("الرجاءالانتظار ");
+                progressdialog.show();
+                final Handler _handler = new Handler();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        CallWebServices ws = new CallWebServices(getActivity());
+                        ws.GetDisCount(sharedPreferences.getString("UserID", "") );
+                        try {
+                            Integer i;
+                            String q;
+                            JSONObject js = new JSONObject(We_Result.Msg);
+                            JSONArray BarCode = js.getJSONArray("BarCode");
+                            JSONArray Bounse = js.getJSONArray("Bounse");
+                            JSONArray dis = js.getJSONArray("dis");
+                            JSONArray Type_dis = js.getJSONArray("Type_dis");
+                             if( !(BarCode.get(0).toString().equals(""))) {
+                                 GlobaleVar.barcode = BarCode.get(0).toString();
+                                 GlobaleVar.bounse = Bounse.get(0).toString();
+                                 GlobaleVar.dis = dis.get(0).toString();
+                                 GlobaleVar.type_dis = Type_dis.get(0).toString();
+
+                             }
+                             else
+                             {
+                                 GlobaleVar.barcode = "";
+                                 GlobaleVar.bounse = "";
+                                 GlobaleVar.dis = "";
+                                 GlobaleVar.type_dis = "0";
+                             }
+
+
+
+                            _handler.post(new Runnable() {
+                                public void run() {
+                                    et_Input.setText(GlobaleVar.barcode);
+                                    progressdialog.dismiss();
+
+                                }
+                            });
+                        } catch (final Exception e) { progressdialog.dismiss();}}}).start();}});
+        dialog.show();
     }
 
 }

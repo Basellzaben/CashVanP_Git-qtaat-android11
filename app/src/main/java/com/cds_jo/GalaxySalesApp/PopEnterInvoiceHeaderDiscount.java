@@ -118,7 +118,7 @@ private  void GetDiscountInfo(){
 
          }
 
-         ed_Total.setText(c.getString(c.getColumnIndex("TotalWithoutDiscount")));
+      //   ed_Total.setText(c.getString(c.getColumnIndex("TotalWithoutDiscount")));
          c.close();
      }
     CalcDiscount();

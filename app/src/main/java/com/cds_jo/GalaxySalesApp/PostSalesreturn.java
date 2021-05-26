@@ -78,7 +78,7 @@ public class PostSalesreturn {
 
         final String str;
 
-        String query = "SELECT distinct acc,UserID as UserID , COALESCE(DocType,0) as DocType  , COALESCE(driverno,0) as driverno  ,   V_OrderNo,Orderno, acc,date,UserID, COALESCE(hdr_dis_per,0) as hdr_dis_per  , COALESCE(hdr_dis_value ,0) as  hdr_dis_value , COALESCE(Total ,0) as  Total , COALESCE(Net_Total ,0) as Net_Total , COALESCE( Tax_Total ,0) as Tax_Total , COALESCE(bounce_Total ,0) as bounce_Total , COALESCE( include_Tax ,0) as include_Tax" +
+        String query = "SELECT distinct acc,UserID as UserID , COALESCE(DocType,0) as DocType  , COALESCE(driverno,0) as driverno  , V_OrderNo , Orderno, acc,date,UserID, COALESCE(hdr_dis_per,0) as hdr_dis_per  , COALESCE(hdr_dis_value ,0) as  hdr_dis_value , COALESCE(Total ,0) as  Total , COALESCE(Net_Total ,0) as Net_Total , COALESCE( Tax_Total ,0) as Tax_Total , COALESCE(bounce_Total ,0) as bounce_Total , COALESCE( include_Tax ,0) as include_Tax, COALESCE(return_type,0) as return_type" +
                 " ,Nm ,COALESCE( disc_Total ,0) as  disc_Total   FROM Sal_return_Hdr" +
                 " where Orderno  ='" + OrderNo.toString() + "'";
 
@@ -94,11 +94,13 @@ public class PostSalesreturn {
                 jsonObject.put("Total", c1.getString(c1.getColumnIndex("Total")));
                 jsonObject.put("Net_Total", c1.getString(c1.getColumnIndex("Net_Total")));
                 jsonObject.put("Tax_Total", c1.getString(c1.getColumnIndex("Tax_Total")));
+                jsonObject.put("return_type", c1.getString(c1.getColumnIndex("return_type")));
                 jsonObject.put("bounce_Total", c1.getString(c1.getColumnIndex("bounce_Total")));
                 jsonObject.put("include_Tax", c1.getString(c1.getColumnIndex("include_Tax")));
                 jsonObject.put("CashCustNm", c1.getString(c1.getColumnIndex("Nm")));
                 jsonObject.put("V_OrderNo", c1.getString(c1.getColumnIndex("V_OrderNo")));
                 jsonObject.put("DocType", c1.getString(c1.getColumnIndex("DocType")));
+
 
             } catch (JSONException ex) {
                 Result= -1;

@@ -213,7 +213,7 @@ public class Select_Customer_Expetion extends DialogFragment implements View.OnC
                  customers.setNo(c.getString(c.getColumnIndex("no")));
                  customers.setAcc(c.getString(c.getColumnIndex("no")));
                  customers.setNm(c.getString(c.getColumnIndex("name")));
-                 customers.setLocation(c.getString(c.getColumnIndex("Location")));
+                 customers.setLocation(c.getString(c.getColumnIndex("Address")));
 
                  customersesList.add(customers);
 

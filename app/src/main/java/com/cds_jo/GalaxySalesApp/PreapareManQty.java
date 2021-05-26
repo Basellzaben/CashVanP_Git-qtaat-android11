@@ -557,7 +557,7 @@ public class PreapareManQty extends AppCompatActivity {
             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     View view = null;
-                    btn_print(view);
+                  //  btn_print(view);
                 }
             });
 
@@ -773,7 +773,7 @@ public class PreapareManQty extends AppCompatActivity {
         }
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("Cust_No", Cust_No.toString());
+            jsonObject.put("Cust_No", sharedPreferences.getString("UserID", ""));
             jsonObject.put("Date", Date.toString());
             jsonObject.put("UserID", sharedPreferences.getString("UserID", ""));
             jsonObject.put("OrderNo", pono.getText().toString());

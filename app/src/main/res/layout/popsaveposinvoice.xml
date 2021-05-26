@@ -117,6 +117,39 @@
                 android:layout_height="0dp"
                 android:layout_marginBottom="2dp"
                 android:layout_weight="1"
+                android:visibility="gone"
+                android:background="@drawable/blue_fill_white"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:weightSum="2">
+
+                <Methdes.MyTextView
+                    android:id="@+id/textView1741"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:background="@color/Gray3"
+                    android:gravity="center"
+                    android:text="البونص"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/ed_bounse"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_cir_white_fill_black"
+
+                    android:ems="10"
+                    android:gravity="center"
+                    android:textSize="18sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
                 android:background="@drawable/blue_fill_white"
                 android:orientation="horizontal"
                 android:padding="2dp"
@@ -195,8 +228,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="فيزا"
-                        android:textSize="18sp" />
+                        android:text="الائتمانية"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -482,7 +515,7 @@
 
 
                     <Methdes.MyTextView
-                        android:id="@+id/tv_Check_Date"
+                        android:id="@+id/tv_Check_Date1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.4"
@@ -499,7 +532,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:weightSum="3">
+                android:weightSum="4">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -514,11 +547,56 @@
                         android:layout_weight="1"
                         android:background="@color/Gray3"
                         android:gravity="center"
-                        android:text="معلومات الفيزا"
+                        android:text="معلومات بطاقة الائتمانية"
                         android:textColor="#000"
                         android:textSize="20sp" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_weight="0.7"
+                    android:background="@drawable/blue_fill_white"
+                    android:orientation="horizontal"
+                    android:padding="2dp"
+                    android:weightSum="2">
 
+                    <Methdes.MyTextView
+                        android:id="@+id/tv_type_card"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+                        android:background="@color/Gray3"
+                        android:gravity="center"
+                        android:text="نوع البطاقة"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="18sp" />
+
+                    <RadioGroup
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <RadioButton
+                            android:id="@+id/rdoviza"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="فيزا"
+                            android:textSize="18sp" />
+
+                        <RadioButton
+                            android:id="@+id/rdocrdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="ماستر "
+                            android:textSize="18sp" />
+                    </RadioGroup>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -537,7 +615,7 @@
                         android:layout_weight="0.7"
                         android:background="@color/Gray3"
                         android:gravity="center"
-                        android:text="قيمة الفيزا"
+                        android:text="قيمة البطاقة"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textSize="18sp" />
 
@@ -572,7 +650,7 @@
                         android:layout_weight="0.7"
                         android:background="@color/Gray3"
                         android:gravity="center"
-                        android:text="رقم الفيزا"
+                        android:text="رقم البطاقة"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textSize="18sp" />
 
@@ -631,7 +709,7 @@
         android:background="@drawable/blue_fill_white"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="4">
 
         <CheckBox
             android:id="@+id/chk_print"
@@ -663,7 +741,17 @@
             android:textColor="#fff"
             android:textSize="30sp"
             android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnRcode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/Blue"
+            android:text="طلب خصم"
+            android:textColor="#fff"
 
+            android:textSize="30sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

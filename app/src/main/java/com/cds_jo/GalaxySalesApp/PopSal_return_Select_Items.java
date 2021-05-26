@@ -433,7 +433,7 @@ public class PopSal_return_Select_Items extends DialogFragment implements View.O
                 min = Float.valueOf(o.getMin());
                 Weight.setText(o.getWeight().toString());
                 TotalWeight = o.getWeight().toString();
-
+get_min_price();
 
             }
 
@@ -478,10 +478,12 @@ public class PopSal_return_Select_Items extends DialogFragment implements View.O
 
 
                 Price.setError(null);
+
                 Price.clearFocus();
+                Price.setText(o.getPrice());
                 et_qty.setError(null);
                 tax.setError(null);
-                get_min_price();
+               get_min_price();
 
                 Do_Trans_Server_Data();
 
@@ -799,7 +801,7 @@ private  void fill_Bill_info_list(){
                         min_price = SToD(min_price.toString());
                         Custdis = SToD(c1.getString(c1.getColumnIndex("dis")));
                         Custdis = SToD(Custdis.toString());
-                        Custprice = SToD(c1.getString(c1.getColumnIndex("Price")));
+                        Custprice = SToD(Operand) * SToD(c1.getString(c1.getColumnIndex("Price")));
 
                         if (ComInfo.ComNo == 2) {
 
@@ -820,7 +822,8 @@ private  void fill_Bill_info_list(){
                 } else {
 
                     String LocalPrice = "0.0";
-                    LocalPrice = DB.GetValue(getActivity(), "UnitItems", "price", "item_no='" + ItemNo + "' And Min='1'");
+                   // LocalPrice = DB.GetValue(getActivity(), "UnitItems", "price", "item_no='" + ItemNo + "' And Min='1'");
+                    LocalPrice = DB.GetValue(getActivity(), "UnitItems", "price", "item_no='" + ItemNo + "' And unitno='"+UnitNo+"'");
                     Toast.makeText(getActivity(), "الفئة العميل غير معرفة :" + " " + String.valueOf(LocalPrice), Toast.LENGTH_SHORT).show();
                     min_price = SToD(LocalPrice.toString());
                     Custdis = SToD("0");
@@ -1116,6 +1119,7 @@ private  void fill_Bill_info_list(){
             Operand = o.getOperand().toString();
             min = Float.valueOf(o.getMin());
             Weight.setText(o.getWeight());
+         //   get_min_price();
         }
 
     }
@@ -1203,7 +1207,7 @@ private  void fill_Bill_info_list(){
             tax.setError(null);
 
 
-           // get_min_price();
+      get_min_price();
            /* if (Price.getText().toString().length() > 0 && SToD(Price.getText().toString().replaceAll("[^\\d.]", "")) > 0 && (SToD(Price.getText().toString()) < min_price)) {
 
                 AlertDialog alertDialog = new AlertDialog.Builder(
@@ -1353,7 +1357,7 @@ private  void fill_Bill_info_list(){
 
             if (getArguments().getString("Scr") == "Sal_return") {
 
-                    ((Sale_ReturnActivity) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString() , tax.getText().toString() , UnitNo, disc_per.getText().toString() , bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString() , Operand , Weight.getText().toString() ,Damaged,et_Note.getText().toString());
+                    ((Sale_ReturnActivity) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString() , tax.getText().toString() , UnitNo, disc_per.getText().toString() , bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString() , Operand , Weight.getText().toString() ,Damaged,et_Note.getText().toString(),et_Discount.getText().toString());
 
 
             }
