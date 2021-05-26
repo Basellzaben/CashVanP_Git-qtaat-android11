@@ -172,7 +172,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
                 Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
             }
 
-        et_Amt123 =(EditText) findViewById(R.id.et_Amt123);
+       // et_Amt123 =(EditText) findViewById(R.id.et_Amt123);
         lstView = (ListView) findViewById(R.id.lstCheck);
 
         ChecklList = new ArrayList<Cls_Check>();

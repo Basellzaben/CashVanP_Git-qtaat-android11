@@ -57,7 +57,7 @@ public class Acc_Report_D extends DialogFragment {
         //cls_acc_report =new cls_ACC_Report();
         list =new ArrayList<>();
         listView=(ListView) view.findViewById(R.id.LstvItems);
-        showD();
+   //     showD();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +69,7 @@ public class Acc_Report_D extends DialogFragment {
         return view;
     }
 
-    private void showD() {
+  /*  private void showD() {
 
             Thread thread = new Thread() {
                 @Override
@@ -125,6 +125,6 @@ public class Acc_Report_D extends DialogFragment {
             };
             thread.start();
 
-        }
+        }*/
 
     }
