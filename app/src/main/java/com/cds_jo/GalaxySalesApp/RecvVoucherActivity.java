@@ -61,6 +61,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
     SqlHandler sql_Handler;
     ListView lstView;
     TextView TrDate, CheckData;
+    EditText et_Amt123;
     public ProgressDialog loadingdialog;
     private Calendar calendar;
     private TextView dateView;
@@ -171,7 +172,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
                 Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
             }
 
-
+        et_Amt123 =(EditText) findViewById(R.id.et_Amt123);
         lstView = (ListView) findViewById(R.id.lstCheck);
 
         ChecklList = new ArrayList<Cls_Check>();
@@ -210,10 +211,10 @@ public class RecvVoucherActivity extends AppCompatActivity {
         CheckTotal.setEnabled(false);
         CheckTotal.setCursorVisible(false);
 
-        TextView et_Amt = (TextView) findViewById(R.id.et_Amt);
-        et_Amt.setFocusable(false);
-        et_Amt.setEnabled(false);
-        et_Amt.setCursorVisible(false);
+//        TextView et_Amt = (TextView) findViewById(R.id.et_Amt);
+//        et_Amt.setFocusable(false);
+//        et_Amt.setEnabled(false);
+//        et_Amt.setCursorVisible(false);
 
 
 
@@ -429,7 +430,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
         TextView CheckTotal = (TextView) findViewById(R.id.tv_CheckAmt);
        // custNm.setText("");
         //acc.setText("");
-        amt.setText("0");
+//        amt.setText("0");
         note.setText("");
         Cash.setText("");
         CheckTotal.setText("0");
@@ -732,17 +733,23 @@ try {
         }
         }
     public void btn_save_po(View view) { // Save Rec
-        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        TextView CheckTotal = (TextView) findViewById(R.id.tv_CheckAmt);
+        TextView et_Cash = (TextView) findViewById(R.id.et_Cash);
+        double amt1 = Double.parseDouble(et_Amt123.getText().toString());
+        double sumamt = Double.parseDouble(et_Cash.getText().toString()) + Double.parseDouble(CheckTotal.getText().toString());
+        if (amt1 == sumamt)
+        {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
         TextView custNm = (TextView) findViewById(R.id.tv_cusnm);
         TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
         TextView acc = (TextView) findViewById(R.id.tv_acc);
         TextView amt = (TextView) findViewById(R.id.et_Amt);
 
-        amt.setError(null);
+       amt.setError(null);
         custNm.setError(null);
         DocNo.setError(null);
-        if ( SToD(amt.getText().toString().replaceAll("[^\\d.]", "")) == 0) {
+        if (SToD(amt.getText().toString().replaceAll("[^\\d.]", "")) == 0) {
             amt.setError("required!");
             amt.requestFocus();
             return;
@@ -758,10 +765,11 @@ try {
             DocNo.setError("required!");
             DocNo.requestFocus();
             return;
-        }  amt.setError(null);
+        }
+        amt.setError(null);
         custNm.setError(null);
         DocNo.setError(null);
-        if ( SToD(amt.getText().toString().replaceAll("[^\\d.]", "")) == 0) {
+        if (SToD(amt.getText().toString().replaceAll("[^\\d.]", "")) == 0) {
             amt.setError("required!");
             amt.requestFocus();
             return;
@@ -783,28 +791,27 @@ try {
         ///////////////////////////////////////////////////
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String Count = sharedPreferences.getString("PayCount", "0");
-        String NumOfInvPerVisit   = DB.GetValue(RecvVoucherActivity.this, "ComanyInfo", "NumOfPayPerVisit", "1=1");
+        String NumOfInvPerVisit = DB.GetValue(RecvVoucherActivity.this, "ComanyInfo", "NumOfPayPerVisit", "1=1");
 
-        if(SToD (Count)>= SToD(NumOfInvPerVisit)){
-           alertDialog = new AlertDialog.Builder(
-                   this).create();
-           alertDialog.setTitle("سند القبض");
-           alertDialog.setMessage("يجب فتح جولة جديدة حتى تتمكن من تنفيذ هذ العملية");
-           alertDialog.setIcon(R.drawable.delete);
-           alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
-               public void onClick(DialogInterface dialog, int which) {
-               }
-           });
-          // alertDialog.show();
+        if (SToD(Count) >= SToD(NumOfInvPerVisit)) {
+            alertDialog = new AlertDialog.Builder(
+                    this).create();
+            alertDialog.setTitle("سند القبض");
+            alertDialog.setMessage("يجب فتح جولة جديدة حتى تتمكن من تنفيذ هذ العملية");
+            alertDialog.setIcon(R.drawable.delete);
+            alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            // alertDialog.show();
             //return;
-       }
+        }
         ///////////////////////////////////////////////////////
         Spinner VouchType = (Spinner) findViewById(R.id.sp_VouchType);
         Integer index = VouchType.getSelectedItemPosition();
         Cls_Cur v = (Cls_Cur) VouchType.getItemAtPosition(index);
 
-        if (ChecklList.size()>0 && v.getNo().toString().equals("1") )
-        {
+        if (ChecklList.size() > 0 && v.getNo().toString().equals("1")) {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -823,9 +830,7 @@ try {
         }
 
 
-
-        if (   v.getNo().toString().equals("1")  && ((SToD(Cash.getText().toString().replaceAll("[^\\d.]", "")) - SToD(amt.getText().toString().replaceAll("[^\\d.]", "")))!=0  ) )
-        {
+        if (v.getNo().toString().equals("1") && ((SToD(Cash.getText().toString().replaceAll("[^\\d.]", "")) - SToD(amt.getText().toString().replaceAll("[^\\d.]", ""))) != 0)) {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -843,9 +848,7 @@ try {
         }
 
 
-
-        if (ChecklList.size()==0 &&  (v.getNo().toString().equals("3")  || v.getNo().toString().equals("2")))
-        {
+        if (ChecklList.size() == 0 && (v.getNo().toString().equals("3") || v.getNo().toString().equals("2"))) {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -861,8 +864,7 @@ try {
             alertDialog.show();
             return;
         }
-             if ( (SToD( Cash.getText().toString()) > 0) && v.getNo().toString().equals("2"))
-             {
+        if ((SToD(Cash.getText().toString()) > 0) && v.getNo().toString().equals("2")) {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -879,15 +881,15 @@ try {
             return;
         }
 
-        Double sum = 0.0 ;
-        Double amount =SToD(amt.getText().toString().replaceAll("[^\\d.]", ""));
+        Double sum = 0.0;
+        Double amount = SToD(amt.getText().toString().replaceAll("[^\\d.]", ""));
         for (int x = 0; x < ChecklList.size(); x++) {
             Cls_Check cls_check_obj = new Cls_Check();
             cls_check_obj = ChecklList.get(x);
             sum = sum + SToD(cls_check_obj.getAmnt());
         }
 
-        if (  v.getNo().toString().equals("2")  && (sum + (SToD(Cash.getText().toString()))   !=  amount )  ) {
+        if (v.getNo().toString().equals("2") && (sum + (SToD(Cash.getText().toString())) != amount)) {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -905,16 +907,13 @@ try {
         }
 
 
-
-
-
-        if (  v.getNo().toString().equals("2")   ) {
-            if (   (SToD(amount.toString()) -  SToD(sum.toString())) != 0) {
+        if (v.getNo().toString().equals("2")) {
+            if ((SToD(amount.toString()) - SToD(sum.toString())) != 0) {
                 alertDialog = new AlertDialog.Builder(
                         this).create();
                 alertDialog.setTitle("سند القبض");
 
-                alertDialog.setMessage("الرجاء التاكد من قيمة الشيكات"  +"، مجموع الشيكات يجب ان يساوي "+ String.valueOf ( amount) );
+                alertDialog.setMessage("الرجاء التاكد من قيمة الشيكات" + "، مجموع الشيكات يجب ان يساوي " + String.valueOf(amount));
                 alertDialog.setIcon(R.drawable.delete);
 
                 alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
@@ -927,13 +926,13 @@ try {
             }
         }
 
-        if (  v.getNo().toString().equals("3")   ) {
-            if (amount<= sum ){
+        if (v.getNo().toString().equals("3")) {
+            if (amount <= sum) {
                 alertDialog = new AlertDialog.Builder(
                         this).create();
                 alertDialog.setTitle("سند القبض");
 
-                alertDialog.setMessage("الرجاء التاكد من قيمة الشيكات"  +  "  ، يجب ان تكون اقل من"+ String.valueOf ( amount) );
+                alertDialog.setMessage("الرجاء التاكد من قيمة الشيكات" + "  ، يجب ان تكون اقل من" + String.valueOf(amount));
                 alertDialog.setIcon(R.drawable.delete);
 
                 alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
@@ -951,22 +950,22 @@ try {
         SqlHandler sqlHandler;
         sqlHandler = new SqlHandler(this);
         String q = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd",Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
         String currentDateandTime = sdf.format(new Date());
 
-        q = "SELECT *  from  RecVoucher where   CustAcc  ='"+tv_acc.getText()+"'   AND   TrDate  ='" + currentDateandTime + "' " +
+        q = "SELECT *  from  RecVoucher where   CustAcc  ='" + tv_acc.getText() + "'   AND   TrDate  ='" + currentDateandTime + "' " +
                 " And   DocNo !='" + OrderNo.getText().toString() + "'";
 
-       Cursor c1 = sqlHandler.selectQuery(q);
+        Cursor c1 = sqlHandler.selectQuery(q);
         if (c1 != null && c1.getCount() > 0) {
-            Msg =   "يوجد سند قبض لهذا العميل في نفس هذا اليوم" + "\n\r";
+            Msg = "يوجد سند قبض لهذا العميل في نفس هذا اليوم" + "\n\r";
             c1.close();
 
         }
 
         AlertDialog.Builder alert_Dialog = new AlertDialog.Builder(this);
         alert_Dialog.setTitle("سند القبض");
-        alert_Dialog.setMessage(Msg+"  " +"هل  تريد الاستمرار بعملية الحفظ "  +"؟");
+        alert_Dialog.setMessage(Msg + "  " + "هل  تريد الاستمرار بعملية الحفظ " + "؟");
         alert_Dialog.setIcon(R.drawable.save);
         alert_Dialog.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -987,8 +986,13 @@ try {
 
         alert_Dialog.show();
 
-
     }
+        else
+        {
+                   Toast.makeText(RecvVoucherActivity.this,"هناك خطأ في أدخال المبلغ النقدي أو الشيكات",Toast.LENGTH_LONG).show();
+        }
+    }
+    //moh
     public void ShowRecord() {
         EditText OrderNo = (EditText) findViewById(R.id.et_OrdeNo);
         TextView amt = (TextView) findViewById(R.id.et_Amt);
@@ -1243,11 +1247,11 @@ try {
     }
     private  void CalcTotal(){
         TextView tv_CheckAmt = (TextView)findViewById(R.id.tv_CheckAmt);
-        TextView et_Amt = (TextView)findViewById(R.id.et_Amt);
+        EditText et_Amt = (EditText)findViewById(R.id.et_Amt);
         TextView et_Cash = (TextView)findViewById(R.id.et_Cash);
 
 
-        et_Amt.setText(String.valueOf( SToD(tv_CheckAmt.getText().toString().replaceAll("[^\\d.]", "")) + SToD(et_Cash.getText().toString().replaceAll("[^\\d.]", "")))  );
+       // et_Amt.setText(String.valueOf( SToD(tv_CheckAmt.getText().toString().replaceAll("[^\\d.]", "")) + SToD(et_Cash.getText().toString().replaceAll("[^\\d.]", "")))  );
 
     }
     public void btn_save_Check(View view) {

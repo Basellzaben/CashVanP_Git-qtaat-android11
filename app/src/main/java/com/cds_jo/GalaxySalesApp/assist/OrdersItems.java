@@ -3092,8 +3092,8 @@ public class OrdersItems extends FragmentActivity {
                                 chk_Cash.setEnabled(true);
                                 chk_Cash.setChecked(false);
 
-                            }
-                        });
+                    }
+                });
 
                     } else if (PostResult == -5) {
                         _handler.post(new Runnable() {
