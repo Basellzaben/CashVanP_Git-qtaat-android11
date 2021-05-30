@@ -112,10 +112,6 @@ ListView lst_Items ;
         final String currentDateandTime = sdf.format(new Date());
 
         Calendar cc = Calendar.getInstance();
-        final int dayOfWeek = cc.get(Calendar.DAY_OF_WEEK);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
                 try {
                     Integer i;
@@ -129,22 +125,22 @@ ListView lst_Items ;
                     SqlHandler sqlHandler = new SqlHandler(ManBalanceQtyActivity.this);
 
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ManBalanceQtyActivity.this);
-                    String u =  sharedPreferences.getString("UserID", "");
+                    String u = sharedPreferences.getString("UserID", "");
 
-                    if(AllowSalInvMinus==1){
+                    if (AllowSalInvMinus == 1) {
                         q = " Select distinct  ifnull(Unites.Unitno,0)as  Unitno,  ifnull(ms.ser,0) as ser, ifnull(ms.docno,0) as docno ,ifnull(ms.StoreName,0)  as StoreName, ifnull(invf.Item_No,0) as itemno  , ifnull(invf.Item_Name,0) as Item_Name" +
                                 ",ifnull(Unites.UnitName ,0)  as  UnitName ,ifnull(ms.qty,0) as qty   ,ifnull(ms.des,0)as des ,  ifnull(ms.date  ,0)as date" +
-                                "  from  invf left join ManStore  ms   on invf.Item_No =  ms.itemno    left join Unites on Unites.Unitno=  ms.UnitNo where  Item_Name  like '%"+ItemSearch+"%'";
+                                "  from  invf left join ManStore  ms   on invf.Item_No =  ms.itemno    left join Unites on Unites.Unitno=  ms.UnitNo where  Item_Name  like '%" + ItemSearch + "%'";
 
-                    }else {
+                    } else {
                         q = "Select distinct   ifnull(Unites.Unitno,0)as  Unitno, ms.ser, ms.docno ,ms.StoreName , ms.itemno , invf.Item_Name   ,Unites.UnitName     ,ms.qty  ,ms.des ,  ms.date " +
                                 "   from  ManStore  ms left join invf on invf.Item_No =  ms.itemno    left join Unites on Unites.Unitno=  ms.UnitNo " +
-                                " where Item_Name  like '%"+ItemSearch+"%'  and ms.SManNo ='" +u.toString()+"'";
+                                " where Item_Name  like '%" + ItemSearch + "%'  and ms.SManNo ='" + u.toString() + "'";
                     }
 
                     Double qty = 0.0;
-                    Double SaledQtyNotPosted = 0.0 ;
-                    Cursor c =  sqlHandler.selectQuery(q);
+                    Double SaledQtyNotPosted = 0.0;
+                    Cursor c = sqlHandler.selectQuery(q);
                     i = 0;
                     if (c != null && c.getCount() != 0) {
                         if (c.moveToFirst()) {
@@ -166,17 +162,17 @@ ListView lst_Items ;
                                         .getColumnIndex("UnitName")));
                                 SaledQtyNotPosted = GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")));
                                 cls_trans_qty.setQtySaled(SaledQtyNotPosted.toString());
-                                qty = ( (Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - SaledQtyNotPosted));
-                                SaledQtyNotPosted=0.0;
+                                qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - SaledQtyNotPosted));
+                                SaledQtyNotPosted = 0.0;
                                 cls_trans_qty.setQty((SToD(qty.toString())).toString());
 
 
                                 cls_trans_qty.setAct_Aty("0");
-                                if (qty<0) {
-                                    cls_trans_qty.setDiff(( (-1)*qty)+"");
+                                if (qty < 0) {
+                                    cls_trans_qty.setDiff(((-1) * qty) + "");
                                 }
 
-                                if (qty!=0){
+                                if (qty != 0) {
                                     cls_trans_qties.add(cls_trans_qty);
                                 }
                                 qty = 0.0;
@@ -190,24 +186,23 @@ ListView lst_Items ;
 //                                    progressDialog.dismiss();
 //                                }
 //
-                             i = i+1;
+                                i = i + 1;
 
                             } while (c.moveToNext());
 
                         }
                         c.close();
                     }
-                    _handler.post(new Runnable() {
-                        public void run() {
-                            Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
-                                    ManBalanceQtyActivity.this, cls_trans_qties);
-                            lst_Items.setAdapter(cls_trans_qty_adapter);
+
+                    Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
+                            ManBalanceQtyActivity.this, cls_trans_qties);
+                    lst_Items.setAdapter(cls_trans_qty_adapter);
+                   cls_trans_qty_adapter.notifyDataSetChanged();
+                }
 
 
 
 
-                        }
-                    });
 
 //                    final int total = i;
 //                    _handler.post(new Runnable() {
@@ -227,7 +222,7 @@ ListView lst_Items ;
 //
 //                        }
 //                    });
-                } catch (final Exception e) {
+                catch (final Exception e) {
 //                    progressDialog.dismiss();
 //                   _handler.post(new Runnable() {
 //                        public void run() {
@@ -244,8 +239,6 @@ ListView lst_Items ;
 //                        }
 //                    });
                 }
-            }
-        }).start();
 
 
 
