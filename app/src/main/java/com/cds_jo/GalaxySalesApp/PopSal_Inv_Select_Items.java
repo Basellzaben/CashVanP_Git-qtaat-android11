@@ -1548,7 +1548,8 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
             CalcDiscount();
             get_total();
             GetQtyPerc();
-        } else if (v == btn_Dec) {
+        }
+        else if (v == btn_Dec) {
             qty.setText((Double.parseDouble(qty.getText().toString().replaceAll("[^\\d.]", "")) - 1) + "");
             if (Double.parseDouble(qty.getText().toString().replaceAll("[^\\d.]", "")) < 1) {
                 qty.setText("1");

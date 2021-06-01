@@ -82,8 +82,6 @@ public class XPinter_Man_Balance_Qty extends FragmentActivity {
     private Context context;
     View ReportView;
 
-
-
     TextView tv_orderno ;
 
     ImageView img_Logo;
@@ -91,6 +89,8 @@ public class XPinter_Man_Balance_Qty extends FragmentActivity {
     String ShowTax = "0";
     Button btn_Save,btn_Clear,btn_Cancel;
     signature mSignature;
+
+
     Bitmap bitmap;
     LinearLayout mContent;
     View ViewNotes;

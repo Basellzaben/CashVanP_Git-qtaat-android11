@@ -61,13 +61,13 @@ import java.util.Locale;
 
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
+
     String str = "";
-    private static final int LASTUPDATE = 165;
+    private static final int LASTUPDATE = 169;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
     SqlHandler sqlHandler;
-
     boolean a;
     ArrayList<Cls_UpdateData> List_Result;
     ListView Lv_Result;
@@ -1724,6 +1724,8 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         sqlHandler = new SqlHandler(this);
         isFieldExist();
 
+
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         UserID = sharedPreferences.getString("UserID", "-1");
 
@@ -2199,6 +2201,13 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
     public void btn_Transfer_Data(View view) {
         List_Result.clear();
         Lv_Result.setAdapter(null);
+
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor2 = preferences.edit();
+        editor2.putString("update","1");
+        editor2.apply();
 
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

@@ -93,6 +93,7 @@ import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesInvoice;
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesOrder;
 import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
 import com.cds_jo.GalaxySalesApp.cls_Tab_Sales;
+import com.cds_jo.GalaxySalesApp.uptodate;
 import com.google.gson.Gson;
 //import com.sun.mail.imap.Quota;
 
@@ -119,6 +120,48 @@ import header.Header_Frag;
 import header.SimpleSideDrawer;
 
 public class Sale_InvoiceActivity extends AppCompatActivity implements  note_manFrg.ExampleDialogListener {
+
+
+public String getmaxN(){
+    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+    String u = sharedPreferences.getString("UserID", "");
+    EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
+    // query = "SELECT  ifnull(MAX(OrderNo), 0) +1 AS no FROM Sal_invoice_Hdr where  ifnull(doctype,'1')='"+DocType.toString()+"'  and     UserID ='" + u.toString() + "'";
+    query = "SELECT   COALESCE(MAX( cast(OrderNo as integer)), 0)  as  no FROM Sal_invoice_Hdr ";
+    Cursor c1 = sqlHandler.selectQuery(query);
+    String max = "0";
+
+    if (c1 != null && c1.getCount() != 0) {
+        c1.moveToFirst();
+        max = c1.getString(c1.getColumnIndex("no"));
+
+
+
+        c1.close();
+    }
+
+    String max1 = "0";
+
+
+    String q = " SELECT  COALESCE(MAX( cast(Sales as integer)), 0) as Sales   from OrdersSitting    ";
+    Cursor c = sqlHandler.selectQuery(q);
+    if (c != null && c.getCount() > 0) {
+        c.moveToFirst();
+        max1 = c.getString(c.getColumnIndex("Sales"));
+        c.close();
+    }
+    if (max1 == "") {
+        max1 = "0";
+    }
+
+    if (SToD(max1) > SToD(max)) {
+        max = max1;
+    }
+
+    return max;
+
+}
+
     TextView tv;
     RelativeLayout.LayoutParams lp;
     Drawable greenProgressbar;
@@ -166,6 +209,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
     EditText OrderNo ;
     String ServerDate, DeviceDate;
     Intent BackInt;
+    ImageButton update;
     TextView tv_NetTotal;
     MyTextView tv_HeaderDscount;
     double FinalDiscountpercent=0.0,FinalDiscountAmt ;
@@ -197,6 +241,9 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
 
     }
 
+
+
+
     private Double SToD(String str) {
         str=str .replaceAll("[^\\d.]", "");
         String f = "";
@@ -225,9 +272,15 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
 
     public void GetMaxPONo() {
          Maxpo1 = (EditText) findViewById(R.id.et_OrdeNo);
-/*
+//
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String update = preferences.getString("update", "0");
+
+       // Toast.makeText(this,update,Toast.LENGTH_LONG).show();
+
         final Handler _handler = new Handler();
-        if(GlobaleVar.per ==1)
+        if(update.equals("1"))
         {
             new Thread(new Runnable() {
                 @Override
@@ -248,8 +301,13 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
 
                         _handler.post(new Runnable() {
                             public void run() {
+                             //       Maxpo1.setText(intToString(Math.max(Integer.parseInt(getmaxN()),Integer.valueOf(Result)),7));
+                           if(Integer.parseInt(getmaxN())>=Integer.valueOf(Result))
+                                Maxpo1.setText(intToString(Integer.parseInt(getmaxN())+1,7));
+                        else
+                                Maxpo1.setText(intToString(Integer.valueOf(Result)+1,7));
 
-                                Maxpo1.setText(intToString(Integer.valueOf(Result), 7));
+
                             }
                         });
                     } catch (final Exception e) {
@@ -261,37 +319,29 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
 
 
         }else {
-*/
-
             try {
 
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
                 String u = sharedPreferences.getString("UserID", "");
                 EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
                 // query = "SELECT  ifnull(MAX(OrderNo), 0) +1 AS no FROM Sal_invoice_Hdr where  ifnull(doctype,'1')='"+DocType.toString()+"'  and     UserID ='" + u.toString() + "'";
-                query = "SELECT   COALESCE(MAX( cast(OrderNo as integer)+1), 0)  as  no FROM Sal_invoice_Hdr ";
+                 query = "SELECT   COALESCE(MAX( cast(OrderNo as integer))+1, 0)  as  no FROM Sal_invoice_Hdr ";
                 Cursor c1 = sqlHandler.selectQuery(query);
                 String max = "0";
 
                 if (c1 != null && c1.getCount() != 0) {
                     c1.moveToFirst();
                     max = c1.getString(c1.getColumnIndex("no"));
+
+
+
                     c1.close();
                 }
 
                 String max1 = "0";
-       /* if(ComInfo.DocType==1) {
-            tv_ScrTitle.setText("فاتورة المبيعات");
-         max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "Sales", "1=1");
-       }else if(ComInfo.DocType==2) {
-            tv_ScrTitle.setText(" إرجاع  المبيعات");
-            max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "RetSales", "1=1");
-        }else if(ComInfo.DocType==3) {
-        tv_ScrTitle.setText("سند تسليم بضاعة ");
-        max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "ReciveItemToCustomer", "1=1");
-    }*/
-                // max1 = sharedPreferences.getString("m1", "");
-                String q = " SELECT  COALESCE(MAX( cast(Sales as integer)+1), 0) as Sales   from OrdersSitting    ";
+
+
+                String q = " SELECT  COALESCE(MAX( cast(Sales as integer))+1, 0) as Sales   from OrdersSitting    ";
                 Cursor c = sqlHandler.selectQuery(q);
                 if (c != null && c.getCount() > 0) {
                     c.moveToFirst();
@@ -331,7 +381,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
             } catch (Exception rd) {
             }
        // }
-    }
+    }}
 
     public static String intToString(int num, int digits) {
         String output = Integer.toString(num);
@@ -386,10 +436,20 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
     android.support.v7.app.AlertDialog alertDialog2;
     EditText   et_OrdeNo;
     TextView tv_acc;
+
+
+    public void setmaxn(String maxn){
+        EditText et_OrdeNo=(EditText)findViewById(R.id.et_OrdeNo);
+        et_OrdeNo.setText(maxn);
+
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_sale__invoice);
+        update=(ImageButton)findViewById(R.id.update);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         this.setTitle(sharedPreferences.getString("CompanyNm", "") + "/" + sharedPreferences.getString("Address", ""));
@@ -478,6 +538,23 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
 
 
             });
+
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("maxn", et_OrdeNo.getText().toString());
+                bundle.putString("activit","activit1");
+
+                FragmentManager Manager = (Sale_InvoiceActivity.this).getFragmentManager();
+                uptodate popShowOffers = new uptodate();
+                popShowOffers.setArguments(bundle);
+                popShowOffers.show(Manager, null);
+            }
+
+
+        });
 
         //btn_Payment.setOnClickListener(new View.OnClickListener() {
 
@@ -873,6 +950,10 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
         chk_cus_name.setChecked(true);
           tv_acc = (TextView)findViewById(R.id.tv_acc);
 
+
+
+        clearList();
+
     }
     public  void InsertDiscount(String DiscountAmt , String DiscountType   ){
            double ItemWieght=0.0;
@@ -1128,7 +1209,16 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
             c1.close();   }
 
     }
-    private void showList() {
+
+
+
+
+
+    private void clearList() {
+
+        lvCustomList.setAdapter(null);
+    }
+        private void showList() {
 
         lvCustomList.setAdapter(null);
         Cls_Sal_Inv_Adapter contactListAdapter = new Cls_Sal_Inv_Adapter(
@@ -1731,6 +1821,12 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
         }
     }
     public void btn_save_po(final View view) {
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("update","0");
+        editor.apply();
 
         final TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
 
@@ -3220,7 +3316,7 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
         CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
         IsNew = true;
         IncludeTax_Flag.setChecked(true);
-        chk_Type.setChecked(false);
+        chk_Type.setChecked(true);
         chk_Type.setEnabled(true);
         chk_hdr_disc.setChecked(false);
         BalanceQtyTrans = false;
@@ -3253,6 +3349,9 @@ public class Sale_InvoiceActivity extends AppCompatActivity implements  note_man
 
         }
         tv_HeaderDscount.setText("0.0%");
+
+        clearList();
+
     }
     public void btn_back(View view) {
         //   RemoveAnmation();

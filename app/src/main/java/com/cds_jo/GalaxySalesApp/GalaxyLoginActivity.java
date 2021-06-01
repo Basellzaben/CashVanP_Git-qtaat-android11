@@ -43,7 +43,15 @@ public class GalaxyLoginActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_galaxy_login);
-         Initi();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor2 = preferences.edit();
+        editor2.putString("update","0");
+        editor2.apply();
+
+
+
+        Initi();
         ComInfo.ComNo = Integer.parseInt(DB.GetValue( this, "ComanyInfo", "CompanyID", "1=1"));
         hideSoftKeyboard();
         Login_Img.setOnClickListener(new View.OnClickListener() {

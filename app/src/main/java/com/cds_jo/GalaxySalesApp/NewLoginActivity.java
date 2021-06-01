@@ -93,6 +93,14 @@ public class NewLoginActivity extends FragmentActivity implements LoaderManager.
         //  setContentView(R.layout.activity_new_login);
         setContentView(R.layout.activity_galaxy_login);
 
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor2 = preferences.edit();
+        editor2.putString("update","0");
+        editor2.apply();
+
+
+
         hideSoftKeyboard();
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         // Set up the login form.

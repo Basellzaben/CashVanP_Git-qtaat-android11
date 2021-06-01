@@ -1,5 +1,6 @@
 package com.cds_jo.GalaxySalesApp.assist;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -140,9 +141,59 @@ public class OrdersItems extends FragmentActivity {
     String SCR_NO ="11003";
     EditText  et_OrdeNo ;
     TextView tv_acc   ;
+    EditText Maxpo;
+    String u="";
+
+    public String getmaxN(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String u = sharedPreferences.getString("UserID", "");
+        EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
+        // query = "SELECT  ifnull(MAX(OrderNo), 0) +1 AS no FROM Sal_invoice_Hdr where  ifnull(doctype,'1')='"+DocType.toString()+"'  and     UserID ='" + u.toString() + "'";
+        query = "SELECT   COALESCE(MAX( cast(OrderNo as integer)), 0)  as  no FROM Sal_invoice_Hdr ";
+        Cursor c1 = sqlHandler.selectQuery(query);
+        String max = "0";
+
+        if (c1 != null && c1.getCount() != 0) {
+            c1.moveToFirst();
+            max = c1.getString(c1.getColumnIndex("no"));
+
+
+
+            c1.close();
+        }
+
+        String max1 = "0";
+
+
+        String q = " SELECT  COALESCE(MAX( cast(Sales as integer)), 0) as Sales   from OrdersSitting    ";
+        Cursor c = sqlHandler.selectQuery(q);
+        if (c != null && c.getCount() > 0) {
+            c.moveToFirst();
+            max1 = c.getString(c.getColumnIndex("Sales"));
+            c.close();
+        }
+        if (max1 == "") {
+            max1 = "0";
+        }
+
+        if (SToD(max1) > SToD(max)) {
+            max = max1;
+        }
+
+        return max;
+
+    }
+
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_orders_items);
+
+
+
+
+
         try {
 
             setContentView(R.layout.activity_orders_items);
@@ -573,6 +624,18 @@ public class OrdersItems extends FragmentActivity {
                 obj.show(Manager, null);
 
             }
+
+
+
+            Bundle bundle = new Bundle();
+            bundle.putString("maxn", et_OrdeNo.getText().toString());
+            bundle.putString("activit","activit1");
+
+           /* FragmentManager Manager = (Sale_InvoiceActivity.this).getFragmentManager();
+            uptodate popShowOffers = new uptodate();
+            popShowOffers.setArguments(bundle);
+            popShowOffers.show(Manager, null);
+*/
             ServerDate = DB.GetValue(this, "ServerDateTime", "ServerDate", "1=1");
 
             sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
@@ -606,6 +669,124 @@ public class OrdersItems extends FragmentActivity {
 
         }
         NotifcationSitting();
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final String update = preferences.getString("update", "0");
+        final EditText  Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
+        u = preferences.getString("UserID", "");
+
+        final Handler _handler = new Handler();
+        if(update.equals("1"))
+        {
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    CallWebServices ws = new CallWebServices(OrdersItems.this);
+                    ws.GetMaxOrder1(Integer.parseInt(u), 1);
+                    try {
+                        Integer i;
+                        String q;
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray js_MaxOrder = js.getJSONArray("MaxOrder");
+
+                        Result = js_MaxOrder.get(0).toString();
+
+
+                        Maxpo.setText(intToString(Integer.valueOf(Result), 7));
+
+
+                        _handler.post(new Runnable() {
+                            public void run() {
+
+                                if(Integer.parseInt(getmaxN())>=Integer.valueOf(Result))
+                                    Maxpo.setText(intToString(Integer.parseInt(getmaxN())+1,7));
+                                else
+                                    Maxpo.setText(intToString(Integer.valueOf(Result)+1,7));
+
+                              //  Maxpo.setText(intToString(Integer.valueOf(Result), 7));
+                            }
+                        });
+                    } catch (final Exception e) {
+
+
+                    }
+                }
+            }).start();
+
+
+        }else {
+
+
+            try {
+
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                String u = sharedPreferences.getString("UserID", "");
+                // query = "SELECT  ifnull(MAX(OrderNo), 0) +1 AS no FROM Sal_invoice_Hdr where  ifnull(doctype,'1')='"+DocType.toString()+"'  and     UserID ='" + u.toString() + "'";
+                query = "SELECT   COALESCE(MAX( cast(OrderNo as integer)+1), 0)  as  no FROM Sal_invoice_Hdr ";
+                Cursor c1 = sqlHandler.selectQuery(query);
+                String max = "0";
+
+                if (c1 != null && c1.getCount() != 0) {
+                    c1.moveToFirst();
+                    max = c1.getString(c1.getColumnIndex("no"));
+                    c1.close();
+                }
+
+                String max1 = "0";
+       /* if(ComInfo.DocType==1) {
+            tv_ScrTitle.setText("فاتورة المبيعات");
+         max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "Sales", "1=1");
+       }else if(ComInfo.DocType==2) {
+            tv_ScrTitle.setText(" إرجاع  المبيعات");
+            max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "RetSales", "1=1");
+        }else if(ComInfo.DocType==3) {
+        tv_ScrTitle.setText("سند تسليم بضاعة ");
+        max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "ReciveItemToCustomer", "1=1");
+    }*/
+                // max1 = sharedPreferences.getString("m1", "");
+                String q = " SELECT  COALESCE(MAX( cast(Sales as integer)+1), 0) as Sales   from OrdersSitting    ";
+                Cursor c = sqlHandler.selectQuery(q);
+                if (c != null && c.getCount() > 0) {
+                    c.moveToFirst();
+                    max1 = c.getString(c.getColumnIndex("Sales"));
+                    c.close();
+                }
+                if (max1 == "") {
+                    max1 = "0";
+                }
+
+                if (SToD(max1) > SToD(max)) {
+                    max = max1;
+                }
+
+                if (max.length() == 1) {
+
+                    Maxpo.setText(intToString(Integer.valueOf(u), 2) + intToString(Integer.valueOf(max), 5));
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Scr", "po");
+                    bundle.putString("msg", "الرجاء الانتباه ، سيتم تخزين  الطلب برقم " + Maxpo.getText().toString());
+                    FragmentManager Manager = getFragmentManager();
+                    Pop_Confirm_Serial_From_Zero obj = new Pop_Confirm_Serial_From_Zero();
+                    obj.setArguments(bundle);
+                    obj.show(Manager, null);
+                } else {
+
+                    Maxpo.setText(intToString(Integer.valueOf(max), 7));
+                }
+                // max1 = DB.GetValue(Sale_InvoiceActivity.this, "OrdersSitting", "Sales", "1=1");
+                //Maxpo.setText(intToString(Integer.valueOf(max), 7));
+                Maxpo.setFocusable(false);
+                Maxpo.setEnabled(false);
+                Maxpo.setCursorVisible(false);
+
+
+                contactList.clear();
+            } catch (Exception rd) {
+            }
+            // }
+        }
+
 
     }
     public void NotifcationSitting() {
