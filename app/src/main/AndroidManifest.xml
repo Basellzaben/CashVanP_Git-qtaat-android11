@@ -43,6 +43,7 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".Delivery_VoucherAct"></activity>
         <activity android:name=".AbuHaltam.LoginHalitamNew"></activity>
         <activity android:name=".XPinter_Man_Balance_Qty"></activity>

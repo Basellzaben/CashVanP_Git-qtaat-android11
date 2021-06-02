@@ -1,30 +1,31 @@
 package com.cds_jo.GalaxySalesApp;
 
- import android.app.AlertDialog;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 
- import android.content.ComponentName;
- import android.content.ContentValues;
+import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
- import android.os.Bundle;
+import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 
- import android.support.v4.app.Fragment;
- import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
- import android.widget.DatePicker;
+import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -32,21 +33,30 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
- import com.cds_jo.GalaxySalesApp.PostTransActions.PostPayments;
- import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_RecVoucher;
- import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesInvoice;
- import com.cds_jo.GalaxySalesApp.assist.CheckAdapter;
+import com.cds_jo.GalaxySalesApp.PostTransActions.PostPayments;
+import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_RecVoucher;
+import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
+import com.cds_jo.GalaxySalesApp.assist.CheckAdapter;
 
 import com.cds_jo.GalaxySalesApp.assist.Cls_Check;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Cur;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Cur_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img;
 
- import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img_GoodSystem;
- import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img_Tab10;
- import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
+import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img_GoodSystem;
+import com.cds_jo.GalaxySalesApp.assist.Convert_RecVouch_To_Img_Tab10;
+import com.cds_jo.GalaxySalesApp.assist.Logtrans.InsertLogTrans;
+import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
+import com.cds_jo.GalaxySalesApp.assist.PrintReport_TSC;
+import com.cds_jo.GalaxySalesApp.assist.PrintReport_Zepra520;
+import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
+import com.google.gson.Gson;
 
- import java.text.DecimalFormat;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,14 +64,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
- import header.Header_Frag;
+import header.Header_Frag;
 
 public class RecvVoucherActivity extends AppCompatActivity {
     ImageButton CustSearch;
     SqlHandler sql_Handler;
     ListView lstView;
     TextView TrDate, CheckData;
-    EditText et_Amt123;
     public ProgressDialog loadingdialog;
     private Calendar calendar;
     private TextView dateView;
@@ -72,7 +81,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
     EditText et_OrdeNo;
     TextView tv_acc;
     ArrayList<Cls_Check> ChecklList;
-        Boolean IsNew;
+    Boolean IsNew;
     EditText  Cash ;
     public static final String CALCULATOR_PACKAGE ="com.android.calculator2";
     public static final String CALCULATOR_CLASS ="com.android.calculator2.Calculator";
@@ -164,15 +173,15 @@ public class RecvVoucherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            try {
-                setContentView(R.layout.view_recv_voucher_n);
+        try {
+            setContentView(R.layout.view_recv_voucher_n);
 
-            }
-            catch ( Exception ex ){
-                Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
-            }
+        }
+        catch ( Exception ex ){
+            Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
+        }
 
-       // et_Amt123 =(EditText) findViewById(R.id.et_Amt123);
+
         lstView = (ListView) findViewById(R.id.lstCheck);
 
         ChecklList = new ArrayList<Cls_Check>();
@@ -184,8 +193,8 @@ public class RecvVoucherActivity extends AppCompatActivity {
 
         Cash =(EditText)findViewById(R.id.et_Cash);
 
-            final Calendar c = Calendar.getInstance();
-            c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+        final Calendar c = Calendar.getInstance();
+        c.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 
         dateView = (TextView) findViewById(R.id.et_Date);
         calendar = Calendar.getInstance();
@@ -211,10 +220,10 @@ public class RecvVoucherActivity extends AppCompatActivity {
         CheckTotal.setEnabled(false);
         CheckTotal.setCursorVisible(false);
 
-//        TextView et_Amt = (TextView) findViewById(R.id.et_Amt);
-//        et_Amt.setFocusable(false);
-//        et_Amt.setEnabled(false);
-//        et_Amt.setCursorVisible(false);
+        TextView et_Amt = (TextView) findViewById(R.id.et_Amt);
+        et_Amt.setFocusable(false);
+        et_Amt.setEnabled(false);
+        et_Amt.setCursorVisible(false);
 
 
 
@@ -311,7 +320,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
         acc.setText(sharedPreferences.getString("CustNo", ""));
 
 
-       final TextView et_Cash =    (EditText)findViewById(R.id.et_Cash);
+        final TextView et_Cash =    (EditText)findViewById(R.id.et_Cash);
         et_Cash.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -413,7 +422,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
                 } while (c1.moveToNext());
 
             }
-       c1.close(); }
+            c1.close(); }
 
         Cls_Cur_Adapter cls_cur_adapter = new Cls_Cur_Adapter(
                 this, cls_curs);
@@ -428,9 +437,9 @@ public class RecvVoucherActivity extends AppCompatActivity {
         TextView amt = (TextView) findViewById(R.id.et_Amt);
         TextView note = (TextView) findViewById(R.id.et_notes);
         TextView CheckTotal = (TextView) findViewById(R.id.tv_CheckAmt);
-       // custNm.setText("");
+        // custNm.setText("");
         //acc.setText("");
-//        amt.setText("0");
+        amt.setText("0");
         note.setText("");
         Cash.setText("");
         CheckTotal.setText("0");
@@ -451,74 +460,80 @@ public class RecvVoucherActivity extends AppCompatActivity {
         ChecklList.clear();
     }
     public void btn_SearchCust(View v) {
-             Bundle bundle = new Bundle();
-            bundle.putString("Scr", "RecVoch");
-            FragmentManager Manager = getFragmentManager();
-            Select_Customer obj = new Select_Customer();
-            obj.setArguments(bundle);
-             obj.show(Manager, null);
+        Bundle bundle = new Bundle();
+        bundle.putString("Scr", "RecVoch");
+        FragmentManager Manager = getFragmentManager();
+        Select_Customer obj = new Select_Customer();
+        obj.setArguments(bundle);
+        obj.show(Manager, null);
 
     }
     public void GetMaxRecNo() {
-try {
-    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-    String Login = sharedPreferences.getString("Login", "No");
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-    String u = sharedPreferences.getString("UserID", "");
-    sql_Handler = new SqlHandler(this);
-    String query = "SELECT  ifnull(MAX(DocNo), 0) +1 AS no FROM RecVoucher   where UserID = '" + u.toString() + "'";
-    Cursor c1 = sql_Handler.selectQuery(query);
-    Integer max = 0;
-    EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
-    if (c1 != null && c1.getCount() != 0) {
-        c1.moveToFirst();
-        max = Integer.parseInt(c1.getString(c1.getColumnIndex("no")));
-        c1.close();
-    }
-    Integer max1 = 0;
-    String Payment_No;
-    try {
-        Payment_No = DB.GetValue(RecvVoucherActivity.this, "OrdersSitting", "Payment", "1=1");
+        String Login = sharedPreferences.getString("Login", "No");
+        if(Login.toString().equals("No")){
+            Intent i = new Intent(this,NewLoginActivity.class);
+            startActivity(i);
+        }
 
-        max1 = Integer.parseInt(Payment_No.toString());
-
-
-    } catch (Exception ex) {
-        Toast.makeText(this, ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
-        max1 = 0;
-    }
-
-    if (max1 <= 0) {
-        max1 = 0;
-    }
-
-    max1 = max1 + 1;
-    if (max1 > max) {
-        max = max1;
-    }
-
-    if (max.toString().length() == 1) {
-        Maxpo.setText(intToString(Integer.valueOf(u), 2) + intToString(Integer.valueOf(max), 5));
-
-    } else {
-
-        Maxpo.setText(intToString(Integer.valueOf(max), 7));
-
-    }
-    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.hideSoftInputFromWindow(Maxpo.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-    Maxpo.setFocusable(false);
-    Maxpo.setEnabled(false);
-    Maxpo.setCursorVisible(false);
+        String u =  sharedPreferences.getString("UserID", "").replaceAll("[^\\d.]", "");
+        sql_Handler = new SqlHandler(this);
+        String query = "SELECT  ifnull(MAX(DocNo), 0) +1 AS no FROM RecVoucher   where UserID = '"+u.toString().replaceAll("[^\\d.]", "")+"'";
+        Cursor c1 = sql_Handler.selectQuery(query);
+        Integer max =  0 ;
+        EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
+        if (c1 != null && c1.getCount() != 0) {
+            c1.moveToFirst();
+            max =Integer.parseInt(  c1.getString(c1.getColumnIndex("no")));
+            c1.close();
+        }
+        Integer max1=0;
+        String Payment_No;
+        try {
+            Payment_No = DB.GetValue(RecvVoucherActivity.this, "OrdersSitting", "Payment", "1=1");
+            Payment_No = Payment_No.replaceAll("[^\\d.]", "");
+            max1 = Integer.parseInt(Payment_No.toString());
 
 
-    // Maxpo.setKeyListener(null);
-    // Maxpo.setBackgroundColor(Color.TRANSPARENT);
+        }catch (Exception ex){
+            Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_SHORT).show();
+            max1=0;
+        }
+        //max1 = sharedPreferences.getString("m2", "");
+        if (max1<=0){
+            max1 =0;
+        }
 
-    DoNew();
-    showList();
-        }catch (Exception ex){}
+        max1 = max1 + 1;
+        if (max1 >  max )
+        {
+            max = max1 ;
+        }
+
+        if (max.toString().length()==1) {
+            Maxpo.setText(intToString(Integer.valueOf(u), 2) + intToString(Integer.valueOf(max), 5));
+
+        }
+        else {
+
+            Maxpo.setText(intToString(Integer.valueOf(max), 7)  );
+
+        }
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(Maxpo.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        Maxpo.setFocusable(false);
+        Maxpo.setEnabled(false);
+        Maxpo.setCursorVisible(false);
+
+
+        // Maxpo.setKeyListener(null);
+        // Maxpo.setBackgroundColor(Color.TRANSPARENT);
+
+        DoNew();
+        showList();
+
     }
     public static String intToString(int num, int digits) {
         String output = Integer.toString(num);
@@ -547,7 +562,7 @@ try {
         String query;
 
 
-       // query = "Delete from  RecVoucher  where DocNo ='" + DocNo.getText().toString() + "'";
+        // query = "Delete from  RecVoucher  where DocNo ='" + DocNo.getText().toString() + "'";
         //sql_Handler.executeQuery(query);
         Spinner sp_cur = (Spinner) findViewById(R.id.sp_cur);
 
@@ -556,7 +571,7 @@ try {
         Integer indexValue = sp_cur.getSelectedItemPosition();
         Cls_Cur o = (Cls_Cur) sp_cur.getItemAtPosition(indexValue);
 
-       if (Cash.getText().toString().length() == 0) {
+        if (Cash.getText().toString().length() == 0) {
             Cash.setText("0");
         }
 
@@ -600,20 +615,20 @@ try {
 
         }
         ContentValues cv = new ContentValues();
-        cv.put("DocNo", DocNo.getText().toString());
-        cv.put("CustAcc", acc.getText().toString());
-        cv.put("Amnt", amt.getText().toString());
-        cv.put("TrDate", Date.getText().toString());
-        cv.put("Desc", note.getText().toString());
-        cv.put("VouchType", v.getNo().toString());
-        cv.put("curno", o.getNo().toString());
-        cv.put("Cash", Cash.getText().toString());
-        cv.put("CheckTotal", CheckTotal.getText().toString());
+        cv.put("DocNo", DocNo.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("CustAcc", acc.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("Amnt", amt.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("TrDate", Date.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("Desc", note.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("VouchType", v.getNo().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("curno", o.getNo().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("Cash", Cash.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("CheckTotal", CheckTotal.getText().toString().replace("\u202c","").replace("\u202d",""));
         cv.put("Post","-1");
-        cv.put("Seq",Seq.toString());
-        cv.put("UserID", sharedPreferences.getString("UserID", ""));
-        cv.put("V_OrderNo",sharedPreferences.getString("V_OrderNo", "0"));
-        cv.put("DayNum",dayOfWeek+"".replace("\u202c",""));
+        cv.put("Seq",Seq.toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("UserID", sharedPreferences.getString("UserID", "").replace("\u202c","").replace("\u202d",""));
+        cv.put("V_OrderNo",sharedPreferences.getString("V_OrderNo", "0").replace("\u202c","").replace("\u202d",""));
+        cv.put("DayNum",dayOfWeek+"".replace("\u202c","").replace("\u202d",""));
         long i;
 
         if (IsNew==true) {
@@ -621,19 +636,19 @@ try {
         }
         else
         {
-             alertDialog = new AlertDialog.Builder(
+            alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
 
-                alertDialog.setMessage("لا يمكن التعديل على سند القبض");
-                alertDialog.setIcon(R.drawable.delete);
+            alertDialog.setMessage("لا يمكن التعديل على سند القبض");
+            alertDialog.setIcon(R.drawable.delete);
 
             alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
 
                 }
             });
-           alertDialog.show();
+            alertDialog.show();
             return;
 
         }
@@ -660,12 +675,13 @@ try {
 
         //sql_Handler.executeQuery(query);
 
-       final View view=null;
+        final View view=null;
         alertDialog = new AlertDialog.Builder(
                 this).create();
-      alertDialog.setTitle("سند القبض");
+        alertDialog.setTitle("سند القبض");
         if (i > 0) {
             InsertLogTrans obj=new InsertLogTrans(RecvVoucherActivity.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+
             alertDialog.setMessage(" تمت عملية الحفظ بنجاح");
             alertDialog.setIcon(R.drawable.tick);
            /* GetMaxRecNo();
@@ -676,20 +692,17 @@ try {
             Count = (SToD(Count)+1) + "";
             editor.putString("PayCount",Count);
             editor.commit();*/
-           IsNew = false;
-            DoShare();
-            UpDateMaxOrderNo();
+            IsNew = false;
 
         } else {
             alertDialog.setMessage("عملية الحفظ لم تتم ");
             alertDialog.setIcon(R.drawable.delete);
-            alertDialog.show();
         }
         // Setting OK Button
         alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
-               //  btn_print(view);
+                UpDateMaxOrderNo();
+                //  btn_print(view);
 
 
 
@@ -697,7 +710,7 @@ try {
         });
 
         // Showing Alert Message
-
+        alertDialog.show();
 
 
 
@@ -722,7 +735,7 @@ try {
                 c1.close();
             }
 
-             query = " Update OrdersSitting SET Payment ='" + max + "'";
+            query = " Update OrdersSitting SET Payment ='" + max + "'";
             sqlHandler.executeQuery(query);
      /*   SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("m2",max);
@@ -731,25 +744,19 @@ try {
         catch (Exception ex){
 
         }
-        }
+    }
     public void btn_save_po(View view) { // Save Rec
-        TextView CheckTotal = (TextView) findViewById(R.id.tv_CheckAmt);
-        TextView et_Cash = (TextView) findViewById(R.id.et_Cash);
-        double amt1 = Double.parseDouble(et_Amt123.getText().toString());
-        double sumamt = Double.parseDouble(et_Cash.getText().toString()) + Double.parseDouble(CheckTotal.getText().toString());
-        if (amt1 == sumamt)
-        {
-            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
         TextView custNm = (TextView) findViewById(R.id.tv_cusnm);
         TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
         TextView acc = (TextView) findViewById(R.id.tv_acc);
         TextView amt = (TextView) findViewById(R.id.et_Amt);
 
-       amt.setError(null);
+        amt.setError(null);
         custNm.setError(null);
         DocNo.setError(null);
-        if (SToD(amt.getText().toString().replaceAll("[^\\d.]", "")) == 0) {
+        if ( SToD(amt.getText().toString().replaceAll("[^\\d.]", "")) == 0) {
             amt.setError("required!");
             amt.requestFocus();
             return;
@@ -765,11 +772,10 @@ try {
             DocNo.setError("required!");
             DocNo.requestFocus();
             return;
-        }
-        amt.setError(null);
+        }  amt.setError(null);
         custNm.setError(null);
         DocNo.setError(null);
-        if (SToD(amt.getText().toString().replaceAll("[^\\d.]", "")) == 0) {
+        if ( SToD(amt.getText().toString().replaceAll("[^\\d.]", "")) == 0) {
             amt.setError("required!");
             amt.requestFocus();
             return;
@@ -791,9 +797,9 @@ try {
         ///////////////////////////////////////////////////
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String Count = sharedPreferences.getString("PayCount", "0");
-        String NumOfInvPerVisit = DB.GetValue(RecvVoucherActivity.this, "ComanyInfo", "NumOfPayPerVisit", "1=1");
+        String NumOfInvPerVisit   = DB.GetValue(RecvVoucherActivity.this, "ComanyInfo", "NumOfPayPerVisit", "1=1");
 
-        if (SToD(Count) >= SToD(NumOfInvPerVisit)) {
+        if(SToD (Count)>= SToD(NumOfInvPerVisit)){
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -811,7 +817,8 @@ try {
         Integer index = VouchType.getSelectedItemPosition();
         Cls_Cur v = (Cls_Cur) VouchType.getItemAtPosition(index);
 
-        if (ChecklList.size() > 0 && v.getNo().toString().equals("1")) {
+        if (ChecklList.size()>0 && v.getNo().toString().equals("1") )
+        {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -830,7 +837,9 @@ try {
         }
 
 
-        if (v.getNo().toString().equals("1") && ((SToD(Cash.getText().toString().replaceAll("[^\\d.]", "")) - SToD(amt.getText().toString().replaceAll("[^\\d.]", ""))) != 0)) {
+
+        if (   v.getNo().toString().equals("1")  && ((SToD(Cash.getText().toString().replaceAll("[^\\d.]", "")) - SToD(amt.getText().toString().replaceAll("[^\\d.]", "")))!=0  ) )
+        {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -848,7 +857,9 @@ try {
         }
 
 
-        if (ChecklList.size() == 0 && (v.getNo().toString().equals("3") || v.getNo().toString().equals("2"))) {
+
+        if (ChecklList.size()==0 &&  (v.getNo().toString().equals("3")  || v.getNo().toString().equals("2")))
+        {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -864,7 +875,8 @@ try {
             alertDialog.show();
             return;
         }
-        if ((SToD(Cash.getText().toString()) > 0) && v.getNo().toString().equals("2")) {
+        if ( (SToD( Cash.getText().toString()) > 0) && v.getNo().toString().equals("2"))
+        {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -881,15 +893,15 @@ try {
             return;
         }
 
-        Double sum = 0.0;
-        Double amount = SToD(amt.getText().toString().replaceAll("[^\\d.]", ""));
+        Double sum = 0.0 ;
+        Double amount =SToD(amt.getText().toString().replaceAll("[^\\d.]", ""));
         for (int x = 0; x < ChecklList.size(); x++) {
             Cls_Check cls_check_obj = new Cls_Check();
             cls_check_obj = ChecklList.get(x);
             sum = sum + SToD(cls_check_obj.getAmnt());
         }
 
-        if (v.getNo().toString().equals("2") && (sum + (SToD(Cash.getText().toString())) != amount)) {
+        if (  v.getNo().toString().equals("2")  && (sum + (SToD(Cash.getText().toString()))   !=  amount )  ) {
             alertDialog = new AlertDialog.Builder(
                     this).create();
             alertDialog.setTitle("سند القبض");
@@ -907,13 +919,16 @@ try {
         }
 
 
-        if (v.getNo().toString().equals("2")) {
-            if ((SToD(amount.toString()) - SToD(sum.toString())) != 0) {
+
+
+
+        if (  v.getNo().toString().equals("2")   ) {
+            if (   (SToD(amount.toString()) -  SToD(sum.toString())) != 0) {
                 alertDialog = new AlertDialog.Builder(
                         this).create();
                 alertDialog.setTitle("سند القبض");
 
-                alertDialog.setMessage("الرجاء التاكد من قيمة الشيكات" + "، مجموع الشيكات يجب ان يساوي " + String.valueOf(amount));
+                alertDialog.setMessage("الرجاء التاكد من قيمة الشيكات"  +"، مجموع الشيكات يجب ان يساوي "+ String.valueOf ( amount) );
                 alertDialog.setIcon(R.drawable.delete);
 
                 alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
@@ -926,13 +941,13 @@ try {
             }
         }
 
-        if (v.getNo().toString().equals("3")) {
-            if (amount <= sum) {
+        if (  v.getNo().toString().equals("3")   ) {
+            if (amount<= sum ){
                 alertDialog = new AlertDialog.Builder(
                         this).create();
                 alertDialog.setTitle("سند القبض");
 
-                alertDialog.setMessage("الرجاء التاكد من قيمة الشيكات" + "  ، يجب ان تكون اقل من" + String.valueOf(amount));
+                alertDialog.setMessage("الرجاء التاكد من قيمة الشيكات"  +  "  ، يجب ان تكون اقل من"+ String.valueOf ( amount) );
                 alertDialog.setIcon(R.drawable.delete);
 
                 alertDialog.setButton("نعم", new DialogInterface.OnClickListener() {
@@ -950,22 +965,22 @@ try {
         SqlHandler sqlHandler;
         sqlHandler = new SqlHandler(this);
         String q = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd",Locale.ENGLISH);
         String currentDateandTime = sdf.format(new Date());
 
-        q = "SELECT *  from  RecVoucher where   CustAcc  ='" + tv_acc.getText() + "'   AND   TrDate  ='" + currentDateandTime + "' " +
+        q = "SELECT *  from  RecVoucher where   CustAcc  ='"+tv_acc.getText()+"'   AND   TrDate  ='" + currentDateandTime + "' " +
                 " And   DocNo !='" + OrderNo.getText().toString() + "'";
 
         Cursor c1 = sqlHandler.selectQuery(q);
         if (c1 != null && c1.getCount() > 0) {
-            Msg = "يوجد سند قبض لهذا العميل في نفس هذا اليوم" + "\n\r";
+            Msg =   "يوجد سند قبض لهذا العميل في نفس هذا اليوم" + "\n\r";
             c1.close();
 
         }
 
         AlertDialog.Builder alert_Dialog = new AlertDialog.Builder(this);
         alert_Dialog.setTitle("سند القبض");
-        alert_Dialog.setMessage(Msg + "  " + "هل  تريد الاستمرار بعملية الحفظ " + "؟");
+        alert_Dialog.setMessage(Msg+"  " +"هل  تريد الاستمرار بعملية الحفظ "  +"؟");
         alert_Dialog.setIcon(R.drawable.save);
         alert_Dialog.setPositiveButton("نعم", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -986,13 +1001,8 @@ try {
 
         alert_Dialog.show();
 
+
     }
-        else
-        {
-                   Toast.makeText(RecvVoucherActivity.this,"هناك خطأ في أدخال المبلغ النقدي أو الشيكات",Toast.LENGTH_LONG).show();
-        }
-    }
-    //moh
     public void ShowRecord() {
         EditText OrderNo = (EditText) findViewById(R.id.et_OrdeNo);
         TextView amt = (TextView) findViewById(R.id.et_Amt);
@@ -1070,31 +1080,31 @@ try {
         CalcTotal();
     }
     private  Double SToD(String str){
-       String f = "";
-       final NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
-       final DecimalFormat df = (DecimalFormat)nf;
-       str = str.replace(",","");
-       Double d = 0.0;
-       if (str.length()==0) {
-           str = "0";
-       }
-       if (str.length()>0)
-           try {
-               d =  Double.parseDouble(str);
-               str = df.format(d).replace(",", "");
+        String f = "";
+        final NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
+        final DecimalFormat df = (DecimalFormat)nf;
+        str = str.replace(",","");
+        Double d = 0.0;
+        if (str.length()==0) {
+            str = "0";
+        }
+        if (str.length()>0)
+            try {
+                d =  Double.parseDouble(str);
+                str = df.format(d).replace(",", "");
 
-           }
-           catch (Exception ex)
-           {
-               str="0";
-           }
+            }
+            catch (Exception ex)
+            {
+                str="0";
+            }
 
-       df.setParseBigDecimal(true);
+        df.setParseBigDecimal(true);
 
         d = Double.valueOf(str.trim()).doubleValue();
 
-       return d;
-   }
+        return d;
+    }
     public void Set_Order(String No) {
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
         OrdeNo.setText(No);
@@ -1108,7 +1118,7 @@ try {
 
         sql_Handler = new SqlHandler(this);
 
-             String query = "delete from t_RecCheck ";
+        String query = "delete from t_RecCheck ";
         sql_Handler.executeQuery(query);
 
 
@@ -1117,7 +1127,7 @@ try {
         sql_Handler.executeQuery(query);
 
 
-         query = "Select  distinct rc.CheckNo,rc.CheckDate,rc.BankNo, rc.Amnt  , b.Bank from  RecCheck rc  left join banks b on b.bank_num = rc.BankNo where DocNo ='" + DocNo.getText().toString().replaceAll("[^\\d.]", "") + "'";
+        query = "Select  distinct rc.CheckNo,rc.CheckDate,rc.BankNo, rc.Amnt  , b.Bank from  RecCheck rc  left join banks b on b.bank_num = rc.BankNo where DocNo ='" + DocNo.getText().toString().replaceAll("[^\\d.]", "") + "'";
         Integer i = 1;
         Cursor c1 = sql_Handler.selectQuery(query);
         if (c1 != null && c1.getCount() != 0) {
@@ -1247,11 +1257,11 @@ try {
     }
     private  void CalcTotal(){
         TextView tv_CheckAmt = (TextView)findViewById(R.id.tv_CheckAmt);
-        EditText et_Amt = (EditText)findViewById(R.id.et_Amt);
+        TextView et_Amt = (TextView)findViewById(R.id.et_Amt);
         TextView et_Cash = (TextView)findViewById(R.id.et_Cash);
 
 
-       // et_Amt.setText(String.valueOf( SToD(tv_CheckAmt.getText().toString().replaceAll("[^\\d.]", "")) + SToD(et_Cash.getText().toString().replaceAll("[^\\d.]", "")))  );
+        et_Amt.setText(String.valueOf( SToD(tv_CheckAmt.getText().toString().replaceAll("[^\\d.]", "")) + SToD(et_Cash.getText().toString().replaceAll("[^\\d.]", "")))  );
 
     }
     public void btn_save_Check(View view) {
@@ -1351,7 +1361,7 @@ try {
     public void Delete_Record_PO() {
 
         TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
-       long i = 0 ;
+        long i = 0 ;
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -1366,7 +1376,7 @@ try {
             alertDialog.setIcon(R.drawable.tick);
         }
 
-          else
+        else
         {
             alertDialog.setMessage("عملية الحذف لم تتم بنجاح");
             alertDialog.setIcon(R.drawable.delete);
@@ -1397,7 +1407,7 @@ try {
         Intent k = new Intent(this, Convert_RecVouch_To_Img.class);
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
 
-         String q1 = "Select * From RecVoucher Where DocNo='"+ OrdeNo.getText().toString().replaceAll("[^\\d.]", "") +"'";
+        String q1 = "Select * From RecVoucher Where DocNo='"+ OrdeNo.getText().toString().replaceAll("[^\\d.]", "") +"'";
         Cursor c1 ;
         c1 =sql_Handler.selectQuery(q1);
 
@@ -1410,54 +1420,44 @@ try {
         }
 
 
-      if ( IsNew== true) {
-               AlertDialog alertDialog = new AlertDialog.Builder(
-                       this).create();
-               alertDialog.setTitle("سند قبض");
-               alertDialog.setMessage("يجب تخزين سند القبض اولاَ");
-               alertDialog.setIcon(R.drawable.delete);
-               alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int which) {
-                       return;
-                   }
-               });
-               alertDialog.show();
-              return;
+        if ( IsNew== true) {
+            AlertDialog alertDialog = new AlertDialog.Builder(
+                    this).create();
+            alertDialog.setTitle("سند قبض");
+            alertDialog.setMessage("يجب تخزين سند القبض اولاَ");
+            alertDialog.setIcon(R.drawable.delete);
+            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+            alertDialog.show();
+            return;
         }
 
         if (ComInfo.ComNo== Companies.Arabian.getValue()) {
-              k = new Intent(this, Convert_RecVouch_To_Img_Tab10.class);
+            k = new Intent(this, Convert_RecVouch_To_Img_Tab10.class);
         }
         else  if (ComInfo.ComNo== Companies.goodsystem.getValue()) {
             k = new Intent(this, Convert_RecVouch_To_Img_GoodSystem.class);
 
 
-        } else  if (ComInfo.ComNo== Companies.Saad.getValue()) {
-
-            k = new Intent(this, Convert_RecVouch_To_Img_Tab10.class);
-            k.putExtra("OrderNo", OrdeNo.getText().toString().replaceAll("[^\\d.]", ""));
-            startActivity(k);
         } else  if (ComInfo.ComNo== Companies.Ukrania.getValue()) {
 
-            k = new Intent(this, Convert_RecVouch_To_Img_Ipad.class);
+            k = new Intent(this, Xprinter_RecVoucher.class);
             k.putExtra("OrderNo", OrdeNo.getText().toString().replaceAll("[^\\d.]", ""));
             startActivity(k);
         }  else  if (ComInfo.ComNo== Companies.beutyLine.getValue()) {
-                k = new Intent(this, Convert_RecVouch_To_Img_Tab10.class);
+            k = new Intent(this, Convert_RecVouch_To_Img_Tab10.class);
 
-        }
-        else if (ComInfo.ComNo == Companies.Afrah.getValue()) {
-            //  k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity_Line.class);
-            k = new Intent(this, Xprinter_RecVoucher.class);
-        }
-        else {
-              k = new Intent(this, Convert_RecVouch_To_Img.class);
+        } else {
+            k = new Intent(this, Convert_RecVouch_To_Img.class);
 
         }
         k.putExtra("Scr", "Sale_Inv");
         k.putExtra("OrderNo", OrdeNo.getText().toString().replaceAll("[^\\d.]", ""));
         startActivity(k);
-       // btn_new(view);
+        btn_new(view);
 
     }
     public void btn_search_Recv(View view) {
@@ -1475,9 +1475,6 @@ try {
         DoNew();
     }
     public void btn_share(View view) {
-        DoShare();
-    }
-    private  void DoShare(){
         InsertLogTrans obj=new InsertLogTrans(RecvVoucherActivity.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
         if(IsNew==true){
@@ -1551,10 +1548,10 @@ try {
                                 });
                                 loadingdialog.dismiss();
                                 alertDialog.show();
-
-                               /* DoNew();
+                                alertDialog.show();
+                                DoNew();
                                 GetMaxRecNo();
-                                showList();*/
+                                showList();
                             }
                         });
                     } else {
@@ -1602,7 +1599,7 @@ try {
     }
     public void myClickHandler(View view) {
         lstView = (ListView) findViewById(R.id.lstCheck);
-          int position =lstView.getPositionForView(view);
+        int position =lstView.getPositionForView(view);
         ChecklList.remove(position);
 
         position =ChecklList.size();
@@ -1616,7 +1613,7 @@ try {
             ChecklList.add(x,obj);
 
         }
-     CheckAdapter checkAdapter = new CheckAdapter(
+        CheckAdapter checkAdapter = new CheckAdapter(
                 RecvVoucherActivity.this, ChecklList);
 
         lstView.setAdapter(checkAdapter);

@@ -1155,6 +1155,7 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
         sqlHandler = new SqlHandler(getActivity());
 
 
+
         Bundle bundle = this.getArguments();
         UpdateItem = (List<Cls_Sal_InvItems>) bundle.getSerializable("List");
 
