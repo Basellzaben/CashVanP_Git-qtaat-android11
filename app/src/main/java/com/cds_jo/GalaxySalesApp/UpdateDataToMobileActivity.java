@@ -63,7 +63,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
 
     String str = "";
-    private static final int LASTUPDATE = 169;
+    private static final int LASTUPDATE = 172;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
