@@ -2390,6 +2390,12 @@ public class OrdersItems extends FragmentActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+
+
+        sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+        DeviceDate = sdf.format(new Date());
+
+
         long i;
         ContentValues cv = new ContentValues();
         cv.put("orderno", pono.getText().toString().replace("\u202c","").replace("\u202d",""));
@@ -2545,7 +2551,8 @@ public class OrdersItems extends FragmentActivity {
         }
 
         if (i > 0) {
-
+            et_OrdeNo=(EditText) findViewById(R.id.et_OrdeNo);
+            tv_acc=(TextView) findViewById(R.id.tv_acc);
             if(IsNew== true){
                 InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
             }else{
