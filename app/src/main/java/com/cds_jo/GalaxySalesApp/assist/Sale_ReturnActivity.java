@@ -81,6 +81,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
     public ProgressDialog loadingdialog;
     Double Hdr_Dis_A_Amt, Hdr_Dis_Per;
     EditText hdr_Disc;
+    int po;
     CheckBox chk_hdr_disc;
     String query;
     String f;
@@ -1490,6 +1491,7 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
 
 
         menu.setHeaderTitle(contactList.get(position).getName());
+        po=position;
         menu.add(Menu.NONE, 1, Menu.NONE, "تعديل");
         menu.add(Menu.NONE, 2, Menu.NONE, "حذف");
     }
@@ -1660,6 +1662,8 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
                         //btn_new(view);
                     } else {
 
+
+
                         loadingdialog.dismiss();
                         _handler.post(new Runnable() {
                             public void run() {
@@ -1762,9 +1766,9 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
         DecimalFormat df = (DecimalFormat) nf;
 
         Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
-        contactListItems = contactList.get(position);
+        contactListItems = contactList.get(po);
         contactListItems.setno(ItemNo);
-        contactListItems.setName(ItemNm);
+        contactListItems.setName(contactListItems.getName());
         if (IncludeTax_Flag.isChecked()) {
             contactListItems.setprice(String.valueOf(Price / ((Tax / 100) + 1)));
         } else {
@@ -1793,7 +1797,7 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
         contactListItems.setDamaged(Damaged);
         contactListItems.setNote(Note);
-        contactList.add(contactListItems);
+       // contactList.add(contactListItems);
 
         CalcTotal();
         showList();

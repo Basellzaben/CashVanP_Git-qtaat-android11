@@ -1052,7 +1052,9 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
 
             c1.close();
         }
-        Res = Store_qty - Sal_Qty - Order_qty;
+        Double SumReturn;
+        SumReturn =Double.parseDouble( DB.GetValue(getActivity(),"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + ItemNo + "'"));
+        Res = Store_qty - Sal_Qty - Order_qty + SumReturn;
         if (Operand == null) {
             Operand = "1";
         }
@@ -1222,10 +1224,10 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
                 } else {
                     if (filter.getText().toString().equals("")) {
                         query = "Select   distinct invf.Item_No , invf.Item_Name,invf.Price, invf.tax   from invf  " +
-                                " inner join ManStore   on ManStore.itemno =   invf.Item_No And   CAST(  ifnull(ManStore.qty,0) as decimal)>0  where 1=1 ";
+                                " left join ManStore   on ManStore.itemno =   invf.Item_No And   CAST(  ifnull(ManStore.qty,0) as decimal)>0  where 1=1 ";
                     } else {
                         query = "Select distinct  invf.Item_No , invf.Item_Name,invf.Price, invf.tax from  invf " +
-                                " inner join ManStore   on ManStore.itemno =   invf.Item_No And   CAST(  ifnull(ManStore.qty,0) as decimal)>0  where Item_Name  like '%" + filter.getText().toString() + "%'  or  Item_No like '%" + filter.getText().toString() + "%'  ";
+                                " left join ManStore   on ManStore.itemno =   invf.Item_No And   CAST(  ifnull(ManStore.qty,0) as decimal)>0  where Item_Name  like '%" + filter.getText().toString() + "%'  or  Item_No like '%" + filter.getText().toString() + "%'  ";
                     }
                 }
 

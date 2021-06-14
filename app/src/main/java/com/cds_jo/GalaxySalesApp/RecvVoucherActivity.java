@@ -1450,7 +1450,12 @@ public class RecvVoucherActivity extends AppCompatActivity {
         }  else  if (ComInfo.ComNo== Companies.beutyLine.getValue()) {
             k = new Intent(this, Convert_RecVouch_To_Img_Tab10.class);
 
-        } else {
+        }
+        else  if (ComInfo.ComNo== Companies.Afrah.getValue()) {
+            k = new Intent(this, Xprinter_RecVoucher.class);
+
+        }
+        else {
             k = new Intent(this, Convert_RecVouch_To_Img.class);
 
         }
@@ -1549,9 +1554,9 @@ public class RecvVoucherActivity extends AppCompatActivity {
                                 loadingdialog.dismiss();
                                 alertDialog.show();
                                 alertDialog.show();
-                                DoNew();
-                                GetMaxRecNo();
-                                showList();
+                                //DoNew();
+                                //GetMaxRecNo();
+                                //showList();
                             }
                         });
                     } else {

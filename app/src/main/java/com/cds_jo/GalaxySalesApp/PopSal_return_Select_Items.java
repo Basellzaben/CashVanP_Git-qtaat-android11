@@ -48,6 +48,7 @@ import com.cds_jo.GalaxySalesApp.assist.Cls_Invf;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Invf_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems;
 import com.cds_jo.GalaxySalesApp.assist.Cls_UnitItems_Adapter;
+import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 
 import org.json.JSONArray;
@@ -1357,9 +1358,17 @@ private  void fill_Bill_info_list(){
 
             if (getArguments().getString("Scr") == "Sal_return") {
 
+                    //((Sale_ReturnActivity) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString() , tax.getText().toString() , UnitNo, disc_per.getText().toString() , bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString() , Operand , Weight.getText().toString() ,Damaged,et_Note.getText().toString(),et_Discount.getText().toString());
+
+                if (UpdateItem != null) {
+                    if (UpdateItem.size() > 0) {
+                        ((Sale_ReturnActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString() , tax.getText().toString() , UnitNo, tv_SelectedItem.getText().toString(), UnitName, disc_Amt.getText().toString() , Operand , Weight.getText().toString() ,Damaged,et_Note.getText().toString());
+                        this.dismiss();
+                    }
+                } else {
                     ((Sale_ReturnActivity) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString() , tax.getText().toString() , UnitNo, disc_per.getText().toString() , bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString() , Operand , Weight.getText().toString() ,Damaged,et_Note.getText().toString(),et_Discount.getText().toString());
 
-
+                }
             }
 
             try {

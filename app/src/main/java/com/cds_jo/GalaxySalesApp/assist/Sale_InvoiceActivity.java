@@ -2634,9 +2634,11 @@ public String getmaxN(){
                 c1.moveToFirst();
                 Store_qty = Double.parseDouble(c1.getString(c1.getColumnIndex("qty")));
             }
+//mohammad
 
         c1.close();
         }
+
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
         query = "SELECT    distinct    ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( ui.Operand,1))) ,0)  as Sal_Qty  from  Sal_invoice_Hdr  sih inner join Sal_invoice_Det sid on  sid.OrderNo = sih.OrderNo   and sid.doctype = sih.doctype " +
                 " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
@@ -2656,7 +2658,9 @@ public String getmaxN(){
 
         c1.close();
        }
-        if ((Store_qty - Sal_Qty - Order_qty) >= 0) {
+        Double SumReturn;
+        SumReturn =Double.parseDouble( DB.GetValue(this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + ItemNo + "'"));
+        if ((Store_qty - Sal_Qty - Order_qty +SumReturn) >= 0) {
             q = 1;
         } else {
             q = -1;
