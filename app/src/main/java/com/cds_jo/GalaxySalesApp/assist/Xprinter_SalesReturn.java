@@ -208,6 +208,15 @@ public class Xprinter_SalesReturn extends FragmentActivity {
         TextView OrderNo = (TextView) findViewById(R.id.tv_OrderNo);
         OrderNo.setText(getIntent().getStringExtra("OrderNo"));
 
+        TextView monetary = (TextView) findViewById(R.id.monetary);
+
+        String montype=getIntent().getStringExtra("monetary");
+        if(montype.equals("false"))
+        monetary.setText("غير نقدي");
+else
+            monetary.setText("نقدي");
+
+
 
         final BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.
                 getDefaultAdapter();

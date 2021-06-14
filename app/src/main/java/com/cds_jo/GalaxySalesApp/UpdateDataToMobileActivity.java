@@ -63,7 +63,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
 
     String str = "";
-    private static final int LASTUPDATE = 174;
+    private static final int LASTUPDATE = 176;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -974,6 +974,12 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         try {
             sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  CusLastTrans    " +
                     "( ID integer primary key autoincrement,Cust_No  text null,amt  text null ,doctype text null,V_Type text null , date text null , DayCount  text null   , Paymethod  text null    , DocTypeDesc  text null     )");
+        } catch (SQLException e) {
+        }
+
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_return_Hdr  Add  COLUMN  monetary  text null");
         } catch (SQLException e) {
         }
 

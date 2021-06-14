@@ -541,6 +541,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
         cv.put("bounce_Total", "0");
         cv.put("doctype", "2");
         cv.put("TotalWithoutDiscount", SToD(NetTotal.getText().toString()  ));
+        cv.put("monetary",String.valueOf(chk_Type.isChecked()));
 
         if (IncludeTax_Flag.isChecked()) {
             cv.put("include_Tax", "0");
@@ -1341,7 +1342,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
         FillAdapter();
         showList();
-        String q = " Select  distinct  ifnull( s.hdr_dis_per,'0')  as   hdr_dis_per, ifnull( s.hdr_dis_value,0) as hdr_dis_value ,s.Nm   ,s.include_Tax ,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , c.name,s.doctype , s.return_type " +
+        String q = " Select  distinct  ifnull( s.hdr_dis_per,'0')  as   hdr_dis_per, monetary , ifnull( s.hdr_dis_value,0) as hdr_dis_value ,s.Nm   ,s.include_Tax ,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , c.name,s.doctype , s.return_type " +
                 "    from  Sal_return_Hdr s   " +
                 "    left join Customers c on c.no =s.acc   " +
                 "    where     s.Orderno = '" + No + "'";
@@ -1371,7 +1372,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
                 accno.setText(c1.getString(c1.getColumnIndex("acc")));
                 tv_NetTotal.setText(c1.getString(c1.getColumnIndex("Net_Total")));
                 et_TotalTax.setText(c1.getString(c1.getColumnIndex("Tax_Total")));
-
+                chk_Type.setChecked(Boolean.getBoolean(c1.getString(c1.getColumnIndex("Tax_Total"))));
 
 
                 if (c1.getString(c1.getColumnIndex("include_Tax")).equals("0")) {
@@ -1407,6 +1408,8 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
         TextView et_TotalTax = (TextView) findViewById(R.id.et_TotalTax);
         TextView et_dis = (TextView) findViewById(R.id.et_dis);
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        CheckBox chk_Type=(CheckBox)findViewById(R.id.chk_Type);
+
         //TextView tv_OrderNo = (TextView) findViewById(R.id.tv_OrderNo);
             Intent k;
             k = new Intent(Sale_ReturnActivity.this, Xprinter_SalesReturn.class);
@@ -1415,7 +1418,8 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
        k.putExtra("total", etTotal.getText().toString().replace("\u202c","").replace("\u202d",""));
        k.putExtra("totaltax", et_TotalTax.getText().toString().replace("\u202c","").replace("\u202d",""));
        k.putExtra("totaldis", et_dis.getText().toString().replace("\u202c","").replace("\u202d",""));
-       k.putExtra("cusname", CustNm.getText().toString().replace("\u202c","").replace("\u202d",""));
+        k.putExtra("cusname", CustNm.getText().toString().replace("\u202c","").replace("\u202d",""));
+        k.putExtra("monetary", String.valueOf(chk_Type.isChecked()));
     //   k.putExtra("tOrderNo", tv_OrderNo.getText().toString().replace("\u202c","").replace("\u202d",""));
          startActivity(k);
 
