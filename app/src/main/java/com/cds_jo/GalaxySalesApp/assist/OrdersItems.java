@@ -181,7 +181,6 @@ public class OrdersItems extends FragmentActivity {
         }
 
         return max;
-
     }
 
 
@@ -189,10 +188,6 @@ public class OrdersItems extends FragmentActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders_items);
-
-
-
-
 
         try {
 
@@ -251,7 +246,7 @@ public class OrdersItems extends FragmentActivity {
             contactList = new ArrayList<ContactListItems>();
             contactList.clear();
 
-            showList(0);
+           // showList(0);
             CheckBox Tax_Include = (CheckBox) findViewById(R.id.chk_Tax_Include);
 
             chk_Cash = (CheckBox) findViewById(R.id.chk_Cash);
@@ -675,7 +670,8 @@ public class OrdersItems extends FragmentActivity {
         u = preferences.getString("UserID", "");
 
         final Handler _handler = new Handler();
-        if(update.equals("1"))
+        if(update.equals("0"))
+           // if(1==1)
         {
 
             new Thread(new Runnable() {
@@ -683,7 +679,7 @@ public class OrdersItems extends FragmentActivity {
                 public void run() {
 
                     CallWebServices ws = new CallWebServices(OrdersItems.this);
-                    ws.GetMaxOrder1(Integer.parseInt(u), 1);
+                    ws.GetMaxOrder1(Integer.parseInt(u), 2);
                     try {
                         Integer i;
                         String q;
@@ -716,7 +712,6 @@ public class OrdersItems extends FragmentActivity {
 
 
         }else {
-
 
             try {
 
@@ -785,8 +780,9 @@ public class OrdersItems extends FragmentActivity {
             } catch (Exception rd) {
             }
             // }
-        }
+            GetMaxPONo();
 
+        }
 
     }
     public void NotifcationSitting() {
@@ -1295,6 +1291,60 @@ public class OrdersItems extends FragmentActivity {
     public void GetMaxPONo() {
         Maxpo1 = (EditText) findViewById(R.id.et_OrdeNo);
         final Handler _handler = new Handler();
+
+        /*final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final String update = preferences.getString("update", "0");
+        final EditText  Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
+        u = preferences.getString("UserID", "");
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    CallWebServices ws = new CallWebServices(OrdersItems.this);
+                    ws.GetMaxOrder1(Integer.parseInt(u), 2);
+                    try {
+                        Integer i;
+                        String q;
+                        JSONObject js = new JSONObject(We_Result.Msg);
+                        JSONArray js_MaxOrder = js.getJSONArray("MaxOrder");
+
+                        Result = js_MaxOrder.get(0).toString();
+
+
+                        Maxpo.setText(intToString(Integer.valueOf(Result), 7));
+
+
+                        _handler.post(new Runnable() {
+                            public void run() {
+
+                                if(Integer.parseInt(getmaxN())>=Integer.valueOf(Result))
+                                    Maxpo.setText(intToString(Integer.parseInt(getmaxN())+1,7));
+                                else
+                                    Maxpo.setText(intToString(Integer.valueOf(Result)+1,7));
+
+                                //  Maxpo.setText(intToString(Integer.valueOf(Result), 7));
+                            }
+                        });
+                    } catch (final Exception e) {
+
+
+                    }
+                }
+            }).start();
+
+
+
+*/
+
+
+
+
+
+
+
+
+
      /*   if(GlobaleVar.per ==1)
         {
             new Thread(new Runnable() {
@@ -1375,6 +1425,7 @@ public class OrdersItems extends FragmentActivity {
                 Maxpo.setText(intToString(Integer.valueOf(max), 7));
 
             }
+
 
 
             Maxpo.setFocusable(false);

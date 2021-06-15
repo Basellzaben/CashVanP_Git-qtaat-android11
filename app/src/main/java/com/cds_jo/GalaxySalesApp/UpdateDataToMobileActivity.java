@@ -61,9 +61,8 @@ import java.util.Locale;
 
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
-
     String str = "";
-    private static final int LASTUPDATE = 176;
+    private static final int LASTUPDATE = 179;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -1633,6 +1632,14 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  OrderDesc  text null");
         } catch (SQLException e) {
         }
+
+
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  return_type  text null");
+        } catch (SQLException e) {
+        }
+
 
         try {
             sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  DeptDiscount    " +

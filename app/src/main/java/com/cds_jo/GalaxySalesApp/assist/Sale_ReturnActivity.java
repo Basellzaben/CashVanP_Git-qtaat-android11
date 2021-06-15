@@ -601,6 +601,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
 
                     if (i > 0) {
+                      //  Toast.makeText(Sale_ReturnActivity.this,"ok",Toast.LENGTH_LONG).show();
                         i = sqlHandler.Insert(this, "Sal_return_Det", null, cv);
                         if (i < 0) {
                             alertDialog.setTitle("  الرجاء تبليغ مسؤول النظام  للضرورة  " + contactListItems.getName().toString());
