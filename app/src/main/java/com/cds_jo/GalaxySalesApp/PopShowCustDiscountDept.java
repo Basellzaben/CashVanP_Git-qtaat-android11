@@ -82,6 +82,9 @@ private  void FillList1(String Gro_No){
          sqlHandler = new SqlHandler(getActivity());
         String query ="";
 
+
+
+        
           query = "  Select Distinct CustNo,From_Value,To_Value,Discount_Value,Notes FROM DeptDiscount " +
                   "  where  CustNo ='" +CustNo+"'";
 
@@ -99,11 +102,9 @@ private  void FillList1(String Gro_No){
                   obj.setDiscount_Value(c1.getString(c1.getColumnIndex("Discount_Value")));
                   obj.setNotes(c1.getString(c1.getColumnIndex("Notes")));
 
-
              ItemsList1.add(obj);
 
             } while (c1.moveToNext());
-
         }
         c1.close();
             }
@@ -112,7 +113,6 @@ private  void FillList1(String Gro_No){
             getActivity(), ItemsList1);
 
     Lst1.setAdapter(cls_unitItems_adapter);
-
 
 
 }

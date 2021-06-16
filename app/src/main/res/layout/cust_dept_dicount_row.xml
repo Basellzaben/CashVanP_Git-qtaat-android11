@@ -19,6 +19,7 @@
         android:textColor="#000"
         android:textSize="20sp" />
 
+
     <Methdes.MyTextView
         android:id="@+id/FromAmt"
         android:layout_width="0dp"
@@ -30,6 +31,7 @@
         android:textColor="#000"
         android:textIsSelectable="false"
         android:textSize="20sp" />
+
 
 
     <Methdes.MyTextView

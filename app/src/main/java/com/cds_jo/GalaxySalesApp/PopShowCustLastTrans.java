@@ -75,6 +75,13 @@ String   CustNo,CustNm;
 
         FillList1("");
         back.setOnClickListener(this);
+
+
+       // Toast.makeText(getActivity(),"back",Toast.LENGTH_LONG).show();
+
+       // Toast.makeText(getActivity(),)
+
+
       /*  Lst1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View argu, int position, long arg3) {
