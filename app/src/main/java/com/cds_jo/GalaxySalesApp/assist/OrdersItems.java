@@ -3177,6 +3177,8 @@ public class OrdersItems extends FragmentActivity {
             alertDialog.setIcon(R.drawable.tick);
             alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
+
+
                 }
             });
             alertDialog.show();
@@ -3211,7 +3213,6 @@ public class OrdersItems extends FragmentActivity {
     }
 
     public void Delete_Record_PO() {
-
         if (!obj.CheckAction(this, SCR_NO, SCR_ACTIONS.Delete.getValue())) {
             com.cds_jo.GalaxySalesApp.ViewDialog alert = new com.cds_jo.GalaxySalesApp.ViewDialog();
             alert.showDialog(OrdersItems.this, "نأسف أنت لا تملك صلاحية الحذف", "طلب البيع");
@@ -3225,12 +3226,10 @@ public class OrdersItems extends FragmentActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String currentDateandTime = sdf.format(new Date());
 
-
-        String query = "Delete from  Po_Hdr where orderno ='" + pono.getText().toString() + "'";
+         String query = "Delete from  Po_Hdr where orderno ='" + pono.getText().toString() + "'";
         sqlHandler.executeQuery(query);
 
-
-        query = "Delete from  Po_dtl where orderno ='" + pono.getText().toString() + "'";
+         query = "Delete from  Po_dtl where orderno ='" + pono.getText().toString() + "'";
         sqlHandler.executeQuery(query);
         contactList.clear();
         GetMaxPONo();
@@ -3320,6 +3319,7 @@ public class OrdersItems extends FragmentActivity {
                                 alertDialog.setMessage("تمت عملية اعتماد طلب البيع بنجاح" + We_Result.ID + "");
                                 alertDialog.setIcon(R.drawable.tick);
                                 alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+
                                     public void onClick(DialogInterface dialog, int which) {
                                     }
                                 });

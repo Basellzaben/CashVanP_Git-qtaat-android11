@@ -18,6 +18,9 @@ public class GalaxyMainActivity extends FragmentActivity {
     private RelativeLayout R_Back;
     private FloatingActionMenu actionMenu1,actionMenu2;
     private ImageView Img_Menu;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

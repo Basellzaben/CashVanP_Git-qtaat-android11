@@ -56,6 +56,7 @@ public class Convert_ManSummery_To_Img extends Fragment {
     View v;
     String currentDateandTime;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.convert_man_summery_to_img, container, false);

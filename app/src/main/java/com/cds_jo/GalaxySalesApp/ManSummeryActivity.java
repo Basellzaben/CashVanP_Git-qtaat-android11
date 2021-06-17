@@ -23,6 +23,10 @@ public class ManSummeryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_summery);
+
+
+
+
         // Creating The Toolbar and setting it as the Toolbar for the activity
 
       // toolbar = (Toolbar) findViewById(R.id.tool_bar);

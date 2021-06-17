@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_ManSummeryTo_img;
@@ -25,6 +26,7 @@ public class ManSummeryNew extends FragmentActivity {
     private Context context = ManSummeryNew.this;
     private MyTextView T1, T2, T3, T4, T5, T6;
     private Fragment frag;
+    Button b;
     private Xprinter_ManSummeryTo_img flag1;
     private android.support.v4.app.FragmentManager fragmentManager;
 
@@ -192,6 +194,28 @@ public class ManSummeryNew extends FragmentActivity {
 
         ////////////////////////////////////////////////////////////////////
 
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Intent k = new Intent(ManSummeryNew.this, JalMasterActivity.class);
+                startActivity(k);
+
+
+/*            if (ComInfo.ComNo == Companies.Ukrania.getValue()) {
+
+                }else{
+                frag = new Convert_ManSummery_To_Img();
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
+            }*/
+                //  }
+
+            }
+
+        });
+
+
         T6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,6 +258,7 @@ public class ManSummeryNew extends FragmentActivity {
     }
 
     private void Initi() {
+         b=(Button)findViewById(R.id.back);
         T1 = (MyTextView) findViewById(R.id.T1);
         T2 = (MyTextView) findViewById(R.id.T2);
         T3 = (MyTextView) findViewById(R.id.T3);
