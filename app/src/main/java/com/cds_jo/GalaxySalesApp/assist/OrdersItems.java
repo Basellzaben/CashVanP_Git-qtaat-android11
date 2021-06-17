@@ -3306,7 +3306,7 @@ public class OrdersItems extends FragmentActivity {
             public void run() {
                 PostSalesOrder obj = new PostSalesOrder(OrdersItems.this);
                 PostResult = obj.Post_Purch_Order(DocNo);
-                Toast.makeText(OrdersItems.this,String.valueOf(PostResult),Toast.LENGTH_LONG).show();
+//                Toast.makeText(OrdersItems.this,String.valueOf(PostResult),Toast.LENGTH_LONG).show();
                 try {
 
 
