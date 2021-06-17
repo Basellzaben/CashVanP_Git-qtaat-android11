@@ -534,10 +534,10 @@ public class OrdersItems extends FragmentActivity {
             });
 
             if (ComInfo.ComNo == 2) {
-                Tax_Include.setChecked(false);
+                Tax_Include.setChecked(true);
             }
             if (ComInfo.ComNo == 4  ) {
-                Tax_Include.setChecked(false);
+                Tax_Include.setChecked(true);
                 Tax_Include.setVisibility(View.INVISIBLE);
                 chk_Cash.setVisibility(View.INVISIBLE);
             }
@@ -654,13 +654,13 @@ public class OrdersItems extends FragmentActivity {
 
             }
 
-            et_OrdeNo =(EditText)findViewById(R.id.et_OrdeNo);
+            EditText et_OrdeNo =(EditText)findViewById(R.id.et_OrdeNo);
             tv_acc =(TextView)findViewById(R.id.tv_acc);
 
-            InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.open.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+          //  InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.open.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
         } catch (Exception ex) {
-            Toast.makeText(this, ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
 
         }
         NotifcationSitting();
@@ -1927,7 +1927,7 @@ public class OrdersItems extends FragmentActivity {
 
         sqlHandler = new SqlHandler(this);
 
-        Tax_Include.setChecked(false);
+        Tax_Include.setChecked(true);
         String query = "  select   Distinct *  from Po_Hdr  where orderno ='" + Order_no.getText().toString().replaceAll("[^\\d.]", "") + "'";
         Cursor c1 = sqlHandler.selectQuery(query);
         if (c1 != null && c1.getCount() != 0) {
@@ -3306,7 +3306,10 @@ public class OrdersItems extends FragmentActivity {
             public void run() {
                 PostSalesOrder obj = new PostSalesOrder(OrdersItems.this);
                 PostResult = obj.Post_Purch_Order(DocNo);
+                Toast.makeText(OrdersItems.this,String.valueOf(PostResult),Toast.LENGTH_LONG).show();
                 try {
+
+
 
                     if (PostResult > 0) {
                         _handler.post(new Runnable() {

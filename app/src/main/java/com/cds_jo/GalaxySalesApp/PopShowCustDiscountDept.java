@@ -31,12 +31,11 @@ public class PopShowCustDiscountDept extends DialogFragment implements View.OnCl
     ListView Lst1 ;
     ArrayList<Cls_DeptDiscount> ItemsList1 ;
 
-String   CustNo,CustNm;
+String CustNo,CustNm;
     @Override
     public void onStart()
     {
         super.onStart();
-
 
         if (getDialog() == null)
             return;
@@ -60,6 +59,8 @@ String   CustNo,CustNm;
         getDialog().setTitle("فئات خصم العميل ");
         ItemsList1 = new ArrayList<Cls_DeptDiscount>();
 
+
+
         back = (Button)form.findViewById(R.id.button42);
         Lst1 = (ListView)form.findViewById(R.id.Lst1);
 
@@ -82,9 +83,6 @@ private  void FillList1(String Gro_No){
          sqlHandler = new SqlHandler(getActivity());
         String query ="";
 
-
-
-        
           query = "  Select Distinct CustNo,From_Value,To_Value,Discount_Value,Notes FROM DeptDiscount " +
                   "  where  CustNo ='" +CustNo+"'";
 
