@@ -283,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
             address = mGPSService.getLocationAddress();
 
+
            /* Geocoder gcd = new Geocoder(getBaseContext(), Locale.getDefault());
             List<Address> addresses;
             try {
@@ -300,10 +301,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             int precision = (int) Math.pow(10, 6);
             //tv_x.setText(String.format("%.4f", latitude, Locale.US));
 
-            try {
-           /* tv_x.setText(String.valueOf(latitude).substring(0, String.valueOf(latitude).indexOf(".") + 7));
+          /*  try {
+           *//* tv_x.setText(String.valueOf(latitude).substring(0, String.valueOf(latitude).indexOf(".") + 7));
             tv_y.setText(String.valueOf(longitude).substring(0, String.valueOf(longitude).indexOf(".") + 7));
-*/
+*//*
                 //         tv_x.setText(String.valueOf(latitude));
 //                tv_y.setText(String.valueOf(longitude));
 
@@ -311,7 +312,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             } catch (Exception ex) {
                 tv_x.setText("0.0");
                 tv_y.setText("0.0");
-            }
+            }*/
             tv_x.setText(String.valueOf(latitude));
             tv_y.setText(String.valueOf(longitude));
             tv_Loc.setText(address);

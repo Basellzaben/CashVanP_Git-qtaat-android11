@@ -118,7 +118,9 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
         registerReceiver(netReciever,new IntentFilter(Xprinter_ManSummeryTo_img.DISCONNECT));
         Tiny.getInstance().init(getApplication());
 
+
         BTCon= (Button) findViewById(R.id.btn_Print);
+
         Button   back= (Button) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +129,7 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
                 startActivity(k);
             }
         });
+
         BTCon.setBackgroundColor(getResources().getColor(R.color.Blue));
         BTCon.setTextColor(Color.WHITE);
         BTCon.setOnClickListener(new View.OnClickListener() {
