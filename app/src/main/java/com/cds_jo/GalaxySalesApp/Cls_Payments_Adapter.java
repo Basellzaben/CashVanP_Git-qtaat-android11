@@ -54,6 +54,7 @@ public class Cls_Payments_Adapter extends BaseAdapter {
         LinearLayout RR=(LinearLayout)convertView.findViewById(R.id.RR1);
 
         MyTextView tv_DocNo = (MyTextView) convertView.findViewById(R.id.tv_DocNo);
+
         tv_DocNo.setText(cls_searchRecVou.getDocNo());
 
         MyTextView tv_date = (MyTextView) convertView.findViewById(R.id.tv_date);
@@ -73,6 +74,8 @@ public class Cls_Payments_Adapter extends BaseAdapter {
 
         MyTextView tv_type = (MyTextView) convertView.findViewById(R.id.tv_type);
 
+        MyTextView tv_mony = (MyTextView) convertView.findViewById(R.id.tv_mony);
+        tv_mony.setText(cls_searchRecVou.getCheck());
 
 
 

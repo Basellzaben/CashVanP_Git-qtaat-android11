@@ -155,9 +155,16 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
         MyTextView tv_CompName = (MyTextView)  findViewById(R.id.tv_CompName);
         tv_CompName.setText(sharedPreferences.getString("CompanyNm", ""));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        currentDateandTime =preferences.getString("spinnerdateselected", "");
+
+
+        /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
         currentDateandTime = sdf.format(new Date());
+       */
         ed_date.setText(" التاريـخ  : " + currentDateandTime);
+
 
         TextView tv_SalesCount = (TextView)  findViewById(R.id.tv_SalesCount);
         TextView tv_PayCashCount = (TextView) findViewById(R.id.tv_PayCashCount);

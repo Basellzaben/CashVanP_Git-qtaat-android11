@@ -74,6 +74,37 @@
                     android:textColor="#fff" />
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_marginTop="2dp"
+                android:layout_width="700dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+               >
+
+
+            <EditText
+
+                android:layout_margin="5dp"
+                android:id="@+id/dateedit"
+                android:layout_width="400dp"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:background="#D3D3D3"
+                android:layout_height="50dp"
+              />
+
+                <Methdes.MyTextView
+                 android:layout_margin="5dp"
+                android:layout_width="150dp"
+                    android:textSize="25dp"
+                android:layout_height="wrap_content"
+                android:text="الـــتاريخ"
+                android:textColor="#000" />
+
+            </LinearLayout>
+
         </RelativeLayout>
 
         <LinearLayout
@@ -81,7 +112,9 @@
             android:layout_height="80dp"
             android:background="@color/Gray2"
             android:orientation="horizontal"
-            android:weightSum="7">
+            android:weightSum="8">
+
+
 
 
 
@@ -139,6 +172,23 @@
                     android:textSize="19sp" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <Methdes.MyTextView
+                    android:id="@+id/T8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/blue_fill_white"
+                    android:gravity="center"
+                    android:text="مرتجع المبيعات"
+                    android:textColor="@color/Blue"
+                    android:textSize="19sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"

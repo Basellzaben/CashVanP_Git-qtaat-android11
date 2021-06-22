@@ -102,7 +102,6 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
 
 
 
-
     SwipeMenuCreator creator;
 
     SimpleDateFormat sdf;
@@ -117,6 +116,11 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
         sqlHandler = new SqlHandler(this);
        //     sqlHandler.executeQuery("delete from CustLocaltions");
         ed_Acc = (TextView) findViewById(R.id.ed_Acc);
+
+
+        ed_Acc.setText(sharedPreferences.getString("CustNm", ""));
+
+
         Records = new ArrayList<CustLocaltions>();
         Records.clear();
 

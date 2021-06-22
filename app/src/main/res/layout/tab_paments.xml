@@ -22,7 +22,7 @@
             android:orientation="horizontal"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:weightSum="7">
+            android:weightSum="9">
 
 
             <Methdes.MyTextView
@@ -30,7 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="1dp"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:background="@color/Black11"
                 android:gravity="center"
                 android:text="رقم الطلب"
@@ -44,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:background="@color/Black11"
                 android:gravity="center"
                 android:text="رقم العميل"
@@ -58,7 +58,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
-                android:layout_weight="1.4"
+                android:layout_weight="1"
                 android:background="@color/Black11"
                 android:gravity="center"
                 android:text="اسم العميل"
@@ -66,13 +66,13 @@
                 android:textColor="#fff"
                 android:textSize="20dp" />
 
-            <Methdes.MyTextView
+                       <Methdes.MyTextView
                 android:id="@+id/textView220"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:background="@color/Black11"
                 android:gravity="center"
                 android:paddingRight="10dp"
@@ -80,13 +80,16 @@
                 android:textColor="#fff"
                 android:textSize="20dp" />
 
+
+
+
             <Methdes.MyTextView
                 android:id="@+id/textView221"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:background="@color/Black11"
                 android:gravity="center"
                 android:paddingRight="5dp"
@@ -94,13 +97,14 @@
                 android:textColor="#fff"
                 android:textSize="20dp" />
 
+
             <Methdes.MyTextView
                 android:id="@+id/textView222"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:background="@color/Black11"
                 android:gravity="center"
                 android:paddingRight="5dp"
@@ -109,12 +113,27 @@
                 android:textSize="20dp" />
 
             <Methdes.MyTextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_weight="1"
+                android:background="@color/Black11"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:text="التاريخ"
+                android:textColor="#fff"
+                android:textSize="20dp" />
+
+
+            <Methdes.MyTextView
                 android:id="@+id/myTextView"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
-                android:layout_weight=".8"
+                android:layout_weight="1"
                 android:background="@color/Black11"
                 android:gravity="center"
                 android:text="حالة القبض"
@@ -127,7 +146,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="1dp"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:background="@color/Black11"
                 android:gravity="center"
                 android:paddingRight="5dp"
