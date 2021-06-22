@@ -74,6 +74,7 @@ public class SqlHandler {
 
 
     }
+
     public long  Insert(String Table , String Col,ContentValues contentValues  ) {
         long i = -1 ;
         try {
