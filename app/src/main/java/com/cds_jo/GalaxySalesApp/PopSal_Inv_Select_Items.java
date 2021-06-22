@@ -733,7 +733,7 @@ p=position;
         GetCodeForCustomer();
         return form;
     }
-
+//mon
     public void EnbledPrice() {
 
         final EditText et_price = (EditText) form.findViewById(R.id.et_price);
