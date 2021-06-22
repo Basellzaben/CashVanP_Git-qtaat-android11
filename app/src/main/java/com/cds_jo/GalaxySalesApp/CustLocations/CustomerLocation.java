@@ -123,7 +123,7 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
 
 
 
-
+//sds
 
         ed_Acc.setText(sharedPreferences.getString("CustNo", ""));
 
