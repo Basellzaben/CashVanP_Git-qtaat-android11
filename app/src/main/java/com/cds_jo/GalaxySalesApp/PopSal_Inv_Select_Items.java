@@ -99,8 +99,9 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
     String UnitName = "";
     String str = "";
     RadioButton rad_Per;
+    int p;
     RadioButton rad_Amt;
-    CheckBox chk_EnableDis, chkEnbledPrice;
+    CheckBox chk_EnableDis, chkEnbledPrice,chkEnbledItem;
     List<Cls_Sal_InvItems> UpdateItem;
     int AllowSalInvMinus;
     EditText input, Weight, Price;
@@ -191,6 +192,7 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
         LinearLayout LytDis = (LinearLayout) form.findViewById(R.id.LytDis);
 
         chkEnbledPrice = (CheckBox) form.findViewById(R.id.chkEnbledPrice);
+        chkEnbledItem = (CheckBox) form.findViewById(R.id.chkEnbledItem);
         //chkEnbledPrice.setVisibility(View.INVISIBLE);
         add = (Button) form.findViewById(R.id.btn_add_item);
         add.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Hacen Tunisia Lt.ttf"));
@@ -333,6 +335,73 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
                                                       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                                           if (chkEnbledPrice.isChecked()) {
                                                               EnbledPrice();
+                                                          }
+                                                      }
+                                                  }
+
+        );        chkEnbledItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                                                      @Override
+                                                      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                          EditText bo = (EditText) form.findViewById(R.id.et_bo);
+                                                          if (chkEnbledItem.isChecked()) {
+                                                              btn_Inc.setEnabled(false);
+                                                              btn_Dec.setEnabled(false);
+                                                              bo.setEnabled(true);
+                                                              bo.setText("1");
+                                                              EditText et_qty = (EditText) form.findViewById(R.id.et_qty);
+                                                              EditText et_totl = (EditText) form.findViewById(R.id.et_totl);
+                                                              et_qty.setEnabled(false);
+                                                              Price.setEnabled(false);
+                                                              et_totl.setEnabled(false);
+                                                              et_qty.setText("0");
+                                                              Price.setText("0");
+                                                              et_totl.setText("0");
+                                                          }
+                                                          else
+                                                          {
+                                                              Double Qty = 0.0;
+
+                                                              NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+                                                              DecimalFormat df = (DecimalFormat) nf;
+
+                                                              Cls_Invf o = (Cls_Invf) items_Lsit.getItemAtPosition(p);
+                                                              Manpassword = "";
+
+                                                              EditText et_Discount = (EditText) form.findViewById(R.id.et_Discount);
+
+                                                              EditText et_qty = (EditText) form.findViewById(R.id.et_qty);
+                                                              EditText et_totl = (EditText) form.findViewById(R.id.et_totl);
+                                                              et_totl.setError(null);
+                                                              et_qty.setText("1");
+                                                              et_qty.clearFocus();
+                                                              et_Discount.setText("");
+
+//rad_Amt.setChecked(true);//Here
+//Price.setText(df.format(Double.valueOf( o.getPrice())).toString());
+                                                              EditText tax = (EditText) form.findViewById(R.id.et_tax);
+                                                              tax.setText(o.getTax().toString());
+
+
+                                                              str = (String) o.getItem_Name();
+
+
+                                                              getDialog().setTitle(str);
+                                                              tv_SelectedItem.setText(str);
+                                                              fillUnit(o.getItem_No().toString());
+                                                              ItemNo = o.getItem_No().toString();
+
+
+                                                              btn_Inc.setEnabled(true);
+                                                              btn_Dec.setEnabled(true);
+                                                              Price.setError(null);
+                                                              Price.clearFocus();
+                                                              et_qty.setError(null);
+                                                              tax.setError(null);
+                                                              get_min_price();
+                                                              checkStoreQty();
+                                                              Price.setEnabled(false);
+
                                                           }
                                                       }
                                                   }
@@ -557,7 +626,7 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
                 arg1.setBackgroundColor(Color.GRAY);
                 NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
                 DecimalFormat df = (DecimalFormat) nf;
-
+p=position;
                 Cls_Invf o = (Cls_Invf) items_Lsit.getItemAtPosition(position);
                 Manpassword = "";
 
@@ -1718,11 +1787,13 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                     }
                 }
             } else {
-
+                if(!(chkEnbledItem.isChecked()))
+                {
                 if (SToD(net_total.getText().toString()) <= 0) {
                     net_total.setError("الرجاء ادخال القيمة");
                     net_total.requestFocus();
                     return;
+                }
                 }
 
                 if (SToD(qty.getText().toString()) >= 9000) {
