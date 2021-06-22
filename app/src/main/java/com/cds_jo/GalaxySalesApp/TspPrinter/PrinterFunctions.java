@@ -2440,7 +2440,7 @@ public class PrinterFunctions {
 		String paddingCharacter = " ";
 		return 	StringUtils.leftPad(string, maxPadLength, paddingCharacter);
 	}
-	public static void PrintPos(Context context, String portName, String portSettings, String commandType, Resources res, String strPrintArea, RasterCommand rasterType,String CustName , String ManNm,String Total, ArrayList<Cls_Sal_InvItems> contactList ,String OrdeNo ) {
+	public static void PrintPos(Context context, String portName, String portSettings, String commandType, Resources res, String strPrintArea, RasterCommand rasterType,String CustName , String ManNm,String Total, ArrayList<Cls_Sal_InvItems> contactList ,String OrdeNo,String Note ) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 		String BPrinter_MAC_ID = sharedPreferences.getString("AddressBT", "");
 		//	Toast.makeText(context, "|"+pad("fd",10)  ,Toast.LENGTH_SHORT).show();
@@ -2566,6 +2566,10 @@ public class PrinterFunctions {
 		textToPrint=textToPrint+" : "+Paymethod + "\r\n" ;
 		list.add(createRasterCommand(textToPrint, 14, Typeface.BOLD, rasterType));
 
+		textToPrint="\t\t\t\t\t" + "رقم الضريبي" ;
+		textToPrint=textToPrint+" : "+sharedPreferences.getString("TaxAcc1", "") + "\r\n" ;
+		list.add(createRasterCommand(textToPrint, 14, Typeface.BOLD, rasterType));
+
 
 
 		list.add(createRasterCommand(Date, 15, Typeface.BOLD, rasterType));
@@ -2577,6 +2581,10 @@ public class PrinterFunctions {
 
 		textToPrint="المندوب" ;
 		textToPrint=textToPrint+" : "+ManNm+"\r\n";
+		list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
+
+		textToPrint="الملاحظات" ;
+		textToPrint=textToPrint+" : "+Note+"\r\n";
 		list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
 
 		textToPrint="السعر"+"\t"+"   الكمية"+"\t"+" الوحدة  "+"\t"+"المجموع"+"\t"+"الضريبة"+"\t"+"الإجمالي";

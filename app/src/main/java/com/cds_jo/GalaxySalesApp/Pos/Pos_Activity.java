@@ -869,7 +869,12 @@ GlobaleVar.tvtotal="";
         String cash_bill;
         cash_bill= DB.GetValue(this,"ComanyInfo","Acc_Cash","1=1");
         tv_acc.setText(cash_bill);
-        tv_cusnm.setText("حساب نقدي");
+        if(ComInfo.ComNo== Companies.Sector.getValue()) {
+            tv_cusnm.setText("صندوق محل المقطع الذهبي");}
+        else
+        {
+            tv_cusnm.setText("حساب نقدي");
+        }
         tv_BarcodeValue.setVisibility(View.VISIBLE);
         tv_BarcodeValue.setRawInputType(InputType.TYPE_NULL);
         tv_BarcodeValue.setFocusable(true);
@@ -1974,7 +1979,13 @@ GlobaleVar.tvtotal="";
                 {
                  String   cash_bill= DB.GetValue(Pos_Activity.this,"ComanyInfo","Acc_Cash","1=1");
                     tv_acc.setText(cash_bill);
-                    tv_cusnm.setText("حساب نقدي");
+                    if(ComInfo.ComNo== Companies.Sector.getValue()) {
+                    tv_cusnm.setText("صندوق محل المقطع الذهبي");}
+                    else
+                        {
+                            tv_cusnm.setText("حساب نقدي");
+                        }
+
                 }
                 else
                 {
@@ -2890,7 +2901,7 @@ GlobaleVar.tvtotal="";
                 "   Post <= 0 AND   OrderNo ='" + OrderNo.getText().toString().trim() + "'";
 
         Cursor c1 = sqlHandler.selectQuery(q);
-        if (c1 != null && c1.getCount() != 0) {
+   /*     if (c1 != null && c1.getCount() != 0) {
             new SweetAlertDialog(Pos_Activity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                     .setTitleText("فاتورة المبيعات")
                     .setContentText("لا يمكن الطباعة الا بعد الاعتماد")
@@ -2899,15 +2910,15 @@ GlobaleVar.tvtotal="";
 
             c1.close();
             return;
-        }
+        }*/
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
         Intent k;
-        k = new Intent(this, Print_POS_Activity.class);
+      /*  k = new Intent(this, Print_POS_Activity.class);
         k.putExtra("OrderNo", OrdeNo.getText().toString()  );
         k.putExtra("ShowTax", "1");
         k.putExtra("name", "1");
-
+*/
          String portName ="";// PrinterTypeActivity.getPortName();
         String portSettings = "";
 
@@ -2916,7 +2927,7 @@ GlobaleVar.tvtotal="";
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String UserName =  sharedPreferences.getString("UserName", "");
         try {
-         // PrinterFunctions.PrintPos(this, portName, portSettings, "Line", getResources(),  "3inch (80mm)", rasterType,CustNm.getText().toString(),UserName,tv_NetTotal.getText().toString(),contactList,OrdeNo.getText().toString());
+          PrinterFunctions.PrintPos(this, portName, portSettings, "Line", getResources(),  "3inch (80mm)", rasterType,CustNm.getText().toString(),UserName,tv_NetTotal.getText().toString(),contactList,OrdeNo.getText().toString(),ed_OrderNotes.getText().toString());
 
 /*
 
@@ -3010,7 +3021,9 @@ GlobaleVar.tvtotal="";
 
 
       }
-        catch (Exception ex){}
+        catch (Exception ex){
+            Toast.makeText(Pos_Activity.this,ex.getMessage(),Toast.LENGTH_LONG).show();
+        }
 
     }
     public static String Center1(String str  ) {
