@@ -31,6 +31,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
+import com.cds_jo.GalaxySalesApp.DB;
 import com.cds_jo.GalaxySalesApp.GPSService;
 import com.cds_jo.GalaxySalesApp.JalMasterActivity;
 import com.cds_jo.GalaxySalesApp.R;
@@ -118,13 +120,35 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
         ed_Acc = (TextView) findViewById(R.id.ed_Acc);
 
 
-        ed_Acc.setText(sharedPreferences.getString("CustNm", ""));
+
+
+
+
+
+        ed_Acc.setText(sharedPreferences.getString("CustNo", ""));
 
 
         Records = new ArrayList<CustLocaltions>();
         Records.clear();
 
         ed_CusName = (EditText) findViewById(R.id.ed_CusName);
+        ed_CusName.setText(sharedPreferences.getString("CustNm", ""));
+        LinearLayout save=(LinearLayout)findViewById(R.id.save);
+
+
+        String location= DB.GetValue(getApplicationContext(),"Customers","Latitude","no='"+ed_Acc.getText().toString().trim()+"'");
+
+        if(!(location.equals("-1")|| location.equals("")))
+        {
+            save.setVisibility(View.GONE);
+
+            //save.setVisibility(View.GONE);
+        }else{
+            save.setVisibility(View.VISIBLE);
+
+            //  save.setVisibility(View.VISIBLE);
+        }
+
         IsNew = true;
 
         ed_Area = (EditText) findViewById(R.id.ed_Area);
@@ -386,8 +410,12 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
             }
         });
        // alertDialog.show();
+        String location= DB.GetValue(getApplicationContext(),"Customers","Latitude","no='"+ed_Acc.getText().toString().trim()+"'");
 
-        Save_Recod_Po();
+
+Save_Recod_Po();
+        LinearLayout save=(LinearLayout)findViewById(R.id.save);
+save.setVisibility(View.GONE);
     }
 
     public void Save_Recod_Po() {
@@ -410,14 +438,19 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
         cv.put("MobileNo", ed_Mobile.getText().toString());
         cv.put("Stutes", ed_States.getText().toString());
         cv.put("Tr_Date", currentDateandTime);
+        i = sqlHandler.Insert("CustLocaltions", null, cv);
 
 
 
+        ContentValues cv1 = new ContentValues();
 
+        cv1.put("Latitude", ed_Lat.getText().toString());
+        cv1.put("Longitude", ed_Long.getText().toString());
 
+        sqlHandler.Update("Customers", cv1, "no ='" + ed_Acc.getText().toString().trim() + "'");
 
         //if (IsNew == true) {
-            i = sqlHandler.Insert("CustLocaltions", null, cv);
+
        // } else {
       //      i = sqlHandler.Update("CustLocaltions", cv, "OrderNo ='" + OrderNo.getText().toString() + "'");
       //  }
