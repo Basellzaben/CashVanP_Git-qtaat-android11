@@ -37,7 +37,7 @@ public class CallWebServices  {
         URL = "http://"+IPAddress+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
 
 
-  //     URL = "http://46.185.131.31:9090/CV.asmx";//شركة السلاسل
+  //    URL = "http://46.185.131.31:9090/CV.asmx";//شركة السلاسل
         //URL = "http://192.168.8.101/GIWS/CV.asmx";
         //URL = "http://92.253.93.52:3755/CV.asmx";
         //URL = "http://192.168.1.148/GIWS/CV.asmx";
@@ -60,16 +60,16 @@ public class CallWebServices  {
 //URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
  //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
-URL = "http://10.0.1.63:92/CV.asmx";// galaxy
+//URL = "http://10.0.1.63:92/CV.asmx";// galaxy
+URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
           //moh
-    }
 
+          }
 
     public void GetItem_D(String Item_no, int flag) {
 
         We_Result.Msg="";
         We_Result.ID =-1;
-
 
         SoapObject request = new SoapObject(NAMESPACE, "GetItem_D");
 

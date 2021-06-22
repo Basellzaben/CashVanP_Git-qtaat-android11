@@ -110,7 +110,10 @@ public class PostSalesOrder {
 
                 try {
                     if (Result > 0) {
+
                         sqlHandler.executeQuery("Update Po_Hdr set posted ='"+Result+"' Where orderno ='"+pno+"'");
+
+
                   }
                 } catch (final Exception e) {
                     Result= -1;

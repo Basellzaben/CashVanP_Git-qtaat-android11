@@ -37,8 +37,14 @@ public class Tab_Payments extends Fragment {
 
     private  void FillList( ){
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd",Locale.ENGLISH);
+       /* SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd",Locale.ENGLISH);
         String currentDateandTime = sdf.format(new Date());
+*/
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String currentDateandTime =preferences.getString("spinnerdateselected", "");
+
+
         cls_Tab_Sales  = new ArrayList<Cls_TabPayments>();
         cls_Tab_Sales.clear();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -54,11 +60,12 @@ public class Tab_Payments extends Fragment {
                     Cls_TabPayments cls_searchRecVou= new Cls_TabPayments();
 
                     cls_searchRecVou.setDocNo(c1.getString(c1.getColumnIndex("DocNo")));
-                    cls_searchRecVou.setDate(c1.getString(c1.getColumnIndex("CheckTotal")));
+                    cls_searchRecVou.setCheck(c1.getString(c1.getColumnIndex("CheckTotal")));
                     cls_searchRecVou.setAmt(c1.getString(c1.getColumnIndex("Amnt")));
                     cls_searchRecVou.setCustNm(c1.getString(c1.getColumnIndex("name"))) ;//+ "    "+c1.getString(c1.getColumnIndex("Post") ));
                     cls_searchRecVou.setNotes(c1.getString(c1.getColumnIndex("Cash")));
                     cls_searchRecVou.setPost(c1.getString(c1.getColumnIndex("Post")));
+                    cls_searchRecVou.setDate(currentDateandTime);
                     cls_searchRecVou.setAcc(c1.getString(c1.getColumnIndex("CustAcc")));
                     cls_searchRecVou.setType(c1.getString(c1.getColumnIndex("VouchType")));
                     sum=sum+SToD(c1.getString(c1.getColumnIndex("Amnt")));

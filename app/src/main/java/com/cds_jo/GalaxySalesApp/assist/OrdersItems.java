@@ -534,10 +534,10 @@ public class OrdersItems extends FragmentActivity {
             });
 
             if (ComInfo.ComNo == 2) {
-                Tax_Include.setChecked(false);
+                Tax_Include.setChecked(true);
             }
             if (ComInfo.ComNo == 4  ) {
-                Tax_Include.setChecked(false);
+                Tax_Include.setChecked(true);
                 Tax_Include.setVisibility(View.INVISIBLE);
                 chk_Cash.setVisibility(View.INVISIBLE);
             }
@@ -654,13 +654,13 @@ public class OrdersItems extends FragmentActivity {
 
             }
 
-            et_OrdeNo =(EditText)findViewById(R.id.et_OrdeNo);
+            EditText et_OrdeNo =(EditText)findViewById(R.id.et_OrdeNo);
             tv_acc =(TextView)findViewById(R.id.tv_acc);
 
-            InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.open.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+          //  InsertLogTrans obj=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.open.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
         } catch (Exception ex) {
-            Toast.makeText(this, ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
 
         }
         NotifcationSitting();
@@ -1927,7 +1927,7 @@ public class OrdersItems extends FragmentActivity {
 
         sqlHandler = new SqlHandler(this);
 
-        Tax_Include.setChecked(false);
+        Tax_Include.setChecked(true);
         String query = "  select   Distinct *  from Po_Hdr  where orderno ='" + Order_no.getText().toString().replaceAll("[^\\d.]", "") + "'";
         Cursor c1 = sqlHandler.selectQuery(query);
         if (c1 != null && c1.getCount() != 0) {
@@ -3177,6 +3177,8 @@ public class OrdersItems extends FragmentActivity {
             alertDialog.setIcon(R.drawable.tick);
             alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
+
+
                 }
             });
             alertDialog.show();
@@ -3211,7 +3213,6 @@ public class OrdersItems extends FragmentActivity {
     }
 
     public void Delete_Record_PO() {
-
         if (!obj.CheckAction(this, SCR_NO, SCR_ACTIONS.Delete.getValue())) {
             com.cds_jo.GalaxySalesApp.ViewDialog alert = new com.cds_jo.GalaxySalesApp.ViewDialog();
             alert.showDialog(OrdersItems.this, "نأسف أنت لا تملك صلاحية الحذف", "طلب البيع");
@@ -3225,12 +3226,10 @@ public class OrdersItems extends FragmentActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String currentDateandTime = sdf.format(new Date());
 
-
-        String query = "Delete from  Po_Hdr where orderno ='" + pono.getText().toString() + "'";
+         String query = "Delete from  Po_Hdr where orderno ='" + pono.getText().toString() + "'";
         sqlHandler.executeQuery(query);
 
-
-        query = "Delete from  Po_dtl where orderno ='" + pono.getText().toString() + "'";
+         query = "Delete from  Po_dtl where orderno ='" + pono.getText().toString() + "'";
         sqlHandler.executeQuery(query);
         contactList.clear();
         GetMaxPONo();
@@ -3306,7 +3305,10 @@ public class OrdersItems extends FragmentActivity {
             public void run() {
                 PostSalesOrder obj = new PostSalesOrder(OrdersItems.this);
                 PostResult = obj.Post_Purch_Order(DocNo);
+//                Toast.makeText(OrdersItems.this,String.valueOf(PostResult),Toast.LENGTH_LONG).show();
                 try {
+
+
 
                     if (PostResult > 0) {
                         _handler.post(new Runnable() {
@@ -3317,6 +3319,7 @@ public class OrdersItems extends FragmentActivity {
                                 alertDialog.setMessage("تمت عملية اعتماد طلب البيع بنجاح" + We_Result.ID + "");
                                 alertDialog.setIcon(R.drawable.tick);
                                 alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+
                                     public void onClick(DialogInterface dialog, int which) {
                                     }
                                 });

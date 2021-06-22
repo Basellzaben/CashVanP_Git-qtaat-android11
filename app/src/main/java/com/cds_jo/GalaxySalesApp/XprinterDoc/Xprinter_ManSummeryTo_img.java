@@ -32,12 +32,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.DB;
+import com.cds_jo.GalaxySalesApp.JalMasterActivity;
 import com.cds_jo.GalaxySalesApp.R;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.cds_jo.GalaxySalesApp.assist.Cls_CustWithoutPayment_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Cls_CustomerWithoutPayment;
 import com.cds_jo.GalaxySalesApp.assist.ESCPSample3;
 import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
+import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 import com.sewoo.jpos.printer.ESCPOSPrinter;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
@@ -116,7 +118,18 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
         registerReceiver(netReciever,new IntentFilter(Xprinter_ManSummeryTo_img.DISCONNECT));
         Tiny.getInstance().init(getApplication());
 
+
         BTCon= (Button) findViewById(R.id.btn_Print);
+
+        Button   back= (Button) findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent k = new Intent(Xprinter_ManSummeryTo_img.this, JalMasterActivity.class);
+                startActivity(k);
+            }
+        });
+
         BTCon.setBackgroundColor(getResources().getColor(R.color.Blue));
         BTCon.setTextColor(Color.WHITE);
         BTCon.setOnClickListener(new View.OnClickListener() {
@@ -142,9 +155,16 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
         MyTextView tv_CompName = (MyTextView)  findViewById(R.id.tv_CompName);
         tv_CompName.setText(sharedPreferences.getString("CompanyNm", ""));
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        currentDateandTime =preferences.getString("spinnerdateselected", "");
+
+
+        /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
         currentDateandTime = sdf.format(new Date());
+       */
         ed_date.setText(" التاريـخ  : " + currentDateandTime);
+
 
         TextView tv_SalesCount = (TextView)  findViewById(R.id.tv_SalesCount);
         TextView tv_PayCashCount = (TextView) findViewById(R.id.tv_PayCashCount);
@@ -185,7 +205,7 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
 
 
         q = "Select  ifnull(count(Seq),0)  as Seq  from  Sal_invoice_Hdr s   where  UserID='" + sharedPreferences.getString("UserID", "") + "' " +
-                "  and  s.date ='" + currentDateandTime + "'";
+                "  and  s.date ='" + currentDateandTime + "'" +"and inovice_type='-1'"  ;
 
         c1 = sqlHandler.selectQuery(q);
 
@@ -193,11 +213,32 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
         if (c1 != null && c1.getCount() != 0) {
             if (c1.moveToFirst()) {
                 tv_SalesCount.setText(c1.getString(c1.getColumnIndex("Seq")));
+
             }
             c1.close();
         } else {
             tv_SalesCount.setText("0");
         }
+
+        q = "Select  ifnull(count(Seq),0)  as Seq  from  Sal_invoice_Hdr s   where  UserID='" + sharedPreferences.getString("UserID", "") + "' " +
+                "  and  s.date ='" + currentDateandTime + "'" +"and inovice_type='0'"  ;
+
+        c1 = sqlHandler.selectQuery(q);
+
+        TextView tv_SalesCount_Cash=(TextView)findViewById(R.id.tv_SalesCount_Cash);
+
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                tv_SalesCount_Cash.setText(c1.getString(c1.getColumnIndex("Seq")));
+
+            }
+            c1.close();
+        } else {
+            tv_SalesCount.setText("0");
+        }
+
+
+
 
 
         q = "Select      ifnull( sum(ifnull( RecVoucher.Cash,0.000)),0.000) as Cash , ifnull( sum(ifnull( RecVoucher.CheckTotal,0.000)),0.000) as CheckTotal            from RecVoucher   " +
@@ -340,11 +381,29 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
         }
 
 
-        TextView tv_SalesWithoutPayment = (TextView)   findViewById(R.id.tv_SalesWithoutPayment);
-        tv_SalesWithoutPayment.setText("0");
+       // TextView tv_SalesWithoutPayment = (TextView)   findViewById(R.id.tv_SalesWithoutPayment);
+      //  tv_SalesWithoutPayment.setText("0");
 
 
-        q = " select     ifnull(count( distinct  acc),0) as acc from   Sal_invoice_Hdr   " +
+        q = "Select  ifnull(count(Seq),0)  as Seq  from  Sal_invoice_Hdr s   where  UserID='" + sharedPreferences.getString("UserID", "") + "' " +
+                "  and  s.date ='" + currentDateandTime + "'" +"and inovice_type='-1'"  ;
+
+        c1 = sqlHandler.selectQuery(q);
+
+        TextView tv_SalesWithoutPayment=(TextView)findViewById(R.id.tv_SalesWithoutPayment);
+
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                tv_SalesWithoutPayment.setText(c1.getString(c1.getColumnIndex("Seq")));
+
+            }
+            c1.close();
+        } else {
+            tv_SalesCount.setText("0");
+        }
+
+
+       /* q = " select     ifnull(count( distinct  acc),0) as acc from   Sal_invoice_Hdr   " +
                 "    where date ='" + currentDateandTime + "' and   acc not in  ( select CustAcc from RecVoucher where TrDate='" + currentDateandTime + "'  ) ";
 
         c1 = sqlHandler.selectQuery(q);
@@ -358,7 +417,7 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
             tv_SalesWithoutPayment.setText("0");
 
         }
-
+*/
         q = " select  distinct  c.name , c.no from Sal_invoice_Hdr     left join Customers c on c.no =Sal_invoice_Hdr.acc   " +
                 "    where date ='" + currentDateandTime + "' and   acc not in  ( select CustAcc from RecVoucher where TrDate='" + currentDateandTime + "'  ) ";
 

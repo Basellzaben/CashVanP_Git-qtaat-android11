@@ -10,7 +10,15 @@ public class Cls_TabPayments {
     String Notes;
     String Acc;
     String Amt;
+    String check;
 
+    public String getCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
+    }
 
     public String getPost() {
         return Post;

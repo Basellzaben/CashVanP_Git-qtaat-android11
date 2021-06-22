@@ -98,8 +98,15 @@ public class Tab_SalesOrders extends   Fragment  implements View.OnClickListener
         return d;
     }
     private void FillList(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd",Locale.ENGLISH);
+        /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd",Locale.ENGLISH);
         String currentDateandTime = sdf.format(new Date());
+
+       */
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String currentDateandTime =preferences.getString("spinnerdateselected", "");
+
+
         String q ="";
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         cls_Tab_Order_Sales.clear();

@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
 import com.cds_jo.GalaxySalesApp.assist.Convert_Layout_Img;
 import com.cds_jo.GalaxySalesApp.assist.Convert_Prapre_Qty_To_Img;
+import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import header.Header_Frag;
 
 public class PreapareManQty extends AppCompatActivity {
@@ -52,6 +54,7 @@ public class PreapareManQty extends AppCompatActivity {
     EditText etItemNm, etPrice, etQuantity, etTax;
     Button btnsubmit;
     String UserID = "";
+    TextView pono;
     public ProgressDialog loadingdialog;
     public String json;
     Boolean IsNew, IsChange;
@@ -157,6 +160,10 @@ public class PreapareManQty extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.Frag1, frag).commit();
 
         lv_Items = (ListView) findViewById(R.id.LstvItems);
+
+        lv_Items.setAdapter(null);
+
+
         sqlHandler = new SqlHandler(this);
         IsNew = true;
         IsChange = false;
@@ -204,7 +211,7 @@ public class PreapareManQty extends AppCompatActivity {
         accno.setText(UserID);
         CustNm.setText(sharedPreferences.getString("UserName", ""));
 
-        InsertFromSales();
+       // InsertFromSales();
 
     }
 
@@ -570,7 +577,7 @@ public class PreapareManQty extends AppCompatActivity {
 
 
         TextView custNm = (TextView) findViewById(R.id.tv_cusnm);
-        TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
+         pono = (TextView) findViewById(R.id.et_OrdeNo);
         TextView acc = (TextView) findViewById(R.id.tv_acc);
         if (custNm.getText().toString().length() == 0) {
             custNm.setError("required!");
@@ -594,7 +601,23 @@ public class PreapareManQty extends AppCompatActivity {
                 if (IsNew == true) {
                     Save_Recod_Po();
                 } else {
-                    checkUpdate();
+                    String i;
+                    i = DB.GetValue(PreapareManQty.this, "PrepManQtyhdr","posted", "orderno='" + pono.getText().toString() + "'");
+
+                  //  final String pass = DB.GetValue(PreapareManQty.this, "Tab_Password", "Password", "PassNo = 6");
+                    if (i.equals("1"))
+                    {
+                        new SweetAlertDialog(PreapareManQty.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                                .setTitleText("طلب تجهيز مواد")
+                                .setContentText("لا يمكن التعديل بعد الاعتماد")
+                                .setCustomImage(R.drawable.error_new)
+                                .show();
+                    }
+                    else
+                    {
+                        Save_Recod_Po();
+                    }
+                 //   checkUpdate();
                 }
 
             }
@@ -804,14 +827,15 @@ public class PreapareManQty extends AppCompatActivity {
                 try {
 
                     if (We_Result.ID > 0) {
-                        ContentValues cv = new ContentValues();
-                        TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
-                        cv.put("posted", We_Result.ID);
-                        long i;
-                        i = sql_Handler.Update("PrepManQtyhdr", cv, "orderno='" + DocNo.getText().toString() + "'");
 
                         _handler.post(new Runnable() {
                             public void run() {
+                                ContentValues cv = new ContentValues();
+                                TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
+                                cv.put("posted", 1);
+                                long i;
+                                i = sql_Handler.Update("PrepManQtyhdr", cv, "orderno='" + DocNo.getText().toString() + "'");
+
                                 AlertDialog alertDialog = new AlertDialog.Builder(
                                         PreapareManQty.this).create();
                                 alertDialog.setTitle("اعتماد تجهيز مواد");

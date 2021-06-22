@@ -35,8 +35,14 @@ public class Tab_UsedCode extends Fragment {
 
     private  void FillList( ){
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd",Locale.ENGLISH);
+        /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd",Locale.ENGLISH);
         String currentDateandTime = sdf.format(new Date());
+*/
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String currentDateandTime =preferences.getString("spinnerdateselected", "");
+
+
+
         cls_Tab_Sales  = new ArrayList<Cls_UsedCodes>();
         cls_Tab_Sales.clear();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
