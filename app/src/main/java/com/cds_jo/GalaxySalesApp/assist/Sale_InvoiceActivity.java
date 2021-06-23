@@ -170,6 +170,7 @@ public String getmaxN(){
     SqlHandler sqlHandler;
     EditText Maxpo1;
     TextView custNm;
+    String RecvV1;
     String note_sal="";
     ListView lvCustomList;
     Integer DoPrint = 0 ,DocType = 1;
@@ -956,50 +957,84 @@ public String getmaxN(){
 
     }
     public  void InsertDiscount(String DiscountAmt , String DiscountType   ){
-           double ItemWieght=0.0;
+        TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
+     String   q = "SELECT distinct *  from  Sal_invoice_Hdr where    ifnull(doctype,'1')='"+DocType.toString()+ "'  and   Post >0 AND   OrderNo ='" + pono.getText().toString() + "'";
 
-        for (int x = 0; x < contactList.size(); x++) {
-            // ItemWieght=((SToD( contactList.get(x).getTotal())/SToD(tv_NetTotal.getText().toString()))*100);
-            // contactList.get(x).setDisPerFromHdr((((ItemWieght*FinalDiscountpercent)/100))+"");
-            contactList.get(x).setDisPerFromHdr("0");
-            contactList.get(x).setDisAmtFromHdr("0");
+        TextView acc = (TextView) findViewById(R.id.tv_acc);
+        Cursor c1 = sqlHandler.selectQuery(q);
+        if (c1 != null && c1.getCount() != 0) {
+
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle(tv_ScrTitle.getText().toString());
+            alertDialog.setMessage("لقد تم ترحيل المستند لايمكن التعديل");
+            alertDialog.setIcon(R.drawable.tick);
+            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (ExistAfterSacve == 1) {
+                        ExistAfterSacve = 0;
+                        Intent k = new Intent(Sale_InvoiceActivity.this, JalMasterActivity.class);
+                        startActivity(k);
+                    }
+                    if (DoPrint == 1) {
+                        View view = null;
+                        btn_print(view);
+                    }
+
+                }
+            });
+
+            alertDialog.show();
+
+
+            c1.close();
+            return;}
+        {
+
+
+            double ItemWieght = 0.0;
+
+            for (int x = 0; x < contactList.size(); x++) {
+                // ItemWieght=((SToD( contactList.get(x).getTotal())/SToD(tv_NetTotal.getText().toString()))*100);
+                // contactList.get(x).setDisPerFromHdr((((ItemWieght*FinalDiscountpercent)/100))+"");
+                contactList.get(x).setDisPerFromHdr("0");
+                contactList.get(x).setDisAmtFromHdr("0");
+            }
+
+            CalcTotal();
+            showList();
+            if (DiscountType.equalsIgnoreCase("1")) {
+                FinalDiscountpercent = SToD(DiscountAmt);
+                FinalDiscountAmt = ((SToD(DiscountAmt) / 100) * SToD(et_Total1.getText().toString()));
+                FinalDiscountAmt = SToD(FinalDiscountAmt + "");
+            } else {
+                if (IncludeTax_Flag.isChecked()) {
+                    FinalDiscountpercent = SToD(DiscountAmt) / SToD(tv_NetTotal.getText().toString());
+                    FinalDiscountpercent = FinalDiscountpercent * 100;
+                    FinalDiscountAmt = SToD(DiscountAmt);
+                    FinalDiscountpercent = SToD(FinalDiscountpercent + "");
+                } else {
+                    FinalDiscountpercent = SToD(DiscountAmt) / SToD(et_Total1.getText().toString());
+                    FinalDiscountpercent = FinalDiscountpercent * 100;
+                    FinalDiscountAmt = SToD(DiscountAmt);
+                    FinalDiscountpercent = SToD(FinalDiscountpercent + "");
+                }
+            }
+            FinalDiscountType = DiscountType;
+            tv_HeaderDscount.setText(SToD((FinalDiscountpercent) + "") + "%");
+
+
+            for (int x = 0; x < contactList.size(); x++) {
+
+                contactList.get(x).setDisPerFromHdr(FinalDiscountpercent + "");
+                contactList.get(x).setDisAmtFromHdr(((FinalDiscountpercent * (SToD(contactList.get(x).getTotal()))) / 100) + "");
+
+            }
+
+            CalcTotal();
+            showList();
+
+            Save_Recod_Po();
         }
-
-        CalcTotal();
-        showList();
-         if(DiscountType.equalsIgnoreCase("1")){
-             FinalDiscountpercent=SToD(DiscountAmt);
-             FinalDiscountAmt=((SToD(DiscountAmt)/100) * SToD(et_Total1.getText().toString())) ;
-             FinalDiscountAmt=SToD(FinalDiscountAmt+"");
-         }else{
-             if (IncludeTax_Flag.isChecked()) {
-                 FinalDiscountpercent = SToD(DiscountAmt) / SToD(tv_NetTotal.getText().toString());
-                 FinalDiscountpercent = FinalDiscountpercent * 100;
-                 FinalDiscountAmt = SToD(DiscountAmt);
-                 FinalDiscountpercent = SToD(FinalDiscountpercent + "");
-             } else
-             {
-                 FinalDiscountpercent = SToD(DiscountAmt) / SToD(et_Total1.getText().toString());
-                 FinalDiscountpercent = FinalDiscountpercent * 100;
-                 FinalDiscountAmt = SToD(DiscountAmt);
-                 FinalDiscountpercent = SToD(FinalDiscountpercent + "");
-             }
-         }
-        FinalDiscountType=DiscountType;
-        tv_HeaderDscount.setText(SToD((FinalDiscountpercent)+"")+"%");
-
-
-        for (int x = 0; x < contactList.size(); x++) {
-
-            contactList.get(x).setDisPerFromHdr(FinalDiscountpercent+"" );
-            contactList.get(x).setDisAmtFromHdr(( (FinalDiscountpercent*(SToD(contactList.get(x).getTotal())    ))/100)+"" );
-
-        }
-
-        CalcTotal();
-        showList();
-
-        Save_Recod_Po();
     }
     private void CustAmtDt() {
         TextView accno = (TextView) findViewById(R.id.tv_acc);
@@ -2059,6 +2094,25 @@ public String getmaxN(){
        return  sum+"";
    }
     public void Save_Recod_Po() {
+        TextView Total = (TextView) findViewById(R.id.et_Total);
+        if(Total.getText().toString().equals("0")) {
+
+            AlertDialog alertDialog1 = new AlertDialog.Builder(
+                    this).create();
+            alertDialog1.setTitle(tv_ScrTitle.getText().toString());
+            alertDialog1.setMessage(" لا يمكن تخزين فاتورة صفرية");
+            alertDialog1.setIcon(R.drawable.error_new);
+            alertDialog1.setButton("موافق", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+
+                }
+            });
+
+            alertDialog1.show();
+
+            return;
+        }
         Integer Seq = 0;
         CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
         TextView custNm = (TextView) findViewById(R.id.tv_cusnm);
@@ -2066,7 +2120,7 @@ public String getmaxN(){
         TextView acc = (TextView) findViewById(R.id.tv_acc);
         EditText et_hdr_Disc = (EditText) findViewById(R.id.et_hdr_Disc);
 
-        TextView Total = (TextView) findViewById(R.id.et_Total);
+       // TextView Total = (TextView) findViewById(R.id.et_Total);
         TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
         TextView TotalTax = (TextView) findViewById(R.id.et_TotalTax);
         TextView dis = (TextView) findViewById(R.id.et_dis);
@@ -2397,6 +2451,7 @@ public String getmaxN(){
         cv.put("UserID", sharedPreferences.getString("UserID", ""));
         cv.put("V_OrderNo",sharedPreferences.getString("V_OrderNo", "0"));
         cv.put("DayNum",dayOfWeek);
+        cv.put("FromSales","1");
         long i;
 
         if (RecvOrder.equalsIgnoreCase("-1")) {
@@ -2405,6 +2460,70 @@ public String getmaxN(){
         }else{
             i = sqlHandler.Update(  "RecVoucher" , cv,"DocNo='"+RecvOrder+"'");
     }
+    }
+    public String getJsonRecvVouchar(String no)
+    {
+
+
+        long Reslut = -1;
+
+        String json = "[{''}]";
+
+
+
+        String query = "Select  distinct   ifnull(PersonPayAmt,'') as PersonPayAmt, rc.V_OrderNo, rc.DocNo,  IFNULL(rc.CheckTotal,0) as CheckTotal, IFNULL(rc.Cash,0) as Cash, rc.Desc,rc.Amnt,rc.TrDate,rc.CustAcc  ,c.name , rc.curno  ,COALESCE(Post, -1)  as Post , " +
+                "rc.UserID ,rc.VouchType ,rc.UserID,rc.FromSales from RecVoucher rc   left join Customers c on c.no = rc.CustAcc " +
+                " where rc.SalesOrderNo = '" + no.toString() + "'";
+        Cursor c1 = sqlHandler.selectQuery(query);
+        JSONObject jsonObject = new JSONObject();
+        if (c1 != null && c1.getCount() != 0) {
+            c1.moveToFirst();
+            try {
+                jsonObject.put("OrderNo", c1.getString(c1.getColumnIndex("DocNo")));
+                jsonObject.put("acc", c1.getString(c1.getColumnIndex("CustAcc")));
+                jsonObject.put("Amt", c1.getString(c1.getColumnIndex("Amnt")));
+                jsonObject.put("Date", c1.getString(c1.getColumnIndex("TrDate")));
+                jsonObject.put("notes", c1.getString(c1.getColumnIndex("Desc")));
+                jsonObject.put("VouchType", c1.getString(c1.getColumnIndex("VouchType")));
+                jsonObject.put("CurNo", c1.getString(c1.getColumnIndex("curno")));
+                if (c1.getString(c1.getColumnIndex("Cash")).toString().length() == 0) {
+                    jsonObject.put("Cash", "0.0");
+                } else {
+                    jsonObject.put("Cash", c1.getString(c1.getColumnIndex("Cash")));
+                }
+                jsonObject.put("CheckTotal", c1.getString(c1.getColumnIndex("CheckTotal")));
+                jsonObject.put("V_OrderNo", c1.getString(c1.getColumnIndex("V_OrderNo")));
+                jsonObject.put("UserID", c1.getString(c1.getColumnIndex("UserID")));
+                jsonObject.put("PersonPayAmt", c1.getString(c1.getColumnIndex("PersonPayAmt")));
+                jsonObject.put("FromSales", c1.getString(c1.getColumnIndex("FromSales")));
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            c1.close();
+        }
+        final String str;
+        str = jsonObject.toString() + json;
+
+
+     /*   CallWebServices ws = new CallWebServices(context);
+        Reslut= ws.SavePayment(str);
+        try {
+
+            if (Reslut> 0) {
+                //query = "Update  RecVoucher  set Post="+Reslut+" Where DocNo='"+ OrderNo+"'  and  "+ Reslut + " Not in (Select Post from RecVoucher )";
+                query = "Update  RecVoucher  set Post="+Reslut+" Where DocNo='"+ OrderNo+"'    ";
+                sqlHandler.executeQuery(query );
+            }
+
+        } catch (Exception e) {
+            Reslut= -1;
+        }*/
+
+
+
+        return str;
     }
     private  void  UpDateRecMaxOrderNo() {//
 
@@ -2668,7 +2787,7 @@ public String getmaxN(){
         // q = 1;
         return q;
     }
-    public void Save_List(String ItemNo, String p, String q, String t, String u, String dis, String bounce, String ItemNm, String UnitName, String dis_Amt, String Operand,String Weight ) {
+    public void Save_List(String ItemNo, String p, String q, String t, String u, String dis, String bounce, String ItemNm, String UnitName, String dis_Amt, String Operand,String Weight,String flag ) {
 
 
 
@@ -2692,6 +2811,8 @@ public String getmaxN(){
 
         Double Item_Total, Price, Tax_Amt, Tax, Total, Net_Total, Tax_Total;
 
+        if(flag.equals("0"))
+        {
         for (int x = 0; x < contactList.size(); x++) {
             Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
             contactListItems = contactList.get(x);
@@ -2711,7 +2832,7 @@ public String getmaxN(){
                 return;
             }
 
-        }
+        }}
 
         if (AllowSalInvMinus != 1 && DocType!=2  ) {
             if (checkStoreQty(ItemNo, u, q, bounce) < 0) {
@@ -2770,7 +2891,7 @@ public String getmaxN(){
         contactListItems.setOperand(Operand);
         contactListItems.setWeight(Weight);
         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
-
+        contactListItems.setSample(flag);
         contactList.add(contactListItems);
         // Gf_Calc_Promotion();
 
@@ -4624,7 +4745,7 @@ public String getmaxN(){
         loadingdialog.setCanceledOnTouchOutside(false);
         loadingdialog.show();
         final Handler _handler = new Handler();
-
+        RecvV1 =getJsonRecvVouchar(Doc_No);
 
         // Toast.makeText(getApplicationContext(),str, Toast.LENGTH_LONG).show();
 
@@ -4633,7 +4754,7 @@ public String getmaxN(){
             public void run() {
 
                 PostSalesInvoice obj = new PostSalesInvoice(Sale_InvoiceActivity.this);
-                PostResult = obj.Post_Sal_Inv(Doc_No,DocType+"");
+                PostResult = obj.Post_Sal_Inv(Doc_No,DocType+"",RecvV1);
                 try {
 
                     if (PostResult < 0) {

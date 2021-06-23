@@ -10,6 +10,7 @@ import com.cds_jo.GalaxySalesApp.Cls_Sal_InvItems;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.cds_jo.GalaxySalesApp.We_Result;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
+import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -40,8 +41,8 @@ public class PostSalesInvoice {
 
             if (c1.moveToFirst()) {
                 do {
-
-              Result = Post_Sal_Inv(c1.getString(c1.getColumnIndex("OrderNo")),c1.getString(c1.getColumnIndex("doctype")));
+                    String Rec= getJsonRecvVouchar(c1.getString(c1.getColumnIndex("OrderNo")));
+              Result = Post_Sal_Inv(c1.getString(c1.getColumnIndex("OrderNo")),c1.getString(c1.getColumnIndex("doctype")),Rec);
 
 
                 } while (c1.moveToNext());
@@ -50,7 +51,7 @@ public class PostSalesInvoice {
         }
         return Result;
     }
-    public long Post_Sal_Inv(String OrderNo , String DocType) {
+    public long Post_Sal_Inv(String OrderNo , String DocType,String RecVo) {
         long Result= -1;
         final String pno = OrderNo;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
@@ -162,7 +163,7 @@ public class PostSalesInvoice {
         }
         str = jsonObject.toString() + json;
         CallWebServices ws = new CallWebServices(context);
-        Result= ws.Save_Sal_Invoice(str);
+        Result= ws.Save_Sal_Invoice(str,RecVo);
         try {
             if (Result> 0) {
                 ContentValues cv = new ContentValues();
@@ -323,6 +324,69 @@ public class PostSalesInvoice {
 
                 }
 
+    }
+    public String getJsonRecvVouchar(String no)
+    {
+
+        long Reslut = -1;
+
+        String json = "[{''}]";
+
+
+
+        String query = "Select  distinct   ifnull(PersonPayAmt,'') as PersonPayAmt, rc.V_OrderNo, rc.DocNo,  IFNULL(rc.CheckTotal,0) as CheckTotal, IFNULL(rc.Cash,0) as Cash, rc.Desc,rc.Amnt,rc.TrDate,rc.CustAcc  ,c.name , rc.curno  ,COALESCE(Post, -1)  as Post , " +
+                "rc.UserID ,rc.VouchType ,rc.UserID,rc.FromSales from RecVoucher rc   left join Customers c on c.no = rc.CustAcc " +
+                " where rc.SalesOrderNo = '" + no.toString() + "'";
+        Cursor c1 = sqlHandler.selectQuery(query);
+        JSONObject jsonObject = new JSONObject();
+        if (c1 != null && c1.getCount() != 0) {
+            c1.moveToFirst();
+            try {
+                jsonObject.put("OrderNo", c1.getString(c1.getColumnIndex("DocNo")));
+                jsonObject.put("acc", c1.getString(c1.getColumnIndex("CustAcc")));
+                jsonObject.put("Amt", c1.getString(c1.getColumnIndex("Amnt")));
+                jsonObject.put("Date", c1.getString(c1.getColumnIndex("TrDate")));
+                jsonObject.put("notes", c1.getString(c1.getColumnIndex("Desc")));
+                jsonObject.put("VouchType", c1.getString(c1.getColumnIndex("VouchType")));
+                jsonObject.put("CurNo", c1.getString(c1.getColumnIndex("curno")));
+                if (c1.getString(c1.getColumnIndex("Cash")).toString().length() == 0) {
+                    jsonObject.put("Cash", "0.0");
+                } else {
+                    jsonObject.put("Cash", c1.getString(c1.getColumnIndex("Cash")));
+                }
+                jsonObject.put("CheckTotal", c1.getString(c1.getColumnIndex("CheckTotal")));
+                jsonObject.put("V_OrderNo", c1.getString(c1.getColumnIndex("V_OrderNo")));
+                jsonObject.put("UserID", c1.getString(c1.getColumnIndex("UserID")));
+                jsonObject.put("PersonPayAmt", c1.getString(c1.getColumnIndex("PersonPayAmt")));
+                jsonObject.put("FromSales", c1.getString(c1.getColumnIndex("FromSales")));
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            c1.close();
+        }
+        final String str;
+        str = jsonObject.toString() + json;
+
+
+     /*   CallWebServices ws = new CallWebServices(context);
+        Reslut= ws.SavePayment(str);
+        try {
+
+            if (Reslut> 0) {
+                //query = "Update  RecVoucher  set Post="+Reslut+" Where DocNo='"+ OrderNo+"'  and  "+ Reslut + " Not in (Select Post from RecVoucher )";
+                query = "Update  RecVoucher  set Post="+Reslut+" Where DocNo='"+ OrderNo+"'    ";
+                sqlHandler.executeQuery(query );
+            }
+
+        } catch (Exception e) {
+            Reslut= -1;
+        }*/
+
+
+
+        return str;
     }
 
 }

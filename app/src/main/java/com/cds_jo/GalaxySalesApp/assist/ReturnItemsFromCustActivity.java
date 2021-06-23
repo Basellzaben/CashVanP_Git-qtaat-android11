@@ -1420,7 +1420,7 @@ public class ReturnItemsFromCustActivity extends FragmentActivity {
             public void run() {
 
                 PostSalesInvoice obj = new PostSalesInvoice(ReturnItemsFromCustActivity.this);
-                PostResult = obj.Post_Sal_Inv(Doc_No,DocType+"");
+                PostResult = obj.Post_Sal_Inv(Doc_No,DocType+"","");
                 try {
 
                     if (PostResult < 0) {

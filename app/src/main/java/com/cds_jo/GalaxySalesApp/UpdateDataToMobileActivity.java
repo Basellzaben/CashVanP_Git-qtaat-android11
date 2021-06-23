@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 180;
+    private static final int LASTUPDATE = 186;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -451,6 +451,11 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         }
 
         try {
+            sqlHandler.executeQuery("Alter Table RecVoucher  Add  COLUMN  FromSales  text null");
+        } catch (SQLException e) {
+        }
+
+        try {
             sqlHandler.executeQuery("Alter Table ReturnQtyhdr  Add  COLUMN  V_OrderNo  text null");
         } catch (SQLException e) {
         }
@@ -513,6 +518,14 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
         try {
             sqlHandler.executeQuery("Alter Table manf  Add  COLUMN Mobile2  text null ");
+        } catch (SQLException e) {
+        }
+  try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN MaxBouns  text null ");
+        } catch (SQLException e) {
+        }
+  try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN MaxDiscount  text null ");
         } catch (SQLException e) {
         }
 
@@ -3896,6 +3909,8 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
 
                         JSONArray js_AlternativeMan = js.getJSONArray("AlternativeMan");
+                        JSONArray js_MaxBouns = js.getJSONArray("MaxBouns");
+                        JSONArray js_MaxDiscount = js.getJSONArray("MaxDiscount");
 
                         q = "Delete from manf";
                         sqlHandler.executeQuery(q);
@@ -3904,7 +3919,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
                         for (i = 0; i < js_man.length(); i++) {
                             q = "Insert INTO manf(man,name,MEName,username,password,StoreNo,Stoped,SupNo,Mobile1,Mobile2" +
-                                    " , ManType,TypeDesc,AlternativeMan,BranchName,SupervisorName,Email,Acc,AccName,PosAcc,PosAccName) values ("
+                                    " , ManType,TypeDesc,AlternativeMan,BranchName,SupervisorName,Email,Acc,AccName,PosAcc,PosAccName,MaxBouns,MaxDiscount) values ("
                                     + js_man.get(i).toString()
                                     + ",'" + js_name.get(i).toString()
                                     + "','" + js_MEName.get(i).toString()
@@ -3925,6 +3940,8 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                                     + "','" + js_AccName.get(i).toString()
                                     + "','" + js_PosAcc.get(i).toString()
                                     + "','" + js_PosAccName.get(i).toString()
+                                    + "','" + js_MaxBouns.get(i).toString()
+                                    + "','" + js_MaxDiscount.get(i).toString()
                                     + "')";
                             Log.d("ddd",q);
                             sqlHandler.executeQuery(q);
@@ -5944,7 +5961,7 @@ try {
                 @Override
                 public void run() {
                     CallWebServices ws = new CallWebServices(UpdateDataToMobileActivity.this);
-                    ws.Save_Sal_Invoice(str);
+                    ws.Save_Sal_Invoice(str,"");
                     try {
                         if (We_Result.ID > 0) {
                             ContentValues cv = new ContentValues();

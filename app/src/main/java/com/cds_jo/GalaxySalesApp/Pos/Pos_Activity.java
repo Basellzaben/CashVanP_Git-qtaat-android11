@@ -4630,7 +4630,7 @@ GlobaleVar.tvtotal="";
             public void run() {
 
                 PostSalesInvoice obj = new PostSalesInvoice(Pos_Activity.this);
-                PostResult = obj.Post_Sal_Inv(Doc_No,DocType+"");
+                PostResult = obj.Post_Sal_Inv(Doc_No,DocType+"","");
                 try {
 
                     if (PostResult == -3) {

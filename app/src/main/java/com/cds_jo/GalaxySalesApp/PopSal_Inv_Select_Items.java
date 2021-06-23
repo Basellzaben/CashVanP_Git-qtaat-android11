@@ -98,6 +98,8 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
     String pass = "", TotalWeight = "0";
     String UnitName = "";
     String str = "";
+    String MaxDis,MaxBounce;
+
     RadioButton rad_Per;
     int p;
     RadioButton rad_Amt;
@@ -223,8 +225,13 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
         tv_MaxBounce = (MyTextView) form.findViewById(R.id.tv_MaxBounce);
         tv_MaxDiscount = (MyTextView) form.findViewById(R.id.tv_MaxDiscount);
         tv_CodeLiveNote = (MyTextView) form.findViewById(R.id.tv_CodeLiveNote);
-        tv_MaxDiscount.setText("0");
-        tv_MaxBounce.setText("0");
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        UserID = sharedPreferences.getString("UserID", "");
+
+        MaxBounce = DB.GetValue(getActivity(), "manf", "MaxBouns", "man='" + UserID + "'");
+        MaxDis = DB.GetValue(getActivity(), "manf", "MaxDiscount", "man='" + UserID + "'");
+        tv_MaxDiscount.setText(MaxBounce);
+        tv_MaxBounce.setText(MaxDis);
         tv_CodeLiveNote.setText("");
         tv_SelectedItem.setText("إدخال المواد ");
         AllowSalInvMinus = Integer.parseInt(DB.GetValue(this.getActivity(), "ComanyInfo", "AllowSalInvMinus", "1=1"));
@@ -364,7 +371,7 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
 
                                                               NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
                                                               DecimalFormat df = (DecimalFormat) nf;
-
+                                                              bo.setText("0");
                                                               Cls_Invf o = (Cls_Invf) items_Lsit.getItemAtPosition(p);
                                                               Manpassword = "";
 
@@ -622,6 +629,7 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
         items_Lsit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                chkEnbledItem.setChecked(false);
                 Double Qty = 0.0;
                 arg1.setBackgroundColor(Color.GRAY);
                 NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
@@ -1239,7 +1247,7 @@ p=position;
                 EditText qty = (EditText) form.findViewById(R.id.et_qty);
                 EditText tax = (EditText) form.findViewById(R.id.et_tax);
 
-                EditText bo = (EditText) form.findViewById(R.id.et_bo);
+           //     EditText bo = (EditText) form.findViewById(R.id.et_bo);
 // Spinner sp_unite = (Spinner)form.findViewById(R.id.sp_units);
                 EditText bounce = (EditText) form.findViewById(R.id.et_bo);
                 EditText disc_per = (EditText) form.findViewById(R.id.et_disc_per);
@@ -1247,10 +1255,10 @@ p=position;
 
                 EditText et_Discount = (EditText) form.findViewById(R.id.et_Discount);
 
-
+                bounce.clearFocus();
                 EditText net_total = (EditText) form.findViewById(R.id.et_totl);
                 ItemNo = UpdateItem.get(0).getno();
-                Price.setText(UpdateItem.get(0).getprice());
+
                 qty.setText(UpdateItem.get(0).getQty());
                 tax.setText(UpdateItem.get(0).getTax());
                 getDialog().setTitle(UpdateItem.get(0).getName());
@@ -1260,6 +1268,15 @@ p=position;
                 disc_Amt.setText(UpdateItem.get(0).getDis_Amt());
                 et_Discount.setText(UpdateItem.get(0).getDiscount());
                 net_total.setText(UpdateItem.get(0).getTotal());
+                if(UpdateItem.get(0).getSample().equals("1")) {
+                    chkEnbledItem.setChecked(true);
+                    Price.setText("0");
+                }
+                else
+                {
+                    chkEnbledItem.setChecked(false);
+                    Price.setText(UpdateItem.get(0).getprice());
+                }
                 fillUnit(UpdateItem.get(0).getno());
 
                 Cls_UnitItems cls_unitItems = new Cls_UnitItems();
@@ -1883,16 +1900,44 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
 
             if (getArguments().getString("Scr") == "Sal_inv") {
 
+                EditText bo1 = (EditText) form.findViewById(R.id.et_bo);
+
 
                 if (UpdateItem != null) {
                     if (UpdateItem.size() > 0) {
-                        ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString());
-                        this.dismiss();
+                        if (chkEnbledItem.isChecked()) {
+                        if(!(bo1.getText().toString().equals("0")||bo1.getText().toString().equals(""))) {
+                            ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString());
+                            this.dismiss();
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(),"يجب ادخال البونص",Toast.LENGTH_LONG).show();
+                        }}
+                        else
+                            {
+                                ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString());
+                            }
                     }
                 } else {
-                    ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""));
 
+                    if (chkEnbledItem.isChecked()) {
+                        if(!(bo1.getText().toString().equals("0")||bo1.getText().toString().equals(""))) {
+                            ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, "0", qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""), "1");
+                        }
+                     else
+                        {
+                            Toast.makeText(getActivity(),"يجب ادخال البونص",Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    else
+                    {
+                        ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""),"0");
+                    }
                 }
+
+
                 if (!Manpassword.equalsIgnoreCase("")) {
                     UpdateCode_ForPrice(Manpassword);
 
@@ -1909,9 +1954,6 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                         ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), "0", UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString());
                         this.dismiss();
                     }
-                } else {
-                   // ((Delivery_VoucherAct) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), "0", UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""));
-
                 }
                 if (!Manpassword.equalsIgnoreCase("")) {
                     UpdateCode_ForPrice(Manpassword);
@@ -2576,13 +2618,18 @@ bo.setText("0");
         } else {
             ResultCode = 0;
             if (ManType.equalsIgnoreCase("4")) {
-                tv_MaxDiscount.setText("100");
-                tv_MaxBounce.setText("100");
+                tv_MaxDiscount.setText(MaxDis);
+                tv_MaxBounce.setText(MaxBounce);
                 tv_CodeLiveNote.setText("");
                 LiveCode.setText("");
             } else if (ManType.equalsIgnoreCase("2")) {
-                tv_MaxDiscount.setText("5");
-                tv_MaxBounce.setText("5");
+                tv_MaxDiscount.setText(MaxDis);
+                tv_MaxBounce.setText(MaxBounce);
+                tv_CodeLiveNote.setText("");
+                LiveCode.setText("");
+            }else if (ManType.equalsIgnoreCase("1")) {
+                tv_MaxDiscount.setText(MaxDis);
+                tv_MaxBounce.setText(MaxBounce);
                 tv_CodeLiveNote.setText("");
                 LiveCode.setText("");
             }

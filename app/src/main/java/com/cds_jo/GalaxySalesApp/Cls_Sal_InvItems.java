@@ -32,6 +32,15 @@ public class Cls_Sal_InvItems {
     String Damaged;
     String Note;
     String weight;
+    String sample;
+
+    public String getSample() {
+        return sample;
+    }
+
+    public void setSample(String sample) {
+        this.sample = sample;
+    }
 
     public String getWeight() {
         return weight;

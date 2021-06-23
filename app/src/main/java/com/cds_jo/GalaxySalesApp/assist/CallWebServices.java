@@ -53,14 +53,14 @@ public class CallWebServices  {
        //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
         //URL = "http://92.253.127.230:92/CV.asmx";// mo8bl
 //URL = "http://109.107.238.12:3755/CV.asmx";// السعد
-URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
+//URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
   //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
 //URL = "http://192.168.1.146:82/CV.asmx";// khaldi
 //URL = "http://10.0.1.63:92/CV.asmx";// servar galaxy
 //URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
  //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
-//URL = "http://10.0.1.63:92/CV.asmx";// galaxy
+URL = "http://10.0.1.63:92/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
           //moh
 
@@ -3192,7 +3192,7 @@ return    We_Result.ID;
         //Return resTxt to calling object
 
     }
-    public long Save_Sal_Invoice(String Json) {
+    public long Save_Sal_Invoice(String Json,String Json1) {
         We_Result.Msg =  "";
         We_Result.ID = -1;
 
@@ -3202,6 +3202,11 @@ return    We_Result.ID;
         sayHelloPI.setValue(Json);
         sayHelloPI.setType(String.class);
         request.addProperty(sayHelloPI);
+        PropertyInfo sayHelloPI1 = new PropertyInfo();
+        sayHelloPI1.setName("JsonStr1");
+        sayHelloPI1.setValue(Json1);
+        sayHelloPI1.setType(String.class);
+        request.addProperty(sayHelloPI1);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.dotNet=true;

@@ -629,6 +629,7 @@ public class RecvVoucherActivity extends AppCompatActivity {
         cv.put("UserID", sharedPreferences.getString("UserID", "").replace("\u202c","").replace("\u202d",""));
         cv.put("V_OrderNo",sharedPreferences.getString("V_OrderNo", "0").replace("\u202c","").replace("\u202d",""));
         cv.put("DayNum",dayOfWeek+"".replace("\u202c","").replace("\u202d",""));
+        cv.put("FromSales","0");
         long i;
 
         if (IsNew==true) {
