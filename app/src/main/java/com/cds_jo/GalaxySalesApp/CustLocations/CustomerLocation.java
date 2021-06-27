@@ -31,6 +31,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -127,26 +128,34 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
 
         ed_Acc.setText(sharedPreferences.getString("CustNo", ""));
 
-
+        ImageButton imagesButton=(ImageButton)findViewById(R.id.imagesButton);
         Records = new ArrayList<CustLocaltions>();
         Records.clear();
 
         ed_CusName = (EditText) findViewById(R.id.ed_CusName);
         ed_CusName.setText(sharedPreferences.getString("CustNm", ""));
-        LinearLayout save=(LinearLayout)findViewById(R.id.save);
+       LinearLayout save=(LinearLayout)findViewById(R.id.save);
+        LinearLayout b1=(LinearLayout)findViewById(R.id.footer);
 
 
         String location= DB.GetValue(getApplicationContext(),"Customers","Latitude","no='"+ed_Acc.getText().toString().trim()+"'");
+        String locationlong= DB.GetValue(getApplicationContext(),"Customers","Longitude","no='"+ed_Acc.getText().toString().trim()+"'");
 
-        if(!(location.equals("-1")|| location.equals("")))
+       LinearLayout bottomlayout=(LinearLayout)findViewById(R.id.bottomlayout);
+        if(location.equals("-1")|| location.equals("")||location.equals("0")||location.equals("0.0"))
         {
-            save.setVisibility(View.GONE);
-
+            save.setVisibility(View.VISIBLE);
+            imagesButton.setVisibility(View.VISIBLE);
             //save.setVisibility(View.GONE);
         }else{
-            save.setVisibility(View.VISIBLE);
+            save.setVisibility(View.GONE);
+            imagesButton.setVisibility(View.GONE);
+            b1.setWeightSum(3);
 
-            //  save.setVisibility(View.VISIBLE);
+            EditText  ed_Long=(EditText)findViewById(R.id.ed_Long);
+            EditText  ed_Lat=(EditText)findViewById(R.id.ed_Lat);
+            ed_Lat.setText(location);
+            ed_Long.setText(locationlong);
         }
 
         IsNew = true;
@@ -324,23 +333,55 @@ public class CustomerLocation extends FragmentActivity implements OnMapReadyCall
 
         @Override
         public void onMyLocationChange(Location location) {
-            ed_Lat.setText(String.valueOf(location.getLatitude()));
-            ed_Long.setText(String.valueOf(location.getLongitude()));
-            GetStreetName() ;
-            LatLng ManLoc ;
-            ManLoc= new LatLng(Lat, Lng);
-            mMap.clear();
-            PolylineOptions polylineOpt = new PolylineOptions();
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(ManLoc));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-            mMap.getUiSettings().setZoomControlsEnabled(true);
-            mMap.setMyLocationEnabled(true);
-            mMap.setTrafficEnabled(true);
-            mMap.setBuildingsEnabled(true);
 
-            mMap.setOnMyLocationChangeListener(myLocationChangeListener);
-            polylineOpt.add(ManLoc);
 
+            String locationlat= DB.GetValue(getApplicationContext(),"Customers","Latitude","no='"+ed_Acc.getText().toString().trim()+"'");
+            String locationlong= DB.GetValue(getApplicationContext(),"Customers","Longitude","no='"+ed_Acc.getText().toString().trim()+"'");
+
+          LinearLayout bottomlayout=(LinearLayout)findViewById(R.id.bottomlayout);
+            if(locationlat.equals("-1")|| locationlat.equals("")||locationlat.equals("0")||locationlat.equals("0.0")|| locationlat.equals(" "))
+            {
+
+                ed_Lat.setText(String.valueOf(location.getLatitude()));
+                ed_Long.setText(String.valueOf(location.getLongitude()));
+                GetStreetName() ;
+                LatLng ManLoc ;
+                ManLoc= new LatLng(Lat, Lng);
+                mMap.clear();
+                PolylineOptions polylineOpt = new PolylineOptions();
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(ManLoc));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+                mMap.setMyLocationEnabled(true);
+                mMap.setTrafficEnabled(true);
+                mMap.setBuildingsEnabled(true);
+                mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+                polylineOpt.add(ManLoc);
+
+
+            }else{
+
+
+
+                ed_Lat.setText(locationlat);
+               ed_Long.setText(locationlong);
+                GetStreetName() ;
+                LatLng ManLoc ;
+                ManLoc= new LatLng(Double.valueOf(locationlat), (Double.valueOf(locationlong)));
+                mMap.clear();
+                PolylineOptions polylineOpt = new PolylineOptions();
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(ManLoc));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+                mMap.setMyLocationEnabled(true);
+                mMap.setTrafficEnabled(true);
+                mMap.setBuildingsEnabled(true);
+
+                mMap.setOnMyLocationChangeListener(myLocationChangeListener);
+                polylineOpt.add(ManLoc);
+
+
+            }
 
         }
     };
@@ -744,44 +785,58 @@ save.setVisibility(View.GONE);
 
     }
     public void Getlocation() {
+        String location= DB.GetValue(getApplicationContext(),"Customers","Latitude","no='"+ed_Acc.getText().toString().trim()+"'");
+        String locationlong= DB.GetValue(getApplicationContext(),"Customers","Longitude","no='"+ed_Acc.getText().toString().trim()+"'");
 
-        try {
-            String address = "";
-            GPSService mGPSService = new GPSService(this);
-            mGPSService.getLocation();
+        LinearLayout bottomlayout=(LinearLayout)findViewById(R.id.bottomlayout);
+        if(location.equals("-1")|| location.equals("")||location.equals("0")||location.equals("0.0"))
+        {
+            try {
+                String address = "";
+                GPSService mGPSService = new GPSService(this);
+                mGPSService.getLocation();
 
-            if (mGPSService.isLocationAvailable == false) {
+                if (mGPSService.isLocationAvailable == false) {
 
-                return;
+                    return;
 
-            } else {
-
-
-                double latitude = mGPSService.getLatitude();
-                double longitude = mGPSService.getLongitude();
-
-                address = mGPSService.getLocationAddress();
-
-
-                int precision = (int) Math.pow(10, 6);
-                //tv_x.setText(String.format("%.4f", latitude, Locale.US));
-
-                try {
+                } else {
 
 
-                } catch (Exception ex) {
-                    ed_Lat.setText("0.0");
-                    ed_Long.setText("0.0");
+                    double latitude = mGPSService.getLatitude();
+                    double longitude = mGPSService.getLongitude();
+
+                    address = mGPSService.getLocationAddress();
+
+
+                    int precision = (int) Math.pow(10, 6);
+                    //tv_x.setText(String.format("%.4f", latitude, Locale.US));
+
+                    try {
+
+
+                    } catch (Exception ex) {
+                        ed_Lat.setText("0.0");
+                        ed_Long.setText("0.0");
+                    }
+                    ed_Lat.setText(String.valueOf(latitude));
+                    ed_Long.setText(String.valueOf(longitude));
+                    // ed_GpsLocation.setText("address");
+
                 }
-                ed_Lat.setText(String.valueOf(latitude));
-                ed_Long.setText(String.valueOf(longitude));
-               // ed_GpsLocation.setText("address");
+                GetStreetName();
 
+            } catch (Exception ex) {
+                Toast.makeText(this,ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
-            GetStreetName();
 
-        } catch (Exception ex) {
-            Toast.makeText(this,ex.getMessage().toString(), Toast.LENGTH_SHORT).show();
+
+            //save.setVisibility(View.GONE);
+        }else{
+            EditText  ed_Long=(EditText)findViewById(R.id.ed_Long);
+            EditText  ed_Lat=(EditText)findViewById(R.id.ed_Lat);
+            ed_Lat.setText(location);
+            ed_Long.setText(locationlong);
         }
 
 

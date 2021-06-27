@@ -236,7 +236,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
 
 
         TextView tv_SupervisorMobile =(TextView)findViewById(R.id.tv_SupervisorMobile);
-        tv_SupervisorMobile.setText(sharedPreferences.getString("SuperVisorMobile", ""));
+        tv_SupervisorMobile.setText(sharedPreferences.getString("SupervisorMobile", ""));
 
 
 

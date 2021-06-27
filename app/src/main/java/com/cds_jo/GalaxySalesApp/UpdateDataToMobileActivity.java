@@ -1707,11 +1707,14 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         }
 
         try {
-        sqlHandler.executeQuery("Alter Table ServerDateTime  Add  COLUMN  DAYWEEK  text null");
+                sqlHandler.executeQuery("Alter Table ServerDateTime  Add  COLUMN  DAYWEEK  text null");
         } catch (SQLException e) {
         }
 
-
+        try {
+            sqlHandler.executeQuery("Alter Table manf  Add  COLUMN  SupervisorMobile  text null");
+        } catch (SQLException e) {
+        }
     }
 
     CheckBox chkall;
@@ -3884,7 +3887,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         Integer i;
                         String q;
                         JSONObject js = new JSONObject(We_Result.Msg);
-                        JSONArray js_man = js.getJSONArray("man");
+                        final JSONArray js_man = js.getJSONArray("man");
                         JSONArray js_name = js.getJSONArray("name");
                         JSONArray js_MEName = js.getJSONArray("MEName");
                         JSONArray js_StoreNo = js.getJSONArray("StoreNo");
@@ -3897,7 +3900,10 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         JSONArray js_MANTYPE = js.getJSONArray("MANTYPE");
                         JSONArray js_TypeDesc= js.getJSONArray("TypeDesc");
 
-                        JSONArray js_ManSupervisor= js.getJSONArray("ManSupervisor");
+
+
+
+                       JSONArray js_ManSupervisor= js.getJSONArray("ManSupervisor");
                         JSONArray js_BranchNo= js.getJSONArray("BranchNo");
                         JSONArray js_Email= js.getJSONArray("Email");
                         JSONArray js_SuperVisor_name= js.getJSONArray("SuperVisor_name");
@@ -3912,6 +3918,12 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         JSONArray js_MaxBouns = js.getJSONArray("MaxBouns");
                         JSONArray js_MaxDiscount = js.getJSONArray("MaxDiscount");
 
+                        final JSONArray SupervisorMobile = js.getJSONArray("MobileNoSupervisor");
+
+
+
+
+
                         q = "Delete from manf";
                         sqlHandler.executeQuery(q);
                         q = " delete from sqlite_sequence where name='manf'";
@@ -3919,7 +3931,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
                         for (i = 0; i < js_man.length(); i++) {
                             q = "Insert INTO manf(man,name,MEName,username,password,StoreNo,Stoped,SupNo,Mobile1,Mobile2" +
-                                    " , ManType,TypeDesc,AlternativeMan,BranchName,SupervisorName,Email,Acc,AccName,PosAcc,PosAccName,MaxBouns,MaxDiscount) values ("
+                                    " , ManType,TypeDesc,AlternativeMan,BranchName,SupervisorName,Email,Acc,AccName,PosAcc,PosAccName,MaxBouns,MaxDiscount,SupervisorMobile) values ("
                                     + js_man.get(i).toString()
                                     + ",'" + js_name.get(i).toString()
                                     + "','" + js_MEName.get(i).toString()
@@ -3942,7 +3954,10 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                                     + "','" + js_PosAccName.get(i).toString()
                                     + "','" + js_MaxBouns.get(i).toString()
                                     + "','" + js_MaxDiscount.get(i).toString()
+                                    + "','" + SupervisorMobile.get(i).toString()
                                     + "')";
+
+
                             Log.d("ddd",q);
                             sqlHandler.executeQuery(q);
                             progressDialog.setMax(js_man.length());
@@ -3959,6 +3974,11 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                                 filllist("المستخدمين ", 1, total);
                                 Chk_Users.setChecked(false);
                                 progressDialog.dismiss();
+
+
+
+
+
                                 Do_Trans_From_Server();
                             }
                         });
@@ -4712,7 +4732,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                             editor.putString("CompanyMobile2", js_CompanyMobile2.get(i).toString());
                             editor.putString("SuperVisorMobile", js_SuperVisorMobile.get(i).toString());
 
-                            editor.commit();
+                          //  editor.commit();
                             custDialog.setMax(js_ID.length());
                             custDialog.incrementProgressBy(1);
 

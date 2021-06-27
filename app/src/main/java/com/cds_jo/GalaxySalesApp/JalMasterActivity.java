@@ -96,6 +96,24 @@
         String q=DB.GetValue(this,"cardMan","no","1=1");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
       UserID = sharedPreferences.getString("UserID", "");
+
+        String  companym= DB.GetValue(JalMasterActivity.this,"ComanyInfo","SuperVisorMobile","ID='"+UserID+"'");
+        String mansupermobile= DB.GetValue(JalMasterActivity.this,"manf","SupervisorMobile","man='"+UserID+"'");
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //     editor.putString("SupervisorMobile", SupervisorMobile.get(i).toString());
+
+        if(mansupermobile==null || mansupermobile.equals("0")||mansupermobile.equals("")) {
+               editor.putString("SuperVisorMobile", companym);
+            //editor.putString("SupervisorMobile", SupervisorMobile.get(i).toString());
+            editor.apply();
+        }else{
+            editor.putString("SupervisorMobile",mansupermobile);
+            editor.apply();
+        }
+
+
+
         String query = "Select DateLogin From TimeLogin where manNo ='"+UserID +"'";
         sqlHandler = new SqlHandler(this);
         Cursor c1 = sqlHandler.selectQuery(query);
