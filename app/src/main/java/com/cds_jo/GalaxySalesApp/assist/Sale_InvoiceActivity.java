@@ -1023,11 +1023,23 @@ public String getmaxN(){
             tv_HeaderDscount.setText(SToD((FinalDiscountpercent) + "") + "%");
 
 
-            for (int x = 0; x < contactList.size(); x++) {
 
-                contactList.get(x).setDisPerFromHdr(FinalDiscountpercent + "");
-                contactList.get(x).setDisAmtFromHdr(((FinalDiscountpercent * (SToD(contactList.get(x).getTotal()))) / 100) + "");
+            if (IncludeTax_Flag.isChecked()) {
 
+                for (int x = 0; x < contactList.size(); x++) {
+
+                    contactList.get(x).setDisPerFromHdr(FinalDiscountpercent + "");
+                    contactList.get(x).setDisAmtFromHdr(((FinalDiscountpercent * (SToD(tv_NetTotal.getText().toString()))) / 100) + "");
+
+                }
+            } else {
+
+                for (int x = 0; x < contactList.size(); x++) {
+
+                    contactList.get(x).setDisPerFromHdr(FinalDiscountpercent + "");
+                    contactList.get(x).setDisAmtFromHdr(((FinalDiscountpercent * (SToD(et_Total1.getText().toString()))) / 100) + "");
+
+                }
             }
 
             CalcTotal();

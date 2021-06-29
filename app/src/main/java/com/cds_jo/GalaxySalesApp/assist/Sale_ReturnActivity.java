@@ -542,7 +542,6 @@ public class Sale_ReturnActivity extends FragmentActivity {
         cv.put("bounce_Total", "0");
         cv.put("doctype", "2");
         cv.put("TotalWithoutDiscount", SToD(NetTotal.getText().toString()  ));
-        cv.put("monetary",String.valueOf(chk_Type.isChecked()));
 
         if (IncludeTax_Flag.isChecked()) {
             cv.put("include_Tax", "0");
@@ -600,7 +599,6 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
 
                     if (i > 0) {
-                      //  Toast.makeText(Sale_ReturnActivity.this,"ok",Toast.LENGTH_LONG).show();
                         i = sqlHandler.Insert(this, "Sal_return_Det", null, cv);
                         if (i < 0) {
                             alertDialog.setTitle("  الرجاء تبليغ مسؤول النظام  للضرورة  " + contactListItems.getName().toString());
@@ -655,7 +653,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
             alertDialog.setTitle(tv_ScrTitle.getText().toString());
             alertDialog.setMessage("تمت عمليةالتخزين  بنجاح");
             IsChange = false;
-           // chk_Type.setEnabled(false);
+            // chk_Type.setEnabled(false);
             IsNew = false;
             alertDialog.setIcon(R.drawable.tick);
             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -762,7 +760,6 @@ public class Sale_ReturnActivity extends FragmentActivity {
                     Total = Total + ((opq * (All_Dis_Per / 100)) - SToD(contactListItems.getTax_Amt()) + Dis_Amt);
                 }else{
                     Total = Total + ((opq ) - SToD(contactListItems.getTax_Amt()) );
-
                 }*/
 
 
@@ -796,106 +793,89 @@ public class Sale_ReturnActivity extends FragmentActivity {
         NetTotal.setText(String.valueOf(df.format(V_NetTotal)));
         CustAmtDt();
     }
-   /* private void CalcTax() {
-        Double All_Dis = 0.0;
-        Double RowTotal = 0.0;
-        Double NetRow = 0.0;
-        Double TaxAmt = 0.0;
-        Double TaxFactor = 0.0;
-        Double All_Dis_Per = 0.0;
-        NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
-        DecimalFormat df = (DecimalFormat) nf;
-
-
-        Cls_Sal_InvItems contactListItems;
-        for (int x = 0; x < contactList.size(); x++) {
-            contactListItems = new Cls_Sal_InvItems();
-            contactListItems = contactList.get(x);
-            All_Dis = Double.parseDouble(contactListItems.getDis_Amt().replace(",", "")) + Double.parseDouble(contactListItems.getDisAmtFromHdr().replace(",", "")) + Double.parseDouble(contactListItems.getPro_amt().replace(",", ""));
-            All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr()) + SToD(contactListItems.getPro_dis_Per());
-
-            if (IncludeTax_Flag.isChecked()) {
-
-                contactListItems.setprice(SToD(String.valueOf((SToD(contactListItems.getItemOrgPrice())) / ((SToD(contactListItems.getTax()) / 100) + 1))).toString());
-            } else {
-                contactListItems.setprice(String.valueOf(SToD(contactListItems.getItemOrgPrice())));
-
-            }
-            RowTotal = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
-            TaxFactor = (Double.parseDouble(contactListItems.getTax()) / 100);
-            NetRow = RowTotal - (RowTotal * (All_Dis_Per / 100));
-            TaxAmt = NetRow * TaxFactor;
-            contactListItems.setTax_Amt(df.format(TaxAmt).toString());
-        }
-        showList();
-    }
-    private void CalcTotal() {
-        Double Total, Tax_Total, Dis_Amt, Po_Total;
-        Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
-        NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
-        DecimalFormat df = (DecimalFormat) nf;
-        Double All_Dis = 0.0;
-        Double All_Dis_Per = 0.0;
-        Total = 0.0;
-        Tax_Total = 0.0;
-        Dis_Amt = 0.0;
-        Po_Total = 0.0;
-        TextView Subtotal = (TextView) findViewById(R.id.et_Total);
-        TextView TotalTax = (TextView) findViewById(R.id.et_TotalTax);
-        TextView dis = (TextView) findViewById(R.id.et_dis);
-        TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
-
-        Double TaxVal = 0.0;
-        double TaxFactor = 0.0;
-        CalcTax();
-        Double RowTotal = 0.0;
-        Double pq = 0.0;
-        Double opq = 0.0;
-        Double V_NetTotal = 0.0;
-        for (int x = 0; x < contactList.size(); x++) {
-            contactListItems = new Cls_Sal_InvItems();
-            contactListItems = contactList.get(x);
-            All_Dis = SToD(contactListItems.getDis_Amt()) + SToD(contactListItems.getDisAmtFromHdr()) + SToD(contactListItems.getPro_amt());
-            All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr()) + SToD(contactListItems.getPro_dis_Per());
-            pq = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
-            opq = SToD(contactListItems.getItemOrgPrice()) * SToD(contactListItems.getQty());
-
-            Tax_Total = Tax_Total + (SToD(contactListItems.getTax_Amt().toString()));
-            Dis_Amt = Dis_Amt + (((pq) * (All_Dis_Per / 100)));
-
-            if (IncludeTax_Flag.isChecked()) {
-                RowTotal = opq - ((opq) * (All_Dis_Per / 100));//+ SToD(contactListItems.getTax_Amt());
-
-            } else {
-                RowTotal = pq - ((pq) * (All_Dis_Per / 100)) + SToD(contactListItems.getTax_Amt());
-                Total = Total + pq;
-
-            }
-
-            V_NetTotal = V_NetTotal + SToD(RowTotal.toString().replace(",", ""));
-
-            contactListItems.setTotal((SToD(RowTotal.toString())).toString().replace(",", ""));
-            All_Dis = 0.0;
-
-        }
-        Total = V_NetTotal - Tax_Total + Dis_Amt;
-        TotalTax.setText(String.valueOf(df.format(Tax_Total)).replace(",", ""));
-        Subtotal.setText(String.valueOf(df.format(Total)).replace(",", ""));
-        dis.setText(String.valueOf(df.format(Dis_Amt)).replace(",", ""));
-
-
-       *//* if (Tax_Include.isChecked()){
+    /* private void CalcTax() {
+         Double All_Dis = 0.0;
+         Double RowTotal = 0.0;
+         Double NetRow = 0.0;
+         Double TaxAmt = 0.0;
+         Double TaxFactor = 0.0;
+         Double All_Dis_Per = 0.0;
+         NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+         DecimalFormat df = (DecimalFormat) nf;
+         Cls_Sal_InvItems contactListItems;
+         for (int x = 0; x < contactList.size(); x++) {
+             contactListItems = new Cls_Sal_InvItems();
+             contactListItems = contactList.get(x);
+             All_Dis = Double.parseDouble(contactListItems.getDis_Amt().replace(",", "")) + Double.parseDouble(contactListItems.getDisAmtFromHdr().replace(",", "")) + Double.parseDouble(contactListItems.getPro_amt().replace(",", ""));
+             All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr()) + SToD(contactListItems.getPro_dis_Per());
+             if (IncludeTax_Flag.isChecked()) {
+                 contactListItems.setprice(SToD(String.valueOf((SToD(contactListItems.getItemOrgPrice())) / ((SToD(contactListItems.getTax()) / 100) + 1))).toString());
+             } else {
+                 contactListItems.setprice(String.valueOf(SToD(contactListItems.getItemOrgPrice())));
+             }
+             RowTotal = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
+             TaxFactor = (Double.parseDouble(contactListItems.getTax()) / 100);
+             NetRow = RowTotal - (RowTotal * (All_Dis_Per / 100));
+             TaxAmt = NetRow * TaxFactor;
+             contactListItems.setTax_Amt(df.format(TaxAmt).toString());
+         }
+         showList();
+     }
+     private void CalcTotal() {
+         Double Total, Tax_Total, Dis_Amt, Po_Total;
+         Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
+         NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+         DecimalFormat df = (DecimalFormat) nf;
+         Double All_Dis = 0.0;
+         Double All_Dis_Per = 0.0;
+         Total = 0.0;
+         Tax_Total = 0.0;
+         Dis_Amt = 0.0;
+         Po_Total = 0.0;
+         TextView Subtotal = (TextView) findViewById(R.id.et_Total);
+         TextView TotalTax = (TextView) findViewById(R.id.et_TotalTax);
+         TextView dis = (TextView) findViewById(R.id.et_dis);
+         TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
+         Double TaxVal = 0.0;
+         double TaxFactor = 0.0;
+         CalcTax();
+         Double RowTotal = 0.0;
+         Double pq = 0.0;
+         Double opq = 0.0;
+         Double V_NetTotal = 0.0;
+         for (int x = 0; x < contactList.size(); x++) {
+             contactListItems = new Cls_Sal_InvItems();
+             contactListItems = contactList.get(x);
+             All_Dis = SToD(contactListItems.getDis_Amt()) + SToD(contactListItems.getDisAmtFromHdr()) + SToD(contactListItems.getPro_amt());
+             All_Dis_Per = SToD(contactListItems.getDiscount()) + SToD(contactListItems.getDisPerFromHdr()) + SToD(contactListItems.getPro_dis_Per());
+             pq = SToD(contactListItems.getprice()) * SToD(contactListItems.getQty());
+             opq = SToD(contactListItems.getItemOrgPrice()) * SToD(contactListItems.getQty());
+             Tax_Total = Tax_Total + (SToD(contactListItems.getTax_Amt().toString()));
+             Dis_Amt = Dis_Amt + (((pq) * (All_Dis_Per / 100)));
+             if (IncludeTax_Flag.isChecked()) {
+                 RowTotal = opq - ((opq) * (All_Dis_Per / 100));//+ SToD(contactListItems.getTax_Amt());
+             } else {
+                 RowTotal = pq - ((pq) * (All_Dis_Per / 100)) + SToD(contactListItems.getTax_Amt());
+                 Total = Total + pq;
+             }
+             V_NetTotal = V_NetTotal + SToD(RowTotal.toString().replace(",", ""));
+             contactListItems.setTotal((SToD(RowTotal.toString())).toString().replace(",", ""));
+             All_Dis = 0.0;
+         }
+         Total = V_NetTotal - Tax_Total + Dis_Amt;
+         TotalTax.setText(String.valueOf(df.format(Tax_Total)).replace(",", ""));
+         Subtotal.setText(String.valueOf(df.format(Total)).replace(",", ""));
+         dis.setText(String.valueOf(df.format(Dis_Amt)).replace(",", ""));
+        *//* if (Tax_Include.isChecked()){
             Po_Total = Po_Total + ((Double.parseDouble(Subtotal.getText().toString().replace(",", "")) - Double.parseDouble(dis.getText().toString().replace(",", "")) ) + Double.parseDouble(TotalTax.getText().toString().replace(",", ""))    );
         }
         else{
             Po_Total = Po_Total + ((Double.parseDouble(Subtotal.getText().toString().replace(",", "")) - Double.parseDouble(dis.getText().toString().replace(",","")) )   + Double.parseDouble(TotalTax.getText().toString().replace(",", "")) );
         }*//*
         Po_Total = Po_Total + ((SToD(Subtotal.getText().toString()) - SToD(dis.getText().toString())) + SToD(TotalTax.getText().toString()));
-
         showList();
         NetTotal.setText(String.valueOf(df.format(V_NetTotal)));
         CustAmtDt();
-
     }*/
     public void btn_show_Pop(View view) {
         showPop();
@@ -1342,7 +1322,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
         FillAdapter();
         showList();
-        String q = " Select  distinct  ifnull( s.hdr_dis_per,'0')  as   hdr_dis_per, monetary , ifnull( s.hdr_dis_value,0) as hdr_dis_value ,s.Nm   ,s.include_Tax ,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , c.name,s.doctype , s.return_type " +
+        String q = " Select  distinct  ifnull( s.hdr_dis_per,'0')  as   hdr_dis_per, ifnull( s.hdr_dis_value,0) as hdr_dis_value ,s.Nm   ,s.include_Tax ,  s.disc_Total, s.OrderNo,s.Net_Total,s.Tax_Total ,s.acc ,s.date , c.name,s.doctype , s.return_type " +
                 "    from  Sal_return_Hdr s   " +
                 "    left join Customers c on c.no =s.acc   " +
                 "    where     s.Orderno = '" + No + "'";
@@ -1372,7 +1352,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
                 accno.setText(c1.getString(c1.getColumnIndex("acc")));
                 tv_NetTotal.setText(c1.getString(c1.getColumnIndex("Net_Total")));
                 et_TotalTax.setText(c1.getString(c1.getColumnIndex("Tax_Total")));
-                chk_Type.setChecked(Boolean.getBoolean(c1.getString(c1.getColumnIndex("Tax_Total"))));
+
 
 
                 if (c1.getString(c1.getColumnIndex("include_Tax")).equals("0")) {
@@ -1390,7 +1370,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
         IsNew = false;
     }
     public void btn_print(View view) {
-EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
+        EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
         String q  = "SELECT distinct *  from  Sal_return_Hdr where    " +
                 "   Post <= 0 AND   OrderNo ='" + OrderNo.getText().toString().trim() + "'";
 
@@ -1408,20 +1388,17 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
         TextView et_TotalTax = (TextView) findViewById(R.id.et_TotalTax);
         TextView et_dis = (TextView) findViewById(R.id.et_dis);
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
-        CheckBox chk_Type=(CheckBox)findViewById(R.id.chk_Type);
-
         //TextView tv_OrderNo = (TextView) findViewById(R.id.tv_OrderNo);
-            Intent k;
-            k = new Intent(Sale_ReturnActivity.this, Xprinter_SalesReturn.class);
-       k.putExtra("Orderno", OrderNo.getText().toString().replace("\u202c","").replace("\u202d",""));
-       k.putExtra("nettotal", tv_NetTotal.getText().toString().replace("\u202c","").replace("\u202d",""));
-       k.putExtra("total", etTotal.getText().toString().replace("\u202c","").replace("\u202d",""));
-       k.putExtra("totaltax", et_TotalTax.getText().toString().replace("\u202c","").replace("\u202d",""));
-       k.putExtra("totaldis", et_dis.getText().toString().replace("\u202c","").replace("\u202d",""));
+        Intent k;
+        k = new Intent(Sale_ReturnActivity.this, Xprinter_SalesReturn.class);
+        k.putExtra("Orderno", OrderNo.getText().toString().replace("\u202c","").replace("\u202d",""));
+        k.putExtra("nettotal", tv_NetTotal.getText().toString().replace("\u202c","").replace("\u202d",""));
+        k.putExtra("total", etTotal.getText().toString().replace("\u202c","").replace("\u202d",""));
+        k.putExtra("totaltax", et_TotalTax.getText().toString().replace("\u202c","").replace("\u202d",""));
+        k.putExtra("totaldis", et_dis.getText().toString().replace("\u202c","").replace("\u202d",""));
         k.putExtra("cusname", CustNm.getText().toString().replace("\u202c","").replace("\u202d",""));
-        k.putExtra("monetary", String.valueOf(chk_Type.isChecked()));
-    //   k.putExtra("tOrderNo", tv_OrderNo.getText().toString().replace("\u202c","").replace("\u202d",""));
-         startActivity(k);
+        //   k.putExtra("tOrderNo", tv_OrderNo.getText().toString().replace("\u202c","").replace("\u202d",""));
+        startActivity(k);
 
 
 
@@ -1451,7 +1428,7 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
         IsNew = true;
         IncludeTax_Flag.setChecked(true);
         chk_Type.setChecked(true);
-      //  chk_Type.setEnabled(true);
+        //  chk_Type.setEnabled(true);
         chk_hdr_disc.setChecked(false);
         BalanceQtyTrans = false;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -1801,7 +1778,7 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
         contactListItems.setDamaged(Damaged);
         contactListItems.setNote(Note);
-       // contactList.add(contactListItems);
+        // contactList.add(contactListItems);
 
         CalcTotal();
         showList();
@@ -1873,5 +1850,3 @@ EditText OrderNo =(EditText)findViewById(R.id.et_OrdeNo) ;
         obj.show(Manager, null);
     }
 }
-
-

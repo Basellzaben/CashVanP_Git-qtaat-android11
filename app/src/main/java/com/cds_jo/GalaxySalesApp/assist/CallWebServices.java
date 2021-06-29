@@ -2836,7 +2836,7 @@ public class CallWebServices  {
 
         We_Result.Msg="";
         We_Result.ID =-1;
-        SoapObject request = new SoapObject(NAMESPACE, "Cust_Bill_Info");
+        SoapObject request = new SoapObject(NAMESPACE, "0 ");
         // Property which holds input parameters
 
         PropertyInfo parm_ManNo = new PropertyInfo();
