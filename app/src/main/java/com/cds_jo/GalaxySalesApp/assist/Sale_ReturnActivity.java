@@ -97,7 +97,8 @@ public class Sale_ReturnActivity extends FragmentActivity {
         String f = "";
         final NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
         final DecimalFormat df = (DecimalFormat) nf;
-        str = str.replace(",", "");
+        str = str.replace(
+                ",", "");
         Double d = 0.0;
         if (str.length() == 0) {
             str = "0";
@@ -548,11 +549,10 @@ public class Sale_ReturnActivity extends FragmentActivity {
         } else {
             cv.put("include_Tax", "-1");
         }
-
         if (chk_Type.isChecked()) {
-            cv.put("return_type", "-1");
-        } else {
             cv.put("return_type", "0");
+        } else {
+            cv.put("return_type", "-1");
         }
 
         cv.put("disc_Total", dis.getText().toString());
@@ -562,7 +562,6 @@ public class Sale_ReturnActivity extends FragmentActivity {
         } else {
             i = sqlHandler.Update("Sal_return_Hdr", cv, "   OrderNo ='" + pono.getText().toString()  + "'");
         }
-
 
         if (i > 0) {
             String q = "Delete from  Sal_return_Det where     OrderNo ='" + pono.getText().toString()  + "'";

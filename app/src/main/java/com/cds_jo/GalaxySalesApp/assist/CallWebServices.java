@@ -22,49 +22,49 @@ public class CallWebServices  {
     Activity Activity;
     String IPAddress = "";
     //Namespace of the Webservice - can be found in WSDL
-     private static String NAMESPACE = "http://tempuri.org/";
-     //Webservice URL - WSDL File location
-     //private  String URL = "http://192.168.1.60/Webservices/WebService1.asmx";
-      private  String URL = "";
-      int TIME_OUT_CONN = 50000;
-      public  CallWebServices(Context _context ){
+    private static String NAMESPACE = "http://tempuri.org/";
+    //Webservice URL - WSDL File location
+    //private  String URL = "http://192.168.1.60/Webservices/WebService1.asmx";
+    private  String URL = "";
+    int TIME_OUT_CONN = 50000;
+    public  CallWebServices(Context _context ){
         context = _context;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         IPAddress =sharedPreferences.getString("ServerIP", "");
-       //1 bustanji 2 bristage 3-salsel 4-goodsystem 5-tariget system 6-
-          //URL = "http://"+IPAddress+"/GIWS/CV.asmx";//bustanji or prastaige
-      //    URL = "http://"+IPAddress+":3755"+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
+        //1 bustanji 2 bristage 3-salsel 4-goodsystem 5-tariget system 6-
+        //URL = "http://"+IPAddress+"/GIWS/CV.asmx";//bustanji or prastaige
+        //    URL = "http://"+IPAddress+":3755"+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
         URL = "http://"+IPAddress+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
 
 
-  //    URL = "http://46.185.131.31:9090/CV.asmx";//شركة السلاسل
+        //    URL = "http://46.185.131.31:9090/CV.asmx";//شركة السلاسل
         //URL = "http://192.168.8.101/GIWS/CV.asmx";
         //URL = "http://92.253.93.52:3755/CV.asmx";
         //URL = "http://192.168.1.148/GIWS/CV.asmx";
         //URL = "http://10.0.1.166/GIWS/CV.asmx"; //Galaxy1
         //   URL = "http://10.0.1.104:82/CV.asmx"; //Galaxy2
         // URL = "http://192.168.43.36:82/CV.asmx"; //Galaxy2
-    //   URL = "http://192.168.1.103:82/CV.asmx";
-     //    URL = "http://10.0.1.104:82/CV.asmx";
+        //   URL = "http://192.168.1.103:82/CV.asmx";
+        //    URL = "http://10.0.1.104:82/CV.asmx";
         // URL = "http://94.249.83.196:3767/CV.asmx";
-      //URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
-       //URL = "http://192.168.0.103:3755/CV.asmx";
+        //URL = "http://92.253.126.39:3750/CV.asmx";//شركة خط التجميل
+        //URL = "http://192.168.0.103:3755/CV.asmx";
         //URL = "http://92.253.22.118:3733/CV.asmx";// Targit
-       //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
+        //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
         //URL = "http://92.253.127.230:92/CV.asmx";// mo8bl
 //URL = "http://109.107.238.12:3755/CV.asmx";// السعد
-URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
-  //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
+//URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
+        //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
 //URL = "http://192.168.1.146:82/CV.asmx";// khaldi
 //URL = "http://10.0.1.63:92/CV.asmx";// servar galaxy
 //URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
- //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
+        //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
-//URL = "http://10.0.1.63:92/CV.asmx";// galaxy
+        URL = "http://10.0.1.63:92/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
-          //moh
+        //moh
 
-          }
+    }
 
     public void GetItem_D(String Item_no, int flag) {
 
@@ -527,7 +527,7 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         parm_Notes.setType(String.class);
         request.addProperty(parm_Notes);
 
-       SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.dotNet = true;
         envelope.setOutputSoapObject(request);
@@ -549,7 +549,7 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         return We_Result.ID;
     }
     public long PostManAtten( String ID,String UserID, String ActionNo,String ActionDate,String ActionTime,String Coor_X ,String Coor_Y  ,String ManAddress ,String Notes
-             ,String Img ,String BattryLevel,String TabletName ,String DayNo  ,String DayNm) {
+            ,String Img ,String BattryLevel,String TabletName ,String DayNo  ,String DayNm) {
 
         We_Result.Msg = "";
         We_Result.ID = -1;
@@ -1357,7 +1357,7 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         try {
 
             androidHttpTransport.call("http://tempuri.org/GetAccNo", envelope);
-           SoapObject result  = (SoapObject) envelope.getResponse();
+            SoapObject result  = (SoapObject) envelope.getResponse();
 
 
             We_Result.Msg =  result.getProperty("Msg").toString();
@@ -1434,11 +1434,11 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         We_Result.Msg="";
         We_Result.ID =-1;
 
-            SoapObject request = new SoapObject(NAMESPACE, "GetBanks");
-            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-            SoapEnvelope.VER11);
-            envelope.dotNet=true;
-            envelope.setOutputSoapObject(request);
+        SoapObject request = new SoapObject(NAMESPACE, "GetBanks");
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
 
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
 
@@ -1822,7 +1822,7 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         request.addProperty(parm_V_TYPE);
 
 
-         PropertyInfo parm_myear = new PropertyInfo();
+        PropertyInfo parm_myear = new PropertyInfo();
         parm_myear.setName("myear");
         parm_myear.setValue(myear);
         parm_myear.setType(String.class);
@@ -2160,7 +2160,7 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
             e.printStackTrace();
 
         }
-         return  We_Result.ID;
+        return  We_Result.ID;
 
     }
     public long  Save_ItemRecepit(String Json ) {
@@ -2213,7 +2213,7 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
 
     }
     public void Save_VisitImages(String CustomerNo,String OrderDate,String UserNo,String Visit_OrderNo,String Order_No
-              , String ImageTime ,String ImageDesc, String ImgBase64 ) {
+            , String ImageTime ,String ImageDesc, String ImgBase64 ) {
 
 
         String resTxt = null;
@@ -2271,7 +2271,7 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         parm_ImgBase64.setType(String.class);
         request.addProperty(parm_ImgBase64);
 
-   PropertyInfo parm_Visit_OrderNo= new PropertyInfo();
+        PropertyInfo parm_Visit_OrderNo= new PropertyInfo();
         parm_Visit_OrderNo.setName("Visit_OrderNo");
         parm_Visit_OrderNo.setValue(Visit_OrderNo);
         parm_Visit_OrderNo.setType(String.class);
@@ -2440,14 +2440,14 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         We_Result.Msg="";
         We_Result.ID =-1;
         try {
-        SoapObject request = new SoapObject(NAMESPACE, "GetManf");
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-                SoapEnvelope.VER11);
-        envelope.dotNet=true;
-        envelope.setOutputSoapObject(request);
+            SoapObject request = new SoapObject(NAMESPACE, "GetManf");
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                    SoapEnvelope.VER11);
+            envelope.dotNet=true;
+            envelope.setOutputSoapObject(request);
 
-        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-        Object  response =null;
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+            Object  response =null;
 
 
             androidHttpTransport.call("http://tempuri.org/GetManf", envelope);
@@ -2682,7 +2682,7 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
 
         }
 
-return    We_Result.ID;
+        return    We_Result.ID;
     }
     public void Get_Offers_Groups(String UserNo) {
 
@@ -2740,16 +2740,16 @@ return    We_Result.ID;
         We_Result.ID =-1;
 
         try {
-        SoapObject request = new SoapObject(NAMESPACE, "Get_Offers_Dtl_Cond");
+            SoapObject request = new SoapObject(NAMESPACE, "Get_Offers_Dtl_Cond");
 
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-                SoapEnvelope.VER11);
-        envelope.dotNet=true;
-        // Set output SOAP object
-        envelope.setOutputSoapObject(request);
-        // Create HTTP call object
-        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-        Object  response =null;
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                    SoapEnvelope.VER11);
+            envelope.dotNet=true;
+            // Set output SOAP object
+            envelope.setOutputSoapObject(request);
+            // Create HTTP call object
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+            Object  response =null;
 
             androidHttpTransport.call("http://tempuri.org/Get_Offers_Dtl_Cond", envelope);
             SoapObject result  = (SoapObject) envelope.getResponse();
@@ -2758,12 +2758,12 @@ return    We_Result.ID;
 
         }
 
-    catch (Exception e) {
-        We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"        ;
-        We_Result.ID = Long.parseLong("-404");
-        e.printStackTrace();
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"        ;
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
 
-    }
+        }
 
 
     }
@@ -3192,16 +3192,21 @@ return    We_Result.ID;
         //Return resTxt to calling object
 
     }
-    public long Save_Sal_Invoice(String Json) {
+    public long Save_Sal_Invoice(String Json,String Json1) {
         We_Result.Msg =  "";
         We_Result.ID = -1;
 
-       SoapObject request = new SoapObject(NAMESPACE, "Insert_Sale_Invoice");
+        SoapObject request = new SoapObject(NAMESPACE, "Insert_Sale_Invoice");
         PropertyInfo sayHelloPI = new PropertyInfo();
         sayHelloPI.setName("JsonStr");
         sayHelloPI.setValue(Json);
         sayHelloPI.setType(String.class);
         request.addProperty(sayHelloPI);
+        PropertyInfo sayHelloPI1 = new PropertyInfo();
+        sayHelloPI1.setName("JsonStr1");
+        sayHelloPI1.setValue(Json1);
+        sayHelloPI1.setType(String.class);
+        request.addProperty(sayHelloPI1);
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.dotNet=true;
@@ -3329,55 +3334,55 @@ return    We_Result.ID;
 
     }
 
-   public long  SaveManVisits(String Json ) {
-          try {
-       We_Result.Msg="";
-       We_Result.ID =-1;
-       SoapObject request = new SoapObject(NAMESPACE, "SaveManVisits");
-       PropertyInfo StrJson = new PropertyInfo();
-       StrJson.setName("JsonStr");
-       StrJson.setValue(Json);
-       StrJson.setType(String.class);
-       request.addProperty(StrJson);
+    public long  SaveManVisits(String Json ) {
+        try {
+            We_Result.Msg="";
+            We_Result.ID =-1;
+            SoapObject request = new SoapObject(NAMESPACE, "SaveManVisits");
+            PropertyInfo StrJson = new PropertyInfo();
+            StrJson.setName("JsonStr");
+            StrJson.setValue(Json);
+            StrJson.setType(String.class);
+            request.addProperty(StrJson);
 
-       SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-               SoapEnvelope.VER11);
-       envelope.dotNet=true;
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                    SoapEnvelope.VER11);
+            envelope.dotNet=true;
 
-       envelope.setOutputSoapObject(request);
+            envelope.setOutputSoapObject(request);
 
-       HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-       Object  response =null;
-
-
-           androidHttpTransport.call( "http://tempuri.org/SaveManVisits", envelope);
-           SoapObject result  = (SoapObject) envelope.getResponse();
-           We_Result.Msg =  result.getProperty("Msg").toString();
-           We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+            Object  response =null;
 
 
+            androidHttpTransport.call( "http://tempuri.org/SaveManVisits", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
 
-       } catch (NullPointerException   en){
-           We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح";
-           We_Result.ID = Long.parseLong("-404");
-           en.printStackTrace();
 
 
-       } catch (EOFException eof ){
-           We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح";
-           We_Result.ID = Long.parseLong("-404");
-           eof.printStackTrace();
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح";
+            We_Result.ID = Long.parseLong("-404");
+            en.printStackTrace();
 
-       }
-       catch (Exception e) {
-           We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"   ;// + String.valueOf(e.getMessage().toString());
-           We_Result.ID = Long.parseLong("-404");
-           e.printStackTrace();
 
-       }
-       return  We_Result.ID;
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح";
+            We_Result.ID = Long.parseLong("-404");
+            eof.printStackTrace();
 
-   }
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"   ;// + String.valueOf(e.getMessage().toString());
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+
+        }
+        return  We_Result.ID;
+
+    }
     public long SaveManLoactios(String Json) {
         We_Result.Msg="";
         We_Result.ID =-1;
@@ -3407,7 +3412,7 @@ return    We_Result.ID;
             //Assign error message to resTxt
 
         }
-         return   We_Result.ID;
+        return   We_Result.ID;
 
     }
     public void GetcompanyInfo() {
@@ -3529,7 +3534,7 @@ return    We_Result.ID;
         We_Result.ID =-1;
 
 
-       SoapObject request = new SoapObject(NAMESPACE, "GetItems_Categ");
+        SoapObject request = new SoapObject(NAMESPACE, "GetItems_Categ");
         PropertyInfo ParmUsere = new PropertyInfo();
         ParmUsere.setName("ManNo");
         ParmUsere.setValue(ManNo);
@@ -3539,7 +3544,7 @@ return    We_Result.ID;
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.dotNet=true;
-               envelope.setOutputSoapObject(request);
+        envelope.setOutputSoapObject(request);
 
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
         Object  response =null;
@@ -4088,83 +4093,83 @@ return    We_Result.ID;
 
         We_Result.Msg="";
         We_Result.ID =-1;
-    SoapObject request = new SoapObject(NAMESPACE, "SendRequestPermission");
+        SoapObject request = new SoapObject(NAMESPACE, "SendRequestPermission");
 
 
-    PropertyInfo Info_ManNo = new PropertyInfo();
-    Info_ManNo.setName("ManNo");
-    Info_ManNo.setValue(ManNo);
-    Info_ManNo.setType(String.class);
-    request.addProperty(Info_ManNo);
+        PropertyInfo Info_ManNo = new PropertyInfo();
+        Info_ManNo.setName("ManNo");
+        Info_ManNo.setValue(ManNo);
+        Info_ManNo.setType(String.class);
+        request.addProperty(Info_ManNo);
 
 
-    PropertyInfo Info_CustNo = new PropertyInfo();
-    Info_CustNo.setName("CustNo");
-    Info_CustNo.setValue(CustNo);
-    Info_CustNo.setType(String.class);
-    request.addProperty(Info_CustNo);
-
-
-
-    PropertyInfo Info_OrderNo = new PropertyInfo();
-    Info_OrderNo.setName("OrderNo");
-    Info_OrderNo.setValue(OrderNo);
-    Info_OrderNo.setType(String.class);
-    request.addProperty(Info_OrderNo);
-
-
-    PropertyInfo Info_Desc = new PropertyInfo();
-    Info_Desc.setName("Desc");
-    Info_Desc.setValue(Desc);
-    Info_Desc.setType(String.class);
-    request.addProperty(Info_Desc);
-
-
-    PropertyInfo Info_Type = new PropertyInfo();
-    Info_Type.setName("Type");
-    Info_Type.setValue(Type);
-    Info_Type.setType(String.class);
-    request.addProperty(Info_Type);
-
-
-    PropertyInfo Info_Amt = new PropertyInfo();
-    Info_Amt.setName("Amt");
-    Info_Amt.setValue(Amt);
-    Info_Amt.setType(String.class);
-    request.addProperty(Info_Amt);
+        PropertyInfo Info_CustNo = new PropertyInfo();
+        Info_CustNo.setName("CustNo");
+        Info_CustNo.setValue(CustNo);
+        Info_CustNo.setType(String.class);
+        request.addProperty(Info_CustNo);
 
 
 
-    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-            SoapEnvelope.VER11);
-    envelope.dotNet=true;
-
-    envelope.setOutputSoapObject(request);
-
-    HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,40000);
-
-    try {
-
-        androidHttpTransport.call( "http://tempuri.org/SendRequestPermission", envelope);
-        SoapObject result  = (SoapObject) envelope.getResponse();
+        PropertyInfo Info_OrderNo = new PropertyInfo();
+        Info_OrderNo.setName("OrderNo");
+        Info_OrderNo.setValue(OrderNo);
+        Info_OrderNo.setType(String.class);
+        request.addProperty(Info_OrderNo);
 
 
+        PropertyInfo Info_Desc = new PropertyInfo();
+        Info_Desc.setName("Desc");
+        Info_Desc.setValue(Desc);
+        Info_Desc.setType(String.class);
+        request.addProperty(Info_Desc);
 
-        We_Result.Msg =  result.getProperty("Msg").toString();
-        We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+
+        PropertyInfo Info_Type = new PropertyInfo();
+        Info_Type.setName("Type");
+        Info_Type.setValue(Type);
+        Info_Type.setType(String.class);
+        request.addProperty(Info_Type);
+
+
+        PropertyInfo Info_Amt = new PropertyInfo();
+        Info_Amt.setName("Amt");
+        Info_Amt.setValue(Amt);
+        Info_Amt.setType(String.class);
+        request.addProperty(Info_Amt);
 
 
 
-    } catch (Exception e) {
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
 
-        We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
-        We_Result.ID = Long.parseLong("-404");
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,40000);
+
+        try {
+
+            androidHttpTransport.call( "http://tempuri.org/SendRequestPermission", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+
+
+
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+
+
+
+        } catch (Exception e) {
+
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.ID = Long.parseLong("-404");
+
+
+        }
 
 
     }
-
-
-}
     public void Get_Request_Permission (String ManNo,String CustNo, String OrderNo, String Type ) {
 
         We_Result.Msg="";
@@ -4412,7 +4417,7 @@ return    We_Result.ID;
 
     }
     public String PostCustCardAndGetAcc(String CusName,String OrderNo, String Area , String CustType, String Mobile , String Acc
-                        , String Lat,String Lng,String GpsLocation  ,String UserID ,String COMPUTERNAME) {
+            , String Lat,String Lng,String GpsLocation  ,String UserID ,String COMPUTERNAME) {
 
         We_Result.Msg="";
         We_Result.ID =-1;
