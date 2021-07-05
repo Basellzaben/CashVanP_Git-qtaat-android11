@@ -2268,7 +2268,7 @@ public String getmaxN(){
                     cv.put("weight", SToD(contactListItems.getWeight().toString().replace("\u202c","").replace("\u202d","")));
                     cv.put("DisAmtFromHdr", SToD(contactListItems.getDisAmtFromHdr().toString().replace("\u202c","").replace("\u202d","")));
                     cv.put("DisPerFromHdr", SToD(contactListItems.getDisPerFromHdr().toString().replace("\u202c","").replace("\u202d","")));
-                    cv.put("Note", Integer.parseInt(contactListItems.getNote().toString()));
+                    cv.put("Note", contactListItems.getNote().toString());
 
 
                     cv.put("doctype", DocType.toString());
@@ -2913,6 +2913,7 @@ public String getmaxN(){
         contactListItems.setWeight(Weight);
         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
         contactListItems.setSample(flag);
+        contactListItems.setNote("فاتورة بيع");
         contactList.add(contactListItems);
         // Gf_Calc_Promotion();
 
