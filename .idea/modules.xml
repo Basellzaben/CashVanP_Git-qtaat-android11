@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CashVanP_Git.iml" filepath="$PROJECT_DIR$/CashVanP_Git.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CashVanP_Git.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CashVanP_Git.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/CashVanP_Git-app.iml" filepath="$PROJECT_DIR$/app/CashVanP_Git-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CashVanP_Git2.iml" filepath="$PROJECT_DIR$/CashVanP_Git2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CashVanP_Git2.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CashVanP_Git2.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
