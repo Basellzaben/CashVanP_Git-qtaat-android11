@@ -733,6 +733,7 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_weight="0.8"
+                            android:visibility="visible"
                             android:background="@android:color/holo_blue_dark"
                             android:onClick="SearchExceptions">
 

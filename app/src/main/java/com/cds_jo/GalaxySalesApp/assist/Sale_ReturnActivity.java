@@ -298,8 +298,121 @@ public class Sale_ReturnActivity extends FragmentActivity {
             chk_showTax.setChecked(true);
             chk_showTax.setVisibility(View.INVISIBLE);
         }*/
+        Bundle extras = getIntent().getExtras();
+        try {
+            if (extras.getString("BalanceQtyOrderNo") != "") {
+                String acc;
+                String Acc_name;
+                acc = DB.GetValue(this, "manf", "Acc", "  man='" + sharedPreferences.getString("UserID", "") + "'");
+                Acc_name = DB.GetValue(this, "manf", "AccName", "  man='" + sharedPreferences.getString("UserID", "") + "'");
+
+                accno.setText(acc);
+                CustNm.setText(Acc_name);
+                InsertBalanceQty(extras.getString("BalanceQtyOrderNo"), "");
+            }
+        } catch (Exception ex) {
+
+        }
 
     }
+    public void InsertBalanceQty(String No, String Nm) {
+        FillAdapterFromBalanceQty(No);
+        showList();
+        BalanceQtyTrans = true;
+    }
+    private void FillAdapterFromBalanceQty(String OrderNo) {
+        contactList.clear();
+
+
+        Double Item_Total, Price, Tax_Amt, Tax, Total, Net_Total, Tax_Total;
+        sqlHandler = new SqlHandler(this);
+
+        NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
+        DecimalFormat df = (DecimalFormat) nf;
+
+
+    /* query = "  select ifnull(pod.Operand,0) as Operand  ,  pod.bounce_qty,pod.dis_per , pod.dis_Amt , pod.OrgPrice , pod.tax_Amt , pod.total ,Unites.UnitName,  invf.Item_Name, pod.itemno,pod.price,pod.qty,pod.tax ,pod.unitNo  " +
+    " , pod.pro_Total    , pod.ProID , pod.Pro_bounce  ,pod.Pro_dis_Per,  pod.Pro_amt    " +
+    "   from Sal_invoice_Det pod left join invf on invf.Item_No =  pod.itemno    " +
+    "   left join Unites on Unites.Unitno=  pod.unitNo  Where pod.OrderNo='" + Order_no.getText().toString() + "'";
+
+    */
+
+        String query = "  select distinct Unites.UnitName,  invf.Item_Name, pod.Item_No,pod.Qty,pod.ActQty,pod.Diff ,pod.Unit_No " +
+                " ,UnitItems.Operand ,UnitItems.price , invf.tax  from BalanceQty pod left join invf on invf.Item_No =  pod.Item_No    " +
+                "left join Unites on Unites.Unitno=  pod.Unit_No " +
+                " Left join UnitItems on UnitItems.item_no =  pod.Item_No and UnitItems.unitno = pod.Unit_No" +
+                " Where    ifnull( cast( pod.Diff as double) ,0) > 0     and pod.OrderNo='" + OrderNo + "'";
+
+
+        Cursor c1 = sqlHandler.selectQuery(query);
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                do {
+                    //    Save_List(c1.getString(c1.getColumnIndex("Item_No")), Price.getText().toString(), qty.getText().toString(), tax.getText().toString(), UnitNo, disc_per.getText().toString(), bounce.getText().toString(), str, UnitName, disc_Amt.getText().toString(),Operand);
+                    //Save_List(c1.getString(c1.getColumnIndex("Item_No")), "0", c1.getString(c1.getColumnIndex("Diff")), "16", c1.getString(c1.getColumnIndex("Unit_No")), "0", "0", c1.getString(c1.getColumnIndex("Item_Name")), c1.getString(c1.getColumnIndex("UnitName")), "0", "1");
+                    try {
+                        Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
+
+                        contactListItems.setno(c1.getString(c1.getColumnIndex("Item_No")));
+                        contactListItems.setName(c1.getString(c1.getColumnIndex("Item_Name")));
+
+                        Price = SToD(c1.getString(c1.getColumnIndex("price")));
+                        Tax = SToD(c1.getString(c1.getColumnIndex("tax")));
+                        Item_Total = SToD(c1.getString(c1.getColumnIndex("Diff"))) * Price;
+
+                        Item_Total = Double.parseDouble(Item_Total.toString());
+
+                        if (IncludeTax_Flag.isChecked()) {
+                            contactListItems.setprice(String.valueOf(Price / ((Tax / 100) + 1)));
+                        } else {
+                            contactListItems.setprice(String.valueOf(Price));
+
+                        }
+
+                        contactListItems.setItemOrgPrice(String.valueOf(Price));
+                        contactListItems.setQty(c1.getString(c1.getColumnIndex("Diff")));
+                        contactListItems.setTax(String.valueOf(Tax));
+                        contactListItems.setUnite(c1.getString(c1.getColumnIndex("Unit_No")));
+                        contactListItems.setWeight("0");
+                        contactListItems.setBounce("0");
+                        contactListItems.setDiscount("0");
+                        contactListItems.setProID("");
+                        contactListItems.setDis_Amt("0");
+                        contactListItems.setUniteNm(c1.getString(c1.getColumnIndex("UnitName")));
+                        contactListItems.setPro_amt("0");
+                        contactListItems.setPro_dis_Per("0");
+                        contactListItems.setPro_bounce("0");
+                        contactListItems.setPro_Total("0");
+                        contactListItems.setDisAmtFromHdr("0");
+                        contactListItems.setDisPerFromHdr("0");
+                        contactListItems.setTax_Amt("0");
+                        contactListItems.setProType("0");
+                        contactListItems.setDamaged("0");
+                        contactListItems.setNote(OrderNo);
+
+                        contactListItems.setOperand(c1.getString(c1.getColumnIndex("Operand")));
+                        contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
+                        contactList.add(contactListItems);
+
+    /*  CalcTotal();
+    showList();*/
+
+                    } catch (Exception ex) {
+                        Toast.makeText(this, "حدث خطا في عملية استرجاع البيانات", Toast.LENGTH_SHORT).show();
+                    }
+                } while (c1.moveToNext());
+
+
+            }
+            c1.close();
+            CalcTotal();
+            showList();
+
+        }
+
+    }
+
     protected void hideSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) Sale_ReturnActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm.isActive()) {
@@ -1342,7 +1455,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
             if (c1.getCount() > 0) {
                 c1.moveToFirst();
                 try {
-                    CustNm.setText(c1.getString(c1.getColumnIndex("name")).toString());
+                    CustNm.setText(c1.getString(c1.getColumnIndex("nm")).toString());
 
                 } catch (Exception ex) {
 
@@ -1388,6 +1501,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
         TextView et_TotalTax = (TextView) findViewById(R.id.et_TotalTax);
         TextView et_dis = (TextView) findViewById(R.id.et_dis);
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        CheckBox chk_Type =(CheckBox)findViewById(R.id.chk_Type);
         //TextView tv_OrderNo = (TextView) findViewById(R.id.tv_OrderNo);
         Intent k;
         k = new Intent(Sale_ReturnActivity.this, Xprinter_SalesReturn.class);
@@ -1398,6 +1512,15 @@ public class Sale_ReturnActivity extends FragmentActivity {
         k.putExtra("totaldis", et_dis.getText().toString().replace("\u202c","").replace("\u202d",""));
         k.putExtra("cusname", CustNm.getText().toString().replace("\u202c","").replace("\u202d",""));
         //   k.putExtra("tOrderNo", tv_OrderNo.getText().toString().replace("\u202c","").replace("\u202d",""));
+     if(chk_Type.isChecked())
+     {
+         k.putExtra("monetary", "1");
+     }
+     else
+     {
+         k.putExtra("monetary", "0");
+
+     }
         startActivity(k);
 
 

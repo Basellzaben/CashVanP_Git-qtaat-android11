@@ -618,7 +618,7 @@ public class PopSal_Inv_Select_Items extends DialogFragment implements View.OnCl
                 checkStoreQty();
                 //يجب تعديها محمد
                //et_min_price();
-                get_min_price();
+                get_min_price_Select(UnitNo);
             }
 
             @Override
@@ -1067,12 +1067,75 @@ p=position;
                 } else {
 
                     String LocalPrice = "0.0";
+                    String Operand = "0.0";
                     LocalPrice = DB.GetValue(getActivity(), "UnitItems", "price", "item_no='" + ItemNo + "' And Min='1'");
+                    Operand = DB.GetValue(getActivity(), "UnitItems", "max(Operand)", "item_no='" + ItemNo + "'");
                     //Toast.makeText(getActivity(), "الفئة العميل غير معرفة :" + " " + String.valueOf(LocalPrice), Toast.LENGTH_SHORT).show();
                     min_price = SToD(LocalPrice.toString());
                     Custdis = SToD("0");
                     Custprice = SToD(LocalPrice.toString());
-                    Price.setText(SToD(LocalPrice.toString()) + "");
+                    if ( SToD(Operand) > 0) {
+                        Price.setText(SToD(LocalPrice) * SToD(Operand) + "");
+                    }
+                  //  Price.setText( + "");
+                }
+            }
+
+        EditText bo = (EditText) form.findViewById(R.id.et_bo);
+        bo.requestFocus();
+    }
+    private void get_min_price_Select(String Uint_no) {
+              min_price = 0.0;
+            String CatNo = "";
+            CatNo = getArguments().getString("CatNo");
+             Log.d("CatNo",CatNo);
+
+
+
+            if (CatNo != "0") {
+                String q = " Select  ifnull( MinPrice,0) as min_price ,ifnull(Price,0) as Price  , ifnull(dis,0) as dis " +
+                        "   from Items_Categ where ItemCode = '" + ItemNo + "'   " +
+                        "   And CategNo = '" + CatNo + "'";
+
+                Cursor c1 = sqlHandler.selectQuery(q);
+                if (c1 != null && c1.getCount() != 0) {
+                    if (c1.getCount() > 0) {
+                        c1.moveToFirst();
+                        if (Operand == null) {
+                            Operand = "1";
+                        }
+                        min_price = SToD(Operand) * SToD(c1.getString(c1.getColumnIndex("min_price")));
+                        min_price = SToD(min_price.toString());
+                        Custdis = SToD(c1.getString(c1.getColumnIndex("dis")));
+                        Custdis = SToD(Custdis.toString());
+                        Custprice = SToD(c1.getString(c1.getColumnIndex("Price")));
+
+
+
+                            if (Custprice > 0) {
+                                Price.setText(SToD(Custprice.toString()) * SToD(Operand) + "");
+                            }
+                          //  Toast.makeText(getActivity(), "سعر الفئة :" + ":" + String.valueOf(Custprice), Toast.LENGTH_SHORT).show();
+
+
+                    }
+                    c1.close();
+                } else {
+
+                    String LocalPrice = "0.0";
+                    String Operand = "0.0";
+                    String Min = "0.0";
+                  //  Min = DB.GetValue(getActivity(), "UnitItems", "Min", "item_no='" + ItemNo + "' And unitno='" + Uint_no + "'");
+                    LocalPrice = DB.GetValue(getActivity(), "UnitItems", "price", "item_no='" + ItemNo + "' And  unitno='" + Uint_no + "'");
+                    //Operand = DB.GetValue(getActivity(), "UnitItems", "max(Operand)", "item_no='" + ItemNo + "' And unitno='" + Uint_no + "'");
+                    //Toast.makeText(getActivity(), "الفئة العميل غير معرفة :" + " " + String.valueOf(LocalPrice), Toast.LENGTH_SHORT).show();
+                    min_price = SToD(LocalPrice.toString());
+                    Custdis = SToD("0");
+                    Custprice = SToD(LocalPrice.toString());
+                 //   if ( SToD(Operand) > 0) {
+                        Price.setText(SToD(LocalPrice)+ "");
+                   // }
+                  //  Price.setText( + "");
                 }
             }
 
@@ -1713,11 +1776,11 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
             }
             if (ComInfo.ComNo != Companies.beutyLine.getValue()) {
                 if (rad_Per.isChecked()) {
-                    if (et_disc_per.getText().toString().length() > 0 && SToD(et_disc_per.getText().toString()) > 0 && (SToD(et_disc_per.getText().toString()) > Custdis)) {
+                    if (et_disc_per.getText().toString().length() > 0 && SToD(et_disc_per.getText().toString()) > 0 && (SToD(et_disc_per.getText().toString()) > Double.parseDouble(tv_MaxDiscount.getText().toString()))) {
 
                         AlertDialog alertDialog = new AlertDialog.Builder(
                                 getActivity()).create();
-                        alertDialog.setTitle("الخصم حسب فئة العميل");
+                        alertDialog.setTitle("الخصم حسب المندوب");
 
                         alertDialog.setIcon(R.drawable.delete);
                         alertDialog.setMessage("لقد تجاوزت الحد  الاعلى للخصم  ");//+ "   " + String.valueOf(min_price));
@@ -1734,6 +1797,48 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                         alertDialog.show();
                         return;
                     }
+                }
+               // BouncePercent = (SToD(bounce.getText() + "") / SToD(qty.getText() + "")) * 100;
+                if (rad_Per.isChecked()) {
+                    DiscountPercent = SToD(et_Discount.getText() + "");
+                } else {
+                    DiscountPercent = (SToD(et_Discount.getText() + "") / SToD(net_total.getText() + "")) * 100;
+                }
+                if (SToD(bounce.getText() + "") > SToD(tv_MaxBounce.getText() + "")) {
+                    AlertDialog       alertDialog = new AlertDialog.Builder(
+                            getActivity()).create();
+                    alertDialog.setTitle("لقد تجاوزت البونص المسموح به");
+                    alertDialog.setMessage("البونص المسموح بها" + ": " + tv_MaxBounce.getText().toString() + " " + "والبونص   الممنوحة" + ":" + bounce.getText());
+                    alertDialog.setIcon(R.drawable.error_new);
+                    alertDialog.setButton("رجوع", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    alertDialog.show();
+                    return;
+                }
+                if (DiscountPercent > SToD(tv_MaxDiscount.getText() + "")) {
+
+                    AlertDialog alertDialog = new AlertDialog.Builder(
+                            getActivity()).create();
+                    alertDialog.setTitle("الخصم حسب المندوب");
+
+                    alertDialog.setIcon(R.drawable.delete);
+                    alertDialog.setMessage("لقد تجاوزت الحد  الاعلى للخصم  ");//+ "   " + String.valueOf(min_price));
+// Setting OK Button
+                    alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+//   final_P.setText(min_price.toString());
+
+
+                        }
+                    });
+
+
+                    alertDialog.show();
+                    return;
                 }
             }
             AllowSalInvMinus = Integer.parseInt(DB.GetValue(this.getActivity(), "ComanyInfo", "AllowSalInvMinus", "1=1"));
@@ -1888,12 +1993,10 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
 
                         }
                     });
-
-                   /* alertDialog.show();
-                    return;*/
                 }
+     }
 
-            }
+
 
             BouncePercent = SToD(BouncePercent + "");
             DiscountPercent = SToD(DiscountPercent + "");

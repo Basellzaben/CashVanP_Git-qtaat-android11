@@ -680,13 +680,7 @@ public String getmaxN(){
 
         GetStoreQtySer();
         Bundle extras = getIntent().getExtras();
-        try {
-            if (extras.getString("BalanceQtyOrderNo") != "") {
-                InsertBalanceQty(extras.getString("BalanceQtyOrderNo"), "");
-            }
-        } catch (Exception ex) {
 
-        }
 
 
         ///////////////////////////////////////////////////
@@ -954,6 +948,20 @@ public String getmaxN(){
 
 
         clearList();
+        try {
+            if (extras.getString("BalanceQtyOrderNo") != "") {
+                String acc;
+                String Acc_name;
+                acc = DB.GetValue(this, "manf", "Acc", "  man='" + sharedPreferences.getString("UserID", "") + "'");
+                Acc_name = DB.GetValue(this, "manf", "AccName", "  man='" + sharedPreferences.getString("UserID", "") + "'");
+
+                accno.setText(acc);
+                CustNm.setText(Acc_name);
+                InsertBalanceQty(extras.getString("BalanceQtyOrderNo"), "");
+            }
+        } catch (Exception ex) {
+
+        }
 
     }
     public  void InsertDiscount(String DiscountAmt , String DiscountType   ){
@@ -2260,6 +2268,7 @@ public String getmaxN(){
                     cv.put("weight", SToD(contactListItems.getWeight().toString().replace("\u202c","").replace("\u202d","")));
                     cv.put("DisAmtFromHdr", SToD(contactListItems.getDisAmtFromHdr().toString().replace("\u202c","").replace("\u202d","")));
                     cv.put("DisPerFromHdr", SToD(contactListItems.getDisPerFromHdr().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("Note", Integer.parseInt(contactListItems.getNote().toString()));
 
 
                     cv.put("doctype", DocType.toString());
@@ -3211,14 +3220,10 @@ public String getmaxN(){
             if (c1.getCount() > 0) {
                 c1.moveToFirst();
                 try {
-                    if (c1.getString(c1.getColumnIndex("inovice_type")).equals("0")) {
+
 
                         CustNm.setText(c1.getString(c1.getColumnIndex("Nm")).toString());
 
-                    } else {
-                        CustNm.setText(c1.getString(c1.getColumnIndex("name")).toString());
-
-                    }
                 } catch (Exception ex) {
 
                     Toast.makeText(this, "لا يمكن استرجاع الحساب", Toast.LENGTH_SHORT).show();
@@ -4922,7 +4927,7 @@ public String getmaxN(){
                 " ,UnitItems.Operand ,UnitItems.price , invf.tax  from BalanceQty pod left join invf on invf.Item_No =  pod.Item_No    " +
                 "left join Unites on Unites.Unitno=  pod.Unit_No " +
                 " Left join UnitItems on UnitItems.item_no =  pod.Item_No and UnitItems.unitno = pod.Unit_No" +
-                " Where    ifnull( cast( pod.Diff as double) ,0) > 0     and pod.OrderNo='" + OrderNo + "'";
+                " Where    ifnull( cast( pod.Diff as double) ,0) < 0     and pod.OrderNo='" + OrderNo + "'";
 
 
         Cursor c1 = sqlHandler.selectQuery(query);
@@ -4933,13 +4938,15 @@ public String getmaxN(){
                     //Save_List(c1.getString(c1.getColumnIndex("Item_No")), "0", c1.getString(c1.getColumnIndex("Diff")), "16", c1.getString(c1.getColumnIndex("Unit_No")), "0", "0", c1.getString(c1.getColumnIndex("Item_Name")), c1.getString(c1.getColumnIndex("UnitName")), "0", "1");
                     try {
                         Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
+ double diff = SToD(c1.getString(c1.getColumnIndex("Diff")));
 
                         contactListItems.setno(c1.getString(c1.getColumnIndex("Item_No")));
                         contactListItems.setName(c1.getString(c1.getColumnIndex("Item_Name")));
 
                         Price = SToD(c1.getString(c1.getColumnIndex("price")));
                         Tax = SToD(c1.getString(c1.getColumnIndex("tax")));
-                        Item_Total = SToD(c1.getString(c1.getColumnIndex("Diff"))) * Price;
+                       // Item_Total = SToD(c1.getString(c1.getColumnIndex("Diff"))) * Price;
+                        Item_Total = diff * Price;
 
                         Item_Total = Double.parseDouble(Item_Total.toString());
 
@@ -4951,7 +4958,7 @@ public String getmaxN(){
                         }
 
                         contactListItems.setItemOrgPrice(String.valueOf(Price));
-                        contactListItems.setQty(c1.getString(c1.getColumnIndex("Diff")));
+                        contactListItems.setQty(String.valueOf(diff));
                         contactListItems.setTax(String.valueOf(Tax));
                         contactListItems.setUnite(c1.getString(c1.getColumnIndex("Unit_No")));
                         contactListItems.setWeight("0");
@@ -4967,6 +4974,7 @@ public String getmaxN(){
                         contactListItems.setDisAmtFromHdr("0");
                         contactListItems.setDisPerFromHdr("0");
                         contactListItems.setTax_Amt("0");
+                        contactListItems.setNote(OrderNo);
                         contactListItems.setProType("0");
                         contactListItems.setOperand(c1.getString(c1.getColumnIndex("Operand")));
                         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));

@@ -393,6 +393,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
+        android:weightSum="7"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal">
 
@@ -545,6 +546,37 @@
             <ImageView
                 android:id="@+id/imageView19"
                 android:layout_width="25dp"
+                android:src="@mipmap/ic_save"
+                android:layout_height="25dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lyt_Share1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0.5dp"
+            android:layout_marginRight="0.5dp"
+            android:layout_weight="1"
+            android:background="@color/Footer_Menu"
+            android:gravity="center"
+            android:layoutDirection="ltr"
+            android:onClick="btn_ConvertTReturn"
+            android:orientation="horizontal">
+
+            <Methdes.MyTextView
+                android:id="@+id/textView2037s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="مردود بيع"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="25dp"
+                android:src="@mipmap/ic_save"
                 android:layout_height="25dp" />
 
         </LinearLayout>

@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Man_Qty_Adapter;
 import com.cds_jo.GalaxySalesApp.assist.Convert_Man_Balance_Qty_To_Img;
 import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
+import com.cds_jo.GalaxySalesApp.assist.Sale_ReturnActivity;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -654,7 +655,11 @@ ListView lst_Items ;
      lst_Items.invalidateViews();
     }
     public void btn_save_po(View view) {
-
+        TextView pono = (TextView)findViewById(R.id.et_OrdeNo);
+      //  String sal_inv =DB.GetValue(this,"Sal_invoice_Det","ifnull(count(*),0) as coun","Note ='"+pono.getText().toString()+"'");
+       // String sal_ret =DB.GetValue(this,"Sal_return_Det","ifnull(count(*),0) as coun","Note ='"+pono.getText().toString()+"'");
+        String sal_inv =DB.GetValue(this,"Sal_invoice_Det","count(*)","Note ='"+pono.getText().toString()+"'");
+        String sal_ret =DB.GetValue(this,"Sal_return_Det","count(*)","Note ='"+pono.getText().toString()+"'");
         if (  cls_trans_qties.size()==0) {
 
             AlertDialog alertDialog = new AlertDialog.Builder(
@@ -668,34 +673,62 @@ ListView lst_Items ;
             });
             alertDialog.show();
 
-            return;
+           // return;
+        }  else if (  !(Integer.parseInt(sal_inv)==0 || Integer.parseInt(sal_inv) ==-1)) {
+
+            AlertDialog alertDialog = new AlertDialog.Builder(
+                    this).create();
+            alertDialog.setTitle("تسوية جرد المندوب");
+            alertDialog.setMessage("لا يمكن التخزين يوجد بها فاتورة بيع");            // Setting Icon to Dialog
+            alertDialog.setIcon(R.drawable.tick);
+            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            alertDialog.show();
+
+           // return;
+        } else if (  !(Integer.parseInt(sal_ret)==0 || Integer.parseInt(sal_ret) ==-1)) {
+
+            AlertDialog alertDialog = new AlertDialog.Builder(
+                    this).create();
+            alertDialog.setTitle("تسوية جرد المندوب");
+            alertDialog.setMessage("لا يمكن التخزين يوجد بها مردود بيع");            // Setting Icon to Dialog
+            alertDialog.setIcon(R.drawable.tick);
+            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            alertDialog.show();
+
+           // return;
         }
+else {
 
 
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle("جرد كميات مندوب");
+            alertDialog.setMessage("هل تريد الاستمرار بعملية الحفظ");
+            alertDialog.setIcon(R.drawable.save);
+            alertDialog.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Save_Recod_Po();
+                }
+            });
 
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("جرد كميات مندوب");
-        alertDialog.setMessage("هل تريد الاستمرار بعملية الحفظ");
-        alertDialog.setIcon(R.drawable.save);
-        alertDialog.setPositiveButton("موافق", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Save_Recod_Po();
-            }
-        });
+            alertDialog.setNegativeButton("لا", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
 
 
-        alertDialog.setNegativeButton("لا", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                return;
-            }
-        });
+            alertDialog.show();
 
 
-        alertDialog.show();
-
-
-
+        }
     }
     public void   Save_Recod_Po()    {
 
@@ -908,6 +941,14 @@ if(ComInfo.ComNo==12){
 
     public void btn_ConvertToInvoice(View view) {
        Intent i = new Intent(getBaseContext(), Sale_InvoiceActivity.class);
+        i.putExtra("BalanceQtyOrderNo", Maxpo.getText().toString());
+        startActivity(i);
+
+
+    }
+
+    public void btn_ConvertTReturn(View view) {
+        Intent i = new Intent(ManBalanceQtyActivity.this, Sale_ReturnActivity.class);
         i.putExtra("BalanceQtyOrderNo", Maxpo.getText().toString());
         startActivity(i);
 

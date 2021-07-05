@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 190;
+    private static final int LASTUPDATE = 195;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -110,12 +110,6 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     private void DataBaseChanges() {
 
-        try {
-            sqlHandler.executeQuery("Alter Table Sal_invoice_Det  Add  COLUMN  Operand  text null ");
-        } catch (SQLException e) {
-            Log.i("ADD COLUMN Operand", "Week already Operand");
-
-        }
         try {
             sqlHandler.executeQuery("Alter Table Invf_Serials  Add  COLUMN  States  text null ");
         } catch (SQLException e) {
@@ -187,6 +181,11 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         try {
             sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  ManExceptions    " +
                     "( no integer primary key autoincrement,CustNo text null, ExptCat  text null  ,Freq   text null   )");
+        } catch (SQLException e) {
+
+        }  try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  ManExceptions1    " +
+                    "( no integer primary key autoincrement,ManId text null, CustomerId  text null  ,MaterialId   text null  ,TypeId text null, Note  text null  ,Quantity_Type   text null  )");
         } catch (SQLException e) {
 
         }
@@ -433,11 +432,8 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  V_OrderNo  text null");
         } catch (SQLException e) {
         }
-        //reema
-        try {
-            sqlHandler.executeQuery("Alter Table Sal_return_Hdr  Add  COLUMN  return_type  text null");
-        } catch (SQLException e) {
-        }
+
+
 
         try {
             sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  driverno  text null");
@@ -990,10 +986,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         }
 
 
-        try {
-            sqlHandler.executeQuery("Alter Table Sal_return_Hdr  Add  COLUMN  monetary  text null");
-        } catch (SQLException e) {
-        }
+
 
 
         if (!isFieldExist()) {
@@ -1184,6 +1177,10 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         } catch (SQLException e) {
 
         }
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_return_Hdr  Add  COLUMN  monetary  text null");
+        } catch (SQLException e) {
+        }
 
         try {
             sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Sal_return_Det    " +
@@ -1191,7 +1188,18 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         } catch (SQLException e) {
 
         }
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_return_Hdr  Add  COLUMN  return_type  text null");
+        }
+        catch (SQLException e)
+        {
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Det  Add  COLUMN  Operand  text null ");
+        } catch (SQLException e) {
+            Log.i("ADD COLUMN Operand", "Week already Operand");
 
+        }
         try {
             sqlHandler.executeQuery("Alter Table SaleManRounds  Add COLUMN  Note text null ");
         } catch (SQLException e) {
@@ -1609,6 +1617,9 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         }
      try {
             sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  Pos_System  text null");
+        } catch (SQLException e) {
+        }   try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Det  Add  COLUMN  Note  text null");
         } catch (SQLException e) {
         }
 
@@ -2131,27 +2142,29 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                     Integer i;
                     String q = "";
                     JSONObject js = new JSONObject(We_Result.Msg);
-                    JSONArray js_CustNo = js.getJSONArray("CustNo");
-                    JSONArray js_ExptCat = js.getJSONArray("ExptCat");
-                    JSONArray js_Freq = js.getJSONArray("Freq");
-                    JSONArray js_ExtraAmt = js.getJSONArray("ExtraAmt");
-                    JSONArray js_ExtraPrecent = js.getJSONArray("ExtraPrecent");
+                    JSONArray js_ManId = js.getJSONArray("ManId");
+                    JSONArray js_CustomerId = js.getJSONArray("CustomerId");
+                    JSONArray js_MaterialId = js.getJSONArray("MaterialId");
+                    JSONArray js_TypeId = js.getJSONArray("TypeId");
+                    JSONArray js_Note = js.getJSONArray("Note");
+                    JSONArray js_Quantity_Type = js.getJSONArray("Quantity_Type");
 
-                    q = "Delete from ManExceptions";
+                    q = "Delete from ManExceptions1";
                     sqlHandler.executeQuery(q);
 
 
-                    q = " delete from sqlite_sequence where name='ManExceptions'";
+                    q = " delete from sqlite_sequence where name='ManExceptions1'";
                     sqlHandler.executeQuery(q);
 
-                    for (i = 0; i < js_CustNo.length(); i++) {
+                    for (i = 0; i < js_ManId.length(); i++) {
 
-                        q = "INSERT INTO ManExceptions(CustNo, ExptCat  , Freq ,ExtraAmt,ExtraPrecent) values ('"
-                                + js_CustNo.get(i).toString()
-                                + "','" + js_ExptCat.get(i).toString()
-                                + "','" + js_Freq.get(i).toString()
-                                + "','" + js_ExtraAmt.get(i).toString()
-                                + "','" + js_ExtraPrecent.get(i).toString()
+                        q = "INSERT INTO ManExceptions1(ManId,CustomerId,MaterialId,TypeId,Note,Quantity_Type) values ('"
+                                + js_ManId.get(i).toString()
+                                + "','" + js_CustomerId.get(i).toString()
+                                + "','" + js_MaterialId.get(i).toString()
+                                + "','" + js_TypeId.get(i).toString()
+                                + "','" + js_Note.get(i).toString()
+                                + "','" + js_Quantity_Type.get(i).toString()
                                 + "')";
                         sqlHandler.executeQuery(q);
                     }

@@ -60,7 +60,7 @@ public class CallWebServices  {
 //URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
         //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
-        URL = "http://10.0.1.63:92/CV.asmx";// galaxy
+       URL = "http://10.0.1.63:92/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
         //moh
 
@@ -1721,7 +1721,7 @@ public class CallWebServices  {
     public void Get_ManExceptions(String ManNo) {
 
         We_Result.ID =-1;
-        SoapObject request = new SoapObject(NAMESPACE, "GetManExceptions");
+        SoapObject request = new SoapObject(NAMESPACE, "GetManException1");
 
         PropertyInfo parm_ManNo = new PropertyInfo();
         parm_ManNo.setName("ManNo");
@@ -1738,7 +1738,7 @@ public class CallWebServices  {
 
         try {
 
-            androidHttpTransport.call("http://tempuri.org/GetManExceptions", envelope);
+            androidHttpTransport.call("http://tempuri.org/GetManException1", envelope);
             SoapObject result  = (SoapObject) envelope.getResponse();
             We_Result.Msg =  result.getProperty("Msg").toString();
             We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
