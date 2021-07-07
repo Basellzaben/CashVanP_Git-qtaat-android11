@@ -50,7 +50,7 @@ public class Tab_Payments extends Fragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String u =  sharedPreferences.getString("UserID", "");
         String q = "Select distinct RecVoucher.VouchType,  RecVoucher.Cash , RecVoucher.CheckTotal,     RecVoucher.CustAcc ,RecVoucher.DocNo,RecVoucher.TrDate,RecVoucher.Amnt,RecVoucher.FromSales,Customers.name,RecVoucher.Desc, COALESCE(RecVoucher.Post, -1)  as Post from RecVoucher left join Customers  on Customers.no =RecVoucher.CustAcc" +
-                " where  RecVoucher.UserID ='"+u.toString()+"' and  RecVoucher.TrDate ='" + currentDateandTime + "'";
+                " where  RecVoucher.UserID ='"+u.toString()+"' and  RecVoucher.TrDate ='" + currentDateandTime + "' and RecVoucher.FromSales='0'";
         SqlHandler sqlHandler = new SqlHandler(getActivity());
         Cursor c1 = sqlHandler.selectQuery(q);
         Double sum = 0.0 ;

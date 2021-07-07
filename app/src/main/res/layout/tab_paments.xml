@@ -22,7 +22,7 @@
             android:orientation="horizontal"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:weightSum="10">
+            android:weightSum="9">
 
 
             <Methdes.MyTextView
@@ -149,6 +149,7 @@
                 android:background="@color/Black11"
                 android:gravity="center"
                 android:paddingRight="5dp"
+                android:visibility="gone"
                 android:text=" سند القبض"
                 android:textColor="#fff"
                 android:textSize="20dp" />
