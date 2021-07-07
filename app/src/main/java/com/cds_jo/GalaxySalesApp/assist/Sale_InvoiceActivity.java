@@ -121,7 +121,7 @@ import header.SimpleSideDrawer;
 
 public class Sale_InvoiceActivity extends AppCompatActivity implements  note_manFrg.ExampleDialogListener {
 
-
+public int flagV;
 public String getmaxN(){
     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     String u = sharedPreferences.getString("UserID", "");
@@ -472,7 +472,7 @@ public String getmaxN(){
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+flagV =0;
         Fragment frag = new Header_Frag();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.Frag1, frag).commit();
@@ -746,7 +746,7 @@ public String getmaxN(){
 
 
           sqlHandler = new SqlHandler(this);
-        query = "SELECT *  from  Sal_invoice_Hdr   ifnull(doctype,'1')='"+DocType.toString()+"'  and  where Post ='-1' And ( (date)   <  ('" + currentDateandTime + "'))  ";
+        query = "SELECT *  from  Sal_invoice_Hdr where  ifnull(doctype,'1')='"+DocType.toString()+"'  and   Post ='-1' And ( (date)   <  ('" + currentDateandTime + "'))  ";
 
         Cursor c1 = sqlHandler.selectQuery(query);
         if (c1 != null && c1.getCount() != 0) {
@@ -954,7 +954,7 @@ public String getmaxN(){
                 String Acc_name;
                 acc = DB.GetValue(this, "manf", "Acc", "  man='" + sharedPreferences.getString("UserID", "") + "'");
                 Acc_name = DB.GetValue(this, "manf", "AccName", "  man='" + sharedPreferences.getString("UserID", "") + "'");
-
+                flagV=1;
                 accno.setText(acc);
                 CustNm.setText(Acc_name);
                 InsertBalanceQty(extras.getString("BalanceQtyOrderNo"), "");
@@ -1257,6 +1257,7 @@ public String getmaxN(){
                             .getColumnIndex("qty")));
                     cls_offers_groups.setSerNo(c1.getString(c1
                             .getColumnIndex("SerNo")));
+
                     offer_groups_List.add(cls_offers_groups);
 
                 } while (c1.moveToNext());
@@ -1282,7 +1283,7 @@ public String getmaxN(){
         //  json = new Gson().toJson(contactList);
     }
     private void FillAdapter() {
-        contactList.clear();
+       contactList.clear();
         float Total = 0;
         float Total_Tax = 0;
         float TTemp = 0;
@@ -1301,7 +1302,7 @@ public String getmaxN(){
 
 
         EditText Order_no = (EditText) findViewById(R.id.et_OrdeNo);
-        query = "  select distinct  ifnull(pod.DisAmtFromHdr,0)   as   DisAmtFromHdr , ifnull(pod.DisPerFromHdr,0)   as DisPerFromHdr  , ifnull(pod.weight,0)     as weight,    ifnull(pod.Pro_Type,0)     as Pro_Type,        ifnull(pod.Operand,0) as Operand  ,  ifnull(pod.bounce_qty,0) as bounce_qty    ,pod.dis_per , pod.dis_Amt , pod.OrgPrice , pod.tax_Amt , pod.total ,Unites.UnitName,  invf.Item_Name, pod.itemno,pod.price,pod.qty,pod.tax ,pod.unitNo  " +
+        query = "  select distinct  ifnull(pod.DisAmtFromHdr,0)   as   DisAmtFromHdr , ifnull(pod.DisPerFromHdr,0)   as DisPerFromHdr  , ifnull(pod.weight,0)     as weight,    ifnull(pod.Pro_Type,0)     as Pro_Type,        ifnull(pod.Operand,0) as Operand  ,  ifnull(pod.bounce_qty,0) as bounce_qty    ,pod.dis_per , pod.dis_Amt , pod.OrgPrice , pod.tax_Amt , pod.total ,Unites.UnitName,  invf.Item_Name, pod.itemno,pod.price,pod.qty,pod.tax ,pod.unitNo,pod.sample  " +
                 " , pod.pro_Total    , pod.ProID , pod.Pro_bounce  ,pod.Pro_dis_Per,  pod.Pro_amt    " +
                 " from Sal_invoice_Det pod left join invf on invf.Item_No =  pod.itemno   " +
                 " left join Unites on Unites.Unitno=  pod.unitNo  Where   ifnull(pod.doctype,'1')='"+DocType.toString()+ "'  and pod.OrderNo='" + Order_no.getText().toString().replace("\u202c","").replace("\u202d","") + "'  order by pod.itemno ";
@@ -1372,6 +1373,8 @@ public String getmaxN(){
                             .getColumnIndex("DisPerFromHdr")));
                     contactListItems.setDisAmtFromHdr(c1.getString(c1
                             .getColumnIndex("DisAmtFromHdr")));
+                    contactListItems.setSample(c1.getString(c1
+                            .getColumnIndex("sample")));
 
 
                     contactList.add(contactListItems);
@@ -2113,7 +2116,19 @@ public String getmaxN(){
        sum=SToD(sum+"");
        return  sum+"";
    }
-    public void Save_Recod_Po() {
+    public void Save_Recod_Po1() {
+       /* SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String del = preferences.getString("delete", "no");
+        if(del.equals("yes")) {
+            String q = "Delete from  Sal_invoice_Det where  ifnull(doctype,'1')='" + DocType.toString() + "'  and   OrderNo ='" + pono.getText().toString().replace("\u202c", "").replace("\u202d", "") + "'";
+            //  String q = "Delete from  Sal_invoice_Det where OrderNo ='" + pono.getText().toString().replace("\u202c","").replace("\u202d","") + "'";
+            sqlHandler.executeQuery(q);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("delete", "no");
+            editor.apply();
+            //  FillAdapter();
+        }*/
+
         TextView Total = (TextView) findViewById(R.id.et_Total);
         if(Total.getText().toString().equals("0")) {
 
@@ -2228,6 +2243,304 @@ public String getmaxN(){
 
         cv.put("disc_Total", dis.getText().toString().replace("\u202c","").replace("\u202d",""));
         cv.put("Pos_System", "0");
+
+        if (IsNew == true) {
+            i = sqlHandler.Insert("Sal_invoice_Hdr", null, cv);
+        } else {
+            i = sqlHandler.Update("Sal_invoice_Hdr", cv, "ifnull(doctype,'1')='"+DocType.toString()+ "'  and   OrderNo ='" + pono.getText().toString().replace("\u202c","").replace("\u202d","") + "'");
+        }
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String del = preferences.getString("delete", "no");
+        if (i > 0) {
+
+            String q = "Delete from  Sal_invoice_Det where  ifnull(doctype,'1')='" + DocType.toString() + "'  and   OrderNo ='" + pono.getText().toString().replace("\u202c", "").replace("\u202d", "") + "'";
+            //  String q = "Delete from  Sal_invoice_Det where OrderNo ='" + pono.getText().toString().replace("\u202c","").replace("\u202d","") + "'";
+            sqlHandler.executeQuery(q);
+
+
+        /*else
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String del = preferences.getString("delete", "no");
+        if(del.equals("yes")) {
+            String q = "Delete from  Sal_invoice_Det where  ifnull(doctype,'1')='" + DocType.toString() + "'  and   OrderNo ='" + pono.getText().toString().replace("\u202c", "").replace("\u202d", "") + "'";
+            //  String q = "Delete from  Sal_invoice_Det where OrderNo ='" + pono.getText().toString().replace("\u202c","").replace("\u202d","") + "'";
+            sqlHandler.executeQuery(q);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("delete","no");
+            editor.apply();
+        }*/
+
+
+            for (int x = 0; x < contactList.size(); x++) {
+                try {
+                    Cls_Sal_InvItems contactListItems = new Cls_Sal_InvItems();
+                    contactListItems = contactList.get(x);
+
+
+
+
+                    cv = new ContentValues();
+                    cv.put("OrderNo", pono.getText().toString().replace("\u202c","").replace("\u202d",""));
+                    cv.put("itemno", contactListItems.getNo().replace("\u202c","").replace("\u202d",""));
+                    cv.put("price", contactListItems.getPrice().toString().replace("\u202c","").replace("\u202d",""));
+                    cv.put("qty", SToD(contactListItems.getQty().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("tax", SToD(contactListItems.getTax().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("unitNo", contactListItems.getUnite().toString().replace("\u202c","").replace("\u202d",""));
+                    cv.put("dis_per", SToD(contactListItems.getDiscount().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("dis_Amt", SToD(contactListItems.getDis_Amt().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("bounce_qty", contactListItems.getBounce().toString().replace("\u202c","").replace("\u202d",""));
+                    cv.put("tax_Amt", SToD(contactListItems.getTax_Amt().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("total", SToD(contactListItems.getTotal().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("ProID", contactListItems.getProID().toString().replace("\u202c","").replace("\u202d",""));
+                    cv.put("Pro_bounce", contactListItems.getPro_bounce().toString().replace("\u202c","").replace("\u202d",""));
+                    cv.put("Pro_dis_Per", SToD(contactListItems.getPro_dis_Per().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("Pro_amt", SToD(contactListItems.getPro_amt().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("pro_Total", SToD(contactListItems.getPro_Total().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("OrgPrice", SToD(contactListItems.getItemOrgPrice().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("Pro_Type", contactListItems.getProType().replace("\u202c","").replace("\u202d",""));
+                    cv.put("Operand", SToD(contactListItems.getOperand().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("weight", SToD(contactListItems.getWeight().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("DisAmtFromHdr", SToD(contactListItems.getDisAmtFromHdr().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("DisPerFromHdr", SToD(contactListItems.getDisPerFromHdr().toString().replace("\u202c","").replace("\u202d","")));
+                    cv.put("Note", contactListItems.getNote().toString());
+                    cv.put("sample", contactListItems.getSample());
+                    cv.put("doctype", DocType.toString());
+                 //   if(IsNew == true) {
+                    //    contactList.remove(x);
+                   // }
+                    if (i > 0) {
+
+                        i = sqlHandler.Insert(this, "Sal_invoice_Det", null, cv);
+
+                        if (i < 0) {
+                            alertDialog.setTitle("  الرجاء تبليغ مسؤول النظام  للضرورة  " + contactListItems.getName().toString());
+                            alertDialog.setMessage(cv.toString());
+                            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+
+
+                                }
+                            });
+                            alertDialog.show();
+                            try {
+                                File myFile = new File("/sdcard/Android/data/Galaxy/Sal_invoice_Det.txt");
+                                if (!myFile.exists()) {
+                                    myFile.createNewFile();
+                                }
+                                FileOutputStream fOut = new FileOutputStream(myFile, true);
+                                OutputStreamWriter myOutWriter =
+                                        new OutputStreamWriter(fOut);
+                                myOutWriter.append("\n\r" + "--------------------START-----------------------------\r\n");
+                                myOutWriter.append("DateTime" + currentDate + "--" + currentDateandTime + "\r\n");
+                                myOutWriter.append("SQL :" + cv.toString() + "\n\r");
+                                myOutWriter.append("\n\r" + "--------------------END------------------------------\r\n");
+                                myOutWriter.close();
+                                fOut.close();
+                            } catch (Exception ex) {
+
+                            }
+                            break;
+                        }
+
+                    }
+                } catch (Exception ex) {
+                    if (IsNew) {
+                        sqlHandler.executeQuery(" Delete from  Sal_invoice_Hdr where  ifnull(doctype,'1')=' "+DocType.toString()+ "'  and  OrderNo ='" + pono.getText().toString() + "'");
+                        sqlHandler.executeQuery(" Delete from  Sal_invoice_Det where ifnull(doctype,'1')=' "+DocType.toString()+ "'  and   OrderNo ='" + pono.getText().toString() + "'");
+                        i = -1;
+                    }
+                }
+
+            }
+
+            if (i <= 0) {
+                if (IsNew) {
+                    sqlHandler.executeQuery(" Delete from  Sal_invoice_Hdr where  ifnull(doctype,'1')='"+DocType.toString()+ "'  and  OrderNo ='" + pono.getText().toString() + "'");
+                    sqlHandler.executeQuery(" Delete from  Sal_invoice_Det where ifnull(doctype,'1')='"+DocType.toString()+ "'  and   OrderNo ='" + pono.getText().toString() + "'");
+                }
+            }
+
+        }
+
+        if (i > 0) {
+            if(IsNew){
+
+                InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Insert.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+
+            }else{
+                InsertLogTrans obj=new InsertLogTrans(Sale_InvoiceActivity.this,SCR_NO , SCR_ACTIONS.Modify.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+            }
+            UpDateMaxOrderNo();
+            //DoPrint = 1;
+            DeleteAllPromotions();
+            Gf_Calc_PromotionNew();
+            // GetMaxPONo();
+
+            alertDialog.setTitle(tv_ScrTitle.getText().toString());
+            alertDialog.setMessage("تمت عمليةالتخزين  بنجاح");
+            Toast.makeText(this,"تمت عملية الحفظ بنجاح" ,Toast.LENGTH_SHORT).show();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            String Count = sharedPreferences.getString("InvCount", "0");
+            Count = (SToD(Count) + 1) + "";
+            editor.putString("InvCount", Count);
+            editor.commit();
+            IsChange = false;
+
+            if(DiscountDept.equalsIgnoreCase("-1")){
+                ApplyCustDiscount();
+            }
+            DiscountDept = "-1";
+            CustAmtDt();
+              if (chk_Type.isChecked()) {
+                  Insert_AutRecv();
+              }
+            chk_Type.setEnabled(false);
+
+            if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
+                DoShare();
+            }
+            IsNew =  false;
+            alertDialog.setIcon(R.drawable.tick);
+
+            alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    if (ExistAfterSacve == 1) {
+                        Intent k = new Intent(Sale_InvoiceActivity.this, JalMasterActivity.class);
+                        startActivity(k);
+                    }
+
+                    if (DoPrint == 1) {
+                        View view = null;
+                        btn_print(view);
+                    }
+
+
+                }
+            });
+
+
+           // alertDialog.show();
+
+
+        }
+
+    }
+    public void Save_Recod_Po() {
+        TextView Total = (TextView) findViewById(R.id.et_Total);
+        if(Total.getText().toString().equals("0")) {
+
+            AlertDialog alertDialog1 = new AlertDialog.Builder(
+                    this).create();
+            alertDialog1.setTitle(tv_ScrTitle.getText().toString());
+            alertDialog1.setMessage(" لا يمكن تخزين فاتورة صفرية");
+            alertDialog1.setIcon(R.drawable.error_new);
+            alertDialog1.setButton("موافق", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+
+                }
+            });
+
+            alertDialog1.show();
+
+            return;
+        }
+        Integer Seq = 0;
+        CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
+        TextView custNm = (TextView) findViewById(R.id.tv_cusnm);
+        TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
+        TextView acc = (TextView) findViewById(R.id.tv_acc);
+        EditText et_hdr_Disc = (EditText) findViewById(R.id.et_hdr_Disc);
+
+        // TextView Total = (TextView) findViewById(R.id.et_Total);
+        TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
+        TextView TotalTax = (TextView) findViewById(R.id.et_TotalTax);
+        TextView dis = (TextView) findViewById(R.id.et_dis);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+        String currentDate = sdf.format(new Date());
+
+        sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.ENGLISH);
+        String currentDateandTime = sdf.format(new Date());
+
+
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+        long i;
+        int dayOfWeek;
+        Calendar c = Calendar.getInstance();
+        dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+
+        String q1 = "Select * From Sal_invoice_Hdr Where  ifnull(doctype,'1')='"+DocType.toString()+ "'  and   OrderNo='" + pono.getText().toString() + "'";
+        Cursor c1;
+        c1 = sqlHandler.selectQuery(q1);
+
+        if (c1 != null && c1.getCount() != 0) {
+            IsNew = false;
+            c1.close();
+        } else {
+            IsNew = true;
+        }
+
+
+        if (IsNew == true) {
+            Seq = Integer.parseInt(DB.GetValue(this, "Sal_invoice_Hdr", "ifnull(Max(Seq),0)+1", "ifnull(doctype,'1')='"+DocType.toString()+ "'  and  date='" + currentDate + "'"));
+
+        } else {
+
+            Seq = Integer.parseInt(DB.GetValue(this, "Sal_invoice_Hdr", "ifnull(Seq,0)", "ifnull(doctype,'1')='"+DocType.toString()+ "'  and  OrderNo='" + pono.getText().toString() + "'"));
+
+        }
+        ContentValues cv = new ContentValues();
+        cv.put("OrderNo", pono.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("acc", acc.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("date", currentDate.replace("\u202c","").replace("\u202d",""));
+        cv.put("Time", currentDateandTime.replace("\u202c","").replace("\u202d",""));
+        cv.put("userid", UserID.replace("\u202c","").replace("\u202d",""));
+        cv.put("Total", SToD(Total.getText().toString().replace("\u202c","").replace("\u202d","")));
+        cv.put("Net_Total", SToD(NetTotal.getText().toString().replace("\u202c","").replace("\u202d","")));
+        cv.put("Tax_Total", SToD(TotalTax.getText().toString().replace("\u202c","").replace("\u202d","")));
+        cv.put("Post", "-1");
+        cv.put("QtyStoreSer", MaxStoreQtySer);
+        cv.put("Nm", custNm.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("V_OrderNo", sharedPreferences.getString("V_OrderNo", "0"));
+        cv.put("DayNum", dayOfWeek);
+        cv.put("Seq", Seq);
+        cv.put("OrderDesc", note_sal);
+        cv.put("bounce_Total", "0");
+        cv.put("doctype", DocType.toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("TotalWithoutDiscount", SToD(NetTotal.getText().toString().replace("\u202c","").replace("\u202d",""))+SToD(  GetSumFinalDiscount()));
+
+        if (IncludeTax_Flag.isChecked()) {
+            cv.put("include_Tax", "0");
+        } else {
+            cv.put("include_Tax", "-1");
+        }
+
+        if (chk_Type.isChecked()) {
+            cv.put("inovice_type", "0");
+        } else {
+            cv.put("inovice_type", "-1");
+        }
+
+
+      /*  if (chk_hdr_disc.isChecked()) {
+            cv.put("hdr_dis_per", "0");
+        } else {
+            cv.put("hdr_dis_per", "-1");
+        }*/
+
+        cv.put("hdr_dis_per", FinalDiscountpercent+"");
+        cv.put("hdr_dis_value",FinalDiscountAmt+"");
+        cv.put("hdr_dis_Type",FinalDiscountType+"");
+
+
+        cv.put("disc_Total", dis.getText().toString().replace("\u202c","").replace("\u202d",""));
+        cv.put("Pos_System", "0");
         if (IsNew == true) {
             i = sqlHandler.Insert("Sal_invoice_Hdr", null, cv);
         } else {
@@ -2237,6 +2550,7 @@ public String getmaxN(){
 
         if (i > 0) {
             String q = "Delete from  Sal_invoice_Det where  ifnull(doctype,'1')='"+DocType.toString()+ "'  and   OrderNo ='" + pono.getText().toString().replace("\u202c","").replace("\u202d","") + "'";
+
             sqlHandler.executeQuery(q);
 
             for (int x = 0; x < contactList.size(); x++) {
@@ -2268,8 +2582,9 @@ public String getmaxN(){
                     cv.put("weight", SToD(contactListItems.getWeight().toString().replace("\u202c","").replace("\u202d","")));
                     cv.put("DisAmtFromHdr", SToD(contactListItems.getDisAmtFromHdr().toString().replace("\u202c","").replace("\u202d","")));
                     cv.put("DisPerFromHdr", SToD(contactListItems.getDisPerFromHdr().toString().replace("\u202c","").replace("\u202d","")));
-                    cv.put("Note", contactListItems.getNote().toString());
-
+                  if(flagV==1) {
+                      cv.put("Note", contactListItems.getNote().toString());
+                  }
                     cv.put("sample", contactListItems.getSample());
                     cv.put("doctype", DocType.toString());
                     if (i > 0) {
@@ -2353,9 +2668,9 @@ public String getmaxN(){
             }
             DiscountDept = "-1";
             CustAmtDt();
-              if (chk_Type.isChecked()) {
-                  Insert_AutRecv();
-              }
+            if (chk_Type.isChecked()) {
+                Insert_AutRecv();
+            }
             chk_Type.setEnabled(false);
 
             if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
@@ -2381,7 +2696,7 @@ public String getmaxN(){
             });
 
 
-           // alertDialog.show();
+            // alertDialog.show();
 
 
         }
@@ -2810,7 +3125,7 @@ public String getmaxN(){
     }
     public void Save_List(String ItemNo, String p, String q, String t, String u, String dis, String bounce, String ItemNm, String UnitName, String dis_Amt, String Operand,String Weight,String flag ) {
 
-
+       // FillAdapter();
 
         if (bounce.toString().equals(""))
             bounce = "0";
@@ -2852,7 +3167,6 @@ public String getmaxN(){
                 alertDialog.show();
                 return;
             }
-
         }}
 
         if (AllowSalInvMinus != 1 && DocType!=2  ) {
@@ -2891,9 +3205,11 @@ public String getmaxN(){
             contactListItems.setprice(String.valueOf(Price));
 
         }
-        //contactListItems.setprice(String.valueOf(Price));
+
+       // contactListItems.setprice(String.valueOf(Price));
         contactListItems.setItemOrgPrice(String.valueOf(Price));
         contactListItems.setQty(q);
+        //contactListItems.setNote("");
         contactListItems.setTax(String.valueOf(Tax));
         contactListItems.setUnite(u);
         contactListItems.setBounce(bounce);
@@ -2903,7 +3219,7 @@ public String getmaxN(){
         contactListItems.setUniteNm(UnitName);
         contactListItems.setPro_amt("0");
         contactListItems.setPro_dis_Per("0");
-        contactListItems.setPro_bounce("0");
+        contactListItems.setPro_bounce(bounce);
         contactListItems.setPro_Total("0");
         contactListItems.setDisAmtFromHdr("0");
         contactListItems.setDisPerFromHdr("0");
@@ -2912,11 +3228,10 @@ public String getmaxN(){
         contactListItems.setOperand(Operand);
         contactListItems.setWeight(Weight);
         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
-        contactListItems.setSample(flag);
         contactListItems.setNote("فاتورة بيع");
+        contactListItems.setSample(flag);
         contactList.add(contactListItems);
         // Gf_Calc_Promotion();
-
 
         CalcTotal();
         showList();
@@ -2924,7 +3239,8 @@ public String getmaxN(){
 
 
     }
-    public void Update_List(String ItemNo, String p, String q, String t, String u, String dis, String bounce, String ItemNm, String UnitName, String dis_Amt, String Operand,String Weight) {
+    public void Update_List(String ItemNo, String p, String q, String t, String u, String dis, String bounce, String ItemNm, String UnitName, String dis_Amt, String Operand,String Weight,String flag) {
+
 
         if (bounce.toString().equals(""))
             bounce = "0";
@@ -3002,7 +3318,7 @@ public String getmaxN(){
         contactListItems.setUniteNm(UnitName);
         contactListItems.setPro_amt("0");
         contactListItems.setPro_dis_Per("0");
-        contactListItems.setPro_bounce("0");
+        contactListItems.setPro_bounce(bounce);
         contactListItems.setPro_Total("0");
         contactListItems.setDisAmtFromHdr("0");
         contactListItems.setDisPerFromHdr("0");
@@ -3011,7 +3327,8 @@ public String getmaxN(){
         contactListItems.setOperand(Operand);
         contactListItems.setWeight(Weight);
         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
-
+        contactListItems.setNote("تعديل فاتورة بيع");
+        contactListItems.setSample(flag);
 
         CalcTotal();
         showList();
@@ -3034,7 +3351,7 @@ public String getmaxN(){
 
 
         ////////////////////////////////////////////////////////////////////
-        AlertDialog alertDialog = new AlertDialog.Builder(
+ /*       AlertDialog alertDialog = new AlertDialog.Builder(
                 this).create();
         alertDialog.setTitle(tv_ScrTitle.getText().toString());
         alertDialog.setMessage("لا يمكن الحذف");
@@ -3046,11 +3363,11 @@ public String getmaxN(){
             }
         });
 
-        alertDialog.show();
+        alertDialog.show();*/
 
 
         ///////////////////////////////////////////////////////////////////////
-     /*    String q = "SELECT *  from  Sal_invoice_Hdr where   Post >0 AND   OrderNo ='" + pono.getText().toString() + "'";
+         String q = "SELECT *  from  Sal_invoice_Hdr where   Post >0 AND   OrderNo ='" + et_OrdeNo.getText().toString() + "'";
 
       Cursor c1 = sqlHandler.selectQuery(q);
       if (c1 != null && c1.getCount() != 0) {
@@ -3106,7 +3423,6 @@ public String getmaxN(){
           // Showing Alert Message
           alertDialog.show();
       }
- */
     }
     public void Delete_Record_PO() {
 
@@ -3437,15 +3753,15 @@ public String getmaxN(){
     startActivity(v);
 }
     public void btn_new(View view) {
+        flagV=0;
         // RemoveAnmation();
         ImageButton imageButton8 = (ImageButton) findViewById(R.id.imageButton8);
-
         // imageButton8.startAnimation(shake);
-
         //Fade_Fun(imageButton8);
         ExistAfterSacve = 0;
         GetMaxPONo();
         showList();
+
         TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
         TextView accno = (TextView) findViewById(R.id.tv_acc);
         EditText et_hdr_Disc = (EditText) findViewById(R.id.et_hdr_Disc);
@@ -3530,7 +3846,7 @@ public String getmaxN(){
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
+        final TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
         // TODO Auto-generated method stub
         switch (item.getItemId()) {
             case 1: {
@@ -3560,9 +3876,18 @@ public String getmaxN(){
             }
             break;
             case 2: {
+
+
+               /* SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("delete","yes");
+                editor.apply();
+*/
                 String q1 = "Select * From Sal_invoice_Hdr Where ifnull(doctype,'1')='"+DocType.toString()+ "'  and    OrderNo='" + pono.getText().toString() + "'";
                 Cursor c1;
                 c1 = sqlHandler.selectQuery(q1);
+
+
 
                 if (c1 != null && c1.getCount() != 0) {
                     IsNew = false;
@@ -3590,7 +3915,6 @@ public String getmaxN(){
                     Dialog.show();
                 } else {
 
-
                     if (contactList.get(position).getProType().equals("3")) {
                         break;
                     }
@@ -3604,9 +3928,21 @@ public String getmaxN(){
                         public void onClick(DialogInterface dialog, int which) {
                             contactList.remove(position);
                             ResetPromotion();
+
                             // Gf_Calc_Promotion();
                             CalcTotal();
                             showList();
+/*
+                            String q = "Delete from  Sal_invoice_Det where  ifnull(doctype,'1')='" + DocType.toString() + "'  and   OrderNo ='" + pono.getText().toString().replace("\u202c", "").replace("\u202d", "") + "'";
+                            //  String q = "Delete from  Sal_invoice_Det where OrderNo ='" + pono.getText().toString().replace("\u202c","").replace("\u202d","") + "'";
+                            sqlHandler.executeQuery(q);
+*/
+
+
+                     /*       String q = "Delete from  Sal_invoice_Det where  ifnull(doctype,'1')='"+DocType.toString()+ "'  and   OrderNo ='" + pono.getText().toString().replace("\u202c","").replace("\u202d","") + "' and itemNo='"+contactList.get(position).getName()+"'";
+                            //  String q = "Delete from  Sal_invoice_Det where OrderNo ='" + pono.getText().toString().replace("\u202c","").replace("\u202d","") + "'";
+                            sqlHandler.executeQuery(q);*/
+
 
                         }
                     });
@@ -3675,6 +4011,8 @@ public String getmaxN(){
                             .getColumnIndex("unit_no")));
                     cls_offers_groups.setQty(c1.getString(c1
                             .getColumnIndex("qty")));
+                    cls_offers_groups.setSerNo(c1.getString(c1
+                            .getColumnIndex("SerNo")));
                     cls_offers_groups.setSerNo(c1.getString(c1
                             .getColumnIndex("SerNo")));
                     cls_offers_groups.setFactor(f + "");
@@ -3752,6 +4090,8 @@ public String getmaxN(){
                         Inv_Obj.setprice("0");
                         Inv_Obj.setItemOrgPrice("0");
                         Inv_Obj.setQty("0");
+                        Inv_Obj.setNote("0");
+                        Inv_Obj.setSample(c1.getString(c1.getColumnIndex("sample")));
                         Inv_Obj.setTax("0");
                         Inv_Obj.setUnite(c1.getString(c1.getColumnIndex("Unit_No")));
                         Inv_Obj.setOperand(c1.getString(c1.getColumnIndex("Unit_Rate")));
@@ -4802,6 +5142,7 @@ public String getmaxN(){
 
                         _handler.post(new Runnable() {
                             public void run() {
+
                                 AlertDialog alertDialog = new AlertDialog.Builder(
                                         Sale_InvoiceActivity.this).create();
                                 alertDialog.setTitle(tv_ScrTitle.getText().toString());
@@ -4977,6 +5318,8 @@ public String getmaxN(){
                         contactListItems.setTax_Amt("0");
                         contactListItems.setNote(OrderNo);
                         contactListItems.setProType("0");
+                  //      contactListItems.setNote("0");
+                       // contactListItems.setSample(c1.getString(c1.getColumnIndex("sample")));
                         contactListItems.setOperand(c1.getString(c1.getColumnIndex("Operand")));
                         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
                         contactList.add(contactListItems);

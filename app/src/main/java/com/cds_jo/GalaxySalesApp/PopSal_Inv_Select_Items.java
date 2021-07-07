@@ -1299,7 +1299,9 @@ p=position;
 
 
         Bundle bundle = this.getArguments();
-        UpdateItem = (List<Cls_Sal_InvItems>) bundle.getSerializable("List");
+
+        UpdateItem = (List<Cls_Sal_InvItems>)bundle.getSerializable("List");
+
 
         if (UpdateItem != null) {
 
@@ -1329,17 +1331,33 @@ p=position;
                 bounce.setText(UpdateItem.get(0).getBounce());
                 disc_per.setText(UpdateItem.get(0).getDiscount());
                 disc_Amt.setText(UpdateItem.get(0).getDis_Amt());
+                if(!UpdateItem.get(0).getDiscount().isEmpty())
                 et_Discount.setText(UpdateItem.get(0).getDiscount());
-                net_total.setText(UpdateItem.get(0).getTotal());
-                if(UpdateItem.get(0).getSample().equals("1")) {
-                    chkEnbledItem.setChecked(true);
-                    Price.setText("0");
-                }
                 else
-                {
-                    chkEnbledItem.setChecked(false);
-                    Price.setText(UpdateItem.get(0).getprice());
+                    et_Discount.setText("0");
+                net_total.setText(UpdateItem.get(0).getTotal());
+                if(UpdateItem.get(0).getSample()!=null) {
+                    if (UpdateItem.get(0).getSample().equals("1")) {
+                        chkEnbledItem.setChecked(true);
+                        Price.setText("0");
+                    } else {
+                        chkEnbledItem.setChecked(false);
+                        Price.setText(UpdateItem.get(0).getprice());
+                    }
+                }else{
+                    String sample=DB.GetValue(getActivity(),"Sal_invoice_Det","sample","OrderNo='"+UpdateItem.get(0).getOrderNo()+"'");
+                    if (sample.equals("1")) {
+                        chkEnbledItem.setChecked(true);
+                        Price.setText("0");
+                    } else {
+                        chkEnbledItem.setChecked(false);
+                        Price.setText(UpdateItem.get(0).getprice());
+                    }
+
+
                 }
+
+
                 fillUnit(UpdateItem.get(0).getno());
 
                 Cls_UnitItems cls_unitItems = new Cls_UnitItems();
@@ -1991,6 +2009,8 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                     alertDialog.setButton("رجوع", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 
+
+
                         }
                     });
                 }
@@ -2005,12 +2025,12 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
 
                 EditText bo1 = (EditText) form.findViewById(R.id.et_bo);
 
-
                 if (UpdateItem != null) {
                     if (UpdateItem.size() > 0) {
+
                         if (chkEnbledItem.isChecked()) {
                         if(!(bo1.getText().toString().equals("0")||bo1.getText().toString().equals(""))) {
-                            ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString());
+                            ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"1");
                             this.dismiss();
                         }
                         else
@@ -2019,14 +2039,16 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                         }}
                         else
                             {
-                                ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString());
+                                ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"0");
                             }
                     }
                 } else {
 
                     if (chkEnbledItem.isChecked()) {
                         if(!(bo1.getText().toString().equals("0")||bo1.getText().toString().equals(""))) {
-                            ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, "0", qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""), "1");
+                           // ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"0");
+
+                             ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, "0", qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""), "1");
                         }
                      else
                         {
@@ -2036,6 +2058,7 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
 
                     else
                     {
+
                         ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""),"0");
                     }
                 }
@@ -2051,10 +2074,29 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
             }
             if (getArguments().getString("Scr") == "Del_inv") {
 
+                EditText bo1 = (EditText) form.findViewById(R.id.et_bo);
 
                 if (UpdateItem != null) {
                     if (UpdateItem.size() > 0) {
-                        ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), "0", UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString());
+
+                            if (chkEnbledItem.isChecked()) {
+                                if(!(bo1.getText().toString().equals("0")||bo1.getText().toString().equals(""))) {
+                                    ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"1");
+                                    this.dismiss();
+                                }
+                                else
+                                {
+                                    Toast.makeText(getActivity(),"يجب ادخال البونص",Toast.LENGTH_LONG).show();
+                                }}
+                            else
+                            {
+                                ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"0");
+                            }
+
+
+
+
+                     //   ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), "0", UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString());
                         this.dismiss();
                     }
                 }

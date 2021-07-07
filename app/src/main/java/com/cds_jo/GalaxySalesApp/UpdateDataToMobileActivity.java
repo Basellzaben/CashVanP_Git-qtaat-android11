@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 196;
+    private static final int LASTUPDATE = 197;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -1726,7 +1726,15 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             sqlHandler.executeQuery("Alter Table manf  Add  COLUMN  SupervisorMobile  text null");
         } catch (SQLException e) {
         }
-    }
+
+
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Det  Add  COLUMN  sample  text null ");
+        } catch (SQLException e) {}
+            //Log.i("ADD AllowSalInvMinus","Week already AllowSalInvMinus");
+
+
+        }
 
     CheckBox chkall;
 

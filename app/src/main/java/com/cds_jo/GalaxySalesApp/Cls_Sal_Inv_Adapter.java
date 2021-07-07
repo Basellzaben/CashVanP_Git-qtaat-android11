@@ -98,7 +98,7 @@ public class Cls_Sal_Inv_Adapter extends BaseAdapter {
 
 
         TextView Bounce = (TextView) convertView.findViewById(R.id.tv_Bounce);
-        Bounce.setText( String.valueOf(SToD(contactListItems.getBounce()) + SToD(contactListItems.getPro_bounce())));
+        Bounce.setText( String.valueOf(SToD(contactListItems.getBounce())));
 
 
         TextView Disc = (TextView) convertView.findViewById(R.id.tv_Disc_Per);

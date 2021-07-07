@@ -61,6 +61,7 @@ public class CallWebServices  {
         //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
        URL = "http://10.0.1.63:92/CV.asmx";// galaxy
+       URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
         //moh
 
