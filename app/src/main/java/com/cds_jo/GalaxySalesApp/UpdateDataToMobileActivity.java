@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 197;
+    private static final int LASTUPDATE = 198;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -78,6 +78,15 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
     RelativeLayout.LayoutParams lp;
     String UserID;
     int DB_VERVSION;
+  String CompanyID;
+    String  CompanyNm ;
+    String  TaxAcc1 ;
+    String  Address ;
+    String  Notes ;
+    String  Permession ;
+    String  CompanyMobile ;
+    String  CompanyMobile2 ;
+    String  SuperVisorMobile ;
 
     CheckBox chk_PaymentSchudel,chk_cust,chk_LookUp, chk_banks, chk_Items, chk_Unites, Chk_Items_Unites, Chk_Curf, Chk_deptf, Chk_Users, Chk_Drivers, Chk_CustLastTrans;
     CheckBox Chk_TransQty, chk_Pro, chkCompany, chkCashCust, chk_Item_cat, chk_Cust_Cat, chk_Serial, chk_LastPrice, Chk_Msg, Chk_Batch,chk_country;
@@ -287,7 +296,21 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
 
         try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS Customers_man ( ID INTEGER PRIMARY KEY AUTOINCREMENT,no TEXT Null,name TEXT Null,Ename TEXT Null ,catno text null ,barCode  text null , Address text null , State text null , SMan text null , Latitude text null , Longitude text null, Note2 text null " +
+                    " , sat  INTEGER null ,  sun INTEGER  null ,   mon INTEGER  null ,  tues  INTEGER null ,  wens INTEGER  null ,  thurs INTEGER null ," +
+                    "   sat1 INTEGER null ,  sun1  INTEGER null,  mon1 INTEGER  null ,    tues1  INTEGER null ,   wens1  INTEGER null,   thurs1  INTEGER null , Celing text null     )");
+
+        } catch (SQLException e) {
+            Log.i("ADD CustType", "Week already CustType");
+        }
+        try {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN  CustType  text null");
+
+
+        } catch (SQLException e) {
+            Log.i("ADD CustType", "Week already CustType");
+        }     try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  CustType  text null");
 
 
         } catch (SQLException e) {
@@ -297,6 +320,13 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
         try {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN  PAMENT_PERIOD_NO  text null");
+
+
+        }catch (SQLException e) {
+            Log.i("ADD PAMENT_PERIOD_NO", "Week already PAMENT_PERIOD_NO");
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  PAMENT_PERIOD_NO  text null");
 
 
         } catch (SQLException e) {
@@ -325,6 +355,12 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             //Log.i("ADD SalInvoiceUnit","Week already SalInvoiceUnit");
 
         }
+        try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  CUST_PRV_MONTH  text null ");
+        } catch (SQLException e) {
+            //Log.i("ADD SalInvoiceUnit","Week already SalInvoiceUnit");
+
+        }
 
 
         try {
@@ -334,7 +370,17 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
         }
         try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  CUST_NET_BAL  text null ");
+        } catch (SQLException e) {
+            //Log.i("ADD SalInvoiceUnit","Week already SalInvoiceUnit");
+
+        }
+        try {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN  Pay_How  text null ");
+        } catch (SQLException e) {
+        }
+      try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  Pay_How  text null ");
         } catch (SQLException e) {
         }
 
@@ -384,6 +430,9 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         }
         try {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN  Cust_type  text null");
+        } catch (SQLException e) {
+        }     try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  Cust_type  text null");
         } catch (SQLException e) {
         }
 
@@ -559,6 +608,11 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
         try {
             sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  CustomersMsg    " +
+                    "( no integer primary key autoincrement, Cusno  text null, msg text null )");
+        } catch (SQLException e) {
+        }
+    try {
+            sqlHandler.executeQuery("CREATE TABLE IF NOT EXISTS  Customers_man    " +
                     "( no integer primary key autoincrement, Cusno  text null, msg text null )");
         } catch (SQLException e) {
         }
@@ -848,14 +902,24 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN Location  text null ");
         } catch (SQLException e) {
         }
+    try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN Location  text null ");
+        } catch (SQLException e) {
+        }
 
         try {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN Tax_Status  text null ");
+        } catch (SQLException e) {
+        }      try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN Tax_Status  text null ");
         } catch (SQLException e) {
         }
 
         try {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN LocationNo  text null ");
+        } catch (SQLException e) {
+        }  try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN LocationNo  text null ");
         } catch (SQLException e) {
         }
 
@@ -975,6 +1039,9 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
         try {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN  CheckAlowedDay  text null ");
+        } catch (SQLException e) {
+        }  try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  CheckAlowedDay  text null ");
         } catch (SQLException e) {
         }
 
@@ -1108,6 +1175,9 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
         try {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN  PromotionFlag  text null ");
+        } catch (SQLException e) {
+        }     try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  PromotionFlag  text null ");
         } catch (SQLException e) {
         }
 
@@ -1283,6 +1353,13 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         } catch (SQLException e) {
             Log.i("ADD PAMENT_PERIOD_NO", "Week already PAMENT_PERIOD_NO");
         }
+       try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  CHECK_IMG  text null");
+
+
+        } catch (SQLException e) {
+            Log.i("ADD PAMENT_PERIOD_NO", "Week already PAMENT_PERIOD_NO");
+        }
 
 
 
@@ -1356,6 +1433,12 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         }
         try {
             sqlHandler.executeQuery("Alter Table Customers  Add  COLUMN  CloseVisitWithoutimg  text null ");
+        } catch (SQLException e) {
+            Log.i("ADD COLUMN Operand", "Week already Operand");
+
+        }
+        try {
+            sqlHandler.executeQuery("Alter Table Customers_man  Add  COLUMN  CloseVisitWithoutimg  text null ");
         } catch (SQLException e) {
             Log.i("ADD COLUMN Operand", "Week already Operand");
 
@@ -2182,6 +2265,138 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
                 }
 
+            }
+        }).start();
+
+    }
+    private void GetCuostomer2() {
+
+        final Handler _handler = new Handler();
+
+
+
+
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CallWebServices ws = new CallWebServices(UpdateDataToMobileActivity.this);
+                ws.GetCustomers_man(UserID);
+                try {
+                    Integer i;
+                    String q = "";
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray js_no = js.getJSONArray("no");
+                    JSONArray js_name = js.getJSONArray("name");
+                    JSONArray js_Ename = js.getJSONArray("Ename");
+                    JSONArray js_barCode = js.getJSONArray("barCode");
+                    JSONArray js_Address = js.getJSONArray("Address");
+                    JSONArray js_State = js.getJSONArray("State");
+                    JSONArray js_SMan = js.getJSONArray("SMan");
+                    JSONArray js_Latitude = js.getJSONArray("Latitude");
+                    JSONArray js_Longitude = js.getJSONArray("Longitude");
+                    JSONArray js_Note2 = js.getJSONArray("Note2");
+                    JSONArray js_sat = js.getJSONArray("sat");
+
+                    JSONArray js_sun = js.getJSONArray("sun");
+                    JSONArray js_mon = js.getJSONArray("mon");
+                    JSONArray js_tues = js.getJSONArray("tues");
+                    JSONArray js_wens = js.getJSONArray("wens");
+                    JSONArray js_thurs = js.getJSONArray("thurs");
+                    JSONArray js_sat1 = js.getJSONArray("sat1");
+                    JSONArray js_sun1 = js.getJSONArray("sun1");
+                    JSONArray js_mon1 = js.getJSONArray("mon1");
+                    JSONArray js_tues1 = js.getJSONArray("tues1");
+                    JSONArray js_wens1 = js.getJSONArray("wens1");
+                    JSONArray js_thurs1 = js.getJSONArray("thurs1");
+                    JSONArray js_Celing = js.getJSONArray("Celing");
+                    JSONArray js_CatNo = js.getJSONArray("CatNo");
+                    JSONArray js_CustType = js.getJSONArray("CustType");
+                    JSONArray js_PAMENT_PERIOD_NO = js.getJSONArray("PAMENT_PERIOD_NO");
+                    JSONArray js_CUST_PRV_MONTH = js.getJSONArray("CUST_PRV_MONTH");
+                    JSONArray js_CUST_NET_BAL = js.getJSONArray("CUST_NET_BAL");
+                    JSONArray js_Pay_How = js.getJSONArray("Pay_How");
+                    JSONArray js_Cust_type = js.getJSONArray("Cust_type");
+
+
+                    JSONArray js_TaxStatus = js.getJSONArray("TaxSts");
+                    JSONArray js_country_Nm = js.getJSONArray("country_Nm");
+                    JSONArray js_country_No = js.getJSONArray("country_No");
+                    JSONArray js_CheckAlowedDay = js.getJSONArray("CheckAlowedDay");
+                    JSONArray js_PromotionFlag = js.getJSONArray("PromotionFlag");
+                    JSONArray js_CloseVisitWithoutimg = js.getJSONArray("CloseVisitWithoutimg");
+
+
+                    q = "Delete from Customers_man";
+                    sqlHandler.executeQuery(q);
+                    q = "delete from sqlite_sequence where name='Customers_man'";
+                    sqlHandler.executeQuery(q);
+
+                    for (i = 0; i < js_no.length(); i++) {
+                        q = "Insert INTO Customers_man(Tax_Status,no,name,Ename,barCode,Address,State,SMan,Latitude,Longitude,Note2,sat " +
+                                " ,sun,mon,tues,wens,thurs,sat1,sun1,mon1,tues1,wens1,thurs1 , Celing , CatNo " +
+                                ",CustType,PAMENT_PERIOD_NO , CUST_PRV_MONTH,CUST_NET_BAL,Pay_How,Cust_type,LocationNo,Location,CheckAlowedDay,PromotionFlag,CloseVisitWithoutimg) values ('"
+                                + js_TaxStatus.get(i).toString()
+                                + "','"  + js_no.get(i).toString()
+                                + "','" + js_name.get(i).toString()
+                                + "','" + js_Ename.get(i).toString()
+                                + "','" + js_barCode.get(i).toString()
+                                + "','" + js_Address.get(i).toString()
+                                + "','" + js_State.get(i).toString()
+                                + "','" + js_SMan.get(i).toString()
+                                + "','" + js_Latitude.get(i).toString()
+                                + "','" + js_Longitude.get(i).toString()
+                                + "','" + js_Note2.get(i).toString()
+                                + "'," + js_sat.get(i).toString()
+                                + "," + js_sun.get(i).toString()
+                                + "," + js_mon.get(i).toString()
+                                + "," + js_tues.get(i).toString()
+                                + "," + js_wens.get(i).toString()
+                                + "," + js_thurs.get(i).toString()
+                                + "," + js_sat1.get(i).toString()
+                                + "," + js_sun1.get(i).toString()
+                                + "," + js_mon1.get(i).toString()
+                                + "," + js_tues1.get(i).toString()
+                                + "," + js_wens1.get(i).toString()
+                                + "," + js_thurs1.get(i).toString()
+                                + ",'" + js_Celing.get(i).toString()
+                                + "','" + js_CatNo.get(i).toString()
+                                + "','" + js_CustType.get(i).toString()
+                                + "','" + js_PAMENT_PERIOD_NO.get(i).toString()
+                                + "','" + js_CUST_PRV_MONTH.get(i).toString()
+                                + "','" + js_CUST_NET_BAL.get(i).toString()
+                                + "','" + js_Pay_How.get(i).toString()
+                                + "','" + js_Cust_type.get(i).toString()
+                                + "','" + js_country_No.get(i).toString()
+
+                                + "','" + js_country_Nm.get(i).toString()
+                                + "','" + js_CheckAlowedDay.get(i).toString()
+                                + "','" + js_PromotionFlag.get(i).toString()
+                                + "','" + js_CloseVisitWithoutimg.get(i).toString()
+                                + "')";
+                        sqlHandler.executeQuery(q);
+
+
+                    }
+                    final int total = i;
+                    _handler.post(new Runnable() {
+
+                        public void run() {
+
+
+                        }
+                    });
+
+                } catch (final Exception e) {
+
+                    _handler.post(new Runnable() {
+
+                        public void run() {
+
+                        }
+                    });
+                }
             }
         }).start();
 
@@ -3176,7 +3391,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             custDialog.setCustomTitle(tv);
             custDialog.setProgressDrawable(greenProgressbar);
             custDialog.show();
-
+            GetCuostomer2();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -3896,6 +4111,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
             progressDialog.show();
             GetManPermession();
             GetManExceptions();
+
             Get_Tab_Password();
 
             //GetSerials();
@@ -4741,17 +4957,16 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                                     + "','" + js_ACC_Cash.get(i).toString()
                                     + "')";
                             sqlHandler.executeQuery(q);
-                            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(UpdateDataToMobileActivity.this);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("CompanyID", js_CompanyID.get(i).toString());
-                            editor.putString("CompanyNm", js_CompanyNm.get(i).toString());
-                            editor.putString("TaxAcc1", js_TaxAcc1.get(i).toString());
-                            editor.putString("Address", js_Address.get(i).toString());
-                            editor.putString("Notes", js_Notes.get(i).toString());
-                            editor.putString("Permession", js_Permession.get(i).toString());
-                            editor.putString("CompanyMobile", js_CompanyMobile.get(i).toString());
-                            editor.putString("CompanyMobile2", js_CompanyMobile2.get(i).toString());
-                            editor.putString("SuperVisorMobile", js_SuperVisorMobile.get(i).toString());
+                              CompanyID=js_CompanyID.get(i).toString();
+                               CompanyNm =js_CompanyNm.get(i).toString();
+                               TaxAcc1 =js_TaxAcc1.get(i).toString();
+                               Address =js_Address.get(i).toString();
+                               Notes =js_Notes.get(i).toString();
+                               Permession =js_Permession.get(i).toString();
+                               CompanyMobile =js_CompanyMobile.get(i).toString();
+                               CompanyMobile2 =js_CompanyMobile2.get(i).toString();
+                               SuperVisorMobile =js_SuperVisorMobile.get(i).toString();
+
 
                           //  editor.commit();
                             custDialog.setMax(js_ID.length());
@@ -4765,6 +4980,17 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         _handler.post(new Runnable() {
 
                             public void run() {
+                                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(UpdateDataToMobileActivity.this);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("CompanyID", CompanyID);
+                                editor.putString("CompanyNm", CompanyNm );
+                                editor.putString("TaxAcc1",  TaxAcc1 );
+                                editor.putString("Address",  Address );
+                                editor.putString("Notes",  Notes );
+                                editor.putString("Permession",  Permession );
+                                editor.putString("CompanyMobile",  CompanyMobile );
+                                editor.putString("CompanyMobile2",  CompanyMobile2 );
+                                editor.putString("SuperVisorMobile",  SuperVisorMobile );
                                 filllist("معلومات المؤسسة", 1, total);
                                 chkCompany.setChecked(false);
                                 custDialog.dismiss();

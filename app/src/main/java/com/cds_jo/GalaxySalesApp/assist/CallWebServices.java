@@ -1543,6 +1543,52 @@ public class CallWebServices  {
 
 
     }
+    public void GetCustomers_man(String ManNo) {
+
+        We_Result.Msg="";
+        We_Result.ID =-1;
+        SoapObject request = new SoapObject(NAMESPACE, "GetCustomers_man");
+
+        PropertyInfo parm_ManNo = new PropertyInfo();
+        parm_ManNo.setName("ManNo");
+        parm_ManNo.setValue(ManNo);
+        parm_ManNo.setType(String.class);
+        request.addProperty(parm_ManNo);
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                SoapEnvelope.VER11);
+        envelope.dotNet=true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+
+        try {
+
+            androidHttpTransport.call("http://tempuri.org/GetCustomers_man", envelope);
+            SoapObject result  = (SoapObject) envelope.getResponse();
+            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+        } catch (NullPointerException   en){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+            We_Result.ID = Long.parseLong("-404");
+            en.printStackTrace();
+
+
+        } catch (EOFException eof ){
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+            We_Result.ID = Long.parseLong("-404");
+            eof.printStackTrace();
+
+        }
+        catch (Exception e) {
+            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"    ;
+            We_Result.ID = Long.parseLong("-404");
+            e.printStackTrace();
+
+        }
+
+
+    }
     public void GetCustomersMsg(String ManNo) {
 
         We_Result.Msg="";

@@ -91,16 +91,26 @@
 
 //startActivity(new Intent(JalMasterActivity.this, NewHomePage.class));
 
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(JalMasterActivity.this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("CompanyID", DB.GetValue(this,"ComanyInfo","CompanyID","1=1"));
+        editor.putString("CompanyNm", DB.GetValue(this,"ComanyInfo","CompanyNm","1=1") );
+        editor.putString("TaxAcc1",  DB.GetValue(this,"ComanyInfo","TaxAcc1","1=1") );
+        editor.putString("Address",  DB.GetValue(this,"ComanyInfo","Address","1=1") );
+        editor.putString("Notes",  DB.GetValue(this,"ComanyInfo","Notes","1=1") );
+        editor.putString("Permession",  DB.GetValue(this,"ComanyInfo","Permession","1=1") );
+        editor.putString("CompanyMobile",  DB.GetValue(this,"ComanyInfo","CompanyMobile","1=1") );
+        editor.putString("CompanyMobile2",  DB.GetValue(this,"ComanyInfo","CompanyMobile2","1=1") );
+        editor.putString("SuperVisorMobile",  DB.GetValue(this,"ComanyInfo","SuperVisorMobile","1=1") );
 
         String q=DB.GetValue(this,"cardMan","no","1=1");
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+      //  SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
       UserID = sharedPreferences.getString("UserID", "");
 
         String  companym= DB.GetValue(JalMasterActivity.this,"ComanyInfo","SuperVisorMobile","ID='"+UserID+"'");
         String mansupermobile= DB.GetValue(JalMasterActivity.this,"manf","SupervisorMobile","man='"+UserID+"'");
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+       // SharedPreferences.Editor editor = sharedPreferences.edit();
         //     editor.putString("SupervisorMobile", SupervisorMobile.get(i).toString());
 
         if(mansupermobile==null || mansupermobile.equals("0")||mansupermobile.equals("")) {

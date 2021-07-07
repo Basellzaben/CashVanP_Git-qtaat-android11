@@ -1113,7 +1113,10 @@ p=position;
 
 
                             if (Custprice > 0) {
-                                Price.setText(SToD(Custprice.toString()) * SToD(Operand) + "");
+
+                                        double x=SToD(Custprice.toString()) * SToD(Operand);
+                                Price.setText( String.format(
+                                        Locale.ENGLISH, "%.2f", x)+ "");
                             }
                           //  Toast.makeText(getActivity(), "سعر الفئة :" + ":" + String.valueOf(Custprice), Toast.LENGTH_SHORT).show();
 

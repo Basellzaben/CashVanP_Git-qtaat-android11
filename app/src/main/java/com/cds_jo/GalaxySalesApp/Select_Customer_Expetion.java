@@ -195,10 +195,10 @@ public class Select_Customer_Expetion extends DialogFragment implements View.OnC
 
         } else {
                 if (t.toString().equals("")){
-                    query = "Select * from Customers  where no in (select cast (CustomerId as Int)  from ManExceptions1)";//   Customers.Cust_type='"+Cust_type+"'";
+                    query = "Select * from Customers_man  where no in (select cast (CustomerId as Int)  from ManExceptions1)";//   Customers.Cust_type='"+Cust_type+"'";
                 }
                 else {
-                    query = "Select * from Customers where no in (select cast (CustomerId as Int)  from ManExceptions1) amd name like '%" + t + "%' or  no like '%" + t + "%'";//  And Customers.Cust_type='"+Cust_type+"'";
+                    query = "Select * from Customers_man where no in (select cast (CustomerId as Int)  from ManExceptions1) amd name like '%" + t + "%' or  no like '%" + t + "%'";//  And Customers.Cust_type='"+Cust_type+"'";
                 }
 
             }
