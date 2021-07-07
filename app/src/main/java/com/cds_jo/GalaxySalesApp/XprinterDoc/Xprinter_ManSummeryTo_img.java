@@ -247,18 +247,41 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
 
         c1 = sqlHandler.selectQuery(q);
 
-        TextView tv_PayCash = (TextView)  findViewById(R.id.tv_PayCash);
+      //  TextView tv_PayCash = (TextView)  findViewById(R.id.tv_PayCash);
         TextView tv_Paycheck = (TextView)  findViewById(R.id.tv_Paycheck);
         if (c1 != null && c1.getCount() != 0) {
             if (c1.moveToFirst()) {
-                tv_PayCash.setText(c1.getString(c1.getColumnIndex("Cash")));
+         //       tv_PayCash.setText(c1.getString(c1.getColumnIndex("Cash")));
                 tv_Paycheck.setText(c1.getString(c1.getColumnIndex("CheckTotal")));
             }
             c1.close();
         } else {
-            tv_PayCash.setText("0.000");
+         //   tv_PayCash.setText("0.000");
             tv_Paycheck.setText("0.000");
         }
+
+/**/
+
+        q = "Select      ifnull( sum(ifnull( RecVoucher.Cash,0.000)),0.000) as Cash , ifnull( sum(ifnull( RecVoucher.CheckTotal,0.000)),0.000) as CheckTotal            from RecVoucher   " +
+                " where  RecVoucher.UserID ='" + UserID + "' and  RecVoucher.TrDate ='" + currentDateandTime + "' and RecVoucher.FromSales='0' ";
+
+
+        c1 = sqlHandler.selectQuery(q);
+
+        TextView tv_PayCash = (TextView)  findViewById(R.id.tv_PayCash);
+       // TextView tv_Paycheck = (TextView)  findViewById(R.id.tv_Paycheck);
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.moveToFirst()) {
+                tv_PayCash.setText(c1.getString(c1.getColumnIndex("Cash")));
+             //   tv_Paycheck.setText(c1.getString(c1.getColumnIndex("CheckTotal")));
+            }
+            c1.close();
+        } else {
+            tv_PayCash.setText("0.000");
+           // tv_Paycheck.setText("0.000");
+        }
+/**/
+
 
 
         q = "Select  ifnull(count(Seq),0)  as Seq  from  RecVoucher s   where  (VouchType='1' or VouchType='3'    ) and   UserID='" + sharedPreferences.getString("UserID", "") + "' " +
@@ -277,11 +300,14 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
         }
 
 
-        q = "Select  ifnull(count(Seq),0)  as Seq  from  RecVoucher s   where  (VouchType='2'    ) and   UserID='" + sharedPreferences.getString("UserID", "") + "' " +
+      /*  q = "Select  ifnull(count(Seq),0)  as Seq  from  RecVoucher s   where  (VouchType='2' or VouchType='3'  ) and   UserID='" + sharedPreferences.getString("UserID", "") + "' " +
+                "  and  s.TrDate ='" + currentDateandTime + "'";
+*/
+
+        q = "Select  ifnull(count(Seq),0)  as Seq  from  RecVoucher s   where  (VouchType='2' or VouchType='3'    ) and   UserID='" + sharedPreferences.getString("UserID", "") + "' " +
                 "  and  s.TrDate ='" + currentDateandTime + "'";
 
         c1 = sqlHandler.selectQuery(q);
-
 
         if (c1 != null && c1.getCount() != 0) {
             if (c1.moveToFirst()) {
@@ -294,7 +320,7 @@ public class Xprinter_ManSummeryTo_img extends FragmentActivity {
 
 
         q = "Select  count(1) as s1 ,0 as s2,0 as  s3    from  Sal_invoice_Hdr s  where  s.UserID='" + sharedPreferences.getString("UserID", "") + "' and  s.Post ='-1'";
-
+        c1 = sqlHandler.selectQuery(q);
 
         q = q + "  UNION ALL Select  0 as1 ,count(1) as  s2,0 as  s3    from RecVoucher   where  RecVoucher.UserID ='" + sharedPreferences.getString("UserID", "") + "' and  RecVoucher.Post =-1";
 

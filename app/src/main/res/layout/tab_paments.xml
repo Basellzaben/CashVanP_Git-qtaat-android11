@@ -22,7 +22,7 @@
             android:orientation="horizontal"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:weightSum="9">
+            android:weightSum="10">
 
 
             <Methdes.MyTextView
@@ -140,7 +140,18 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#fff"
                 android:textSize="20dp" />
-
+            <Methdes.MyTextView
+                android:id="@+id/f"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1"
+                android:background="@color/Black11"
+                android:gravity="center"
+                android:paddingRight="5dp"
+                android:text=" سند القبض"
+                android:textColor="#fff"
+                android:textSize="20dp" />
             <Methdes.MyTextView
                 android:id="@+id/textView223"
                 android:layout_width="0dp"

@@ -11,6 +11,15 @@ public class Cls_TabPayments {
     String Acc;
     String Amt;
     String check;
+    String from;
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
 
     public String getCheck() {
         return check;

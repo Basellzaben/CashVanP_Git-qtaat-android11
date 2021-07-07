@@ -5135,13 +5135,21 @@ flagV =0;
 
                     } else if (We_Result.ID > 0) {
                         ContentValues cv = new ContentValues();
-                        TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
+                        final TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
                         cv.put("Post", We_Result.ID);
                         long i;
                         i = sql_Handler.Update("Sal_invoice_Hdr", cv, " ifnull(doctype,'1')='"+DocType.toString()+ "'  and   OrderNo='" + DocNo.getText().toString() + "'");
 
+
+
+
                         _handler.post(new Runnable() {
                             public void run() {
+                                String query = " Update  Sal_invoice_Hdr  set Post='1'  where OrderNo='" + DocNo.getText().toString() + "'";
+                                sqlHandler.executeQuery(query);
+
+                                query = " Update  RecVoucher  set Post='1'  where SalesOrderNo='" + DocNo.getText().toString() + "'";
+                                sqlHandler.executeQuery(query);
 
                                 AlertDialog alertDialog = new AlertDialog.Builder(
                                         Sale_InvoiceActivity.this).create();

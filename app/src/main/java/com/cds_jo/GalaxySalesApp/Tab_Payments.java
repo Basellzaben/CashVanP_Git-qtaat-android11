@@ -49,7 +49,7 @@ public class Tab_Payments extends Fragment {
         cls_Tab_Sales.clear();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String u =  sharedPreferences.getString("UserID", "");
-        String q = "Select distinct RecVoucher.VouchType,  RecVoucher.Cash , RecVoucher.CheckTotal,     RecVoucher.CustAcc ,RecVoucher.DocNo,RecVoucher.TrDate,RecVoucher.Amnt,Customers.name,RecVoucher.Desc, COALESCE(RecVoucher.Post, -1)  as Post from RecVoucher left join Customers  on Customers.no =RecVoucher.CustAcc" +
+        String q = "Select distinct RecVoucher.VouchType,  RecVoucher.Cash , RecVoucher.CheckTotal,     RecVoucher.CustAcc ,RecVoucher.DocNo,RecVoucher.TrDate,RecVoucher.Amnt,RecVoucher.FromSales,Customers.name,RecVoucher.Desc, COALESCE(RecVoucher.Post, -1)  as Post from RecVoucher left join Customers  on Customers.no =RecVoucher.CustAcc" +
                 " where  RecVoucher.UserID ='"+u.toString()+"' and  RecVoucher.TrDate ='" + currentDateandTime + "'";
         SqlHandler sqlHandler = new SqlHandler(getActivity());
         Cursor c1 = sqlHandler.selectQuery(q);
@@ -68,6 +68,15 @@ public class Tab_Payments extends Fragment {
                     cls_searchRecVou.setDate(currentDateandTime);
                     cls_searchRecVou.setAcc(c1.getString(c1.getColumnIndex("CustAcc")));
                     cls_searchRecVou.setType(c1.getString(c1.getColumnIndex("VouchType")));
+
+                    if(c1.getString(c1.getColumnIndex("FromSales")).equals("0")){
+                        cls_searchRecVou.setFrom("سند قبض");
+
+                    }else{
+                        cls_searchRecVou.setFrom("فاتورة");
+
+                    }
+
                     sum=sum+SToD(c1.getString(c1.getColumnIndex("Amnt")));
                     cls_Tab_Sales.add(cls_searchRecVou);
 

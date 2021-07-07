@@ -67,7 +67,7 @@ public class Cls_Payments_Adapter extends BaseAdapter {
         tv_CustNm.setText(cls_searchRecVou.getCustNm());
 
         MyTextView tv_notes = (MyTextView) convertView.findViewById(R.id.tv_notes);
-        tv_notes.setText(cls_searchRecVou.getNotes());
+        tv_notes.setText(cls_searchRecVou.getCheck());
 
         MyTextView tv_acc = (MyTextView) convertView.findViewById(R.id.tv_acc);
         tv_acc.setText(cls_searchRecVou.getAcc());
@@ -75,9 +75,12 @@ public class Cls_Payments_Adapter extends BaseAdapter {
         MyTextView tv_type = (MyTextView) convertView.findViewById(R.id.tv_type);
 
         MyTextView tv_mony = (MyTextView) convertView.findViewById(R.id.tv_mony);
-        tv_mony.setText(cls_searchRecVou.getCheck());
+        tv_mony.setText(cls_searchRecVou.getNotes());
 
 
+        MyTextView from = (MyTextView) convertView.findViewById(R.id.from);
+        from.setText(cls_searchRecVou.getFrom());
+        //tv_mony.setText(cls_searchRecVou.getNotes());
 
 
 
