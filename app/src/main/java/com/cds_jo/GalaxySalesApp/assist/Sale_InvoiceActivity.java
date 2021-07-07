@@ -2270,7 +2270,7 @@ public String getmaxN(){
                     cv.put("DisPerFromHdr", SToD(contactListItems.getDisPerFromHdr().toString().replace("\u202c","").replace("\u202d","")));
                     cv.put("Note", contactListItems.getNote().toString());
 
-
+                    cv.put("sample", contactListItems.getSample());
                     cv.put("doctype", DocType.toString());
                     if (i > 0) {
                         i = sqlHandler.Insert(this, "Sal_invoice_Det", null, cv);
