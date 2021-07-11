@@ -97,6 +97,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
     String StoredPath ;
     String DIRECTORY ;
     float STROKE_WIDTH = 5f;
+    double total1 ,totaltax1;
     float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
     ServiceConnection conn= new ServiceConnection() {
         @Override
@@ -583,7 +584,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                 {
                     tv_cusnm.setText(c1.getString(c1.getColumnIndex("name")));
                 }
-                tv_Disc.setText(c1.getString(c1.getColumnIndex("disc_Total")));
+                totaltax1=SToD(c1.getString(c1.getColumnIndex("disc_Total")));
                 tv_NetTotal.setText(c1.getString(c1.getColumnIndex("Net_Total")));
                 tv_TotalTax.setText(c1.getString(c1.getColumnIndex("Tax_Total")));
                 tv_DvNm.setText(c1.getString(c1.getColumnIndex("DelveryNm")));
@@ -606,7 +607,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                     tv_TotalTax.setText("");
 
                 }
-                if (c1.getString(c1.getColumnIndex("include_Tax")).toString().equals("-1")) {
+             //   if (c1.getString(c1.getColumnIndex("include_Tax")).toString().equals("-1")) {
                     tv_includetax.setText("");
                 }
 
@@ -628,8 +629,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
              //   }
 */
 
-                tv_Total.setText(c1.getString(c1.getColumnIndex("Total")));
-            }
+
             c1.close();
         }
         showList(OrdNo);
@@ -675,7 +675,20 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
         }
         Double Total =  SToD(NetTotal)+ SToD(UnpostedSales)-SToD(UnpostedRecVoucher ) ;
         //   Toast.makeText(this,NetTotal +"   "   + UnpostedRecVoucher +"       " +UnpostedSales +" ", Toast.LENGTH_SHORT).show();
+        tv_Total.setText(String.valueOf(total1));
+        if(getIntent().getStringExtra("Tax_Include").equals("1"))
+        {
 
+            tv_TotalTax.setText( String.format(
+                    Locale.ENGLISH, "%.3f", (totaltax1)-(totaltax1*(0.16))));
+
+        }
+        else
+        {
+            tv_TotalTax.setText(String.valueOf(totaltax1));
+        }
+
+        //  }
 
         tv_CusBal.setText( SToD(Total+"")+"");
 
@@ -936,6 +949,20 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                         contactListItems.setprice(c1.getString(c1
                                 .getColumnIndex("price")));
 
+                    }
+                    if(getIntent().getStringExtra("Tax_Include").equals("0"))
+                    {
+                        total1 +=(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
+                            *
+                                SToD(c1.getString(c1
+                                        .getColumnIndex("qty"))));
+                    }
+                    else
+                    {
+                        total1 +=(SToD(c1.getString(c1.getColumnIndex("price")))
+                                *
+                                SToD(c1.getString(c1
+                                        .getColumnIndex("qty"))));
                     }
 
                     contactListItems.setQty(c1.getString(c1

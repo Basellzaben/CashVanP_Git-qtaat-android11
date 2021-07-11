@@ -3740,6 +3740,12 @@ flagV =0;
         } else {
             k.putExtra("ShowTax", "0");
         }
+        IncludeTax_Flag = (CheckBox) findViewById(R.id.chk_Tax_Include);
+        if (IncludeTax_Flag.isChecked()) {
+            k.putExtra("Tax_Include", "1");
+        } else {
+            k.putExtra("Tax_Include", "0");
+        }
         if (chk_cus_name.isChecked()== true) {
             k.putExtra("name", "1");
         } else {
