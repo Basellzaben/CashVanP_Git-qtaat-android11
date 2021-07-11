@@ -585,7 +585,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                     tv_cusnm.setText(c1.getString(c1.getColumnIndex("name")));
                 }
                 totaltax1=SToD(c1.getString(c1.getColumnIndex("disc_Total")));
-                tv_NetTotal.setText(c1.getString(c1.getColumnIndex("Net_Total")));
+            //    tv_NetTotal.setText(c1.getString(c1.getColumnIndex("Net_Total")));
                 tv_TotalTax.setText(c1.getString(c1.getColumnIndex("Tax_Total")));
                 tv_DvNm.setText(c1.getString(c1.getColumnIndex("DelveryNm")));
 
@@ -679,17 +679,18 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
         if(getIntent().getStringExtra("Tax_Include").equals("1"))
         {
 
-            tv_TotalTax.setText( String.format(
+            tv_Disc.setText( String.format(
                     Locale.ENGLISH, "%.3f", (totaltax1)-(totaltax1*(0.16))));
 
         }
         else
         {
-            tv_TotalTax.setText(String.valueOf(totaltax1));
+            tv_Disc.setText(String.valueOf(totaltax1));
         }
 
         //  }
-
+        tv_NetTotal.setText(String.format(
+                Locale.ENGLISH, "%.3f",( SToD(tv_Total.getText().toString())-SToD(tv_Disc.getText().toString())+SToD(tv_TotalTax.getText().toString()))));
         tv_CusBal.setText( SToD(Total+"")+"");
 
     }
@@ -973,8 +974,23 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                             .getColumnIndex("tax_Amt")));
                     contactListItems.setUnite(c1.getString(c1
                             .getColumnIndex("UnitName")));
-                    contactListItems.setTotal(c1.getString(c1
-                            .getColumnIndex("total")));
+                /*    contactListItems.setTotal(c1.getString(c1
+                            .getColumnIndex("total")));*/
+                    if(getIntent().getStringExtra("Tax_Include").equals("0"))
+                    { contactListItems.setTotal(String.valueOf(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
+                            *
+                            SToD(c1.getString(c1
+                                    .getColumnIndex("qty")))));
+
+                    }
+                    else
+                    {
+                        contactListItems.setTotal(String.valueOf(SToD(c1.getString(c1.getColumnIndex("price")))
+                                *
+                                SToD(c1.getString(c1
+                                        .getColumnIndex("qty")))));
+
+                    }
 
                     contactListItems.setPro_dis_Per(c1.getString(c1
                             .getColumnIndex("Pro_dis_Per")));
