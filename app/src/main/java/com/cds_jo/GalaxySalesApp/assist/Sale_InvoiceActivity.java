@@ -818,6 +818,7 @@ flagV =0;
             public void onClick(View view) {
 
                 Bundle bundle = new Bundle();
+              //  bundle.putStringArrayList("Product",contactList);
                 bundle.putString("OrederNo",et_OrdeNo.getText().toString());
                 bundle.putString("Discount","0");
                 if(IncludeTax_Flag.isChecked()) {
@@ -5410,4 +5411,22 @@ flagV =0;
 
 
     }
+
+    public boolean discountcheck(double dis){
+        boolean discount=true;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String u = sharedPreferences.getString("UserID", "");
+        for (int i=0;i<contactList.size();i++){
+          //  String gg=contactList.get(i).getno();
+            String maxdis =DB.GetValue(Sale_InvoiceActivity.this,"manf","MaxDiscount","man ='"+u+"'");
+           if(Double.parseDouble(contactList.get(i).getDiscount()) + dis > Double.parseDouble(maxdis)){
+discount=false;
+           }
+
+        }
+
+return discount;
+
+    }
+
 }

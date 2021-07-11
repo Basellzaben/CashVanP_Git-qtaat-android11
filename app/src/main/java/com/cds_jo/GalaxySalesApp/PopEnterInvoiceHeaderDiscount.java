@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
@@ -180,23 +181,34 @@ private  void GetDiscountInfo(){
 
 
     public void onClick(View v) {
-
+        EditText et_Discount = (EditText) form.findViewById(R.id.et_Discount);
         if (v == btnSave) {
 
-            if (SToD(ed_AfterDiscount.getText().toString()) <= 0) {
-                ed_AfterDiscount.setError("!");
-                ed_AfterDiscount.setTextColor(Color.RED);
-            } else {
 
-                if (rdoPrecent.isChecked() == true) {
-                    DiscountMethod="1";
+            if(((Sale_InvoiceActivity) getActivity()).discountcheck(Double.parseDouble(et_Discount.getText().toString()))){
+
+                if (SToD(ed_AfterDiscount.getText().toString()) <= 0) {
+                    ed_AfterDiscount.setError("!");
+                    ed_AfterDiscount.setTextColor(Color.RED);
                 } else {
-                    DiscountMethod="2";
+
+                    if (rdoPrecent.isChecked() == true) {
+                        DiscountMethod = "1";
+                    } else {
+                        DiscountMethod = "2";
+                    }
+                    ((Sale_InvoiceActivity) getActivity()).InsertDiscount(et_Discount.getText().toString(), DiscountMethod);
+                    this.dismiss();
                 }
-                ((Sale_InvoiceActivity) getActivity()).InsertDiscount(et_Discount.getText().toString(), DiscountMethod);
-                this.dismiss();
-            }
-        } else if (v == rdoPrecent) {
+            }else{
+                Toast.makeText(getActivity(),"لا يمكن اضافة خصم",Toast.LENGTH_LONG).show();
+
+        } }
+
+
+
+
+        else if (v == rdoPrecent) {
             CalcDiscount();
 
         } else if (v == rdoAmt) {
@@ -204,9 +216,9 @@ private  void GetDiscountInfo(){
         } else if (v == et_Discount) {
             et_Discount.setText("");
         }
+
+
     }
-
-
 }
 
 

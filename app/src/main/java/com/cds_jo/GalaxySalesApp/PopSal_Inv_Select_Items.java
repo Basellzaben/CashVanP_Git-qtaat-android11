@@ -1771,7 +1771,6 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
             }
 
             if (Price.getText().toString().length() > 0 && SToD(Price.getText().toString().replaceAll("[^\\d.]", "")) > 0 && (SToD(Price.getText().toString()) < min_price)) {
-
                 AlertDialog alertDialog = new AlertDialog.Builder(
                         getActivity()).create();
                 alertDialog.setTitle("الحد الادني لبيع المادة ");
