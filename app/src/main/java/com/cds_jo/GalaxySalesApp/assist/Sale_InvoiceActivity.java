@@ -3111,7 +3111,7 @@ flagV =0;
                 c1.moveToFirst();
                 Sal_Qty = Double.parseDouble((c1.getString(c1.getColumnIndex("Sal_Qty"))).toString());
             }
-
+//88
         c1.close();
        }
         Double SumReturn;

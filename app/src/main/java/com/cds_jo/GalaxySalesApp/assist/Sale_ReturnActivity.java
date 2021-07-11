@@ -635,7 +635,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
         } else {
             Seq = Integer.parseInt(DB.GetValue(this, "Sal_return_Hdr", "ifnull(Seq,0)", "  OrderNo='" + pono.getText().toString() + "'"));
-
+//55
         }
         ContentValues cv = new ContentValues();
         cv.put("OrderNo", pono.getText().toString());

@@ -271,7 +271,7 @@ CheckBox chk_hdr_disc ;
 
         }
 
-
+//45
     public Double GetSaledQtyNotPosted(String ItemNo ){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 

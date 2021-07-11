@@ -1220,7 +1220,7 @@ p=position;
 
         Store_Qty.setText(SToD(Res.toString()) + "");
 
-
+//454
 
         GetQtyPerc();
     }
