@@ -1767,7 +1767,7 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
             tax.setError(null);
 
             if (ComInfo.ComNo != 8) {
-                get_min_price();
+               // get_min_price();
             }
 
             if (Price.getText().toString().length() > 0 && SToD(Price.getText().toString().replaceAll("[^\\d.]", "")) > 0 && (SToD(Price.getText().toString()) < min_price)) {
@@ -2030,10 +2030,11 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
 
                 if (UpdateItem != null) {
                     if (UpdateItem.size() > 0) {
+                        Price = (EditText) form.findViewById(R.id.et_price);
 
                         if (chkEnbledItem.isChecked()) {
                         if(!(bo1.getText().toString().equals("0")||bo1.getText().toString().equals(""))) {
-                            ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"1");
+                            ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString(), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"1");
                             this.dismiss();
                         }
                         else
@@ -2042,16 +2043,17 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                         }}
                         else
                             {
-                                ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"0");
+                                ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString(), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"0");
                             }
                     }
                 } else {
+                    Price = (EditText) form.findViewById(R.id.et_price);
 
                     if (chkEnbledItem.isChecked()) {
                         if(!(bo1.getText().toString().equals("0")||bo1.getText().toString().equals(""))) {
                            // ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"0");
 
-                             ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, "0", qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""), "1");
+                             ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, Price.getText().toString(), qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""), "1");
                         }
                      else
                         {
@@ -2062,7 +2064,7 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                     else
                     {
 
-                        ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, Price.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""),"0");
+                        ((Sale_InvoiceActivity) getActivity()).Save_List(ItemNo, Price.getText().toString(), qty.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), tax.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), UnitNo, disc_per.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replaceAll("[^\\d.]", "").replace(",", ""), Operand.replaceAll("[^\\d.]", ""), Weight.getText().toString().replaceAll("[^\\d.]", ""),"0");
                     }
                 }
 
@@ -2084,7 +2086,7 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
 
                             if (chkEnbledItem.isChecked()) {
                                 if(!(bo1.getText().toString().equals("0")||bo1.getText().toString().equals(""))) {
-                                    ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"1");
+                                    ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString(), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"1");
                                     this.dismiss();
                                 }
                                 else
@@ -2093,7 +2095,7 @@ i.addCategory(Intent.CATEGORY_APP_CALCULATOR);*/
                                 }}
                             else
                             {
-                                ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString().replace(",", ""), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"0");
+                                ((Sale_InvoiceActivity) getActivity()).Update_List(ItemNo, Price.getText().toString(), qty.getText().toString().replace(",", ""), tax.getText().toString().replace(",", ""), UnitNo, disc_per.getText().toString().replace(",", ""), bounce.getText().toString().replace(",", ""), str, UnitName, disc_Amt.getText().toString().replace(",", ""), Operand, Weight.getText().toString(),"0");
                             }
 
 
