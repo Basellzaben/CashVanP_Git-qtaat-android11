@@ -177,6 +177,7 @@ CheckBox chk_hdr_disc ;
             if (c != null && c.getCount() != 0) {
                 if (c.moveToFirst()) {
                     do {
+                      double SumReturn =Double.parseDouble( DB.GetValue(TransQtyReportActivity.this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + c.getString(c.getColumnIndex("itemno")) + "'"));
 
                         //date,fromstore,tostore,des,docno,itemno,qty,UnitNo,UnitRate,myear
                         cls_trans_qty = new Cls_Trans_Qty();
@@ -189,7 +190,7 @@ CheckBox chk_hdr_disc ;
                                 .getColumnIndex("Item_Name")));
                         cls_trans_qty.setUnitNo(c.getString(c
                                 .getColumnIndex("UnitName")));
-                        qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")))));
+                        qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")))+SumReturn));
 
                         cls_trans_qty.setQty((SToD(qty.toString())).toString());
 
@@ -271,7 +272,7 @@ CheckBox chk_hdr_disc ;
         }
 
 
-    private Double GetSaledQtyNotPosted(String ItemNo ){
+    public Double GetSaledQtyNotPosted(String ItemNo ){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         SqlHandler sqlHandler = new SqlHandler(TransQtyReportActivity.this);

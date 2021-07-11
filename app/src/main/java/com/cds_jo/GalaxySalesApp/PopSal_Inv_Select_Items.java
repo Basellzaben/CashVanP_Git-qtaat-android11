@@ -1201,7 +1201,13 @@ p=position;
         }
         Double SumReturn;
         SumReturn =Double.parseDouble( DB.GetValue(getActivity(),"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + ItemNo + "'"));
-        Res = Store_qty - Sal_Qty - Order_qty + SumReturn;
+     //   Res = Store_qty -/* Sal_Qty*/GetSaledQtyNotPosted(ItemNo) /*- Order_qty*/ + SumReturn;
+
+        Double qqtyinstore =Double.parseDouble( DB.GetValue(getActivity(),"ManStore"," ifnull( qty,0)","ItemNo ='" + ItemNo + "'"));
+
+      //  Res = Store_qty - GetSaledQtyNotPosted(ItemNo) + SumReturn;
+
+        Res = qqtyinstore - GetSaledQtyNotPosted(ItemNo) + SumReturn;
         if (Operand == null) {
             Operand = "1";
         }
@@ -1219,6 +1225,28 @@ p=position;
         GetQtyPerc();
     }
 
+    public Double GetSaledQtyNotPosted(String ItemNo ){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        SqlHandler sqlHandler = new SqlHandler(getActivity());
+        String query = "SELECT     (ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0)  +   ifnull( sum  ( ifnull( sid.bounce_qty,0)  * (ifnull( sid.Operand,1))) ,0) +  ifnull( sum  ( ifnull( sid.Pro_bounce,0)  * (ifnull( sid.Operand,1))) ,0))  as Sal_Qty  from  Sal_invoice_Hdr  sih inner join Sal_invoice_Det sid on  sid.OrderNo = sih.OrderNo" +
+                " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
+                "    where   sih.Post = -1  and ui.item_no ='"+ItemNo+"'  and sih.UserID='"+sharedPreferences.getString("UserID", "-1")+"'";
+        Cursor c1 = sqlHandler.selectQuery(query);
+
+        Double Sal_Qty = 0.0;
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.getCount() > 0) {
+                c1.moveToFirst();
+                Sal_Qty =   Double.parseDouble(  (c1.getString(c1.getColumnIndex("Sal_Qty"))).toString());
+            }
+            c1.close();
+        }
+
+
+
+        return Sal_Qty;
+    }
 
     private void CalcDiscount() {
         final EditText dis = (EditText) form.findViewById(R.id.et_disc_per);

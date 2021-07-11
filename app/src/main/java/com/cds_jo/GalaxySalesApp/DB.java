@@ -30,4 +30,28 @@ public  class DB {
         return R;
 
     }
+
+    public  static String GetsumValue(Context _context,String Tbl ,String ClnNam ,String WhereStr){
+        SqlHandler sqlHandler = new SqlHandler(_context);
+        String R = "-1";
+        String q = "";
+        q= "Select sum("+ClnNam+")  as v From " +  Tbl + "    Where "+ WhereStr;
+        Cursor c= sqlHandler.selectQuery(q);
+        try {
+            if(c!=null && c.getCount() >0){
+                c.moveToFirst();
+                R=c.getString(c.getColumnIndex("v"));
+                c.close();
+            }
+        }
+        catch ( Exception ex){
+            R="-1";
+        }
+
+
+
+        return R;
+
+    }
+
 }
