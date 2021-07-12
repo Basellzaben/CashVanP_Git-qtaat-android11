@@ -94,9 +94,30 @@ public class PostSalesreturn {
                 jsonObject.put("Total", c1.getString(c1.getColumnIndex("Total")));
                 jsonObject.put("Net_Total", c1.getString(c1.getColumnIndex("Net_Total")));
                 jsonObject.put("Tax_Total", c1.getString(c1.getColumnIndex("Tax_Total")));
+
+
                 jsonObject.put("return_type", c1.getString(c1.getColumnIndex("return_type")));
+
+                if(c1.getString(c1.getColumnIndex("return_type")).equals("0")){
+                 jsonObject.put("return_type","-1");
+
+                }else{
+                 jsonObject.put("return_type","0");
+
+                }
+
                 jsonObject.put("bounce_Total", c1.getString(c1.getColumnIndex("bounce_Total")));
-                jsonObject.put("include_Tax", c1.getString(c1.getColumnIndex("include_Tax")));
+               // jsonObject.put("include_Tax", c1.getString(c1.getColumnIndex("include_Tax")));
+
+                if(c1.getString(c1.getColumnIndex("include_Tax")).equals("0")){
+                    jsonObject.put("include_Tax","-1");
+
+                }else{
+                    jsonObject.put("include_Tax","0");
+
+                }
+
+
                 jsonObject.put("CashCustNm", c1.getString(c1.getColumnIndex("Nm")));
                 jsonObject.put("V_OrderNo", c1.getString(c1.getColumnIndex("V_OrderNo")));
                 jsonObject.put("DocType", c1.getString(c1.getColumnIndex("DocType")));

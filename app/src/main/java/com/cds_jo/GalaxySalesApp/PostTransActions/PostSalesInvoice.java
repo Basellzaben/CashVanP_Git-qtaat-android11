@@ -126,12 +126,13 @@ public class PostSalesInvoice {
                 jsonObject.put("bounce_Total", c1.getString(c1.getColumnIndex("bounce_Total")));
                 jsonObject.put("include_Tax", c1.getString(c1.getColumnIndex("include_Tax")));
                 jsonObject.put("disc_Total", c1.getString(c1.getColumnIndex("disc_Total")));
+                jsonObject.put("inovice_type", c1.getString(c1.getColumnIndex("inovice_type")));
 
-                if(c1.getString(c1.getColumnIndex("inovice_type")).equals("0"))
+             /*   if(c1.getString(c1.getColumnIndex("inovice_type")).equals("0"))
                 jsonObject.put("inovice_type", "-1");
                 else
                     jsonObject.put("inovice_type", "0");
-
+*/
                     jsonObject.put("CashCustNm", c1.getString(c1.getColumnIndex("Nm")));
                 jsonObject.put("V_OrderNo", c1.getString(c1.getColumnIndex("V_OrderNo")));
                 jsonObject.put("DocType", c1.getString(c1.getColumnIndex("DocType")));

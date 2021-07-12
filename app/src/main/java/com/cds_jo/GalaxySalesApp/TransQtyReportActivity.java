@@ -270,7 +270,7 @@ CheckBox chk_hdr_disc ;
 
 
         }
-
+    //sih.Post = -1  and
 
     public Double GetSaledQtyNotPosted(String ItemNo ){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -278,7 +278,7 @@ CheckBox chk_hdr_disc ;
         SqlHandler sqlHandler = new SqlHandler(TransQtyReportActivity.this);
        String query = "SELECT     (ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0)  +   ifnull( sum  ( ifnull( sid.bounce_qty,0)  * (ifnull( sid.Operand,1))) ,0) +  ifnull( sum  ( ifnull( sid.Pro_bounce,0)  * (ifnull( sid.Operand,1))) ,0))  as Sal_Qty  from  Sal_invoice_Hdr  sih inner join Sal_invoice_Det sid on  sid.OrderNo = sih.OrderNo" +
                 " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
-                "    where   sih.Post = -1  and ui.item_no ='"+ItemNo+"'  and sih.UserID='"+sharedPreferences.getString("UserID", "-1")+"'";
+                "    where   ui.item_no ='"+ItemNo+"'  and sih.UserID='"+sharedPreferences.getString("UserID", "-1")+"'";
         Cursor c1 = sqlHandler.selectQuery(query);
 
         Double Sal_Qty = 0.0;
