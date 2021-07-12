@@ -101,17 +101,19 @@ public class Sal_return_SearchActivity extends android.app.DialogFragment implem
     }
     private void FillList(String Filter) {
         String q = "";
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String u = sharedPreferences.getString("UserID", "");
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+       // SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         cls_search_pos_list.clear();
         items_Lsit.setAdapter(null);
         if (Filter.length() == 0) {
             q = " Select distinct s.Net_Total, s.Orderno  ,s.acc ,s.date , s.doctype" +
                     ",   c.name    " +
-                    "from  Sal_return_Hdr s  left join Customers c on c.no =s.acc ";
+                    "from  Sal_return_Hdr s  left join Customers c on c.no =s.acc where  UserID='"+u+"'";
         } else {
             q = "Select  distinct s.Net_Total ,s.Orderno ,s.acc ,s.date, c.name   from  Sal_return _Hdr s left join Customers c on c.no =s.acc" +
-                    " Where    c.name like '%" + Filter + "%'   or   s.Nm  like '%" + Filter + "%' ";
+                    " Where    c.name like '%" + Filter + "%'   or   s.Nm  like '%" + Filter + "%' and UserID='"+u+"'";
         }
 
         SqlHandler sqlHandler = new SqlHandler(getActivity());

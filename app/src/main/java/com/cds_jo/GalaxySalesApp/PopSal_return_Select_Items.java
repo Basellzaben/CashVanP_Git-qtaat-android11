@@ -788,7 +788,7 @@ private  void fill_Bill_info_list(){
 
             if (CatNo != "0") {
                 String q = " Select  ifnull( MinPrice,0) as min_price ,ifnull(Price,0) as Price  , ifnull(dis,0) as dis " +
-                        "   from Items_Categ where ItemCode = '" + ItemNo + "'   " +
+                        "   from Items_Categ where ItemCode = '" + ItemNo + "'" +
                         "   And CategNo = '" + CatNo + "'";
 
                 Cursor c1 = sqlHandler.selectQuery(q);

@@ -122,6 +122,9 @@ import header.SimpleSideDrawer;
 public class Sale_InvoiceActivity extends AppCompatActivity implements  note_manFrg.ExampleDialogListener {
 
 public int flagV;
+
+  public String  idfromjard;
+
 public String getmaxN(){
     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     String u = sharedPreferences.getString("UserID", "");
@@ -444,7 +447,6 @@ public String getmaxN(){
         et_OrdeNo.setText(maxn);
 
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -959,9 +961,17 @@ flagV =0;
                 accno.setText(acc);
                 CustNm.setText(Acc_name);
                 InsertBalanceQty(extras.getString("BalanceQtyOrderNo"), "");
+               }
+            if(extras.getString("from").equals("0")){
+                chk_Type.setChecked(false);
+                chk_Type.setEnabled(false);
             }
-        } catch (Exception ex) {
 
+
+           idfromjard= extras.getString("id");
+
+        } catch (Exception ex) {
+            idfromjard="فاتورة بيع";
         }
 
     }
@@ -1269,7 +1279,35 @@ flagV =0;
 
 
 
+    public Double getqty(String itemno){
 
+        Double qty=0.0;
+
+        for (int i=0;i<contactList.size();i++){
+            if(contactList.get(i).getNo().equals(itemno))
+                qty+= Double.parseDouble(contactList.get(i).getQty());
+            else
+                continue;
+        }
+
+
+        return qty;
+    }
+
+    public Double getbounc(String itemno){
+
+        Double bounc=0.0;
+
+        for (int i=0;i<contactList.size();i++){
+            if(contactList.get(i).getNo().equals(itemno))
+                bounc+= Double.parseDouble(contactList.get(i).getBounce());
+            else
+                continue;
+        }
+
+
+        return bounc;
+    }
 
     private void clearList() {
 
@@ -3229,7 +3267,7 @@ flagV =0;
         contactListItems.setOperand(Operand);
         contactListItems.setWeight(Weight);
         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
-        contactListItems.setNote("فاتورة بيع");
+        contactListItems.setNote(idfromjard);
         contactListItems.setSample(flag);
         contactList.add(contactListItems);
         // Gf_Calc_Promotion();
@@ -3440,6 +3478,12 @@ flagV =0;
 
         query = "Delete from  Sal_invoice_Det where ifnull(doctype,'1')='"+DocType.toString()+ "'  and   OrderNo ='" + OrdeNo.getText().toString() + "'";
         sqlHandler.executeQuery(query);
+
+
+        query = "Delete from  RecVoucher where  SalesOrderNo ='" + OrdeNo.getText().toString() + "'";
+        sqlHandler.executeQuery(query);
+
+
 
         GetMaxPONo();
         showList();
@@ -3760,6 +3804,10 @@ flagV =0;
     startActivity(v);
 }
     public void btn_new(View view) {
+CheckBox chk_Type=(CheckBox)findViewById(R.id.chk_Type);
+   chk_Type.setEnabled(true);
+
+
         flagV=0;
         // RemoveAnmation();
         ImageButton imageButton8 = (ImageButton) findViewById(R.id.imageButton8);
@@ -3779,7 +3827,7 @@ flagV =0;
         accno.setText("");
         CheckBox chk_hdr_disc = (CheckBox) findViewById(R.id.chk_hdr_disc);
 
-        CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
+         chk_Type = (CheckBox) findViewById(R.id.chk_Type);
         IsNew = true;
         IncludeTax_Flag.setChecked(true);
         chk_Type.setChecked(true);

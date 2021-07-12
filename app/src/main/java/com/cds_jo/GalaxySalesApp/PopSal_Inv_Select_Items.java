@@ -1207,7 +1207,14 @@ p=position;
 
       //  Res = Store_qty - GetSaledQtyNotPosted(ItemNo) + SumReturn;
 
-        Res = qqtyinstore - GetSaledQtyNotPosted(ItemNo) + SumReturn;
+
+
+
+              Order_qty=((Sale_InvoiceActivity)getActivity()).getqty(ItemNo);
+        Double bounce=((Sale_InvoiceActivity)getActivity()).getbounc(ItemNo);
+
+        Res = qqtyinstore - GetSaledQtyNotPosted(ItemNo) + SumReturn - Order_qty - bounce;
+
         if (Operand == null) {
             Operand = "1";
         }

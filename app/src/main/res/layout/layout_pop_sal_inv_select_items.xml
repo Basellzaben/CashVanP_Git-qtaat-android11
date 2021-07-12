@@ -28,7 +28,6 @@
                 android:background="#f5d77272"
                 android:orientation="vertical">
 
-
                 <Methdes.MyTextView
                     android:id="@+id/tv_SelectedItem"
                     android:layout_width="match_parent"

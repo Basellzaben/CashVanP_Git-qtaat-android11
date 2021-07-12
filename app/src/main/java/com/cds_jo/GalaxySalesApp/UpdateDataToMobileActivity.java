@@ -2462,10 +2462,72 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     }
 
+    public void updateManStore(){
+        final String Ser = "1";
+        q = "Delete from ManStore";
+        sqlHandler.executeQuery(q);
+        q = "delete from sqlite_sequence where name='ManStore'";
+        sqlHandler.executeQuery(q);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CallWebServices ws = new CallWebServices(UpdateDataToMobileActivity.this);
+                ws.TrnsferQtyFromMobile(UserID, "0", "");
+                try {
+                    Integer i;
+                    String q = "";
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray js_date = js.getJSONArray("date");
+                    JSONArray js_fromstore = js.getJSONArray("fromstore");
+                    JSONArray js_tostore = js.getJSONArray("tostore");
+                    JSONArray js_des = js.getJSONArray("des");
+                    JSONArray js_docno = js.getJSONArray("docno");
+                    JSONArray js_itemno = js.getJSONArray("itemno");
+                    JSONArray js_qty = js.getJSONArray("qty");
+                    JSONArray js_UnitNo = js.getJSONArray("UnitNo");
+                    JSONArray js_UnitRate = js.getJSONArray("UnitRate");
+                    JSONArray js_myear = js.getJSONArray("myear");
+                    JSONArray js_StoreName = js.getJSONArray("StoreName");
+                    JSONArray js_RetailPrice = js.getJSONArray("RetailPrice");
+
+
+                    for (i = 0; i < js_docno.length(); i++) {
+                        q = "Insert INTO ManStore(SManNo,date,fromstore,tostore,des,docno,itemno,qty,UnitNo,UnitRate,myear,RetailPrice ,StoreName ,ser) values ("
+                                + UserID.toString()
+                                + ",'" + js_date.get(i).toString()
+                                + "','" + js_fromstore.get(i).toString()
+                                + "','" + js_tostore.get(i).toString()
+                                + "','" + js_des.get(i).toString()
+                                + "','" + js_docno.get(i).toString()
+                                + "','" + js_itemno.get(i).toString()
+                                + "','" + js_qty.get(i).toString()
+                                + "','" + js_UnitNo.get(i).toString()
+                                + "','" + js_UnitRate.get(i).toString()
+                                + "','" + js_myear.get(i).toString()
+                                + "','" + js_RetailPrice.get(i).toString()
+                                + "','" + js_StoreName.get(i).toString()
+                                + "'," + Ser.toString()
+                                + " )";
+                        sqlHandler.executeQuery(q);
+
+                    }
+
+                  //  Toast.makeText(getApplicationContext(),"تم التحديث",Toast.LENGTH_LONG).show();
+
+                } catch (final Exception e) {
+//Toast.makeText(getApplicationContext(),"لم يتم التحديث",Toast.LENGTH_LONG).show();
+                }
+            }
+        }).start();
+    }
+
+
 
     public void btn_Transfer_Data(View view) {
         List_Result.clear();
         Lv_Result.setAdapter(null);
+
 
 
 
@@ -6498,6 +6560,11 @@ try {
     }
 
     public void btn_Post_Trans(View view) {
+
+        updateManStore();
+
+
+
         final CheckBox Chk_Post_Inv = (CheckBox) findViewById(R.id.Chk_Post_Inv);
         final CheckBox Chk_Post_Payments = (CheckBox) findViewById(R.id.Chk_Post_Payments);
         final CheckBox chk_po_post = (CheckBox) findViewById(R.id.chk_po_post);

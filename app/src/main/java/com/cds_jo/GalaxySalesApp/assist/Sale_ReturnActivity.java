@@ -67,6 +67,7 @@ import static com.cds_jo.GalaxySalesApp.We_Result.Msg;
 
 
 public class Sale_ReturnActivity extends FragmentActivity {
+    public String idfromjard;
     int ExistAfterSacve = 0;
     SqlHandler sqlHandler;
     ListView lvCustomList;
@@ -310,8 +311,14 @@ public class Sale_ReturnActivity extends FragmentActivity {
                 CustNm.setText(Acc_name);
                 InsertBalanceQty(extras.getString("BalanceQtyOrderNo"), "");
             }
-        } catch (Exception ex) {
+            if(extras.getString("from").equals("0")){
+                chk_Type.setChecked(false);
+                chk_Type.setEnabled(false);
+            }
+            idfromjard=extras.getString("id");
 
+        } catch (Exception ex) {
+            idfromjard=et_OrdeNo.getText().toString();
         }
 
     }
@@ -389,7 +396,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
                         contactListItems.setTax_Amt("0");
                         contactListItems.setProType("0");
                         contactListItems.setDamaged("0");
-                        contactListItems.setNote(OrderNo);
+                        contactListItems.setNote(idfromjard);
 
                         contactListItems.setOperand(c1.getString(c1.getColumnIndex("Operand")));
                         contactListItems.setTotal(String.valueOf(df.format(Item_Total)));
@@ -708,7 +715,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
                     cv.put("DisPerFromHdr", SToD(contactListItems.getDisPerFromHdr().toString() ));
                     cv.put("doctype", DocType.toString());
                     cv.put("Damaged", contactListItems.getDamaged().toString());
-                    cv.put("Note", contactListItems.getNote().toString());
+                    cv.put("Note",/* contactListItems.getNote().toString()*/idfromjard);
 
 
                     if (i > 0) {
@@ -1528,6 +1535,8 @@ public class Sale_ReturnActivity extends FragmentActivity {
     }
     public void btn_new(View view) {
 
+        CheckBox chk_Type=(CheckBox)findViewById(R.id.chk_Type);
+        chk_Type.setEnabled(true);
         ExistAfterSacve = 0;
         GetMaxPONo();
         showList();
@@ -1547,7 +1556,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
         tv_NetTotal.setText("");
         et_TotalTax.setText("");
         CheckBox chk_hdr_disc = (CheckBox) findViewById(R.id.chk_hdr_disc);
-        CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
+         chk_Type = (CheckBox) findViewById(R.id.chk_Type);
         IsNew = true;
         IncludeTax_Flag.setChecked(true);
         chk_Type.setChecked(true);
