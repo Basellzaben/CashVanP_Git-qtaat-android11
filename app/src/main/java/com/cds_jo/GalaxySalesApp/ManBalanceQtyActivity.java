@@ -528,9 +528,9 @@ ListView lst_Items ;
                                 SaledQtyNotPosted = GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")));
                                 cls_trans_qty.setQtySaled(SaledQtyNotPosted.toString());
 
-                                double SumReturn =Double.parseDouble( DB.GetValue(ManBalanceQtyActivity.this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + c.getString(c.getColumnIndex("itemno")) + "'"));
+                           //     double SumReturn =Double.parseDouble( DB.GetValue(ManBalanceQtyActivity.this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + c.getString(c.getColumnIndex("itemno")) + "'"));
 
-                                qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - SaledQtyNotPosted + SumReturn));
+                                qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) ));
 
 
                               //  qty = ( (Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - SaledQtyNotPosted));

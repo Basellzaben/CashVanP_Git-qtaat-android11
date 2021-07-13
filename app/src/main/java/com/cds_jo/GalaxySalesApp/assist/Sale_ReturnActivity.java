@@ -716,6 +716,13 @@ public class Sale_ReturnActivity extends FragmentActivity {
                     cv.put("doctype", DocType.toString());
                     cv.put("Damaged", contactListItems.getDamaged().toString());
                     cv.put("Note",/* contactListItems.getNote().toString()*/idfromjard);
+//moh
+                    UserID= sharedPreferences.getString("UserID", "");
+                    int manQ = Integer.parseInt(DB.GetValue(Sale_ReturnActivity.this, "ManStore", "cast(qty as integer)", "SManNo ='" + UserID + "' and itemno='"+contactListItems.getNo()  +"' "));
+                    int sumq= manQ+Integer.parseInt((contactListItems.getQty().toString() ));
+
+                    query = "Update ManStore SET qty ='" + sumq + "'";
+                    sqlHandler.executeQuery(query);
 
 
                     if (i > 0) {
