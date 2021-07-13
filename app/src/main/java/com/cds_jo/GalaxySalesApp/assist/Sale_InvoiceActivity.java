@@ -3774,6 +3774,10 @@ flagV =0;
         }  else if (ComInfo.ComNo == Companies.Afrah.getValue()) {
            //  k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity_Line.class);
               k = new Intent(this, Xprinter_SalesInvoice.class);
+
+            //k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity_Okrania_Ipad.class);
+
+
         } else {
             k = new Intent(this, Convert_Sal_Invoice_To_ImgActivity.class);
         }

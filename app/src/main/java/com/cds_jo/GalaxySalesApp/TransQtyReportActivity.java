@@ -190,7 +190,7 @@ CheckBox chk_hdr_disc ;
                                 .getColumnIndex("Item_Name")));
                         cls_trans_qty.setUnitNo(c.getString(c
                                 .getColumnIndex("UnitName")));
-                        qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")))+SumReturn));
+                        qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))))); /*- GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")))+SumReturn))*/;
 
                         cls_trans_qty.setQty((SToD(qty.toString())).toString());
 

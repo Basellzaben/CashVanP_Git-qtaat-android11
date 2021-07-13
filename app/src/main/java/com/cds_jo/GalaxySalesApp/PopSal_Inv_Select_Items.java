@@ -1213,7 +1213,10 @@ p=position;
               Order_qty=((Sale_InvoiceActivity)getActivity()).getqty(ItemNo);
         Double bounce=((Sale_InvoiceActivity)getActivity()).getbounc(ItemNo);
 
-        Res = qqtyinstore - GetSaledQtyNotPosted(ItemNo) + SumReturn - Order_qty - bounce;
+        Res = qqtyinstore - GetSaledQtyNotPosted(ItemNo) - Order_qty - bounce;
+
+
+
 
         if (Operand == null) {
             Operand = "1";

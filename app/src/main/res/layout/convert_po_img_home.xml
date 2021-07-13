@@ -14,7 +14,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1">
 
-            <include android:id="@+id/f_view"
+          <include android:id="@+id/f_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 layout="@layout/so_tsc_img" />

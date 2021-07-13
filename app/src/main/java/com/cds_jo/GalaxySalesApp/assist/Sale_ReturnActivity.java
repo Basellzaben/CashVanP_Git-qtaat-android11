@@ -719,7 +719,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
 //moh
                     UserID= sharedPreferences.getString("UserID", "");
                     int manQ = Integer.parseInt(DB.GetValue(Sale_ReturnActivity.this, "ManStore", "cast(qty as integer)", "SManNo ='" + UserID + "' and itemno='"+contactListItems.getNo()  +"' "));
-                    int sumq= manQ+Integer.parseInt((contactListItems.getQty().toString() ));
+                    double sumq= manQ+SToD((contactListItems.getQty().toString() ));
 
                     query = "Update ManStore SET qty ='" + sumq + "'";
                     sqlHandler.executeQuery(query);

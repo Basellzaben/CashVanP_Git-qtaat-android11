@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 198;
+    private static final int LASTUPDATE = 199;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
