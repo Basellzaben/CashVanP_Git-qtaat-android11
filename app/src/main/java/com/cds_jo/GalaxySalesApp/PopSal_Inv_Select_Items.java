@@ -1200,7 +1200,7 @@ p=position;
             c1.close();
         }
         Double SumReturn;
-        SumReturn =Double.parseDouble( DB.GetValue(getActivity(),"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + ItemNo + "'"));
+        SumReturn =Double.parseDouble( DB.GetValue(getActivity(),"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + ItemNo + "' and Post='-1'"));
      //   Res = Store_qty -/* Sal_Qty*/GetSaledQtyNotPosted(ItemNo) /*- Order_qty*/ + SumReturn;
 
         Double qqtyinstore =Double.parseDouble( DB.GetValue(getActivity(),"ManStore"," ifnull( qty,0)","ItemNo ='" + ItemNo + "'"));
@@ -1213,10 +1213,7 @@ p=position;
               Order_qty=((Sale_InvoiceActivity)getActivity()).getqty(ItemNo);
         Double bounce=((Sale_InvoiceActivity)getActivity()).getbounc(ItemNo);
 
-        Res = qqtyinstore - GetSaledQtyNotPosted(ItemNo) - Order_qty - bounce;
-
-
-
+        Res = qqtyinstore -GetSaledQtyNotPosted(ItemNo) - Order_qty - bounce + GetRetQtyNotPosted(ItemNo);
 
         if (Operand == null) {
             Operand = "1";
@@ -1234,6 +1231,28 @@ p=position;
 
         GetQtyPerc();
     }
+    public Double GetRetQtyNotPosted(String ItemNo ){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String u =  sharedPreferences.getString("UserID", "");
+        SqlHandler sqlHandler = new SqlHandler(getActivity());
+        String query = "SELECT     ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0) as Sal_Qty  from  Sal_return_Hdr  sih inner join Sal_return_Det sid on  sid.OrderNo = sih.OrderNo" +
+                " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
+                "    where  sih.Post = -1 and ui.item_no ='"+ItemNo+"'  and sih.UserID='"+u+"'";
+        Cursor c1 = sqlHandler.selectQuery(query);
+
+        Double Sal_Qty = 0.0;
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.getCount() > 0) {
+                c1.moveToFirst();
+                Sal_Qty =   Double.parseDouble(  (c1.getString(c1.getColumnIndex("Sal_Qty"))).toString());
+            }
+            c1.close();
+        }
+
+
+
+        return Sal_Qty;
+    }
    // sih.Post = -1  and
     public Double GetSaledQtyNotPosted(String ItemNo ){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -1241,7 +1260,7 @@ p=position;
         SqlHandler sqlHandler = new SqlHandler(getActivity());
         String query = "SELECT     (ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0)  +   ifnull( sum  ( ifnull( sid.bounce_qty,0)  * (ifnull( sid.Operand,1))) ,0) +  ifnull( sum  ( ifnull( sid.Pro_bounce,0)  * (ifnull( sid.Operand,1))) ,0))  as Sal_Qty  from  Sal_invoice_Hdr  sih inner join Sal_invoice_Det sid on  sid.OrderNo = sih.OrderNo" +
                 " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
-                "    where  ui.item_no ='"+ItemNo+"'  and sih.UserID='"+sharedPreferences.getString("UserID", "-1")+"'";
+                "    where sih.Post = -1 and ui.item_no ='"+ItemNo+"'  and sih.UserID='"+sharedPreferences.getString("UserID", "-1")+"'";
         Cursor c1 = sqlHandler.selectQuery(query);
 
         Double Sal_Qty = 0.0;

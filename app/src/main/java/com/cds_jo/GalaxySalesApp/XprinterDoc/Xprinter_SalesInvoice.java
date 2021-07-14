@@ -680,7 +680,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
         {
 
             tv_Disc.setText( String.format(
-                    Locale.ENGLISH, "%.3f", (totaltax1)-(totaltax1*(0.16))));
+                    Locale.ENGLISH, "%.3f", (totaltax1/(1.16))));
 
         }
         else

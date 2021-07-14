@@ -3275,7 +3275,7 @@ public class OrdersItems extends FragmentActivity {
 
     public void btn_share(View view) {
 
-            InsertLogTrans insertLogTrans=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
+      //      InsertLogTrans insertLogTrans=new InsertLogTrans(OrdersItems.this,SCR_NO , SCR_ACTIONS.Share.getValue(),et_OrdeNo.getText().toString(),tv_acc.getText().toString(),"");
 
         if (ComInfo.ComNo == 4) {
             return;

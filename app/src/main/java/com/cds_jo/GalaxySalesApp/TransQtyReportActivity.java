@@ -177,7 +177,7 @@ CheckBox chk_hdr_disc ;
             if (c != null && c.getCount() != 0) {
                 if (c.moveToFirst()) {
                     do {
-                      double SumReturn =Double.parseDouble( DB.GetValue(TransQtyReportActivity.this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + c.getString(c.getColumnIndex("itemno")) + "'"));
+                      double SumReturn =Double.parseDouble( DB.GetValue(TransQtyReportActivity.this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + c.getString(c.getColumnIndex("itemno")) + "' and Post='-1'"));
 
                         //date,fromstore,tostore,des,docno,itemno,qty,UnitNo,UnitRate,myear
                         cls_trans_qty = new Cls_Trans_Qty();
@@ -190,7 +190,7 @@ CheckBox chk_hdr_disc ;
                                 .getColumnIndex("Item_Name")));
                         cls_trans_qty.setUnitNo(c.getString(c
                                 .getColumnIndex("UnitName")));
-                        qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))))); /*- GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")))+SumReturn))*/;
+                        qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")))+GetRetQtyNotPosted(c.getString(c.getColumnIndex("itemno")))));
 
                         cls_trans_qty.setQty((SToD(qty.toString())).toString());
 
@@ -278,7 +278,7 @@ CheckBox chk_hdr_disc ;
         SqlHandler sqlHandler = new SqlHandler(TransQtyReportActivity.this);
        String query = "SELECT     (ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0)  +   ifnull( sum  ( ifnull( sid.bounce_qty,0)  * (ifnull( sid.Operand,1))) ,0) +  ifnull( sum  ( ifnull( sid.Pro_bounce,0)  * (ifnull( sid.Operand,1))) ,0))  as Sal_Qty  from  Sal_invoice_Hdr  sih inner join Sal_invoice_Det sid on  sid.OrderNo = sih.OrderNo" +
                 " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
-                "    where   ui.item_no ='"+ItemNo+"'  and sih.UserID='"+sharedPreferences.getString("UserID", "-1")+"'";
+                "    where  sih.Post = -1 and ui.item_no ='"+ItemNo+"'  and sih.UserID='"+sharedPreferences.getString("UserID", "-1")+"'";
         Cursor c1 = sqlHandler.selectQuery(query);
 
         Double Sal_Qty = 0.0;
@@ -289,6 +289,28 @@ CheckBox chk_hdr_disc ;
             }
          c1.close();
     }
+
+
+
+        return Sal_Qty;
+    }
+    public Double GetRetQtyNotPosted(String ItemNo ){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SqlHandler sqlHandler = new SqlHandler(TransQtyReportActivity.this);
+        String query = "SELECT     ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0) as Sal_Qty from  Sal_return_Hdr  sih inner join Sal_return_Det sid on  sid.OrderNo = sih.OrderNo" +
+                " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
+                "    where  sih.Post = -1 and ui.item_no ='"+ItemNo+"'  and sih.UserID='"+sharedPreferences.getString("UserID", "-1")+"'";
+        Cursor c1 = sqlHandler.selectQuery(query);
+
+        Double Sal_Qty = 0.0;
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.getCount() > 0) {
+                c1.moveToFirst();
+                Sal_Qty =   Double.parseDouble(  (c1.getString(c1.getColumnIndex("Sal_Qty"))).toString());
+            }
+            c1.close();
+        }
 
 
 

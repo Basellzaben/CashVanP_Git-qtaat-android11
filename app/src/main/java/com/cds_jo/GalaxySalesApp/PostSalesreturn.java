@@ -110,10 +110,10 @@ public class PostSalesreturn {
                // jsonObject.put("include_Tax", c1.getString(c1.getColumnIndex("include_Tax")));
 
                 if(c1.getString(c1.getColumnIndex("include_Tax")).equals("0")){
-                    jsonObject.put("include_Tax","-1");
+                    jsonObject.put("include_Tax","0");
 
                 }else{
-                    jsonObject.put("include_Tax","0");
+                    jsonObject.put("include_Tax","-1");
 
                 }
 

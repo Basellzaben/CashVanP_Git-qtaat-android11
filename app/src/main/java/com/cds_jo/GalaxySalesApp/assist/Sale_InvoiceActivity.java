@@ -418,7 +418,66 @@ public String getmaxN(){
         // The directory is now empty so delete it
         return dir.delete();
     }
+    public void updateManStore(){
+        final String Ser = "1";
+        String q;
+        q = "Delete from ManStore";
+        sqlHandler.executeQuery(q);
+        q = "delete from sqlite_sequence where name='ManStore'";
+        sqlHandler.executeQuery(q);
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CallWebServices ws = new CallWebServices(Sale_InvoiceActivity.this);
+                ws.TrnsferQtyFromMobile(UserID, "0", "");
+                try {
+                    Integer i;
+                    String q = "";
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray js_date = js.getJSONArray("date");
+                    JSONArray js_fromstore = js.getJSONArray("fromstore");
+                    JSONArray js_tostore = js.getJSONArray("tostore");
+                    JSONArray js_des = js.getJSONArray("des");
+                    JSONArray js_docno = js.getJSONArray("docno");
+                    JSONArray js_itemno = js.getJSONArray("itemno");
+                    JSONArray js_qty = js.getJSONArray("qty");
+                    JSONArray js_UnitNo = js.getJSONArray("UnitNo");
+                    JSONArray js_UnitRate = js.getJSONArray("UnitRate");
+                    JSONArray js_myear = js.getJSONArray("myear");
+                    JSONArray js_StoreName = js.getJSONArray("StoreName");
+                    JSONArray js_RetailPrice = js.getJSONArray("RetailPrice");
+
+
+                    for (i = 0; i < js_docno.length(); i++) {
+                        q = "Insert INTO ManStore(SManNo,date,fromstore,tostore,des,docno,itemno,qty,UnitNo,UnitRate,myear,RetailPrice ,StoreName ,ser) values ("
+                                + UserID.toString()
+                                + ",'" + js_date.get(i).toString()
+                                + "','" + js_fromstore.get(i).toString()
+                                + "','" + js_tostore.get(i).toString()
+                                + "','" + js_des.get(i).toString()
+                                + "','" + js_docno.get(i).toString()
+                                + "','" + js_itemno.get(i).toString()
+                                + "','" + js_qty.get(i).toString()
+                                + "','" + js_UnitNo.get(i).toString()
+                                + "','" + js_UnitRate.get(i).toString()
+                                + "','" + js_myear.get(i).toString()
+                                + "','" + js_RetailPrice.get(i).toString()
+                                + "','" + js_StoreName.get(i).toString()
+                                + "'," + Ser.toString()
+                                + " )";
+                        sqlHandler.executeQuery(q);
+
+                    }
+
+                    //  Toast.makeText(getApplicationContext(),"تم التحديث",Toast.LENGTH_LONG).show();
+
+                } catch (final Exception e) {
+//Toast.makeText(getApplicationContext(),"لم يتم التحديث",Toast.LENGTH_LONG).show();
+                }
+            }
+        }).start();
+    }
     private void Fade_Fun(ImageButton myButton) {
         Animation animFadeOut = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_out);
         Animation animFadeIn = AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in);
@@ -1285,7 +1344,7 @@ flagV =0;
 
         for (int i=0;i<contactList.size();i++){
             if(contactList.get(i).getNo().equals(itemno))
-                qty+= Double.parseDouble(contactList.get(i).getQty());
+                qty+= Double.parseDouble(contactList.get(i).getQty())*Double.parseDouble(contactList.get(i).getOperand());
             else
                 continue;
         }
@@ -1300,7 +1359,7 @@ flagV =0;
 
         for (int i=0;i<contactList.size();i++){
             if(contactList.get(i).getNo().equals(itemno))
-                bounc+= Double.parseDouble(contactList.get(i).getBounce());
+                bounc+= Double.parseDouble(contactList.get(i).getBounce())*Double.parseDouble(contactList.get(i).getOperand());
             else
                 continue;
         }
@@ -5204,6 +5263,7 @@ CheckBox chk_Type=(CheckBox)findViewById(R.id.chk_Type);
 
                         _handler.post(new Runnable() {
                             public void run() {
+                                updateManStore();
                                 String query = " Update  Sal_invoice_Hdr  set Post='1'  where OrderNo='" + DocNo.getText().toString() + "'";
                                 sqlHandler.executeQuery(query);
 

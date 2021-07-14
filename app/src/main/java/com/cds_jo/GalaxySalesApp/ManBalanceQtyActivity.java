@@ -143,13 +143,14 @@ ListView lst_Items ;
 
                     Double qty = 0.0;
                     Double SaledQtyNotPosted = 0.0;
+                    Double RetQtyNotPosted = 0.0;
                     Cursor c = sqlHandler.selectQuery(q);
                     i = 0;
                     if (c != null && c.getCount() != 0) {
                         if (c.moveToFirst()) {
                             do {
 
-                                double SumReturn =Double.parseDouble( DB.GetValue(ManBalanceQtyActivity.this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + c.getString(c.getColumnIndex("itemno")) + "'"));
+                             //   double SumReturn =Double.parseDouble( DB.GetValue(ManBalanceQtyActivity.this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + c.getString(c.getColumnIndex("itemno")) + "' and Post = '-1' "));
 
                                 cls_trans_qty = new Cls_Man_Balanc();
 
@@ -165,13 +166,14 @@ ListView lst_Items ;
                                 cls_trans_qty.setUnitName(c.getString(c
                                         .getColumnIndex("UnitName")));
                                 SaledQtyNotPosted = GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")));
+                                RetQtyNotPosted = GetRetQtyNotPosted(c.getString(c.getColumnIndex("itemno")));
                                 cls_trans_qty.setQtySaled(SaledQtyNotPosted.toString());
 
 
 
 
 
-                                qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - SaledQtyNotPosted + SumReturn));
+                                qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - SaledQtyNotPosted + RetQtyNotPosted));
                                 SaledQtyNotPosted = 0.0;
                                 cls_trans_qty.setQty((SToD(qty.toString())).toString());
 
@@ -505,6 +507,7 @@ ListView lst_Items ;
 
                               Double qty = 0.0;
                    Double SaledQtyNotPosted = 0.0 ;
+                   Double RetQtyNotPosted = 0.0 ;
                     Cursor c =  sqlHandler.selectQuery(q);
                     i = 0;
                     if (c != null && c.getCount() != 0) {
@@ -526,14 +529,16 @@ ListView lst_Items ;
                                 cls_trans_qty.setUnitName(c.getString(c
                                         .getColumnIndex("UnitName")));
                                 SaledQtyNotPosted = GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")));
+                                RetQtyNotPosted = GetRetQtyNotPosted(c.getString(c.getColumnIndex("itemno")));
+
                                 cls_trans_qty.setQtySaled(SaledQtyNotPosted.toString());
 
-                           //     double SumReturn =Double.parseDouble( DB.GetValue(ManBalanceQtyActivity.this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + c.getString(c.getColumnIndex("itemno")) + "'"));
+                                double SumReturn =Double.parseDouble( DB.GetValue(ManBalanceQtyActivity.this,"Sal_return_Det","ifnull( sum  ( ifnull( qty,0)  * (ifnull(Operand,1))) ,0)","ItemNo ='" + c.getString(c.getColumnIndex("itemno")) + "' and Post = '-1' "));
 
                                 qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) ));
 
 
-                              //  qty = ( (Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - SaledQtyNotPosted));
+                              qty = ( (Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - SaledQtyNotPosted)+RetQtyNotPosted);
                                 SaledQtyNotPosted=0.0;
                                 cls_trans_qty.setQty((SToD(qty.toString())).toString());
 
@@ -630,7 +635,7 @@ ListView lst_Items ;
 */
         String query = "SELECT  distinct    (ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0)  +   ifnull( sum  ( ifnull( sid.bounce_qty,0)  * (ifnull( sid.Operand,1))) ,0) +  ifnull( sum  ( ifnull( sid.Pro_bounce,0)  * (ifnull( sid.Operand,1))) ,0))  as Sal_Qty  from  Sal_invoice_Hdr  sih inner join Sal_invoice_Det sid on  sid.OrderNo = sih.OrderNo" +
                 " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
-                "    where ui.item_no ='"+ItemNo+"'   and sih.UserID ='" +u.toString()+"'"  ;
+                "    where  sih.Post = '-1' and ui.item_no ='"+ItemNo+"'   and sih.UserID ='" +u.toString()+"'"  ;
 
 
 
@@ -649,7 +654,28 @@ ListView lst_Items ;
 
         return Sal_Qty;
     }
+    public Double GetRetQtyNotPosted(String ItemNo ){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String u =  sharedPreferences.getString("UserID", "");
+        SqlHandler sqlHandler = new SqlHandler(ManBalanceQtyActivity.this);
+        String query = "SELECT     ifnull( sum  ( ifnull( sid.qty,0)  * (ifnull( sid.Operand,1))) ,0) as Sal_Qty  from  Sal_return_Hdr  sih inner join Sal_return_Det sid on  sid.OrderNo = sih.OrderNo" +
+                " inner join  UnitItems ui on ui.item_no  = sid.itemNo and ui.unitno = sid.unitNo" +
+                "    where  sih.Post = -1 and ui.item_no ='"+ItemNo+"'  and sih.UserID='"+u+"'";
+        Cursor c1 = sqlHandler.selectQuery(query);
 
+        Double Sal_Qty = 0.0;
+        if (c1 != null && c1.getCount() != 0) {
+            if (c1.getCount() > 0) {
+                c1.moveToFirst();
+                Sal_Qty =   Double.parseDouble(  (c1.getString(c1.getColumnIndex("Sal_Qty"))).toString());
+            }
+            c1.close();
+        }
+
+
+
+        return Sal_Qty;
+    }
     public void btn_new(View view) {
         cls_trans_qties.clear();
         lst_Items.invalidateViews();

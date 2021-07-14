@@ -472,15 +472,6 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
 
 
-            try {
-                sqlHandler.executeQuery("Alter Table Po_Hdr  Add  COLUMN  Man_Order  text null");
-            } catch (SQLException e) {
-            }
-
-
-            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  V_OrderNo  text null");
-        } catch (SQLException e) {
-        }
 
 
 
@@ -648,6 +639,15 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
         try {
             sqlHandler.executeQuery("Alter Table Po_Hdr  Add  COLUMN  DeliveryDate  text null");
+        } catch (SQLException e) {
+        }
+            try {
+                sqlHandler.executeQuery("Alter Table Po_Hdr  Add  COLUMN  Man_Order  text null");
+            } catch (SQLException e) {
+            }
+
+
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Hdr  Add  COLUMN  V_OrderNo  text null");
         } catch (SQLException e) {
         }
 

@@ -46,7 +46,11 @@ import com.cds_jo.GalaxySalesApp.SearchManBalanceQty;
 import com.cds_jo.GalaxySalesApp.Select_Cash_Customer;
 import com.cds_jo.GalaxySalesApp.Select_Customer;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
+import com.cds_jo.GalaxySalesApp.UpdateDataToMobileActivity;
 import com.cds_jo.GalaxySalesApp.We_Result;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -717,13 +721,13 @@ public class Sale_ReturnActivity extends FragmentActivity {
                     cv.put("Damaged", contactListItems.getDamaged().toString());
                     cv.put("Note",/* contactListItems.getNote().toString()*/idfromjard);
 //moh
-                    UserID= sharedPreferences.getString("UserID", "");
+            /*        UserID= sharedPreferences.getString("UserID", "");
                     int manQ = Integer.parseInt(DB.GetValue(Sale_ReturnActivity.this, "ManStore", "cast(qty as integer)", "SManNo ='" + UserID + "' and itemno='"+contactListItems.getNo()  +"' "));
                     double sumq= manQ+SToD((contactListItems.getQty().toString() ));
 
                     query = "Update ManStore SET qty ='" + sumq + "'";
                     sqlHandler.executeQuery(query);
-
+*/
 
                     if (i > 0) {
                         i = sqlHandler.Insert(this, "Sal_return_Det", null, cv);
@@ -1763,6 +1767,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
                         _handler.post(new Runnable() {
                             public void run() {
+                                updateManStore();
                                 AlertDialog alertDialog = new AlertDialog.Builder(
                                         Sale_ReturnActivity.this).create();
                                 alertDialog.setTitle("ارجاع المواد");
@@ -1825,6 +1830,67 @@ public class Sale_ReturnActivity extends FragmentActivity {
             }
         }).start();
     }
+    public void updateManStore(){
+        final String Ser = "1";
+        String q;
+        q = "Delete from ManStore";
+        sqlHandler.executeQuery(q);
+        q = "delete from sqlite_sequence where name='ManStore'";
+        sqlHandler.executeQuery(q);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CallWebServices ws = new CallWebServices(Sale_ReturnActivity.this);
+                ws.TrnsferQtyFromMobile(UserID, "0", "");
+                try {
+                    Integer i;
+                    String q = "";
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray js_date = js.getJSONArray("date");
+                    JSONArray js_fromstore = js.getJSONArray("fromstore");
+                    JSONArray js_tostore = js.getJSONArray("tostore");
+                    JSONArray js_des = js.getJSONArray("des");
+                    JSONArray js_docno = js.getJSONArray("docno");
+                    JSONArray js_itemno = js.getJSONArray("itemno");
+                    JSONArray js_qty = js.getJSONArray("qty");
+                    JSONArray js_UnitNo = js.getJSONArray("UnitNo");
+                    JSONArray js_UnitRate = js.getJSONArray("UnitRate");
+                    JSONArray js_myear = js.getJSONArray("myear");
+                    JSONArray js_StoreName = js.getJSONArray("StoreName");
+                    JSONArray js_RetailPrice = js.getJSONArray("RetailPrice");
+
+
+                    for (i = 0; i < js_docno.length(); i++) {
+                        q = "Insert INTO ManStore(SManNo,date,fromstore,tostore,des,docno,itemno,qty,UnitNo,UnitRate,myear,RetailPrice ,StoreName ,ser) values ("
+                                + UserID.toString()
+                                + ",'" + js_date.get(i).toString()
+                                + "','" + js_fromstore.get(i).toString()
+                                + "','" + js_tostore.get(i).toString()
+                                + "','" + js_des.get(i).toString()
+                                + "','" + js_docno.get(i).toString()
+                                + "','" + js_itemno.get(i).toString()
+                                + "','" + js_qty.get(i).toString()
+                                + "','" + js_UnitNo.get(i).toString()
+                                + "','" + js_UnitRate.get(i).toString()
+                                + "','" + js_myear.get(i).toString()
+                                + "','" + js_RetailPrice.get(i).toString()
+                                + "','" + js_StoreName.get(i).toString()
+                                + "'," + Ser.toString()
+                                + " )";
+                        sqlHandler.executeQuery(q);
+
+                    }
+
+                    //  Toast.makeText(getApplicationContext(),"تم التحديث",Toast.LENGTH_LONG).show();
+
+                } catch (final Exception e) {
+//Toast.makeText(getApplicationContext(),"لم يتم التحديث",Toast.LENGTH_LONG).show();
+                }
+            }
+        }).start();
+    }
+
     @Override
     public void onBackPressed() {
         Intent k = new Intent(this, JalMasterActivity.class);

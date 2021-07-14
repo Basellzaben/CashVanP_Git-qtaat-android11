@@ -53,19 +53,19 @@ public class CallWebServices  {
         //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
         //URL = "http://92.253.127.230:92/CV.asmx";// mo8bl
 //URL = "http://109.107.238.12:3755/CV.asmx";// السعد
-//URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
+URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
 //URL = "http://192.168.1.146:82/CV.asmx";// khaldi
 //URL = "http://10.0.1.63:92/CV.asmx";// servar galaxy
 //URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
         //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
-       URL = "http://10.0.1.63:92/CV.asmx";// galaxy
-       URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
+       //URL = "http://10.0.1.63:92/CV.asmx";// galaxy
+      // URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
+     //  URL = "http://192.168.1.146:9767/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
         //moh
     }
-
 
     public void GetItem_D(String Item_no, int flag) {
         We_Result.Msg="";
