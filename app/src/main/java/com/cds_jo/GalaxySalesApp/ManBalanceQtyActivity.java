@@ -295,10 +295,11 @@ ListView lst_Items ;
 
         }
 
-
         Maxpo.setFocusable(false);
         Maxpo.setEnabled(false);
         Maxpo.setCursorVisible(false);
+
+
 
         // Maxpo.setText(max);
 
@@ -549,10 +550,11 @@ ListView lst_Items ;
                                 }
 
                                 if (qty!=0){
-                                    cls_trans_qties.add(cls_trans_qty);
+                                //    cls_trans_qties.add(cls_trans_qty);
                                 }
                                 qty = 0.0;
 
+                                cls_trans_qties.add(cls_trans_qty);
 
                                 progressDialog.setMax(c.getCount());
 

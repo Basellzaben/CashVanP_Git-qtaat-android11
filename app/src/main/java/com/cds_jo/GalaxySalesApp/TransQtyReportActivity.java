@@ -40,6 +40,9 @@ CheckBox chk_hdr_disc ;
         lst_Items =(ListView)findViewById(R.id.lst_Items);
         tv_msg = (TextView)findViewById(R.id.tv_msg);
         tv_msg.setText("");
+
+
+
     }
     private void  GetStoreQtySer(){
       SqlHandler sqlHandler = new SqlHandler(this);

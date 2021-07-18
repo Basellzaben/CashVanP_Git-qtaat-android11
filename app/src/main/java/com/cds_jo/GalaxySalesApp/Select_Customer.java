@@ -184,7 +184,7 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
         String query ;
 
 
-
+/*
         if (  getArguments().getString("Scr") == "ExpGps") {
 
             if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
@@ -239,16 +239,19 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
                 if (dayWeek.equalsIgnoreCase("6")) {
                     q = " thurs = '111' ";
                 }
-
                 if (t.toString().equals("")) {
                         query = "Select * from Customers  Where   " +q+" ";//   Customers.Cust_type='"+Cust_type+"'";
                 } else {
                     query = "Select * from Customers where  "+q+"   AND ( name like '%" + t + "%' or  no like '%" + t + "%' )";//  And Customers.Cust_type='"+Cust_type+"'";
                 }
             }
+        }*/
+
+        if (t.toString().equals("")) {
+            query = "Select * from Customers  ";//   Customers.Cust_type='"+Cust_type+"'";
+        } else {
+            query = "Select * from Customers where name like '%" + t + "%' or  no like '%" + t + "%'";//  And Customers.Cust_type='"+Cust_type+"'";
         }
-
-
 
         Cursor c = sqlHandler.selectQuery(query);
         ArrayList<Customers> customersesList = new ArrayList<Customers>();

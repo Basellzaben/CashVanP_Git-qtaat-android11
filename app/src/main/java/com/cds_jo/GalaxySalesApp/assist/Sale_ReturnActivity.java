@@ -1374,19 +1374,32 @@ public class Sale_ReturnActivity extends FragmentActivity {
     }
     public void btn_delete(View view) {
 
-        AlertDialog alertDialog = new AlertDialog.Builder(
-                this).create();
-        alertDialog.setTitle("ارجاع المواد");
-        alertDialog.setMessage("لا يمكن الحذف");
-        alertDialog.setIcon(R.drawable.tick);
-        alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                return;
-            }
-        });
-        alertDialog.show();
+        TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
+
+        String find=DB.GetValue(Sale_ReturnActivity.this,"Sal_return_Hdr","Post"," OrderNo ='" + OrdeNo.getText().toString()+"'");
+
+        if(find.equals("-1")){
+
+            Delete_Record_PO();
+
+}else{
+
+
+            AlertDialog alertDialog = new AlertDialog.Builder(
+                    this).create();
+            alertDialog.setTitle("ارجاع المواد");
+            alertDialog.setMessage("لا يمكن الحذف بعد الاعتماد");
+            alertDialog.setIcon(R.drawable.tick);
+            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    return;
+                }
+            });
+            alertDialog.show();
+        }
     }
     public void Delete_Record_PO() {
+        tv_ScrTitle=(MyTextView) findViewById(R.id.tv_ScrTitle);
 
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
 
@@ -1445,6 +1458,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
         TextView accno = (TextView) findViewById(R.id.tv_acc);
 
 
+
         TextView tv_NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
         TextView et_TotalTax = (TextView) findViewById(R.id.et_TotalTax);
         TextView et_dis = (TextView) findViewById(R.id.et_dis);
@@ -1488,9 +1502,15 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
                 if (c1.getString(c1.getColumnIndex("include_Tax")).equals("0")) {
                     IncludeTax_Flag.setChecked(true);
+                }else{
+                    IncludeTax_Flag.setChecked(false);
+
                 }
-                if (c1.getString(c1.getColumnIndex("return_type")).equals("-1")) {
+                if (c1.getString(c1.getColumnIndex("return_type")).equals("0")) {
                     chk_Type.setChecked(true);
+                }else{
+                    chk_Type.setChecked(false);
+
                 }
 
 
@@ -1743,7 +1763,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
                         _handler.post(new Runnable() {
                             public void run() {
                                 AlertDialog alertDialog = new AlertDialog.Builder(
-                                        Sale_ReturnActivity.this).create();
+                                 Sale_ReturnActivity.this).create();
                                 alertDialog.setTitle("ارجاع المواد");
                                 alertDialog.setMessage(" فشل في عملية الاعتماد" + PostResult + "");
                                 alertDialog.setIcon(R.drawable.tick);
@@ -1751,8 +1771,12 @@ public class Sale_ReturnActivity extends FragmentActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                     }
                                 });
+
+
                                 loadingdialog.dismiss();
                                 alertDialog.show();
+
+
                             }
                         });
 

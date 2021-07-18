@@ -38,7 +38,7 @@ public class Tab_returnproduct extends  Fragment {
     }
 
 
-    private  Double SToD(String str){
+    private Double SToD(String str){
         String f = "";
         final NumberFormat nf = NumberFormat.getNumberInstance(Locale.US);
         final DecimalFormat df = (DecimalFormat)nf;
@@ -81,15 +81,13 @@ public class Tab_returnproduct extends  Fragment {
         items_Lsit.setAdapter(null);
 
       /*  //    q = "Select distinct    ifnull(r.DocNo,-1) as RecVoucher_DocNo,    ( s.Net_Total) as sumation,   s.Net_Total, s.OrderNo ,s.acc ,s.date , s.inovice_type,  CASE s.inovice_type WHEN '-1' THEN  c.name ELSE s.Nm END as  name   " +
-        q = "Select  OrderNo , nm , date , acc,Post , inovice_type , Net_Total , Total  from  Sal_return_Hdr Select  OrderNo , nm , date , acc,Post , inovice_type , Net_Total , Total  from  Sal_return_Hdr where date ='2021/06/16";*//* +
-                "      Left join RecVoucher r  on r.CustAcc = s.acc  and r.TrDate='" + currentDateandTime+"' " +
-                " left join Customers c on c.no =s.acc where  s.UserID='"+sharedPreferences.getString("UserID", "")+"'   " +
-                "  and  s.date ='" + currentDateandTime + "' "+
-                "  Order by  ifnull(r.DocNo,-1)   asc " ;*//*
-
+        q = "Select  OrderNo , nm , date , acc,Post , inovice_type , Net_Total , Total  from  Sal_return_Hdr Select  OrderNo , nm , date , acc,Post , inovice_type , Net_Total , Total  from  Sal_return_Hdr where date ='2021/06/16";*//* +           "      Left join RecVoucher r  on r.CustAcc = s.acc  and r.TrDate='" + currentDateandTime+"' " +
+          " left join Customers c on c.no =s.acc where  s.UserID='"+sharedPreferences.getString("UserID", "")+"'   " +
+          "  and  s.date ='" + currentDateandTime + "' "+
+          "  Order by  ifnull(r.DocNo,-1)   asc " ;*//*
 */
 
-        q = "Select  Orderno , nm , date , acc , Post , inovice_Type , Net_Total , Total from  Sal_return_Hdr where date='"+currentDateandTime+"' and UserID='"+sharedPreferences.getString("UserID", "")+"'";
+        q = "Select  Orderno , nm , date , acc , Post , return_type , Net_Total , Total from  Sal_return_Hdr where date='"+currentDateandTime+"' and UserID='"+sharedPreferences.getString("UserID", "")+"'";
 
 
         SqlHandler sqlHandler = new SqlHandler(getActivity());
@@ -111,7 +109,7 @@ public class Tab_returnproduct extends  Fragment {
                     cls_searchpos.setDate(c1.getString(c1.getColumnIndex("date")));
                     cls_searchpos.setAcc(c1.getString(c1.getColumnIndex("acc")));
                     cls_searchpos.setNotes(c1.getString(c1.getColumnIndex("Post")));
-                    cls_searchpos.setType(c1.getString(c1.getColumnIndex("inovice_Type")));
+                    cls_searchpos.setType(c1.getString(c1.getColumnIndex("return_type")));
                     cls_searchpos.setTot(c1.getString(c1.getColumnIndex("Net_Total")));
                     cls_searchpos.setPaymentNo(/*c1.getString(c1.getColumnIndex("RecVoucher_DocNo"))*/"00");
                     sum=sum+SToD(c1.getString(c1.getColumnIndex("Total")));

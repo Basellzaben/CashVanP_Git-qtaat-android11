@@ -8,7 +8,7 @@ public enum Companies {
     tariget(5),
     Arabian (6) ,
     Ukrania(7),
-    beutyLine(8) ,
+    beutyLine(8),
     Saad(9),
     Ma8bel(10),
     Sector(11),
