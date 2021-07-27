@@ -16,7 +16,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import java.io.EOFException;
 import java.lang.reflect.Type;
-
+///bvbvbv
 public class CallWebServices  {
     Context context;
     Activity Activity;
@@ -29,13 +29,13 @@ public class CallWebServices  {
     int TIME_OUT_CONN = 50000;
     public  CallWebServices(Context _context ){
         context = _context;
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         IPAddress =sharedPreferences.getString("ServerIP", "");
         //1 bustanji 2 bristage 3-salsel 4-goodsystem 5-tariget system 6-
         //URL = "http://"+IPAddress+"/GIWS/CV.asmx";//bustanji or prastaige
         //    URL = "http://"+IPAddress+":3755"+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
         URL = "http://"+IPAddress+"/CV.asmx";//  salasel or goodsystem or good targit Or arabia or mo8bl
-
 
         //    URL = "http://46.185.131.31:9090/CV.asmx";//شركة السلاسل
         //URL = "http://192.168.8.101/GIWS/CV.asmx";
@@ -66,7 +66,6 @@ public class CallWebServices  {
 //URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
         //moh
     }
-
     public void GetItem_D(String Item_no, int flag) {
         We_Result.Msg="";
         We_Result.ID =-1;
