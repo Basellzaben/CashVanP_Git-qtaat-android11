@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CashVanP_Git.iml" filepath="$PROJECT_DIR$/.idea/modules/CashVanP_Git.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CashVanP_Git.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CashVanP_Git.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CashVanP3_Git.iml" filepath="$PROJECT_DIR$/.idea/modules/CashVanP3_Git.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/CashVanP3_Git.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/CashVanP3_Git.app.iml" />
     </modules>
   </component>
 </project>

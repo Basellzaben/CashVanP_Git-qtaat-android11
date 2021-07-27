@@ -53,7 +53,7 @@ public class CallWebServices  {
         //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
         //URL = "http://92.253.127.230:92/CV.asmx";// mo8bl
 //URL = "http://109.107.238.12:3755/CV.asmx";// السعد
-//URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
+URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
 //URL = "http://192.168.1.146:82/CV.asmx";// khaldi
 //URL = "http://10.0.1.63:92/CV.asmx";// servar galaxy
@@ -61,7 +61,7 @@ public class CallWebServices  {
         //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
        //URL = "http://10.0.1.63:92/CV.asmx";// galaxy
-     URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
+  //   URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
      //  URL = "http://192.168.1.146:9767/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
         //moh
@@ -230,7 +230,7 @@ public class CallWebServices  {
     }
     public long SaveManVisitsNew(Cls_SaleManDailyRound obj) {
 
-        We_Result.Msg =  ""     ;
+        We_Result.Msg = "";
         We_Result.ID = -2;
         String resTxt = null;
         SoapObject request = new SoapObject(NAMESPACE, "SaveALLVisits");
@@ -252,147 +252,139 @@ public class CallWebServices  {
         P_DayNum.setType(String.class);
         request.addProperty(P_DayNum);
 
-        PropertyInfo P_End_Time= new PropertyInfo();
+        PropertyInfo P_End_Time = new PropertyInfo();
         P_End_Time.setName("End_Time");
         P_End_Time.setValue(obj.getEnd_Time());
         P_End_Time.setType(String.class);
         request.addProperty(P_End_Time);
 
-        PropertyInfo P_Start_Time= new PropertyInfo();
+        PropertyInfo P_Start_Time = new PropertyInfo();
         P_Start_Time.setName("Start_Time");
         P_Start_Time.setValue(obj.getStart_Time());
         P_Start_Time.setType(String.class);
         request.addProperty(P_Start_Time);
 
-        PropertyInfo P_Tr_Data= new PropertyInfo();
+        PropertyInfo P_Tr_Data = new PropertyInfo();
         P_Tr_Data.setName("Tr_Data");
         P_Tr_Data.setValue(obj.getTr_Data());
         P_Tr_Data.setType(String.class);
         request.addProperty(P_Tr_Data);
 
-        PropertyInfo P_ManNo= new PropertyInfo();
+        PropertyInfo P_ManNo = new PropertyInfo();
         P_ManNo.setName("ManNo");
         P_ManNo.setValue(obj.getManNo());
         P_ManNo.setType(String.class);
         request.addProperty(P_ManNo);
 
-
-
-
-        PropertyInfo P_no= new PropertyInfo();
+        PropertyInfo P_no = new PropertyInfo();
         P_no.setName("no");
         P_no.setValue(obj.getNo());
         P_no.setType(String.class);
         request.addProperty(P_no);
 
-        PropertyInfo P_OrderNo= new PropertyInfo();
+        PropertyInfo P_OrderNo = new PropertyInfo();
         P_OrderNo.setName("OrderNo");
         P_OrderNo.setValue(obj.getOrderNo());
         P_OrderNo.setType(String.class);
         request.addProperty(P_OrderNo);
 
-        PropertyInfo P_Duration= new PropertyInfo();
+        PropertyInfo P_Duration = new PropertyInfo();
         P_Duration.setName("Duration");
         P_Duration.setValue(obj.getDuration());
         P_Duration.setType(String.class);
         request.addProperty(P_Duration);
 
-        PropertyInfo P_VisitType= new PropertyInfo();
+        PropertyInfo P_VisitType = new PropertyInfo();
         P_VisitType.setName("VisitType");
         P_VisitType.setValue("");
         P_VisitType.setType(String.class);
         request.addProperty(P_VisitType);
 
-        PropertyInfo P_X= new PropertyInfo();
+        PropertyInfo P_X = new PropertyInfo();
         P_X.setName("X");
         P_X.setValue("");
         P_X.setType(String.class);
         request.addProperty(P_X);
 
-        PropertyInfo P_Y= new PropertyInfo();
+        PropertyInfo P_Y = new PropertyInfo();
         P_Y.setName("Y");
         P_Y.setValue("");
         P_Y.setType(String.class);
         request.addProperty(P_Y);
 
-        PropertyInfo P_Locat= new PropertyInfo();
+        PropertyInfo P_Locat = new PropertyInfo();
         P_Locat.setName("Locat");
         P_Locat.setValue("");
         P_Locat.setType(String.class);
         request.addProperty(P_Locat);
 
-        PropertyInfo P_VisitType1= new PropertyInfo();
+        PropertyInfo P_VisitType1 = new PropertyInfo();
         P_VisitType1.setName("VisitType1");
         P_VisitType1.setValue("");
         P_VisitType1.setType(String.class);
         request.addProperty(P_VisitType1);
 
-        PropertyInfo P_VisitType2= new PropertyInfo();
+        PropertyInfo P_VisitType2 = new PropertyInfo();
         P_VisitType2.setName("VisitType2");
         P_VisitType2.setValue("");
         P_VisitType2.setType(String.class);
         request.addProperty(P_VisitType2);
 
-        PropertyInfo P_VisitType3= new PropertyInfo();
+        PropertyInfo P_VisitType3 = new PropertyInfo();
         P_VisitType3.setName("VisitType3");
         P_VisitType3.setValue("");
         P_VisitType3.setType(String.class);
         request.addProperty(P_VisitType3);
 
-        PropertyInfo P_VisitType4= new PropertyInfo();
+        PropertyInfo P_VisitType4 = new PropertyInfo();
         P_VisitType4.setName("VisitType4");
         P_VisitType4.setValue("");
         P_VisitType4.setType(String.class);
         request.addProperty(P_VisitType4);
 
-        PropertyInfo P_Po_Order= new PropertyInfo();
+        PropertyInfo P_Po_Order = new PropertyInfo();
         P_Po_Order.setName("Po_Order");
         P_Po_Order.setValue("");
         P_Po_Order.setType(String.class);
         request.addProperty(P_Po_Order);
 
-        PropertyInfo P_Notes= new PropertyInfo();
+        PropertyInfo P_Notes = new PropertyInfo();
         P_Notes.setName("Notes");
         P_Notes.setValue("");
         P_Notes.setType(String.class);
         request.addProperty(P_Notes);
 
-
-        PropertyInfo P_COMPUTERNAME= new PropertyInfo();
+        PropertyInfo P_COMPUTERNAME = new PropertyInfo();
         P_COMPUTERNAME.setName("COMPUTERNAME");
         P_COMPUTERNAME.setValue("");
         P_COMPUTERNAME.setType(String.class);
         request.addProperty(P_COMPUTERNAME);
 
 
-
-
-
-
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
-        envelope.dotNet=true;
+        envelope.dotNet = true;
         envelope.setOutputSoapObject(request);
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-        Object  response =null;
+        Object response = null;
         try {
-            androidHttpTransport.call( "http://tempuri.org/SaveALLVisits", envelope);
-            SoapObject result  = (SoapObject) envelope.getResponse();
+            androidHttpTransport.call("http://tempuri.org/SaveALLVisits", envelope);
+            SoapObject result = (SoapObject) envelope.getResponse();
             // Assign it to resTxt variable static variable
-            We_Result.Msg =  result.getProperty("Msg").toString();
+            We_Result.Msg = result.getProperty("Msg").toString();
             We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
         } catch (Exception e) {
-            We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"  ;//+ e.getMessage().toString();
+            We_Result.Msg = "عملية الاتصال بالسيرفر لم تتم بنجاح";//+ e.getMessage().toString();
             We_Result.ID = Long.parseLong("-404");
             //Print error
             e.printStackTrace();
             //Assign error message to resTxt
             resTxt = "Error occured";
         }
-        return   We_Result.ID;
+        return We_Result.ID;
         //Return resTxt to calling object
-
     }
+
     public long SaveCustNotes(Cls_CustNotes obj) {
 
         We_Result.Msg =  ""     ;
@@ -429,9 +421,6 @@ public class CallWebServices  {
 
 
 
-
-
-
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER11);
         envelope.dotNet=true;
@@ -454,9 +443,10 @@ public class CallWebServices  {
         }
         return   We_Result.ID;
         //Return resTxt to calling object
-
     }
-    public long PostManTrans(  String ManNo,String CustNo,String ScreenCode,String ActionNo,String TransNo, String Trans_Date,String TabletId,String BattryCharge ,String   Notes) {
+
+
+    public long PostManTrans(String ManNo,String CustNo,String ScreenCode,String ActionNo,String TransNo, String Trans_Date,String TabletId,String BattryCharge ,String   Notes) {
 
         We_Result.Msg = "";
         We_Result.ID = -1;

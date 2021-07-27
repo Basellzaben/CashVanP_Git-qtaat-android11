@@ -40,13 +40,25 @@ import java.util.Locale;
 import header.Header_Frag;
 
 public class ManBalanceQtyActivity extends AppCompatActivity {
+
+
+
+    public void c( ArrayList<Cls_Man_Balanc> x){
+        Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
+                ManBalanceQtyActivity.this, x);
+        lst_Items.setAdapter(cls_trans_qty_adapter);
+        cls_trans_qty_adapter.notifyDataSetChanged();
+    }
+
 ListView lst_Items ;
+    ArrayList<Cls_Man_Balanc> fil;
     ArrayList<Cls_Man_Balanc>   cls_trans_qties ;
     TextView tv_RowCount ;
     SqlHandler sqlHandler;
     String UserID= "";
     Boolean IsNew;
     EditText Maxpo;
+    Cls_Man_Qty_Adapter cls_trans_qty_adapter ;
     TextView itemName;
     String ItemSearch;
     String MaxSaleInvoiceNo = "";
@@ -56,6 +68,7 @@ ListView lst_Items ;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_balance_qty);
         Toast.makeText(ManBalanceQtyActivity.this,"يجب تحديث البيانات قبل بدء التسوية",Toast.LENGTH_LONG).show();
+        fil = new ArrayList<Cls_Man_Balanc>();
 
         Fragment frag = new Header_Frag();
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
@@ -69,11 +82,19 @@ ListView lst_Items ;
 
         itemName = (EditText)findViewById(R.id.et_ItemName);
 
+
+
+
+
+
         itemName.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+               //    search(s.toString());
 
+
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -83,7 +104,15 @@ ListView lst_Items ;
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                SearchByName(itemName.getText().toString());
+
+                    search(s.toString());
+
+
+
+
+             /* SearchByName(itemName.getText().toString());
+                cls_trans_qty_adapter=new Cls_Man_Qty_Adapter(ManBalanceQtyActivity.this);
+                cls_trans_qty_adapter.getFilter().filter(itemName.getText().toString());*/
             }
         });
 
@@ -210,7 +239,6 @@ ListView lst_Items ;
                     lst_Items.setAdapter(cls_trans_qty_adapter);
                    cls_trans_qty_adapter.notifyDataSetChanged();
                 }
-
 
 
 
@@ -493,7 +521,7 @@ ListView lst_Items ;
                     SqlHandler sqlHandler = new SqlHandler(ManBalanceQtyActivity.this);
 
                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ManBalanceQtyActivity.this);
-                   String u =  sharedPreferences.getString("UserID", "");
+                   String u = sharedPreferences.getString("UserID", "");
 
                    if(AllowSalInvMinus==1){
                        q = " Select distinct  ifnull(Unites.Unitno,0)as  Unitno,  ifnull(ms.ser,0) as ser, ifnull(ms.docno,0) as docno ,ifnull(ms.StoreName,0)  as StoreName, ifnull(invf.Item_No,0) as itemno  , ifnull(invf.Item_Name,0) as Item_Name" +
@@ -626,6 +654,148 @@ ListView lst_Items ;
 
     }
 
+    public void search(String s){
+        Cls_Man_Balanc cls_trans_qty = new Cls_Man_Balanc();
+
+        if(s.equals("") || s.isEmpty() || s==null){
+
+
+           /* for (int i = 0; i < cls_trans_qties.size(); i++) {
+                String data = cls_trans_qties.get(i).getItem_Name();
+                if (data.toLowerCase().startsWith(s)) {
+                    //  cls_trans_qty = cls_trans_qties.get(i);
+                    //   String data = cls_trans_qties.get(i).getItem_Name();
+
+
+                    cls_trans_qty = new Cls_Man_Balanc();
+
+                    cls_trans_qty.setItemno(cls_trans_qties.get(i).getItemno());
+                    cls_trans_qty.setItem_Name(cls_trans_qties.get(i).getItem_Name());
+                    cls_trans_qty.setUnitNo(cls_trans_qties.get(i).getUnitNo());
+                    cls_trans_qty.setQtyAcc(cls_trans_qties.get(i).getQtyAcc());
+                    cls_trans_qty.setUnitName(cls_trans_qties.get(i).getUnitName());
+                    cls_trans_qty.setQtySaled(cls_trans_qties.get(i).getQtySaled());
+                    cls_trans_qty.setQty(cls_trans_qties.get(i).getQty());
+                    cls_trans_qty.setAct_Aty(cls_trans_qties.get(i).getAct_Aty());
+                    if (cls_trans_qties.get(i).getDiff() == null)
+                        cls_trans_qty.setDiff("0");
+                    else
+                        cls_trans_qty.setDiff(cls_trans_qties.get(i).getDiff());
+
+                    if(cls_trans_qties.get(i).getItem_Name().startsWith(s))
+                    fil.add(cls_trans_qty);
+
+                }
+            }
+
+            Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
+                    ManBalanceQtyActivity.this, fil);
+            lst_Items.setAdapter(cls_trans_qty_adapter);
+            cls_trans_qty_adapter.notifyDataSetChanged();
+*/
+
+            //Toast.makeText(M
+
+            Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
+                    ManBalanceQtyActivity.this, cls_trans_qties);
+            lst_Items.setAdapter(cls_trans_qty_adapter);
+
+
+
+        }else {
+
+            //  cls_trans_qties = new ArrayList<Cls_Man_Balanc>();
+            fil.clear();
+
+            for (int i = 0; i < cls_trans_qties.size(); i++) {
+
+                //  cls_trans_qty = cls_trans_qties.get(i);
+                String data = cls_trans_qties.get(i).getItem_Name();
+              //  if (data.toLowerCase().startsWith(s)) {
+
+                    cls_trans_qty = new Cls_Man_Balanc();
+
+
+                    cls_trans_qty.setItemno(cls_trans_qties.get(i).getItemno());
+                    cls_trans_qty.setItem_Name(cls_trans_qties.get(i).getItem_Name());
+                    cls_trans_qty.setUnitNo(cls_trans_qties.get(i).getUnitNo());
+                    cls_trans_qty.setQtyAcc(cls_trans_qties.get(i).getQtyAcc());
+                    cls_trans_qty.setUnitName(cls_trans_qties.get(i).getUnitName());
+                    cls_trans_qty.setQtySaled(cls_trans_qties.get(i).getQtySaled());
+                    cls_trans_qty.setQty(cls_trans_qties.get(i).getQty());
+                    cls_trans_qty.setAct_Aty(cls_trans_qties.get(i).getAct_Aty());
+
+
+                    if(cls_trans_qties.get(i).getDiff()==null)
+                        cls_trans_qty.setDiff("0");
+                    else
+                    cls_trans_qty.setDiff(cls_trans_qties.get(i).getDiff());
+
+                    if(cls_trans_qties.get(i).getItem_Name().startsWith(s))
+                    fil.add(cls_trans_qty);
+else
+    continue;
+
+             //   }
+            }
+
+            Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
+                    ManBalanceQtyActivity.this, fil);
+            lst_Items.setAdapter(cls_trans_qty_adapter);
+            cls_trans_qty_adapter.notifyDataSetChanged();
+
+
+            //Toast.makeText(ManBalanceQtyActivity.this,lst_Items.getCount(),Toast.LENGTH_SHORT).show();
+        }
+    }
+
+public void s(String s){
+    Cls_Man_Balanc cls_trans_qty = new Cls_Man_Balanc();
+
+    for (int i = 0; i < cls_trans_qties.size(); i++) {
+
+        //  cls_trans_qty = cls_trans_qties.get(i);
+        String data = cls_trans_qties.get(i).getItem_Name();
+        if (data.toLowerCase().startsWith(s)) {
+
+
+
+            cls_trans_qty = new Cls_Man_Balanc();
+
+
+            cls_trans_qty.setItemno(cls_trans_qties.get(i).getItemno());
+            cls_trans_qty.setItem_Name(cls_trans_qties.get(i).getItem_Name());
+            cls_trans_qty.setUnitNo(cls_trans_qties.get(i).getUnitNo());
+            cls_trans_qty.setQtyAcc(cls_trans_qties.get(i).getQtyAcc());
+            cls_trans_qty.setUnitName(cls_trans_qties.get(i).getUnitName());
+            cls_trans_qty.setQtySaled(cls_trans_qties.get(i).getQtySaled());
+            cls_trans_qty.setQty(cls_trans_qties.get(i).getQty());
+            cls_trans_qty.setAct_Aty(cls_trans_qties.get(i).getAct_Aty());
+
+
+            if(cls_trans_qties.get(i).getDiff()==null)
+                cls_trans_qty.setDiff("0");
+            else
+                cls_trans_qty.setDiff(cls_trans_qties.get(i).getDiff());
+
+            if(cls_trans_qties.get(i).getItem_Name().startsWith(s))
+                fil.add(cls_trans_qty);
+
+
+        }
+    }
+
+    Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
+            ManBalanceQtyActivity.this, fil);
+    lst_Items.setAdapter(cls_trans_qty_adapter);
+    cls_trans_qty_adapter.notifyDataSetChanged();
+
+
+    //Toast.makeText(ManBalanceQtyActivity.this,lst_Items.getCount(),Toast.LENGTH_SHORT).show();
+}
+
+
+
    // sih.Post = -1  and
     private Double GetSaledQtyNotPosted(String ItemNo ){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -691,15 +861,52 @@ ListView lst_Items ;
     }
 
     public  void SaveQty(String ActQty , String Diff){
-        cls_trans_qties.get(position).setAct_Aty(ActQty);
-        cls_trans_qties.get(position).setDiff(Diff);
 
-        Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
-                ManBalanceQtyActivity.this, cls_trans_qties);
-        cls_trans_qty_adapter.notifyDataSetChanged() ;
+
+
+        EditText et_ItemName=(EditText)findViewById(R.id.et_ItemName);
+
+        if(et_ItemName.getText().toString().isEmpty() || et_ItemName.getText().toString().equals("")) {
+            cls_trans_qties.get(position).setAct_Aty(ActQty);
+            cls_trans_qties.get(position).setDiff(Diff);
+            for(int i=0;i<fil.size();i++){
+                if(cls_trans_qties.get(position).getItemno().equals(fil.get(i).getItemno())){
+                    fil.get(i).setAct_Aty(ActQty);
+                    fil.get(i).setDiff(Diff);
+                 //   Toast.makeText(ManBalanceQtyActivity.this,"empty done edit = "+Diff,Toast.LENGTH_SHORT).show();
+
+                }
+            }
+            Cls_Man_Qty_Adapter cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
+                    ManBalanceQtyActivity.this, cls_trans_qties);
+            cls_trans_qty_adapter.notifyDataSetChanged();
+
+          //  Toast.makeText(ManBalanceQtyActivity.this,"empty done edit",Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+            fil.get(position).setAct_Aty(ActQty);
+            fil.get(position).setDiff(Diff);
+for(int i=0;i<cls_trans_qties.size();i++){
+    if(fil.get(position).getItemno().equals(cls_trans_qties.get(i).getItemno())){
+        cls_trans_qties.get(i).setAct_Aty(ActQty);
+        cls_trans_qties.get(i).setDiff(Diff);
+    }
+}
+            cls_trans_qty_adapter = new Cls_Man_Qty_Adapter(
+                    ManBalanceQtyActivity.this, fil);
+            cls_trans_qty_adapter.notifyDataSetChanged();
+          //  Toast.makeText(ManBalanceQtyActivity.this,"full done edit",Toast.LENGTH_SHORT).show();
+
+        }
+
      /* lst_Items.setAdapter(cls_trans_qty_adapter);
         lst_Items.scrollBy(0,0);*/
      lst_Items.invalidateViews();
+
+
+
+
     }
     public void btn_save_po(View view) {
         TextView pono = (TextView)findViewById(R.id.et_OrdeNo);
@@ -798,7 +1005,7 @@ else {
                 cv.put("Unit_No", cls_trans_qty.getUnitNo().toString());
                 cv.put("Qty", cls_trans_qty.getQty().toString());
                 cv.put("ActQty", cls_trans_qty.getAct_Aty().toString());
-                cv.put("Diff",cls_trans_qty.getDiff()==null?"0": cls_trans_qty.getDiff().toString());
+                cv.put("Diff", cls_trans_qty.getDiff()==null?"0": cls_trans_qty.getDiff().toString());
                 cv.put("UserID", UserID);
                 cv.put("date", currentDateandTime);
                 cv.put("posted", "-1");

@@ -125,6 +125,15 @@
                 android:scrollIndicators="top"
                 android:textColor="#000" />
 
+            <ImageButton
+                android:id="@+id/searcitem"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_cir_white_fill_black"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_search" />
+
             <EditText
                 android:id="@+id/et_ItemName"
                 android:layout_width="150dp"

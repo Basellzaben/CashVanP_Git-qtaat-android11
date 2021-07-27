@@ -6,6 +6,10 @@ package com.cds_jo.GalaxySalesApp;
 public class Cls_Man_Balanc {
 
 
+
+
+
+
     public String getQtyAcc() {
         return qtyAcc;
     }
@@ -115,5 +119,19 @@ public class Cls_Man_Balanc {
 
     String diff;
 
+    public Cls_Man_Balanc() {
+    }
 
+    public Cls_Man_Balanc(String qtyAcc, String qtySaled, String item_Name, String act_Aty, String itemno, String qty, String unitNo, String unitRate, String unitName, String diff) {
+        this.qtyAcc = qtyAcc;
+        this.qtySaled = qtySaled;
+        Item_Name = item_Name;
+        Act_Aty = act_Aty;
+        this.itemno = itemno;
+        this.qty = qty;
+        UnitNo = unitNo;
+        UnitRate = unitRate;
+        UnitName = unitName;
+        this.diff = diff;
+    }
 }

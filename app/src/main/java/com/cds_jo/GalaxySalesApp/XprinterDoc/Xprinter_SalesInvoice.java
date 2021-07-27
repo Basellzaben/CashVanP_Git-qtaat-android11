@@ -760,8 +760,9 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                             .getColumnIndex("tax_Amt")));
                     contactListItems.setUnite(c1.getString(c1
                             .getColumnIndex("UnitName")));
-                    contactListItems.setTotal(c1.getString(c1
-                            .getColumnIndex("total")));
+                    contactListItems.setTotal(String.format(
+                            Locale.ENGLISH, "%.3f",c1.getString(c1
+                            .getColumnIndex("total"))));
 
                     contactListItems.setPro_dis_Per(c1.getString(c1
                             .getColumnIndex("Pro_dis_Per")));
@@ -978,10 +979,11 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                 /*    contactListItems.setTotal(c1.getString(c1
                             .getColumnIndex("total")));*/
                     if(getIntent().getStringExtra("Tax_Include").equals("0"))
-                    { contactListItems.setTotal(String.valueOf(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
+                    { contactListItems.setTotal(String.format(
+                            Locale.ENGLISH, "%.3f",String.valueOf(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
                             *
                             SToD(c1.getString(c1
-                                    .getColumnIndex("qty")))));
+                                    .getColumnIndex("qty"))))));
                         double   RowTotal =(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
                                 *
                                 SToD(c1.getString(c1
@@ -1004,10 +1006,11 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                     }
                     else
                     {
-                        contactListItems.setTotal(String.valueOf(SToD(c1.getString(c1.getColumnIndex("price")))
+                        contactListItems.setTotal(String.format(
+                                Locale.ENGLISH, "%.3f",String.valueOf(SToD(c1.getString(c1.getColumnIndex("price")))
                                 *
                                 SToD(c1.getString(c1
-                                        .getColumnIndex("qty")))));
+                                        .getColumnIndex("qty"))))));
                         double   RowTotal =(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
                                 *
                                 SToD(c1.getString(c1
