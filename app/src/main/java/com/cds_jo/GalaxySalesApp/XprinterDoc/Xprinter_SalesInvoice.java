@@ -927,7 +927,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
         ArrayList<ContactListItems> contactList = new ArrayList<ContactListItems>();
         contactList.clear();
         sqlHandler = new SqlHandler(this);
-        String query = "SELECT  distinct sid.itemNo,sid.OrgPrice ,sid.price,sid.tax,u.UnitName  , sid.tax_Amt,  ( ifnull(sid.qty,0) +  ifnull(sid.Pro_bounce,0))  as qty, ifnull(bounce_qty,0)   as bounce_qty  ,invf.Item_Name  ,  sid.total    " +
+        String query = "SELECT  distinct sid.itemNo,sid.OrgPrice ,sid.price,sid.tax,u.UnitName  , sid.tax_Amt ,  ( ifnull(sid.qty,0) +  ifnull(sid.Pro_bounce,0))  as qty, ifnull(bounce_qty,0)   as bounce_qty  ,invf.Item_Name  ,  sid.total " +
                 " , ifnull(sid.Pro_dis_Per,0) as Pro_dis_Per ,ifnull(sid.dis_Amt,0) as dis_Amt     FROM Sal_invoice_Det   sid    Left Join Unites u on u.Unitno =sid.unitNo " +
                 "Left Join invf on   invf.Item_No=sid.itemNo  where sid.OrderNo =  '"+  i.getStringExtra("OrderNo").toString()+"'";
 
@@ -970,8 +970,9 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                             .getColumnIndex("qty")));
                     contactListItems.setBounce(c1.getString(c1
                             .getColumnIndex("bounce_qty")));
-                    contactListItems.setTax(c1.getString(c1
-                            .getColumnIndex("tax_Amt")));
+
+                /*    contactListItems.setTax(c1.getString(c1
+                            .getColumnIndex("tax_Amt")));*/
                     contactListItems.setUnite(c1.getString(c1
                             .getColumnIndex("UnitName")));
                 /*    contactListItems.setTotal(c1.getString(c1
@@ -981,6 +982,24 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                             *
                             SToD(c1.getString(c1
                                     .getColumnIndex("qty")))));
+                        double   RowTotal =(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
+                                *
+                                SToD(c1.getString(c1
+                                        .getColumnIndex("qty"))));
+                        double TaxFactor = (  SToD(c1.getString(c1
+                                .getColumnIndex("tax"))) / 100);
+                        double NetRow = RowTotal;
+             /*if(Tax_Include.isChecked()) {
+                 TaxAmt = NetRow - ( NetRow / (TaxFactor + 1)) ;
+                  TaxAmt = NetRow - ( NetRow / (TaxFactor + 1)) ;
+             }
+             else {
+                TaxAmt = NetRow  *  TaxFactor ;
+           }*/
+                        double sum = NetRow * TaxFactor;
+                      //  double TaxAmt = RowTotal - sum;
+                        contactListItems.setTax(String.format(
+                                Locale.ENGLISH, "%.3f",sum));
 
                     }
                     else
@@ -989,13 +1008,31 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                                 *
                                 SToD(c1.getString(c1
                                         .getColumnIndex("qty")))));
-
+                        double   RowTotal =(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
+                                *
+                                SToD(c1.getString(c1
+                                        .getColumnIndex("qty"))));
+                        double TaxFactor = (  SToD(c1.getString(c1
+                                .getColumnIndex("tax"))) / 100)+1;
+                        double NetRow = RowTotal;
+             /*if(Tax_Include.isChecked()) {
+                 TaxAmt = NetRow - ( NetRow / (TaxFactor + 1)) ;
+                  TaxAmt = NetRow - ( NetRow / (TaxFactor + 1)) ;
+             }
+             else {
+                TaxAmt = NetRow  *  TaxFactor ;
+           }*/
+                        double sum = NetRow / TaxFactor;
+                        double TaxAmt = RowTotal - sum;
+                        contactListItems.setTax(String.format(
+                                Locale.ENGLISH, "%.3f",TaxAmt));
                     }
 
                     contactListItems.setPro_dis_Per(c1.getString(c1
                             .getColumnIndex("Pro_dis_Per")));
 
 
+                  //  contactListItems.setTax_Amt(df.format(TaxAmt).toString());
                     Pro = Pro + (SToD(c1.getString(c1.getColumnIndex("Pro_dis_Per"))) / 100) * (SToD(c1.getString(c1.getColumnIndex("price"))) * SToD(c1.getString(c1.getColumnIndex("qty"))));
                     Dis_Amt = Dis_Amt + SToD(c1.getString(c1.getColumnIndex("dis_Amt")));
                     contactList.add(contactListItems);
@@ -1097,7 +1134,7 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
             tv_Qty.setText(Obj.getQty());
             tv_Unit.setText(Obj.getUnite() );
             tv_tax.setText(Obj.getTax());
-            tv_total.setText(Obj.getTotal());
+            tv_total.setText(String.valueOf(SToD(Obj.getTotal())+SToD(Obj.getTax())));
             tv_tax.setText(Obj.getTax());
             tv_bonce.setText(Obj.getBounce());
             tv_tax.setVisibility(View.VISIBLE);
