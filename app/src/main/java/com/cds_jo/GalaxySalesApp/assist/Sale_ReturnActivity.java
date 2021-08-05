@@ -1109,6 +1109,31 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
     }
     public void btn_save_po(final View view) {
+        CheckBox chk_Type =(CheckBox)findViewById(R.id.chk_Type);
+        TextView accno = (TextView) findViewById(R.id.tv_acc);
+        String HowPay = DB.GetValue(Sale_ReturnActivity.this, "Customers", "Pay_How", "no ='" + accno.getText().toString() + "' ");
+        if(HowPay.equals("1"))
+        {
+            if(chk_Type.isChecked())
+            {
+
+            }
+            else
+            {
+                AlertDialog alertDialog = new AlertDialog.Builder(
+                        this).create();
+                alertDialog.setTitle("المجرة الدولية");
+                alertDialog.setMessage("لا يمكن بيع العميل فواتير ذمم");
+                alertDialog.setIcon(R.drawable.error_new);
+                alertDialog.setButton("موافق ", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertDialog.show();
+                return;
+            }
+        }
         TextView NetTotal = (TextView) findViewById(R.id.tv_NetTotal);
 
         Double TempTotal = 0.0;

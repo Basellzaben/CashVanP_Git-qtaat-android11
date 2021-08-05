@@ -857,7 +857,10 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
             tv_Qty.setText(Obj.getQty());
             tv_Unit.setText(Obj.getUnite() );
             tv_tax.setText(Obj.getTax());
-            tv_total.setText(Obj.getTotal());
+
+            tv_total.setText( String.format(
+                    Locale.ENGLISH, "%.3f",(Obj.getTotal()+"")));
+
             tv_tax.setText(Obj.getTax());
             tv_tax.setVisibility(View.VISIBLE);
             if (ShowTax.equals("0")) {
@@ -979,11 +982,14 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                 /*    contactListItems.setTotal(c1.getString(c1
                             .getColumnIndex("total")));*/
                     if(getIntent().getStringExtra("Tax_Include").equals("0"))
-                    { contactListItems.setTotal(String.format(
-                            Locale.ENGLISH, "%.3f",String.valueOf(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
-                            *
-                            SToD(c1.getString(c1
-                                    .getColumnIndex("qty"))))));
+                    {
+                        double q=(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
+                                *
+                                SToD(c1.getString(c1
+                                        .getColumnIndex("qty"))));
+                        contactListItems.setTotal(String.format(
+                            Locale.ENGLISH, "%.3f",q));
+
                         double   RowTotal =(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
                                 *
                                 SToD(c1.getString(c1
@@ -1006,11 +1012,14 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
                     }
                     else
                     {
-                        contactListItems.setTotal(String.format(
-                                Locale.ENGLISH, "%.3f",String.valueOf(SToD(c1.getString(c1.getColumnIndex("price")))
+                        double q=(SToD(c1.getString(c1.getColumnIndex("price")))
                                 *
                                 SToD(c1.getString(c1
-                                        .getColumnIndex("qty"))))));
+                                        .getColumnIndex("qty"))));
+                        contactListItems.setTotal(String.format(
+                                Locale.ENGLISH, "%.3f",q));
+
+
                         double   RowTotal =(SToD(c1.getString(c1.getColumnIndex("OrgPrice")))
                                 *
                                 SToD(c1.getString(c1
@@ -1137,7 +1146,8 @@ public class Xprinter_SalesInvoice extends FragmentActivity {
             tv_Qty.setText(Obj.getQty());
             tv_Unit.setText(Obj.getUnite() );
             tv_tax.setText(Obj.getTax());
-            tv_total.setText(String.valueOf(SToD(Obj.getTotal())+SToD(Obj.getTax())));
+            tv_total.setText(String.format(
+                    Locale.ENGLISH, "%.3f",(SToD(Obj.getTotal())+SToD(Obj.getTax()))));
             tv_tax.setText(Obj.getTax());
             tv_bonce.setText(Obj.getBounce());
             tv_tax.setVisibility(View.VISIBLE);

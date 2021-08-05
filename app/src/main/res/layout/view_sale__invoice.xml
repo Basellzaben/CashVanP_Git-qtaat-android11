@@ -32,6 +32,7 @@
             </FrameLayout>
 
         </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/dd1"
             android:layout_width="match_parent"
@@ -45,8 +46,8 @@
             <RelativeLayout
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="215dp"
                 android:background="@mipmap/row2"
                 android:gravity="center">
@@ -66,8 +67,8 @@
             <LinearLayout
                 android:layout_width="240dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
                 android:layout_gravity="right"
                 android:background="@mipmap/row1"
                 android:gravity="center"
@@ -83,15 +84,12 @@
             </LinearLayout>
 
 
-
             <ImageView
                 android:id="@+id/Img_Menu"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
                 android:src="@mipmap/icon_menu" />
-
-
 
 
         </RelativeLayout>
@@ -366,7 +364,7 @@
                 <TextView
                     android:id="@+id/tv_CustNetTotal"
                     android:layout_width="100dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/btn_cir_white_fill_black"
                     android:gravity="center"

@@ -1,9 +1,11 @@
 package com.cds_jo.GalaxySalesApp;
 
 import android.app.DialogFragment;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -32,6 +34,7 @@ import com.cds_jo.GalaxySalesApp.assist.OrdersItems;
 import com.cds_jo.GalaxySalesApp.assist.Sale_InvoiceActivity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -216,42 +219,58 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
 
             } else {
                 String dayWeek = DB.GetValue(getActivity(), "ServerDateTime", "DAYWEEK", "1=1");
-                String q = "1=1";
-                if (dayWeek.equalsIgnoreCase( "7")) {
-                    q = " sat = '1' ";
-                }
-                if (dayWeek.equalsIgnoreCase( "1")) {
-                    q = " sun = '1' ";
-                }
-                if (dayWeek.equalsIgnoreCase( "2")){
-                    q = " mon = '1' ";
-                }
+                */
+        Calendar c1 = Calendar.getInstance();
+        final int dayOfWeek = c1.get(Calendar.DAY_OF_WEEK);
 
-                if (dayWeek.equalsIgnoreCase( "3")) {
-                    q = " tues = '1' ";
-                }
-                if (dayWeek.equalsIgnoreCase( "4")) {
-                    q = " wens = '1' ";
-                }
-                if (dayWeek.equalsIgnoreCase("5")) {
-                    q = " thurs = '1' ";
-                }
-                if (dayWeek.equalsIgnoreCase("6")) {
-                    q = " thurs = '111' ";
-                }
-                if (t.toString().equals("")) {
-                        query = "Select * from Customers  Where   " +q+" ";//   Customers.Cust_type='"+Cust_type+"'";
-                } else {
-                    query = "Select * from Customers where  "+q+"   AND ( name like '%" + t + "%' or  no like '%" + t + "%' )";//  And Customers.Cust_type='"+Cust_type+"'";
-                }
-            }
-        }*/
+                String q ;
+        q="-1";
 
-        if (t.toString().equals("")) {
+        if (dayOfWeek== 7 )
+            q = " sat = '1' ";
+
+        else  if (dayOfWeek == 1 )
+            q = " sun = '1' ";
+
+        else  if (dayOfWeek == 2 )
+            q = " mon = '1' ";
+
+
+        else if (dayOfWeek == 3 )
+            q = " tues = '1' ";
+
+        else  if (dayOfWeek == 4 )
+            q = " wens = '1' ";
+
+        else  if  (dayOfWeek == 5 )
+            q = " thurs = '1' ";
+
+
+
+   /*     if (t.toString().equals("")) {
             query = "Select * from Customers  ";//   Customers.Cust_type='"+Cust_type+"'";
         } else {
             query = "Select * from Customers where name like '%" + t + "%' or  no like '%" + t + "%'";//  And Customers.Cust_type='"+Cust_type+"'";
+        }*/
+        ComInfo.ComNo = Integer.parseInt(DB.GetValue(getActivity(), "ComanyInfo", "CompanyID", "1=1"));
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String  UserID = sharedPreferences.getString("UserID", "");
+
+        if(ComInfo.ComNo==4 && UserID.equalsIgnoreCase("")){
+            q = "'1' = '1' ";
         }
+
+
+
+        if (t.toString().equals("")){
+            query = "   Select DISTINCT  no,name ,Address , Note2 ,'' as Mobile  ,ifnull(Latitude,0) as Latitude   , ifnull(Longitude,0) as Longitude" +
+                    "   ,ifnull(barCode,-1)  as barCode  from Customers where  " + q;
+        }
+        else {
+            query = "   Select DISTINCT  no,name ,Address , Note2 ,'' as Mobile  ,ifnull(Latitude,0) as Latitude   , ifnull(Longitude,0) as Longitude " +
+                    ",ifnull(barCode,-1)  as barCode from Customers where (name like '%" + t + "%' or  no like '%" + t + "%')  and " + q;
+        }
+
 
         Cursor c = sqlHandler.selectQuery(query);
         ArrayList<Customers> customersesList = new ArrayList<Customers>();

@@ -638,7 +638,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         OrderNo =sharedPreferences.getString("V_OrderNo", "0");
-        if (ComInfo.ComNo == Companies.beutyLine.getValue()) {
+        if (ComInfo.ComNo == Companies.beutyLine.getValue()||ComInfo.ComNo == Companies.Afrah.getValue()) {
 
             q = "Select * from VisitImagesHdr where V_OrderNo='" + sharedPreferences.getString("V_OrderNo", "0") + "'";
             Cursor c = sqlHandler.selectQuery(q);
@@ -655,8 +655,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     }
                 });
-              //  alertDialog.show();
-              //  return;
+                alertDialog.show();
+                return;
             }
         }
 

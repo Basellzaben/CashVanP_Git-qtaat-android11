@@ -456,7 +456,7 @@ public class VisitImges extends AppCompatActivity {
         try {
             destination.createNewFile();
             fo = new FileOutputStream(destination);
-            b.compress(Bitmap.CompressFormat.JPEG, 100, fo);
+            b.compress(Bitmap.CompressFormat.JPEG, 0, fo);
             fo.flush();
             fo.close();
 
@@ -477,9 +477,9 @@ public class VisitImges extends AppCompatActivity {
         sdf = new SimpleDateFormat("hh:mm:ss ", Locale.ENGLISH);
         currentDateandTime = sdf.format(new Date());
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        thumbnail = Bitmap.createScaledBitmap(thumbnail, 600, 600, false);
+        thumbnail = Bitmap.createScaledBitmap(thumbnail, 300, 300, false);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
         DIRECTORY = "//sdcard/Android/Cv_Images/VisitsImages/"+OrderNo.getText()+"/";
         StoredPath = DIRECTORY  +System.currentTimeMillis()+".png";
         String folder_main = "/Android/Cv_Images/VisitsImages/"+OrderNo.getText();
@@ -652,7 +652,8 @@ return  Desc;
             public void run() {
 
                 CallWebServices ws = new CallWebServices(VisitImges.this);
-                ws.Save_VisitImages( CustomerNo,OrderDate,UserNo,Visit_OrderNo,Order_No,ImageTime,ImageDesc,ImageBase64);
+              ws.Save_VisitImages( CustomerNo,OrderDate,UserNo,Visit_OrderNo,Order_No,ImageTime,ImageDesc,ImageBase64);
+           //  ws.Save_VisitImages(ImageBase64);
                 try {
 
                     if (We_Result.ID > 0) {
@@ -785,7 +786,7 @@ return  Desc;
 
         if (myBitmap != null) {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            myBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            myBitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
             byteArray = stream.toByteArray();
             ConvertToBase64= Base64.encodeToString(byteArray, Base64.DEFAULT);
 

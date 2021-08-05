@@ -53,7 +53,7 @@ public class CallWebServices  {
         //URL = "http://194.165.133.147:85/CV.asmx";// Okrania
         //URL = "http://92.253.127.230:92/CV.asmx";// mo8bl
 //URL = "http://109.107.238.12:3755/CV.asmx";// السعد
-//URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
+URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
 //URL = "http://192.168.1.146:82/CV.asmx";// khaldi
 //URL = "http://10.0.1.63:92/CV.asmx";// servar galaxy
@@ -61,8 +61,9 @@ public class CallWebServices  {
         //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
        //URL = "http://10.0.1.63:92/CV.asmx";// galaxy
-  //   URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
-     //  URL = "http://192.168.1.146:9767/CV.asmx";// galaxy
+ //   URL = "http://192.168.1.146:9767/CV.asmx";// galaxy
+ //   URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
+     // URL = "http://192.168.1.146:9767/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
         //moh
     }
@@ -2254,6 +2255,12 @@ public class CallWebServices  {
         String resTxt = null;
 
         SoapObject request = new SoapObject(NAMESPACE, "Save_Visit_Images");
+        PropertyInfo parm_ImgBase64 = new PropertyInfo();
+        parm_ImgBase64.setName("ImgBase64");
+        parm_ImgBase64.setValue(ImgBase64);
+        parm_ImgBase64.setType(String.class);
+        request.addProperty(parm_ImgBase64);
+
 
         PropertyInfo sayCustomerNo = new PropertyInfo();
         sayCustomerNo.setName("CustomerNo");
@@ -2300,11 +2307,7 @@ public class CallWebServices  {
 
 
 
-        PropertyInfo parm_ImgBase64 = new PropertyInfo();
-        parm_ImgBase64.setName("ImgBase64");
-        parm_ImgBase64.setValue(ImgBase64);
-        parm_ImgBase64.setType(String.class);
-        request.addProperty(parm_ImgBase64);
+
 
         PropertyInfo parm_Visit_OrderNo= new PropertyInfo();
         parm_Visit_OrderNo.setName("Visit_OrderNo");
@@ -2353,6 +2356,60 @@ public class CallWebServices  {
         //Return resTxt to calling object
 
     }
+ /*public void Save_VisitImages( String ImgBase64 ) {
+
+
+     String resTxt = null;
+
+     SoapObject request = new SoapObject(NAMESPACE, "Save_Visit_Images2");
+     PropertyInfo parm_ImgBase64 = new PropertyInfo();
+     parm_ImgBase64.setName("ImgBase64");
+     parm_ImgBase64.setValue(ImgBase64);
+     parm_ImgBase64.setType(String.class);
+     request.addProperty(parm_ImgBase64);
+
+
+
+
+
+     SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+             SoapEnvelope.VER11);
+     envelope.dotNet=true;
+
+     envelope.setOutputSoapObject(request);
+
+     HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+     Object  response =null;
+     try {
+
+         androidHttpTransport.call( "http://tempuri.org/Save_Visit_Images2", envelope);
+         SoapObject result  = (SoapObject) envelope.getResponse();
+         We_Result.Msg =  result.getProperty("Msg").toString();
+         We_Result.ID = Long.parseLong(result.getProperty("ID").toString());
+
+
+
+     } catch (NullPointerException   en){
+         We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"       ;
+         We_Result.ID = Long.parseLong("-404");
+         en.printStackTrace();
+         resTxt = "Error occured";
+
+     } catch (EOFException eof ){
+         We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"         ;
+         We_Result.ID = Long.parseLong("-404");
+         eof.printStackTrace();
+         resTxt = "Error occured";
+     }
+     catch (Exception e) {
+         We_Result.Msg =  "عملية الاتصال بالسيرفر لم تتم بنجاح"   ;// + String.valueOf(e.getMessage().toString());
+         We_Result.ID = Long.parseLong("-404");
+         e.printStackTrace();
+         resTxt = "Error occured";
+     }
+     //Return resTxt to calling object
+
+ }*/
     public void SavePrepareQty(String Json ) {
         We_Result.Msg="";
         We_Result.ID =-1;

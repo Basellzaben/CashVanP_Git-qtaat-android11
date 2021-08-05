@@ -1977,8 +1977,30 @@ flagV =0;
         }
     }
     public void btn_save_po(final View view) {
+        CheckBox chk_Type =(CheckBox)findViewById(R.id.chk_Type);
+        String HowPay = DB.GetValue(Sale_InvoiceActivity.this, "Customers", "Pay_How", "no ='" + tv_acc.getText().toString() + "' ");
+if(HowPay.equals("1"))
+{
+    if(chk_Type.isChecked())
+    {
 
+    }
+    else
+    {
+        AlertDialog alertDialog = new AlertDialog.Builder(
+                this).create();
+        alertDialog.setTitle("المجرة الدولية");
+        alertDialog.setMessage("لا يمكن بيع العميل فواتير ذمم");
+        alertDialog.setIcon(R.drawable.error_new);
+        alertDialog.setButton("موافق ", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
 
+            }
+        });
+        alertDialog.show();
+        return;
+    }
+}
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("update","0");
@@ -2190,7 +2212,8 @@ flagV =0;
                     }
 
                     if(DocType==2 || ComInfo.ComNo == Companies.beutyLine.getValue() || ComInfo.ComNo == Companies.Afrah.getValue() ){
-                        Save_Recod_Po();
+                        //Save_Recod_Po();
+                        CheckCeling();
                     }else {
                         CheckCeling();
                     }
