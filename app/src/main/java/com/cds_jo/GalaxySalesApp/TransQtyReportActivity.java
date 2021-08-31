@@ -193,9 +193,12 @@ CheckBox chk_hdr_disc ;
                                 .getColumnIndex("Item_Name")));
                         cls_trans_qty.setUnitNo(c.getString(c
                                 .getColumnIndex("UnitName")));
+
                         qty = ((Double.parseDouble(c.getString(c.getColumnIndex("qty"))) - GetSaledQtyNotPosted(c.getString(c.getColumnIndex("itemno")))+GetRetQtyNotPosted(c.getString(c.getColumnIndex("itemno")))));
 
-                        cls_trans_qty.setQty((SToD(qty.toString())).toString());
+
+                       // cls_trans_qty.setQty((SToD(qty.toString())).toString());
+                        cls_trans_qty.setQty(qty.toString());
 
                         cls_trans_qty.setDate(c.getString(c
                                 .getColumnIndex("date")));

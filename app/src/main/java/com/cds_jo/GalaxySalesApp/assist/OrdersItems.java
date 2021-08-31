@@ -197,14 +197,12 @@ public class OrdersItems extends FragmentActivity {
             ApprovalOrdersCount = (MyTextView) findViewById(R.id.ApprovalOrdersCount);
             ApprovalOrdersCount.setText("0");
 
-
             tv_TaxStatus = (MyTextView) findViewById(R.id.tv_TaxStatus);
             CustTaxStatus = "0";
-              Order_no = (TextView) findViewById(R.id.et_OrdeNo);
+            Order_no = (TextView) findViewById(R.id.et_OrdeNo);
 
             tv_CustStatus = (MyTextView) findViewById(R.id.tv_CustStatus);
             tv_CustStatus.setText("");
-
 
             obj = new GetPermession();
             mNav = new SimpleSideDrawer(this);
@@ -2647,8 +2645,33 @@ public class OrdersItems extends FragmentActivity {
             alertDialog.show();
         }
     }
+public String customerstate(){
+
+
+
+  String  q = " select distinct      Tax_Status , Location,State  " +
+            " from Customers where no='" + accno.getText().toString() + "'";
+
+String state="";
+    Cursor c1 = sqlHandler.selectQuery(q);
+    if (c1 != null && c1.getCount() != 0) {
+        c1.moveToFirst();
+        state = c1.getString(c1.getColumnIndex("State"));
+        c1.close();
+    }
+    if((state.equals("1") || state.equals("2") ||state.equals("2")))
+        state="1";
+      return state;
+}
 
     public void btn_save_po(View view) {
+
+        if (customerstate().equalsIgnoreCase("1"))
+        {
+
+
+
+
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
         String q = "SELECT Distinct *  from  Po_Hdr where   posted >0 AND   orderno ='" + pono.getText().toString() + "'";
         Cursor c1 = sqlHandler.selectQuery(q);
@@ -2739,6 +2762,11 @@ public class OrdersItems extends FragmentActivity {
         alertDialog.show();
 
 
+    }
+else{
+
+Toast.makeText(OrdersItems.this,"هذا العميل ملغي , لا يمكن عمل طلب بيع",Toast.LENGTH_SHORT).show();
+}
     }
 
     public void CreateAlertDialogWithRadioButtonGroup(final String amt) {

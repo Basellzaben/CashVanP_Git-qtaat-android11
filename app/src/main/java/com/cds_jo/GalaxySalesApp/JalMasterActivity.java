@@ -87,9 +87,10 @@
         super.onCreate(savedInstanceState);
        // PostLogTrans  postLogTrans = new PostLogTrans(JalMasterActivity.this);
         setContentView(R.layout.activity_jal_master);
+
         TextView Un = (TextView) findViewById(R.id.tv_UserName);
 
-//startActivity(new Intent(JalMasterActivity.this, NewHomePage.class));
+startActivity(new Intent(JalMasterActivity.this, NewHomePage.class));
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(JalMasterActivity.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -98,10 +99,10 @@
         editor.putString("TaxAcc1",  DB.GetValue(this,"ComanyInfo","TaxAcc1","1=1") );
         editor.putString("Address",  DB.GetValue(this,"ComanyInfo","Address","1=1") );
         editor.putString("Notes",  DB.GetValue(this,"ComanyInfo","Notes","1=1") );
-        editor.putString("Permession",  DB.GetValue(this,"ComanyInfo","Permession","1=1") );
-        editor.putString("CompanyMobile",  DB.GetValue(this,"ComanyInfo","CompanyMobile","1=1") );
-        editor.putString("CompanyMobile2",  DB.GetValue(this,"ComanyInfo","CompanyMobile2","1=1") );
-        editor.putString("SuperVisorMobile",  DB.GetValue(this,"ComanyInfo","SuperVisorMobile","1=1") );
+        editor.putString("Permession",DB.GetValue(this,"ComanyInfo","Permession","1=1") );
+        editor.putString("CompanyMobile",DB.GetValue(this,"ComanyInfo","CompanyMobile","1=1") );
+        editor.putString("CompanyMobile2",DB.GetValue(this,"ComanyInfo","CompanyMobile2","1=1") );
+        editor.putString("SuperVisorMobile",DB.GetValue(this,"ComanyInfo","SuperVisorMobile","1=1") );
 
         String q=DB.GetValue(this,"cardMan","no","1=1");
       //  SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

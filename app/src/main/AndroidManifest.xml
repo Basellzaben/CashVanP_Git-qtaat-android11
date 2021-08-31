@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-feature android:name="android.hardware.location.gps" /> <!-- auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -28,30 +29,29 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.google.android.gm.permission.WRITE_GMAIL" />
     <uses-permission android:name="com.google.android.gm.permission.AUTO_SEND" />
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
 
     <application
-        android:configChanges="orientation|screenSize"
         android:allowBackup="true"
+        android:configChanges="orientation|screenSize"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/gi"
         android:label="Galaxy Sales App"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Delivery_VoucherAct"></activity>
-        <activity android:name=".AbuHaltam.LoginHalitamNew"></activity>
-        <activity android:name=".XPinter_Man_Balance_Qty"></activity>
-        <activity android:name=".assist.Xpinter_Acc"></activity>
+        <activity android:name=".Catch_Receipt"></activity>
+        <activity android:name=".Delivery_VoucherAct" />
+        <activity android:name=".AbuHaltam.LoginHalitamNew" />
+        <activity android:name=".XPinter_Man_Balance_Qty" />
+        <activity android:name=".assist.Xpinter_Acc" />
         <activity
             android:name=".AbuHaltam.ProductionlineAct"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
         <activity android:name=".CustomerSummary.CustomerSummaryAct" />
         <activity android:name=".ManCard.SplashLoginAct">
             <intent-filter>
@@ -60,15 +60,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".assist.Xprinter_SalesReturn">
-
-        </activity>
+        <activity android:name=".assist.Xprinter_SalesReturn"></activity>
         <activity android:name=".ItemsDameged" />
         <activity android:name=".Man_Qty" />
         <activity android:name=".Convert_Sal_Return_To_ImgActivity_Line" />
         <activity
             android:name=".StartUpActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".Tracking.MapsActivity"
             android:screenOrientation="landscape"

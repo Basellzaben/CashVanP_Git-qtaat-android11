@@ -19,6 +19,7 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -2483,13 +2484,13 @@ public class PrinterFunctions {
 		}
 
 
-            Log.d("POS_PRINT",AmtPaid+"");
-            Log.d("POS_PRINT",Remain+"");
-            Log.d("POS_PRINT",Discount+"");
-            Log.d("POS_PRINT",Net_Total+"");
-            Log.d("POS_PRINT",TaxTotal+"");
-            Log.d("POS_PRINT",Total+"");
-            Log.d("POS_PRINT",OrderDesc+"");
+		Log.d("POS_PRINT",AmtPaid+"");
+		Log.d("POS_PRINT",Remain+"");
+		Log.d("POS_PRINT",Discount+"");
+		Log.d("POS_PRINT",Net_Total+"");
+		Log.d("POS_PRINT",TaxTotal+"");
+		Log.d("POS_PRINT",Total+"");
+		Log.d("POS_PRINT",OrderDesc+"");
 
 		if (AmtPaid.equalsIgnoreCase("-1")){
 			AmtPaid="0";
@@ -2514,9 +2515,9 @@ public class PrinterFunctions {
 
 		printableArea = 576; // Printable area in paper is 576(dot)
 
-	RasterDocument rasterDoc = new RasterDocument(RasSpeed.Medium, RasPageEndMode.FeedAndFullCut, RasPageEndMode.FeedAndFullCut, RasTopMargin.Standard, 0, 0, 0);
+		RasterDocument rasterDoc = new RasterDocument(RasSpeed.Medium, RasPageEndMode.FeedAndFullCut, RasPageEndMode.FeedAndFullCut, RasTopMargin.Standard, 0, 0, 0);
 
-		 	if (rasterType == RasterCommand.Standard) {
+		if (rasterType == RasterCommand.Standard) {
 			list.add(rasterDoc.BeginDocumentCommandData());
 		}
 
@@ -2549,7 +2550,7 @@ public class PrinterFunctions {
 		Date=Date+"الوقت :";
 		Date=Date+Time;
 		Date=Date+"\r\n";
-		   textToPrint = (
+		textToPrint = (
 				"   شركة القطاعات للإستيراد والتصدير  " +"\r\n"+
 						"                     عمان - الأردن                  " +"\r\n"+
 						"                    فاتورة المبيعات                " +"\r\n"+
@@ -2575,8 +2576,8 @@ public class PrinterFunctions {
 		list.add(createRasterCommand(Date, 15, Typeface.BOLD, rasterType));
 
 		textToPrint="العميل" ;
-		//textToPrint=textToPrint+" : "+CustName+"";
-		textToPrint=textToPrint+" : "+OrderDesc+"";
+		textToPrint=textToPrint+" : "+CustName+"";
+		//textToPrint=textToPrint+" : "+OrderDesc+"";
 		list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
 
 		textToPrint="المندوب" ;
@@ -2713,6 +2714,230 @@ public class PrinterFunctions {
 
 
 	}
+	public static void PrintManSummary(Context context, String portName, String portSettings, String commandType, Resources res, String strPrintArea, RasterCommand rasterType ) {
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+		String BPrinter_MAC_ID = sharedPreferences.getString("AddressBT", "");
+		//	Toast.makeText(context, "|"+pad("fd",10)  ,Toast.LENGTH_SHORT).show();
+
+
+		portName ="BT:"+BPrinter_MAC_ID;
+
+
+		String q,AmtPaid ,Remain,Discount,OrderTotal,Net_Total,Visa_flg,Check_flg, Cash_flg,Paymethod,TaxTotal,OrderDesc;
+		AmtPaid="0";
+		Remain="0";
+		Discount="0";
+		OrderTotal="0";
+		Net_Total="0";
+		Visa_flg="0";
+		Check_flg="0";
+		Cash_flg="0";
+		Paymethod="";
+		TaxTotal ="0";
+		OrderDesc="";
+
+		SqlHandler sqlHandler= new SqlHandler(context);
+
+
+
+		String LineP,Lineq,Lineu,Linetot,Linetax,Linenet,ItemLine,textToPrint;
+
+		ArrayList<byte[]> list = new ArrayList<byte[]>();
+
+		printableArea = 576; // Printable area in paper is 576(dot)
+
+		RasterDocument rasterDoc = new RasterDocument(RasSpeed.Medium, RasPageEndMode.FeedAndFullCut, RasPageEndMode.FeedAndFullCut, RasTopMargin.Standard, 0, 0, 0);
+
+		if (rasterType == RasterCommand.Standard) {
+			list.add(rasterDoc.BeginDocumentCommandData());
+		}
+
+		Bitmap myBitmap = null;
+		File imgFile = new  File("//sdcard/Android/Cv_Images/logo.jpg");
+		try {
+			if (imgFile.exists()) {
+				myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+			}
+		}
+		catch (Exception ex){}
+		StarBitmap starbitmap = new StarBitmap(myBitmap, false, 580);
+		if (rasterType == RasterCommand.Standard) {
+			list.add(starbitmap.getImageRasterDataForPrinting_Standard(true));
+		} else {
+			list.add(starbitmap.getImageRasterDataForPrinting_graphic(true));
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.ENGLISH);
+		String currentDateandTime = sdf.format(new Date());
+
+		sdf = new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH);
+		String Time = sdf.format(new Date());
+
+
+		String Date ="التاريخ :";
+		Date=Date+currentDateandTime;
+		Date=Date+"         ";
+		Date=Date+"الوقت :";
+		Date=Date+Time;
+		Date=Date+"\r\n";
+		textToPrint = (
+				"   شركة القطاعات للإستيراد والتصدير  " +"\r\n"+
+						"                     عمان - الأردن                  " +"\r\n"+
+						"                    ملخص المعرض                " +"\r\n"+
+						"                    ملخص المعرض                " +"\r\n"+
+						"---------------------------------------------------\r");
+		list.add(createRasterCommand(textToPrint, 18, Typeface.BOLD, rasterType));
+
+
+		/*textToPrint="\t\t\t" + "رقم الفاتورة" ;
+		textToPrint=textToPrint+" : "+OrdeNo  ;
+		list.add(createRasterCommand(textToPrint, 25, Typeface.BOLD, rasterType));
+
+
+		textToPrint="\t\t\t\t\t\t\t\t\t" + "طريقة الدفع" ;
+		textToPrint=textToPrint+" : "+Paymethod + "\r\n" ;
+		list.add(createRasterCommand(textToPrint, 14, Typeface.BOLD, rasterType));
+
+		textToPrint="\t\t\t\t\t" + "رقم الضريبي" ;
+		textToPrint=textToPrint+" : "+sharedPreferences.getString("TaxAcc1", "") + "\r\n" ;
+		list.add(createRasterCommand(textToPrint, 14, Typeface.BOLD, rasterType));
+
+
+
+		list.add(createRasterCommand(Date, 15, Typeface.BOLD, rasterType));*/
+		sqlHandler = new SqlHandler( context);
+
+		q = "Select    ifnull( sum(ifnull(s.Net_Total,0.000)),0.000) as Amt  from  Sal_invoice_Hdr s   where  UserID='" + sharedPreferences.getString("UserID", "") + "' " +
+				" and s.inovice_type = '-1'  and  s.date ='" + currentDateandTime + "'";
+
+		Cursor c2 = sqlHandler.selectQuery(q);
+		if (c2 != null && c2.getCount() != 0) {
+			if (c2.moveToFirst()) {
+				textToPrint="مبيعات ذمم" ;
+				textToPrint=textToPrint+" : "+c2.getString(c2.getColumnIndex("Amt"))+"";
+				//textToPrint=textToPrint+" : "+OrderDesc+"";
+				list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
+
+
+			}
+			c2.close();
+		}
+		else {
+			textToPrint="مبيعات ذمم" ;
+			textToPrint=textToPrint+" : 0.00 ";
+			//textToPrint=textToPrint+" : "+OrderDesc+"";
+			list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
+
+
+		}
+
+
+
+		sqlHandler = new SqlHandler( context);
+
+
+		q = "Select  ifnull( sum(ifnull(s.Net_Total,0.000)),0.000) as Amt  from  Sal_invoice_Hdr s   where  UserID='" + sharedPreferences.getString("UserID", "") + "' " +
+				" and s.inovice_type != '-1'  and  s.date ='" + currentDateandTime + "'";
+
+		c2 = sqlHandler.selectQuery(q);
+		if (c2 != null && c2.getCount() != 0) {
+			if (c2.moveToFirst()) {
+				textToPrint="مبيعات نقدي" ;
+				textToPrint=textToPrint+" : "+c2.getString(c2.getColumnIndex("Amt"))+"";
+				//textToPrint=textToPrint+" : "+OrderDesc+"";
+				list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
+
+
+			}
+			c2.close();
+		}
+		else {
+			textToPrint="مبيعات نقدي" ;
+			textToPrint=textToPrint+" : 0.00 ";
+			//textToPrint=textToPrint+" : "+OrderDesc+"";
+			list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
+
+
+		}
+
+
+
+		sqlHandler = new SqlHandler( context);
+
+		q = "Select      ifnull( sum(ifnull( RecVoucher.Cash,0.000)),0.000) as Cash , ifnull( sum(ifnull( RecVoucher.CheckTotal,0.000)),0.000) as CheckTotal            from RecVoucher   " +
+				" where  RecVoucher.UserID ='" + sharedPreferences.getString("UserID", "")  + "' and  RecVoucher.TrDate ='" + currentDateandTime + "' and RecVoucher.FromSales='0' ";
+		c2 = sqlHandler.selectQuery(q);
+		if (c2 != null && c2.getCount() != 0) {
+			if (c2.moveToFirst()) {
+				textToPrint="قبض نقدي" ;
+				textToPrint=textToPrint+" : "+c2.getString(c2.getColumnIndex("Cash"))+"";
+				//textToPrint=textToPrint+" : "+OrderDesc+"";
+				list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
+
+
+			}
+			c2.close();
+		}
+		else {
+			textToPrint="قبض نقدي" ;
+			textToPrint=textToPrint+" : 0.00 ";
+			//textToPrint=textToPrint+" : "+OrderDesc+"";
+			list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
+
+
+		}
+
+		sqlHandler = new SqlHandler( context);
+
+
+		q = "Select      ifnull( sum(ifnull( RecVoucher.Cash,0.000)),0.000) as Cash , ifnull( sum(ifnull( RecVoucher.CheckTotal,0.000)),0.000) as CheckTotal            from RecVoucher   " +
+				" where  RecVoucher.UserID ='" +  sharedPreferences.getString("UserID", "") + "' and  RecVoucher.TrDate ='" + currentDateandTime + "'";		c2 = sqlHandler.selectQuery(q);
+		if (c2 != null && c2.getCount() != 0) {
+			if (c2.moveToFirst()) {
+				textToPrint="قبض شيكات" ;
+				textToPrint=textToPrint+" : "+c2.getString(c2.getColumnIndex("CheckTotal"))+"";
+				//textToPrint=textToPrint+" : "+OrderDesc+"";
+				list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
+
+
+			}
+			c2.close();
+		}
+		else {
+			textToPrint="قبض شيكات" ;
+			textToPrint=textToPrint+" : 0.00 ";
+			//textToPrint=textToPrint+" : "+OrderDesc+"";
+			list.add(createRasterCommand(textToPrint, 15, Typeface.BOLD, rasterType));
+
+
+		}
+
+
+		/*
+
+
+
+
+
+
+
+
+		if (rasterType == RasterCommand.Standard) {
+			list.add(rasterDoc.EndDocumentCommandData());
+			list.add(new byte[] { 0x07 }); // Kick cash drawer
+		} else {
+			list.add(new byte[] { 0x1b, 0x64, 0x02 }); // Cut
+		}
+*/
+		list.add(rasterDoc.EndDocumentCommandData());
+		list.add(new byte[] { 0x07 }); // Kick cash drawer
+		list.add(new byte[] { 0x1b, 0x64, 0x02 }); // Cut
+		sendCommand(context, portName, portSettings, list);
+
+
+	}
+
 	public static String Center1(String str  ) {
 		String Result =str;
 

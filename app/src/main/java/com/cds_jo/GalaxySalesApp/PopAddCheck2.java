@@ -684,8 +684,13 @@ public class PopAddCheck2 extends DialogFragment implements View.OnClickListener
             String strday = mdformatday.format(calendar.getTime());
             displayday(strday);
 
+            /*((Catch_Receipt) getActivity()).save_Check(CheckNo.getText().toString(), ChekAmt.getText().toString(), bank, date.toString());
+            save_Check(CheckNo.getText().toString(), ChekAmt.getText().toString(), bank, date.toString(),Chekday.getText().toString());
+*/
             ((RecvVoucherActivity) getActivity()).save_Check(CheckNo.getText().toString(), ChekAmt.getText().toString(), bank, date.toString());
             save_Check(CheckNo.getText().toString(), ChekAmt.getText().toString(), bank, date.toString(),Chekday.getText().toString());
+
+
 
             ChekAmt.setText("");
             year2.setText(stryear);

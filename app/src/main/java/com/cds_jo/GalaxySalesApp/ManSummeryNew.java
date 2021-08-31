@@ -20,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.cds_jo.GalaxySalesApp.Pos.Pos_Activity;
+import com.cds_jo.GalaxySalesApp.TspPrinter.PrinterFunctions;
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_ManSummeryTo_img;
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_RecVoucher;
 import com.cds_jo.GalaxySalesApp.XprinterDoc.Xprinter_SalesInvoice;
@@ -56,9 +58,9 @@ public class ManSummeryNew extends FragmentActivity {
         Initi();
         Click();
         frag = new Header_Frag();
-    //    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        //    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 //set the spinners adapter to the previously created one.
-       // dropdown.setAdapter(adapter);
+        // dropdown.setAdapter(adapter);
     /*    picker=(DatePicker)findViewById(R.id.datePicker1);
         picker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,36 +147,36 @@ public class ManSummeryNew extends FragmentActivity {
                                 editor.apply();
 
                                 String CLICK =preferences.getString("CLICK", "");
-if(CLICK.equals("T1")){
-    frag = new Tab_SalesSummery();
-    fragmentManager = getSupportFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
-}else if(CLICK.equals("T2")) {
-    frag = new Tab_Payments();
-    fragmentManager = getSupportFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
-}
-else  if(CLICK.equals("T3")) {
-    frag = new Tab_SalesOrders();
-    fragmentManager = getSupportFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
-}
-else  if(CLICK.equals("T4")) {
-    frag = new Tab_UsedCode();
-    fragmentManager = getSupportFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
-}else  if(CLICK.equals("T5")) {
-    frag = new Tab_UnpostedTransaction();
-    fragmentManager = getSupportFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
-}else  if(CLICK.equals("T8")) {
-    frag = new Tab_returnproduct();
-    fragmentManager = getSupportFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
+                                if(CLICK.equals("T1")){
+                                    frag = new Tab_SalesSummery();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
+                                }else if(CLICK.equals("T2")) {
+                                    frag = new Tab_Payments();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
+                                }
+                                else  if(CLICK.equals("T3")) {
+                                    frag = new Tab_SalesOrders();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
+                                }
+                                else  if(CLICK.equals("T4")) {
+                                    frag = new Tab_UsedCode();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
+                                }else  if(CLICK.equals("T5")) {
+                                    frag = new Tab_UnpostedTransaction();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
+                                }else  if(CLICK.equals("T8")) {
+                                    frag = new Tab_returnproduct();
+                                    fragmentManager = getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
 
-}
+                                }
 
-}
+                            }
                         }, year, month, day);
                 picker.show();
             }
@@ -196,7 +198,7 @@ else  if(CLICK.equals("T4")) {
                 T1.setBackgroundColor(getResources().getColor(R.color.Blue));
                 T1.setTextColor(Color.WHITE);
 
-                 T8.setBackground(getResources().getDrawable(R.drawable.blue_fill_white));
+                T8.setBackground(getResources().getDrawable(R.drawable.blue_fill_white));
                 T8.setTextColor(getResources().getColor(R.color.Blue));
 
 
@@ -445,9 +447,9 @@ else  if(CLICK.equals("T4")) {
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.Frag11, frag).commit();
             }*/
-            //  }
+                //  }
 
-        }
+            }
 
         });
 
@@ -506,10 +508,10 @@ else  if(CLICK.equals("T4")) {
     }
 
     private void Initi() {
-         b=(Button)findViewById(R.id.back);
-      //  dropdown=(Spinner)findViewById(R.id.datespinner);
+        b=(Button)findViewById(R.id.back);
+        //  dropdown=(Spinner)findViewById(R.id.datespinner);
 
-         T1 = (MyTextView) findViewById(R.id.T1);
+        T1 = (MyTextView) findViewById(R.id.T1);
         T2 = (MyTextView) findViewById(R.id.T2);
         T3 = (MyTextView) findViewById(R.id.T3);
         T4 = (MyTextView) findViewById(R.id.T4);
@@ -525,8 +527,26 @@ else  if(CLICK.equals("T4")) {
             Intent k = new Intent(this, Xprinter_ManSummeryTo_img.class);
             startActivity(k);
         }
+        else if (ComInfo.ComNo == Companies.Sector.getValue()) {
+            String portName ="";// PrinterTypeActivity.getPortName();
+            String portSettings = "";
+
+            PrinterFunctions.RasterCommand rasterType = PrinterFunctions.RasterCommand.Standard;
+            int paperWidth = 576;
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String UserName =  sharedPreferences.getString("UserName", "");
+            try {
+                PrinterFunctions.PrintManSummary(this, portName, portSettings, "Line", getResources(),  "3inch (80mm)", rasterType);
+
+
+
+            }
+            catch (Exception ex){
+                Toast.makeText(ManSummeryNew.this,ex.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        }
         else {
-          //  Intent k = new Intent(this, Convert_ManSummery_To_Img.class);
+            //  Intent k = new Intent(this, Convert_ManSummery_To_Img.class);
             Intent k = new Intent(this, Xprinter_ManSummeryTo_img.class);
             startActivity(k);
         }

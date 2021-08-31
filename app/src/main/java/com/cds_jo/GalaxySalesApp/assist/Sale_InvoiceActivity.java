@@ -130,7 +130,7 @@ public String getmaxN(){
     String u = sharedPreferences.getString("UserID", "");
     EditText Maxpo = (EditText) findViewById(R.id.et_OrdeNo);
     // query = "SELECT  ifnull(MAX(OrderNo), 0) +1 AS no FROM Sal_invoice_Hdr where  ifnull(doctype,'1')='"+DocType.toString()+"'  and     UserID ='" + u.toString() + "'";
-    query = "SELECT   COALESCE(MAX( cast(OrderNo as integer)), 0)  as  no FROM Sal_invoice_Hdr ";
+    query = "SELECT  COALESCE(MAX( cast(OrderNo as integer)), 0)  as  no FROM Sal_invoice_Hdr ";
     Cursor c1 = sqlHandler.selectQuery(query);
     String max = "0";
 
@@ -506,12 +506,67 @@ public String getmaxN(){
         et_OrdeNo.setText(maxn);
 
     }
+    public String customerstate(){
 
+        TextView tv_acc=(TextView)findViewById(R.id.tv_acc);
+        TextView tv_CustStatus=(TextView)findViewById(R.id.tv_CustStatus);
+
+        String  q = " select distinct      Tax_Status , Location,State  " +
+                " from Customers where no='" + tv_acc.getText().toString() + "'";
+        sqlHandler = new SqlHandler(Sale_InvoiceActivity.this);
+
+        String State="";
+        Cursor c1 = sqlHandler.selectQuery(q);
+        if (c1 != null && c1.getCount() != 0) {
+            c1.moveToFirst();
+            State = c1.getString(c1.getColumnIndex("State"));
+            c1.close();
+        }
+        if((State.equals("1") || State.equals("2") ||State.equals("2")))
+            State="1";
+
+        if (State.equalsIgnoreCase("1")) {
+            if (ComInfo.ComNo == 3) {
+                tv_CustStatus.setText("  حالة العميل : فعال");
+            } else {
+                tv_CustStatus.setText("  حالة العميل : مفتوح");
+            }
+
+            tv_CustStatus.setTextColor(Color.GREEN);
+
+        } else if (State.equalsIgnoreCase("2")) {
+            if (ComInfo.ComNo == 3) {
+                tv_CustStatus.setText("  حالة العميل : موقوف");
+            } else {
+                tv_CustStatus.setText("  حالة العميل : معلق");
+            }
+
+
+            tv_CustStatus.setTextColor(Color.BLUE);
+        } else {
+
+            if (ComInfo.ComNo == 3) {
+                tv_CustStatus.setText("  حالة العميل : موقوف");
+            } else {
+                tv_CustStatus.setText("حالة العميل : ملغي");
+            }
+
+            tv_CustStatus.setTextColor(Color.RED);
+        }
+
+
+
+        return State;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_sale__invoice);
         update=(ImageButton)findViewById(R.id.update);
+
+
+    customerstate();
+
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         this.setTitle(sharedPreferences.getString("CompanyNm", "") + "/" + sharedPreferences.getString("Address", ""));
@@ -1977,6 +2032,10 @@ flagV =0;
         }
     }
     public void btn_save_po(final View view) {
+
+        if (customerstate().equalsIgnoreCase("1"))
+        {
+
         CheckBox chk_Type =(CheckBox)findViewById(R.id.chk_Type);
         String HowPay = DB.GetValue(Sale_InvoiceActivity.this, "Customers", "Pay_How", "no ='" + tv_acc.getText().toString() + "' ");
 if(HowPay.equals("1"))
@@ -2225,7 +2284,10 @@ if(HowPay.equals("1"))
 
 
         }
-
+        }
+else{
+Toast.makeText(Sale_InvoiceActivity.this,"هذا العميل ملغي , لا يمكن عمل طلب بيع",Toast.LENGTH_SHORT).show();
+        }
     }
     private  String GetSumFinalDiscount(){
         double sum =0.0;

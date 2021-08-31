@@ -207,7 +207,7 @@ public class Pop_Show_Item_Qty extends DialogFragment implements View.OnClickLis
 
                         public void run() {
                             custDialog.dismiss();
-
+try{
                             AlertDialog alertDialog = new AlertDialog.Builder(
                                     getActivity()).create();
                             alertDialog.setTitle("استعلام عن مادة");
@@ -218,7 +218,7 @@ public class Pop_Show_Item_Qty extends DialogFragment implements View.OnClickLis
 
                                 }
                             });
-                            alertDialog.show();
+                            alertDialog.show();}catch (Exception e){}
                         }
                     });
                 }

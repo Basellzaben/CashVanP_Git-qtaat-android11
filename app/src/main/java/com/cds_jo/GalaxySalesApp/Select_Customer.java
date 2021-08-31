@@ -52,6 +52,7 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         form = inflater.inflate(R.layout.activity_select__customer, container, false);
 
+
         getDialog().setTitle("Galaxy International Group");
         Window window = getDialog().getWindow();
         window.setGravity(Gravity.TOP|Gravity.CENTER);
@@ -260,7 +261,11 @@ public class Select_Customer extends DialogFragment implements View.OnClickListe
             q = "'1' = '1' ";
         }
 
+        if (getArguments().getString("Scr").equals("POS") ||
+                getArguments().getString("Scr").equals("RecVoch")) {
 
+            q = "'1' = '1' ";
+        }
 
         if (t.toString().equals("")){
             query = "   Select DISTINCT  no,name ,Address , Note2 ,'' as Mobile  ,ifnull(Latitude,0) as Latitude   , ifnull(Longitude,0) as Longitude" +

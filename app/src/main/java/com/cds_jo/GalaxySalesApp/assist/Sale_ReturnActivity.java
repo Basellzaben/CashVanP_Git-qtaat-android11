@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -81,12 +82,13 @@ public class Sale_ReturnActivity extends FragmentActivity {
     double FinalDiscountpercent=0.0,FinalDiscountAmt ;
     ArrayList<Cls_Sal_InvItems> contactList;
     Boolean IsNew;
-    Boolean IsChange, BalanceQtyTrans;
+    Boolean IsChange, BalcalanceQtyTrans;
     String UserID = "";
     public ProgressDialog loadingdialog;
     Double Hdr_Dis_A_Amt, Hdr_Dis_Per;
     EditText hdr_Disc;
     int po;
+    boolean BalanceQtyTrans;
     CheckBox chk_hdr_disc;
     String query;
     String f;
@@ -209,6 +211,60 @@ public class Sale_ReturnActivity extends FragmentActivity {
         return dir.delete();
     }
     EditText   et_OrdeNo;
+
+    public String customerstate(){
+
+        TextView tv_acc=(TextView)findViewById(R.id.tv_acc);
+        TextView tv_CustStatus=(TextView)findViewById(R.id.tv_CustStatus);
+
+        String  q = " select distinct      Tax_Status , Location,State  " +
+                " from Customers where no='" + tv_acc.getText().toString() + "'";
+        sqlHandler = new SqlHandler(Sale_ReturnActivity.this);
+
+        String State="";
+        Cursor c1 = sqlHandler.selectQuery(q);
+        if (c1 != null && c1.getCount() != 0) {
+            c1.moveToFirst();
+            State = c1.getString(c1.getColumnIndex("State"));
+            c1.close();
+        }
+        if((State.equals("1") || State.equals("2") ||State.equals("2")))
+            State="1";
+
+        if (State.equalsIgnoreCase("1")) {
+            if (ComInfo.ComNo == 3) {
+                tv_CustStatus.setText("  حالة العميل : فعال");
+            } else {
+                tv_CustStatus.setText("  حالة العميل : مفتوح");
+            }
+
+            tv_CustStatus.setTextColor(Color.GREEN);
+
+        } else if (State.equalsIgnoreCase("2")) {
+            if (ComInfo.ComNo == 3) {
+                tv_CustStatus.setText("  حالة العميل : موقوف");
+            } else {
+                tv_CustStatus.setText("  حالة العميل : معلق");
+            }
+
+
+            tv_CustStatus.setTextColor(Color.BLUE);
+        } else {
+
+            if (ComInfo.ComNo == 3) {
+                tv_CustStatus.setText("  حالة العميل : موقوف");
+            } else {
+                tv_CustStatus.setText("حالة العميل : ملغي");
+            }
+
+            tv_CustStatus.setTextColor(Color.RED);
+        }
+
+
+
+        return State;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -222,6 +278,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
         tv_CustNetTotal1 = (TextView) findViewById(R.id.tv_CustNetTotal1);
 
         try {
+            customerstate();
             trimCache(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -1109,17 +1166,19 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
     }
     public void btn_save_po(final View view) {
-        CheckBox chk_Type =(CheckBox)findViewById(R.id.chk_Type);
+
+
+        if (customerstate().equalsIgnoreCase("1"))
+        {
+
+
+        CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
         TextView accno = (TextView) findViewById(R.id.tv_acc);
         String HowPay = DB.GetValue(Sale_ReturnActivity.this, "Customers", "Pay_How", "no ='" + accno.getText().toString() + "' ");
-        if(HowPay.equals("1"))
-        {
-            if(chk_Type.isChecked())
-            {
+        if (HowPay.equals("1")) {
+            if (chk_Type.isChecked()) {
 
-            }
-            else
-            {
+            } else {
                 AlertDialog alertDialog = new AlertDialog.Builder(
                         this).create();
                 alertDialog.setTitle("المجرة الدولية");
@@ -1262,7 +1321,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
             }
 
-            tv_ScrTitle=(MyTextView) findViewById(R.id.tv_ScrTitle);
+            tv_ScrTitle = (MyTextView) findViewById(R.id.tv_ScrTitle);
             alertDialogYesNo.setTitle(tv_ScrTitle.getText().toString());
             alertDialogYesNo.setMessage(Msg + "  " + "هل  تريد الاستمرار بعملية الحفظ " + "؟");
 
@@ -1299,7 +1358,7 @@ public class Sale_ReturnActivity extends FragmentActivity {
                         return;
                     }
 
-                    if(DocType==2 || ComInfo.ComNo == Companies.beutyLine.getValue() ){
+                    if (DocType == 2 || ComInfo.ComNo == Companies.beutyLine.getValue()) {
                         Save_Recod_Po();
                     }
                 }
@@ -1310,7 +1369,11 @@ public class Sale_ReturnActivity extends FragmentActivity {
 
 
         }
+    }else{
 
+            Toast.makeText(Sale_ReturnActivity.this,"هذا العميل ملغي , لا يمكن عمل مرتجع مبيعات",Toast.LENGTH_SHORT).show();
+
+        }
     }
     public void Save_List(String ItemNo, String p, String q, String t, String u, String dis, String bounce, String ItemNm, String UnitName, String dis_Amt, String Operand,String Weight,String Damaged,String Note,String dis1 ) {
         if (bounce.toString().equals(""))

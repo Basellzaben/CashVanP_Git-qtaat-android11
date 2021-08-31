@@ -41,18 +41,17 @@ public class NewHomePage extends FragmentActivity {
 
           if(ComInfo.ComNo== Companies.Sector.getValue()){
                     lstHomeShow = new ArrayList<>();
-                    // lstHomeShow.add(new Cls_Home_Show_Ditial("فاتورة المبيعات", R.drawable.invoice, 3,"assist.Sale_InvoiceActivity"));
-                    lstHomeShow.add(new Cls_Home_Show_Ditial("فاتورة المبيعات", R.drawable.invoice, 3,"Pos.Pos_Activity"));
-                    lstHomeShow.add(new Cls_Home_Show_Ditial("سند القبض", R.drawable.money, 5,"RecvVoucherActivity"));
-                    lstHomeShow.add(new Cls_Home_Show_Ditial("استلام المواد", R.drawable.enter_qty, 5,"warehouse.ItemsRecepit"));
-                    //lstHomeShow.add(new Cls_Home_Show_Ditial("سند الإدخال", R.drawable.enter_qty, 3,"warehouse.EnterQtyActivity"));
-                    lstHomeShow.add(new Cls_Home_Show_Ditial("استعلام عن المواد", R.drawable.item_search, 4,"InquireItem.InquireItemACT"));
-                    lstHomeShow.add(new Cls_Home_Show_Ditial("تحديث البيانات", R.drawable.transfer, 7,"UpdateDataToMobileActivity"));
-                    lstHomeShow.add(new Cls_Home_Show_Ditial("كميات المستودع", R.drawable.item_search, 7,"TransQtyReportActivity"));
-                    //  lstHomeShow.add(new Cls_Home_Show_Ditial("طباعة", R.drawable.log_out, 1,"TspPrinter.SampleReciptActivity"));
-                    lstHomeShow.add(new Cls_Home_Show_Ditial("إعدادات", R.drawable.setting, 1,"SittingNew"));
-                    lstHomeShow.add(new Cls_Home_Show_Ditial("خروج", R.drawable.log_out, 2,"NewLoginActivity"));
-            } else if(ComInfo.ComNo== Companies.abohaltam.getValue())
+              lstHomeShow.add(new Cls_Home_Show_Ditial("فاتورة المبيعات", R.drawable.invoice, 3,"Pos.Pos_Activity"));
+              lstHomeShow.add(new Cls_Home_Show_Ditial("سند القبض", R.drawable.money, 5,"RecvVoucherActivity"));
+              lstHomeShow.add(new Cls_Home_Show_Ditial("ملخص عمل المعرض", R.drawable.invoice, 5,"ManSummeryNew"));
+              lstHomeShow.add(new Cls_Home_Show_Ditial("استلام المواد", R.drawable.enter_qty, 5,"warehouse.ItemsRecepit"));
+              //lstHomeShow.add(new Cls_Home_Show_Ditial("سند الإدخال", R.drawable.enter_qty, 3,"warehouse.EnterQtyActivity"));
+              lstHomeShow.add(new Cls_Home_Show_Ditial("استعلام عن المواد", R.drawable.item_search, 4,"InquireItem.InquireItemACT"));
+              lstHomeShow.add(new Cls_Home_Show_Ditial("تحديث البيانات", R.drawable.transfer, 7,"UpdateDataToMobileActivity"));
+              lstHomeShow.add(new Cls_Home_Show_Ditial("كميات المستودع", R.drawable.item_search, 7,"TransQtyReportActivity"));
+              //  lstHomeShow.add(new Cls_Home_Show_Ditial("طباعة", R.drawable.log_out, 1,"TspPrinter.SampleReciptActivity"));
+              lstHomeShow.add(new Cls_Home_Show_Ditial("إعدادات", R.drawable.setting, 1,"SittingNew"));
+              lstHomeShow.add(new Cls_Home_Show_Ditial("خروج", R.drawable.log_out, 2,"NewLoginActivity"));            } else if(ComInfo.ComNo== Companies.abohaltam.getValue())
           {
               if(sharedPreferences.getString("type", "").equals("1"))
               {

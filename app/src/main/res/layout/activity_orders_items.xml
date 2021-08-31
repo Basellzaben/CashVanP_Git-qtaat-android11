@@ -192,7 +192,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="5dp"
-                android:layout_weight="0.8"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <Methdes.MyTextView
@@ -202,6 +202,9 @@
                     android:gravity="center"
                     android:textColor="@color/Green"
                     android:textSize="18sp" />
+
+
+
 
                 <Methdes.MyTextView
                     android:id="@+id/tv_TaxStatus"

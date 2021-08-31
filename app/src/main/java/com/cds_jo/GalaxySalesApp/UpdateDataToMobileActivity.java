@@ -62,7 +62,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 201;
+    private static final int LASTUPDATE = 202;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -1816,8 +1816,15 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         } catch (SQLException e) {}
             //Log.i("ADD AllowSalInvMinus","Week already AllowSalInvMinus");
 
+        try {
+            sqlHandler.executeQuery("Alter Table Sal_invoice_Det  Add  COLUMN  sample  text null ");
+        } catch (SQLException e) {}
+        //Log.i("ADD AllowSalInvMinus","Week already AllowSalInvMinus");
 
-        }
+
+
+
+    }
 
     CheckBox chkall;
 
@@ -2389,10 +2396,13 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                     });
 
                 } catch (final Exception e) {
-
                     _handler.post(new Runnable() {
+public void run() {
 
-                        public void run() {
+    q = "Delete from Customers_man";
+    sqlHandler.executeQuery(q);
+    q = "delete from sqlite_sequence where name='Customers_man'";
+    sqlHandler.executeQuery(q);
 
                         }
                     });
@@ -3295,12 +3305,13 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                             JSONArray js_Man_No = js.getJSONArray("Man_No");
                             JSONArray js_SaleManFlg = js.getJSONArray("SaleManFlg");
 
-
                             for (i = 0; i < js_Cusno.length(); i++) {
                                 q = "INSERT INTO CustomersMsg(Cusno,msg,Man_No,SaleManFlg) values ('"
                                         + js_Cusno.get(i).toString()
                                         + "','" + js_msg.get(i).toString()
-                                        + "'," + js_Man_No.get(i).toString() + "," + js_SaleManFlg.get(i).toString() + ")";
+                                        + "'," + js_Man_No.get(i).toString() + ","
+                                        + js_SaleManFlg.get(i).toString() +")";
+
                                 sqlHandler.executeQuery(q);
                                 progressDialog.setMax(js_Cusno.length());
                                 progressDialog.incrementProgressBy(1);
@@ -3574,6 +3585,12 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
                         });
 
                     } catch (final Exception e) {
+
+                        q = "Delete from Customers";
+                        sqlHandler.executeQuery(q);
+                        q = "delete from sqlite_sequence where name='Customers'";
+                        sqlHandler.executeQuery(q);
+
                         custDialog.dismiss();
                         _handler.post(new Runnable() {
 

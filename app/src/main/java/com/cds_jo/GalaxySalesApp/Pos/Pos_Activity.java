@@ -1,5 +1,6 @@
 package com.cds_jo.GalaxySalesApp.Pos;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,7 +20,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -337,7 +341,7 @@ public class Pos_Activity extends AppCompatActivity {
     android.support.v7.app.AlertDialog alertDialog2;
     EditText   et_OrdeNo;
     TextView tv_acc;
-    TextView tv_cusnm;
+    EditText tv_cusnm;
      MyTextView tv_CpmpanyName,tv_UserNm;
 
 
@@ -366,6 +370,10 @@ public class Pos_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pos_activity);
+
+
+
+
 
 
 GlobaleVar.cusname="";
@@ -576,10 +584,10 @@ GlobaleVar.tvtotal="";
 
         GetMaxPONo();
 
-        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
 
         final TextView accno = (TextView) findViewById(R.id.tv_acc);
-         TextView tv_cusnm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText tv_cusnm = (EditText) findViewById(R.id.tv_cusnm);
         accno.setText(sharedPreferences.getString("CustNo", ""));
         CustNm.setText(sharedPreferences.getString("CustNm", ""));
 
@@ -846,7 +854,7 @@ GlobaleVar.tvtotal="";
             public void afterTextChanged(Editable arg0) {
                if (arg0.toString().length() > 0){
                         if (((int)(arg0.toString().charAt(arg0.toString().length()-1)) == 10)) {
-                            GetItemByBarcode(arg0.toString().subSequence(0, arg0.toString().length() - 1).toString());
+                          //  GetItemByBarcode(arg0.toString().subSequence(0, arg0.toString().length() - 1).toString());
                         }
                     }
 
@@ -895,14 +903,19 @@ GlobaleVar.tvtotal="";
     }
     private void GetItemByBarcode(String Key){
 
+      //  String    query1 = "Select  Item_No  from invf  where status ='0' and place = '" + Key + "'" ;
+
+
         String    query1 = "Select  Item_No  from Inv_Sal  where status ='0' and sal = '"+Key+"' " ;
+
+
+            query1 = "Select  Item_No  from invf  where Item_No = '"+Key+"' " ;
+Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
 
         sqlHandler = new SqlHandler(this);
 
 
-
         Cursor c2 = sqlHandler.selectQuery(query1);
-
 
         if (c2 != null && c2.getCount() != 0) {
             if (c2.moveToFirst()) {
@@ -914,6 +927,7 @@ GlobaleVar.tvtotal="";
                         "   left join  Unites on Unites.Unitno =UnitItems.unitno  " +
                         "    left join  invf on invf.Item_No =UnitItems.item_no  " +
                         "   where UnitItems.item_no ='" + b1 + "' order by   UnitItems.Min desc" ;
+
 
                 Cursor c1 = sqlHandler.selectQuery(query);
                 Cls_UnitItems cls_unitItems = new Cls_UnitItems();
@@ -953,6 +967,12 @@ GlobaleVar.tvtotal="";
 
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+
+
+
+
+
+
     }
     public void FilterItems(String Filter ) {
         String    query = "Select   distinct invf.Item_No , invf.Item_Name,invf.Price, invf.tax   from invf  " +
@@ -1142,7 +1162,84 @@ GlobaleVar.tvtotal="";
 
 
     }
+
     public  void InsertDiscount(String DiscountAmt , String DiscountType, int  cash, int check, int Visa , String Check_Paid_Amt , String Visa_Paid_Amt , String Cash_Paid_Amt , String Cust_Amt_Paid , String RemainAm  , String Check_Paid_Date, String Check_Paid_Bank, String Check_Paid_Person , String Visa_Paid_Expire_Date, String Visa_Paid_Type, String Check_Number,String Print_Flg,String type_card){
+        double ItemWieght=0.0;
+
+
+        String q  = "SELECT distinct *  from  Sal_invoice_Hdr where    " +
+                "   Post > 0 AND   OrderNo ='" + OrderNo.getText().toString().trim() + "'";
+
+        // String sal_state = DB.GetValue(Pos_Activity.this, "Sal_invoice_Hdr", "dis_Req", "OrderNo='" +  OrderNo.getText().toString().trim() + "'");
+
+       /* if (sal_state.equals("1")) {
+            Toast.makeText(Pos_Activity.this, "تم طلب خصم لهذه الفاتورة", Toast.LENGTH_SHORT).show();
+
+        }*/
+
+
+
+
+        String sal_state = DB.GetValue(Pos_Activity.this, "Sal_invoice_Hdr", "dis_Req", "OrderNo='" +  OrderNo.getText().toString().trim() + "'");
+
+        Cursor c1 = sqlHandler.selectQuery(q);
+        if ((c1 != null && c1.getCount() != 0 ) ) {
+            new SweetAlertDialog(Pos_Activity.this,SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+                    .setTitleText("فاتورة المبيعات")
+                    .setContentText("لقد تم إعتماد الفاتورة لا يمكن التعديل")
+                    .setCustomImage(R.drawable.error_new)
+                    .show();
+
+            c1.close();
+            return;
+        }
+
+
+
+
+
+        for (int x = 0; x < contactList.size(); x++) {
+
+            contactList.get(x).setDisPerFromHdr("0");
+            contactList.get(x).setDisAmtFromHdr("0");
+        }
+
+        CalcTotal() ;
+        //  showList();
+        if(DiscountType.equalsIgnoreCase("1")){
+            FinalDiscountpercent=SToD(DiscountAmt);
+            FinalDiscountAmt=((SToD(DiscountAmt)/100) * SToD(tv_NetTotal.getText().toString())) ;
+            FinalDiscountAmt=SToD(FinalDiscountAmt+"");
+        }else{
+            FinalDiscountpercent=SToD(DiscountAmt)/SToD(tv_NetTotal.getText().toString());
+            FinalDiscountpercent=FinalDiscountpercent*100;
+            FinalDiscountAmt=SToD(DiscountAmt);
+            FinalDiscountpercent=SToD(FinalDiscountpercent+"");
+        }
+        FinalDiscountType=DiscountType;
+        tv_HeaderDscount.setText(SToD((FinalDiscountpercent)+"")+"%");
+
+
+        for (int x = 0; x < contactList.size(); x++) {
+
+            contactList.get(x).setDisPerFromHdr(FinalDiscountpercent+"" );
+            if (IncludeTax_Flag.isChecked()) {
+                double a = ((FinalDiscountpercent * (SToD(contactList.get(x).getTotal())  )) );
+                String w= String.format(Locale.ENGLISH,"%.5f", a/100);
+                contactList.get(x).setDisAmtFromHdr(w);
+            }else{
+                contactList.get(x).setDisAmtFromHdr(((FinalDiscountpercent * (SToD(contactList.get(x).getTotal()) - SToD(contactList.get(x).getTax_Amt()))) / 100) + "");
+            }
+        }
+        CalcTotal();
+        showList();
+
+
+
+        Save_Recod_Po(  cash, check, Visa , Check_Paid_Amt , Visa_Paid_Amt , Cash_Paid_Amt , Cust_Amt_Paid ,  RemainAm,  Check_Paid_Date,   Check_Paid_Bank,   Check_Paid_Person ,   Visa_Paid_Expire_Date,   Visa_Paid_Type ,Check_Number,DiscountAmt,Print_Flg,type_card );
+    }
+
+/*    public  void InsertDiscount(String DiscountAmt , String DiscountType, int  cash, int check, int Visa , String Check_Paid_Amt , String Visa_Paid_Amt , String Cash_Paid_Amt , String Cust_Amt_Paid , String RemainAm  , String Check_Paid_Date, String Check_Paid_Bank, String Check_Paid_Person , String Visa_Paid_Expire_Date, String Visa_Paid_Type, String Check_Number,String Print_Flg,String type_card){
            double ItemWieght=0.0;
 
 
@@ -1201,7 +1298,7 @@ GlobaleVar.tvtotal="";
         CalcTotal();
         showList();
         Save_Recod_Po(  cash, check, Visa , Check_Paid_Amt , Visa_Paid_Amt , Cash_Paid_Amt , Cust_Amt_Paid ,  RemainAm,  Check_Paid_Date,   Check_Paid_Bank,   Check_Paid_Person ,   Visa_Paid_Expire_Date,   Visa_Paid_Type ,Check_Number,DiscountAmt,Print_Flg,type_card );
-    }
+    }*/
 
     private void Get_CatNo(String ACC_NO) {
         SqlHandler sqlHandler = new SqlHandler(this);
@@ -1398,7 +1495,7 @@ GlobaleVar.tvtotal="";
 
     }
     public void Set_Cust(String No, String Nm) {
-        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView acc = (TextView) findViewById(R.id.tv_acc);
         acc.setText(No);
         CustNm.setText(Nm);
@@ -1414,7 +1511,7 @@ GlobaleVar.tvtotal="";
         return  SToD(Tot+"")+"";
     }
     private void PopSaveInvoice(){
-        TextView CustNm1 = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm1 = (EditText) findViewById(R.id.tv_cusnm);
         TextView totalnet1 = (TextView) findViewById(R.id.tv_NetTotal);
 
         GlobaleVar.cusname=CustNm1.getText().toString();
@@ -1502,7 +1599,7 @@ GlobaleVar.tvtotal="";
 
             String Msg = "";
 
-            final TextView custNm = (TextView) findViewById(R.id.tv_cusnm);
+            final EditText custNm = (EditText) findViewById(R.id.tv_cusnm);
             AlertDialog.Builder alertDialogYesNo = new AlertDialog.Builder(this);
 
             if (contactList.size() == 0) {
@@ -1553,7 +1650,7 @@ GlobaleVar.tvtotal="";
         GlobaleVar.type_dis = "0";
         Integer Seq = 0;
         CheckBox chk_Type = (CheckBox) findViewById(R.id.chk_Type);
-        TextView custNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText custNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView pono = (TextView) findViewById(R.id.et_OrdeNo);
         TextView acc = (TextView) findViewById(R.id.tv_acc);
         EditText et_hdr_Disc = (EditText) findViewById(R.id.et_hdr_Disc);
@@ -1974,7 +2071,7 @@ GlobaleVar.tvtotal="";
         }
         public void chk_Type12 (View view)
         {
-            TextView tv_cusnm = (TextView) findViewById(R.id.tv_cusnm);
+            EditText tv_cusnm = (EditText) findViewById(R.id.tv_cusnm);
             if(chk_Type.isChecked())
                 {
                  String   cash_bill= DB.GetValue(Pos_Activity.this,"ComanyInfo","Acc_Cash","1=1");
@@ -2634,7 +2731,7 @@ GlobaleVar.tvtotal="";
 
         GetMaxPONo();
         showList();
-        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView accno = (TextView) findViewById(R.id.tv_acc);
         CustNm.setText("");
         accno.setText("");
@@ -2721,7 +2818,7 @@ GlobaleVar.tvtotal="";
 
     public void Fill_ItemSet_Order(String No) {
         No=No.replace("\u202c","").replace("\u202d","");
-        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView no = (TextView) findViewById(R.id.et_OrdeNo);
         TextView accno = (TextView) findViewById(R.id.tv_acc);
         EditText et_hdr_Disc = (EditText) findViewById(R.id.et_hdr_Disc);
@@ -2911,7 +3008,7 @@ GlobaleVar.tvtotal="";
             c1.close();
             return;
         }*/
-        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
         Intent k;
       /*  k = new Intent(this, Print_POS_Activity.class);
@@ -3186,7 +3283,7 @@ GlobaleVar.tvtotal="";
         GlobaleVar.type_dis = "0";
         GetMaxPONo();
         showList();
-        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView accno = (TextView) findViewById(R.id.tv_acc);
         EditText et_hdr_Disc = (EditText) findViewById(R.id.et_hdr_Disc);
         TextView et_TotalTax = (TextView) findViewById(R.id.et_TotalTax);
@@ -4182,7 +4279,7 @@ GlobaleVar.tvtotal="";
         sqlHandler.executeQuery(s);
 
 
-        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView Order_no = (TextView) findViewById(R.id.et_OrdeNo);
         TextView accno = (TextView) findViewById(R.id.tv_acc);
         Set_Order(Order_no.getText().toString());
@@ -4190,7 +4287,7 @@ GlobaleVar.tvtotal="";
     public void Set_Order(String No) {
         DecimalFormat Format = new DecimalFormat("0.000");
         No=No ;
-        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView no = (TextView) findViewById(R.id.et_OrdeNo);
         TextView accno = (TextView) findViewById(R.id.tv_acc);
         EditText et_hdr_Disc = (EditText) findViewById(R.id.et_hdr_Disc);
@@ -4340,7 +4437,7 @@ GlobaleVar.tvtotal="";
             sqlHandler.executeQuery(s);
 
 
-            TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+            EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
 
             TextView accno = (TextView) findViewById(R.id.tv_acc);
             Set_Order(Order_no.getText().toString());
@@ -4930,7 +5027,7 @@ GlobaleVar.tvtotal="";
     }
 
     private void GetUserAccount(){
-        TextView CustNm = (TextView) findViewById(R.id.tv_cusnm);
+        EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView acc = (TextView) findViewById(R.id.tv_acc);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String user =  sharedPreferences.getString("UserID", "");
@@ -4978,5 +5075,6 @@ GlobaleVar.tvtotal="";
             GetItemByBarcode(result.getContents());
         }
     }
+
 
 }
