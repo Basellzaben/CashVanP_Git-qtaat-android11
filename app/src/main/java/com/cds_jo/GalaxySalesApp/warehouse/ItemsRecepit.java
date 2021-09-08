@@ -121,7 +121,7 @@ public class ItemsRecepit extends FragmentActivity {
     LinearLayout lyt_Share, Home_layout;
     String ServerDate, DeviceDate;
     SimpleDateFormat sdf;
-    MyTextView tv_CatDesc,     tv_Allow_Amt,tv_CellingException  ;
+    MyTextView tv_CatDesc,tv_Allow_Amt,tv_CellingException  ;
     MyTextView tv_PromotionStatus,tv_Celing,tv_CustTotal;
     String SCR_NO ="11003";
     EditText  et_OrdeNo ;
@@ -130,7 +130,10 @@ public class ItemsRecepit extends FragmentActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         try {
+
 
             setContentView(R.layout.items_recepit);
             ComInfo.ComNo = Integer.parseInt(DB.GetValue(this, "ComanyInfo", "CompanyID", "1=1"));
@@ -208,7 +211,12 @@ public class ItemsRecepit extends FragmentActivity {
             tv_SerialNm = (TextView)  findViewById(R.id.tv_SerialNm);
             tv_PurchesOrder = (TextView)  findViewById(R.id.tv_PurchesOrder);
             tv_PurchesOrderYear = (EditText)  findViewById(R.id.tv_PurchesOrderYear);
-            dis = (TextView) findViewById(R.id.et_dis);
+
+            tv_PurchesOrderYear.setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
+
+
+
+                    dis = (TextView) findViewById(R.id.et_dis);
             tv_SerialNm.setText(sharedPreferences.getString("CustNm", ""));
             tv_CustTotal = (MyTextView) mNav.findViewById(R.id.tv_CustTotal);
              NetTotal = (TextView) findViewById(R.id.tv_NetTotal);

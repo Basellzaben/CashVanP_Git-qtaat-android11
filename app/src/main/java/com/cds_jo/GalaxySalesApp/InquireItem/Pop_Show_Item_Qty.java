@@ -61,13 +61,14 @@ public class Pop_Show_Item_Qty extends DialogFragment implements View.OnClickLis
     @Override
     public void onStart()
     {
-        super.onStart();
-        if (getDialog() == null)
-            return;
-        int dialogWidth = WindowManager.LayoutParams.MATCH_PARENT;//340; // specify a value here
-        int dialogHeight = WindowManager.LayoutParams.MATCH_PARENT;//400; // specify a value here
-        getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
-
+        try {
+            super.onStart();
+            if (getDialog() == null)
+                return;
+            int dialogWidth = WindowManager.LayoutParams.MATCH_PARENT;//340; // specify a value here
+            int dialogHeight = WindowManager.LayoutParams.MATCH_PARENT;//400; // specify a value here
+            //getDialcallog().getWindow().setLayout(dialogWidth, dialogHeight);
+        }catch (Exception e){}
     }
 
 

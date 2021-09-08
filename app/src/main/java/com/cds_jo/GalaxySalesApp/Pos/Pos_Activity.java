@@ -98,6 +98,7 @@ import com.cds_jo.GalaxySalesApp.Select_Customer;
 import com.cds_jo.GalaxySalesApp.Select_Drivers;
 import com.cds_jo.GalaxySalesApp.SqlHandler;
 import com.cds_jo.GalaxySalesApp.TspPrinter.PrinterFunctions;
+import com.cds_jo.GalaxySalesApp.UpdateDataToMobileActivity;
 import com.cds_jo.GalaxySalesApp.VisitImges;
 import com.cds_jo.GalaxySalesApp.We_Result;
 import com.cds_jo.GalaxySalesApp.assist.CallWebServices;
@@ -120,6 +121,9 @@ import com.google.zxing.integration.android.IntentResult;
 //import org.apache.commons.lang3.StringUtils;
 //import org.json.JSONArray;
 //import org.json.JSONObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -873,7 +877,7 @@ GlobaleVar.tvtotal="";
 
 
         tv_SearchValue.setVisibility(View.GONE);
-        chk_Type.setChecked(true);
+      //  chk_Type.setChecked(true);
         String cash_bill;
         cash_bill= DB.GetValue(this,"ComanyInfo","Acc_Cash","1=1");
         tv_acc.setText(cash_bill);
@@ -1632,6 +1636,67 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
              //   }
 
     }
+
+    public void updateManStore(){
+        final String Ser = "1";
+        String q = "Delete from ManStore";
+        sqlHandler.executeQuery(q);
+        q = "delete from sqlite_sequence where name='ManStore'";
+        sqlHandler.executeQuery(q);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                CallWebServices ws = new CallWebServices(Pos_Activity.this);
+                ws.TrnsferQtyFromMobile(UserID, "0", "");
+                try {
+                    Integer i;
+                    String q = "";
+                    JSONObject js = new JSONObject(We_Result.Msg);
+                    JSONArray js_date = js.getJSONArray("date");
+                    JSONArray js_fromstore = js.getJSONArray("fromstore");
+                    JSONArray js_tostore = js.getJSONArray("tostore");
+                    JSONArray js_des = js.getJSONArray("des");
+                    JSONArray js_docno = js.getJSONArray("docno");
+                    JSONArray js_itemno = js.getJSONArray("itemno");
+                    JSONArray js_qty = js.getJSONArray("qty");
+                    JSONArray js_UnitNo = js.getJSONArray("UnitNo");
+                    JSONArray js_UnitRate = js.getJSONArray("UnitRate");
+                    JSONArray js_myear = js.getJSONArray("myear");
+                    JSONArray js_StoreName = js.getJSONArray("StoreName");
+                    JSONArray js_RetailPrice = js.getJSONArray("RetailPrice");
+
+
+                    for (i = 0; i < js_docno.length(); i++) {
+                        q = "Insert INTO ManStore(SManNo,date,fromstore,tostore,des,docno,itemno,qty,UnitNo,UnitRate,myear,RetailPrice ,StoreName ,ser) values ("
+                                + UserID.toString()
+                                + ",'" + js_date.get(i).toString()
+                                + "','" + js_fromstore.get(i).toString()
+                                + "','" + js_tostore.get(i).toString()
+                                + "','" + js_des.get(i).toString()
+                                + "','" + js_docno.get(i).toString()
+                                + "','" + js_itemno.get(i).toString()
+                                + "','" + js_qty.get(i).toString()
+                                + "','" + js_UnitNo.get(i).toString()
+                                + "','" + js_UnitRate.get(i).toString()
+                                + "','" + js_myear.get(i).toString()
+                                + "','" + js_RetailPrice.get(i).toString()
+                                + "','" + js_StoreName.get(i).toString()
+                                + "'," + Ser.toString()
+                                + " )";
+                        sqlHandler.executeQuery(q);
+
+                    }
+
+                    //  Toast.makeText(getApplicationContext(),"تم التحديث",Toast.LENGTH_LONG).show();
+
+                } catch (final Exception e) {
+//Toast.makeText(getApplicationContext(),"لم يتم التحديث",Toast.LENGTH_LONG).show();
+                }
+            }
+        }).start();
+    }
+
     private  String GetSumFinalDiscount(){
         double sum =0.0;
        for (int x = 0; x < contactList.size(); x++) {
@@ -1889,6 +1954,9 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
 
 
         }
+
+
+
 
     }
     /*private  void DoRecShare( ){
@@ -3119,7 +3187,7 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
 
       }
         catch (Exception ex){
-            Toast.makeText(Pos_Activity.this,ex.getMessage(),Toast.LENGTH_LONG).show();
+         //   Toast.makeText(Pos_Activity.this,ex.getMessage(),Toast.LENGTH_LONG).show();
         }
 
     }
@@ -4316,7 +4384,7 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
 
 
         CheckBox chk_hdrdiscount = (CheckBox) findViewById(R.id.chk_hdr_disc);
-        chk_Type.setChecked(true);
+      //  chk_Type.setChecked(true);
 
         chk_hdrdiscount.setChecked(false);
         if (c1 != null && c1.getCount() != 0) {
@@ -4349,10 +4417,12 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
                 }
                 if (c1.getString(c1.getColumnIndex("inovice_type")).equals("0")) {
                     chk_Type.setChecked(true);
+                    chk_Type.setEnabled(false);
+                }else{
+                chk_Type.setChecked(false);
+                    chk_Type.setEnabled(false);
 
-                }
-                chk_Type.setEnabled(false);
-            }
+                }}
             c1.close();
         }
 
@@ -4761,6 +4831,7 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
 
                         _handler.post(new Runnable() {
                             public void run() {
+                                updateManStore();
                                 ContentValues cv = new ContentValues();
                                 TextView DocNo = (TextView) findViewById(R.id.et_OrdeNo);
                                 cv.put("Post", We_Result.ID);

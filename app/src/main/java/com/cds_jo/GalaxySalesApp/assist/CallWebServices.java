@@ -61,14 +61,13 @@ URL = "http://5.198.246.88:3755/CV.asmx";// عفرا
         //URL = "http://192.168.137.1:82/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7095/CV.asmx";// galaxy
        //URL = "http://10.0.1.63:92/CV.asmx";// galaxy
-  // URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
+   URL = "http://10.0.1.104:9767/CV.asmx";// galaxy
      //  URL = "http://192.168.1.146:9767/CV.asmx";// galaxy
 //URL = "http://94.249.83.196:7092/CV.asmx";// galaxy
         //moh
+        URL = "http://10.0.1.104:6985/CV.asmx";// galaxy
 
-
-URL = "http://10.0.1.104:6985/CV.asmx";// galaxy
-
+        URL = "http://10.0.1.104:8589/CV.asmx";// قطاعات
 
     }
     public void GetItem_D(String Item_no, int flag) {
@@ -86,8 +85,6 @@ URL = "http://10.0.1.104:6985/CV.asmx";// galaxy
         parm_flag.setName("flag");
         parm_flag.setValue(flag);
         parm_flag.setType(String.class);
-
-
 
 
         // Add the property to request object

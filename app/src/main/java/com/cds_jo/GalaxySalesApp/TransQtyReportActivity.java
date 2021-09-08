@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cds_jo.GalaxySalesApp.assist.Cls_Trans_Qty;
 import com.cds_jo.GalaxySalesApp.assist.Cls_Trans_Qty_Adapter;
@@ -257,16 +258,24 @@ CheckBox chk_hdr_disc ;
                     progressDialog.dismiss();
                     _handler.post(new Runnable() {
                         public void run() {
-                            AlertDialog alertDialog = new AlertDialog.Builder(
+                            try{
+                                AlertDialog alertDialog = new AlertDialog.Builder(
                                     TransQtyReportActivity.this).create();
                             alertDialog.setTitle("فشل في عمليه الاتصال");
                             alertDialog.setMessage(e.getMessage().toString());
                             alertDialog.setIcon(R.drawable.tick);
                             alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+
+
                                 }
                             });
-                            alertDialog.show();
+
+                            alertDialog.show();}catch (Exception e){
+
+                                Toast.makeText(TransQtyReportActivity.this,"فشل في عملية الاتصال",Toast.LENGTH_LONG).show();
+
+                            }
                         }
                     });
                 }
