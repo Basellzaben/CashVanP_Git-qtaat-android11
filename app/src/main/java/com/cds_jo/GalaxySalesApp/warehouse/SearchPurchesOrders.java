@@ -219,23 +219,25 @@ public class SearchPurchesOrders extends DialogFragment implements View.OnClickL
                     _handler.post(new Runnable() {
 
                         public void run() {
-                            FillList("");
-                            custDialog.dismiss();
+                            if(getActivity() != null) {
+
+                                FillList("");
+                               custDialog.dismiss();
 
 
-                            AlertDialog alertDialog = new AlertDialog.Builder(
-                                    getActivity()).create();
-                            alertDialog.setTitle("طلبات الشراء");
-                            alertDialog.setMessage("تمت عملية التحديث بنجاح");
-                            alertDialog.setIcon(R.drawable.tick);
-                            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(
+                                        getActivity()).create();
+                                alertDialog.setTitle("طلبات الشراء");
+                                alertDialog.setMessage("تمت عملية التحديث بنجاح");
+                                alertDialog.setIcon(R.drawable.tick);
+                                alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
 
 
-                                }
-                            });
-                            //alertDialog.show();
-
+                                    }
+                                });
+                                alertDialog.show();
+                            }
 
                         }
                     });
@@ -245,19 +247,19 @@ public class SearchPurchesOrders extends DialogFragment implements View.OnClickL
                     _handler.post(new Runnable() {
 
                         public void run() {
-                            custDialog.dismiss();
+                            if(getActivity() != null) {
+                                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                                alertDialog.setTitle("طلبات الشراء");
+                                alertDialog.setMessage("لا يوجد بيانات ");
+                                alertDialog.setIcon(R.drawable.tick);
+                                alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                            AlertDialog alertDialog = new AlertDialog.Builder(
-                                    getActivity()).create();
-                            alertDialog.setTitle("طلبات الشراء");
-                            alertDialog.setMessage("لا يوجد بيانات ");
-                            alertDialog.setIcon(R.drawable.tick);
-                            alertDialog.setButton("موافق", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-                            alertDialog.show();
+                                    }
+                                });
+                                alertDialog.show();
+                                //custDialog.dismiss();
+                            }
                         }
                     });
                 }
@@ -265,46 +267,57 @@ public class SearchPurchesOrders extends DialogFragment implements View.OnClickL
         }).start();
     }
     private  void  FillList(String f){
-    ArrayList<Cls_PurchesOrderSearch> cls_maint_card_searches = new ArrayList<Cls_PurchesOrderSearch>();
-    cls_maint_card_searches.clear();
+        try {
+            ArrayList<Cls_PurchesOrderSearch> cls_maint_card_searches = new ArrayList<Cls_PurchesOrderSearch>();
+            cls_maint_card_searches.clear();
 
 
-    String q = " Select distinct  order_no  , odate  From  PurchesOrderTemp " +
-            "  Where (order_no like '%"+f+"%'  or odate like '%"+f+"%')   " +
-            " Order By Cast( order_no as integer ) asc";
+            String q = " Select distinct  order_no  , odate  From  PurchesOrderTemp " +
+                    "  Where (order_no like '%" + f + "%'  or odate like '%" + f + "%')   " +
+                    " Order By Cast( order_no as integer ) asc";
 
-    SqlHandler sqlHandler = new SqlHandler(getActivity());
-    Cursor c1 = sqlHandler.selectQuery(q);
+            SqlHandler sqlHandler = new SqlHandler(getActivity());
+            Cursor c1 = sqlHandler.selectQuery(q);
 
-    if (c1 != null && c1.getCount() != 0) {
-        if (c1.moveToFirst()) {
-            do {
-                Cls_PurchesOrderSearch obj = new Cls_PurchesOrderSearch();
-                obj.setOrderNo(c1.getString(c1.getColumnIndex("order_no")));
-                obj.setDate(c1.getString(c1.getColumnIndex("odate")));
-                cls_maint_card_searches.add(obj);
-            } while (c1.moveToNext());
+            if (c1 != null && c1.getCount() != 0) {
+                if (c1.moveToFirst()) {
+                    do {
+                        Cls_PurchesOrderSearch obj = new Cls_PurchesOrderSearch();
+                        obj.setOrderNo(c1.getString(c1.getColumnIndex("order_no")));
+                        obj.setDate(c1.getString(c1.getColumnIndex("odate")));
+                        cls_maint_card_searches.add(obj);
+                    } while (c1.moveToNext());
+                }
+
+                c1.close();
+            }
+
+            PurchesOrderSearch_Adapter cls_search_po_adapter = new PurchesOrderSearch_Adapter(
+                    this.getActivity(), cls_maint_card_searches);
+            items_Lsit.setAdapter(cls_search_po_adapter);
+
+        }catch (Exception e){
+
         }
-
-        c1.close();
-    }
-
-        PurchesOrderSearch_Adapter cls_search_po_adapter = new PurchesOrderSearch_Adapter(
-            this.getActivity(), cls_maint_card_searches);
-    items_Lsit.setAdapter(cls_search_po_adapter);
-
-
 
 }
     public void Exist_Pop ()
     {
+        try{
         this.dismiss();
+    }catch (Exception e){
+
+    }
     }
     @Override
     public void onClick(View v) {
         Button bu = (Button) v ;
         if (bu.getText().toString().equals("Cancel")){
-            this.dismiss();
+            try{
+                this.dismiss();
+            }catch (Exception e){
+
+            }
         }
         else  if (bu.getText().toString().equals("Add")){
 

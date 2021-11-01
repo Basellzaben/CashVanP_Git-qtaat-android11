@@ -377,7 +377,8 @@ public class Pos_Activity extends AppCompatActivity {
 
 
 
-
+        chk_Type =(CheckBox)findViewById(R.id.chk_Type);
+        chk_Type.setChecked(true);
 
 
 GlobaleVar.cusname="";
@@ -1939,9 +1940,9 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
                   Insert_AutRecv(    cash,  check,  Visa ,  Check_Paid_Amt ,  Visa_Paid_Amt ,  Cash_Paid_Amt   ,  Check_Paid_Date,   Check_Paid_Bank,   Check_Paid_Person ,   Visa_Paid_Expire_Date,   Visa_Paid_Type,  Check_Number  );
             }
             chk_Type.setEnabled(false);*/
-            if (Print_Flg.equalsIgnoreCase("1")){
+            /*if (Print_Flg.equalsIgnoreCase("1")){
                 DoPrint();
-            }
+            }*/
             if(ComInfo.ComNo== Companies.Sector.getValue()) {
                 DoShare();
             }
@@ -3066,7 +3067,7 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
                 "   Post <= 0 AND   OrderNo ='" + OrderNo.getText().toString().trim() + "'";
 
         Cursor c1 = sqlHandler.selectQuery(q);
-   /*     if (c1 != null && c1.getCount() != 0) {
+       if (c1 != null && c1.getCount() != 0) {
             new SweetAlertDialog(Pos_Activity.this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                     .setTitleText("فاتورة المبيعات")
                     .setContentText("لا يمكن الطباعة الا بعد الاعتماد")
@@ -3075,7 +3076,7 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
 
             c1.close();
             return;
-        }*/
+        }
         EditText CustNm = (EditText) findViewById(R.id.tv_cusnm);
         TextView OrdeNo = (TextView) findViewById(R.id.et_OrdeNo);
         Intent k;
@@ -4853,6 +4854,9 @@ Toast.makeText(Pos_Activity.this,Key,Toast.LENGTH_SHORT).show();
 
                             }
                         });
+
+
+                        DoPrint();
                     } else {
 
 

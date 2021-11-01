@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -45,7 +46,8 @@ public class ManSummeryNew extends FragmentActivity {
     private Fragment frag;
     String[] items = new String[]{"2021/06/16", "2/2/2020"};
     EditText dateedit;
-
+    LinearLayout  T2l,  T3l, T8l;
+    LinearLayout  T1l,  T4l, T5l,T6l;
     DatePickerDialog picker;
     Button b;
     private Xprinter_ManSummeryTo_img flag1;
@@ -58,6 +60,56 @@ public class ManSummeryNew extends FragmentActivity {
         Initi();
         Click();
         frag = new Header_Frag();
+
+
+        //LinearLayout  T1l,  T4l, T5l,T6l;
+
+
+        T1l=(LinearLayout)findViewById(R.id.T1l);
+        T4l=(LinearLayout)findViewById(R.id.T4l);
+        T5l=(LinearLayout)findViewById(R.id.T5l);
+        T6l=(LinearLayout)findViewById(R.id.T6l);
+
+        T2l=(LinearLayout)findViewById(R.id.T2l);
+        T3l=(LinearLayout)findViewById(R.id.T3l);
+        T8l=(LinearLayout)findViewById(R.id.T8l);
+
+
+        if (ComInfo.ComNo == Companies.Sector.getValue()) {
+
+            T4l.setVisibility(View.GONE);
+            T3l.setVisibility(View.GONE);
+            T8l.setVisibility(View.GONE);
+
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
+            T1l.getLayoutParams();
+            T2l.getLayoutParams();
+            T5l.getLayoutParams();
+            T6l.getLayoutParams();
+
+            T1l.getLayoutParams();
+            T2l.getLayoutParams();
+            T5l.getLayoutParams();
+            T6l.getLayoutParams();
+            params.weight = 1.7f;
+            T1l.setLayoutParams(params);
+            T2l.setLayoutParams(params);
+            T5l.setLayoutParams(params);
+            T6l.setLayoutParams(params);
+
+
+        }else {
+
+        }
+
+
+
+
+
+
+
+
+
         //    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 //set the spinners adapter to the previously created one.
         // dropdown.setAdapter(adapter);
@@ -435,7 +487,7 @@ public class ManSummeryNew extends FragmentActivity {
 
                 T6.setBackgroundColor(getResources().getColor(R.color.Blue));
                 T6.setTextColor(Color.WHITE);
-
+                btn_print();
                 Intent k = new Intent(ManSummeryNew.this, Xprinter_ManSummeryTo_img.class);
                 startActivity(k);
 

@@ -11,7 +11,9 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ CheckBox chk_hdr_disc ;
     String MaxStoreQtySer = "0" ;
     TextView tv_msg ;
     int AllowSalInvMinus;
+    Button button33;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,11 @@ CheckBox chk_hdr_disc ;
         lst_Items =(ListView)findViewById(R.id.lst_Items);
         tv_msg = (TextView)findViewById(R.id.tv_msg);
         tv_msg.setText("");
+        button33=(Button)findViewById(R.id.button33);
 
+        if (ComInfo.ComNo == Companies.Sector.getValue()) {
+            button33.setVisibility(View.GONE);
+        }
 
 
     }

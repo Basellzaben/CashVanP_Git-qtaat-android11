@@ -1,4 +1,3 @@
-
 package com.cds_jo.GalaxySalesApp.Pos;
 
 import android.app.AlertDialog;
@@ -25,6 +24,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -71,7 +71,7 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
     View form;
     NumberPicker np;
     Button btnSave,btn_Back,btnRcode;
-   public EditText et_Discount, ed_Total, ed_AfterDiscount ,ed_bounse;
+    public EditText et_Discount, ed_Total, ed_AfterDiscount ,ed_bounse;
     EditText ed_Check_Paid_Amt,ed_Visa_Paid_Amt,ed_Cash_Paid_Amt,ed_Cust_Amt_Paid,ed_RemainAmt,ed_Check_Number,ed_Check_Bank_Name,ed_Check_Date,ed_Visa_Number,ed_Visa_Expire_Date;
     RadioButton rdoPrecent, rdoAmt,rdoviza,rdocrdit;
     String DiscountMethod="1";
@@ -95,7 +95,7 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
 
         //  int dialogWidth =740; // WindowManager.LayoutParams.WRAP_CONTENT;//340; // specify a value here
         int dialogWidth = 1700; // specify a value here
-         dialogWidth=1200;
+        dialogWidth=1200;
         if(ComInfo.ComNo== Companies.Sector.getValue()){
             dialogWidth = 1200;
         }
@@ -103,7 +103,6 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
             dialogWidth = 1200;
         }
         int dialogHeight = WindowManager.LayoutParams.WRAP_CONTENT;//400; // specify a value here*/
-
 
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
 
@@ -113,6 +112,7 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savestate) {
         form = inflater.inflate(R.layout.popsaveposinvoice, container, false);
         getDialog().setTitle("الخصم النهائي على الفاتورة");
+
         sp_banks = (Spinner) form.findViewById(R.id.sp_banks);
         rdoPrecent = (RadioButton) form.findViewById(R.id.rdoPrecent);
         rdoviza = (RadioButton) form.findViewById(R.id.rdoviza);
@@ -131,6 +131,23 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
         chk_print = (CheckBox) form.findViewById(R.id.chk_print);
 
 
+
+
+        btnRcode=(Button)form.findViewById(R.id.btnRcode);
+        btn_Back=(Button)form.findViewById(R.id.btn_Back);
+        btnSave=(Button)form.findViewById(R.id.btnSave);
+
+
+        if (ComInfo.ComNo == Companies.Sector.getValue()) {
+            btnRcode.setVisibility(View.GONE);
+
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)
+                    btn_Back.getLayoutParams();
+                    btnSave.getLayoutParams();
+            params.weight = 1.7f;
+            btn_Back.setLayoutParams(params);
+            btnSave.setLayoutParams(params);
+        }
 
 
         ed_Check_Paid_Amt = (EditText) form.findViewById(R.id.ed_Check_Paid_Amt);
@@ -370,76 +387,76 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
         cbx_Cash.setChecked(false);
         cbx_Visa.setChecked(false);
         cbx_Check.setChecked(false);
-       String OrederNo="";
-       String Check_Paid_Bank ="";
+        String OrederNo="";
+        String Check_Paid_Bank ="";
         OrederNo =  getArguments().getString("OrederNo");
 
         String q= " select      ifnull(Cash_flg,'0') as Cash_flg ,  ifnull(Check_flg,'0') as Check_flg , ifnull(Visa_flg,'0') as Visa_flg , ifnull(Cash_Paid_Amt,'0') as Cash_Paid_Amt, ifnull(Cust_Amt_Paid,'0') as  Cust_Amt_Paid, ifnull(Remain_Amt,'0') as Remain_Amt , ifnull(Check_Paid_Amt,'0')  as Check_Paid_Amt" +
-                            " , ifnull(Check_Paid_Date,'') as Check_Paid_Date,  ifnull(Check_Paid_Bank,'') as Check_Paid_Bank, ifnull(Check_Paid_Person,'') as Check_Paid_Person,  ifnull(Visa_Paid_Amt,'0') as Visa_Paid_Amt , ifnull(Visa_Paid_Expire_Date,'') as Visa_Paid_Expire_Date" +
-                            " , ifnull(Visa_Paid_Type,'0') as Visa_Paid_Type   , ifnull(Check_Number ,'0') as Check_Number , ifnull(Card_Type ,'0') as Card_Type " +
-                            " , ifnull( hdr_dis_per,'0') as hdr_dis_per ,ifnull(hdr_dis_value ,'0') as hdr_dis_value " +
-                            " ,ifnull(hdr_dis_Type,'1') as hdr_dis_Type  , ifnull(TotalWithoutDiscount,'0') as TotalWithoutDiscount   from Sal_invoice_Hdr where OrderNo ='"+OrederNo+"'";
+                " , ifnull(Check_Paid_Date,'') as Check_Paid_Date,  ifnull(Check_Paid_Bank,'') as Check_Paid_Bank, ifnull(Check_Paid_Person,'') as Check_Paid_Person,  ifnull(Visa_Paid_Amt,'0') as Visa_Paid_Amt , ifnull(Visa_Paid_Expire_Date,'') as Visa_Paid_Expire_Date" +
+                " , ifnull(Visa_Paid_Type,'0') as Visa_Paid_Type   , ifnull(Check_Number ,'0') as Check_Number , ifnull(Card_Type ,'0') as Card_Type " +
+                " , ifnull( hdr_dis_per,'0') as hdr_dis_per ,ifnull(hdr_dis_value ,'0') as hdr_dis_value " +
+                " ,ifnull(hdr_dis_Type,'1') as hdr_dis_Type  , ifnull(TotalWithoutDiscount,'0') as TotalWithoutDiscount   from Sal_invoice_Hdr where OrderNo ='"+OrederNo+"'";
         try {
-    Cursor c = sqlHandler.selectQuery(q);
-    if (c != null && c.getCount() > 0) {
-        c.moveToFirst();
+            Cursor c = sqlHandler.selectQuery(q);
+            if (c != null && c.getCount() > 0) {
+                c.moveToFirst();
 
-        if (c.getString(c.getColumnIndex("Cash_flg")).equalsIgnoreCase("1")) {
-            cbx_Cash.setChecked(true);
-        }
-        if (c.getString(c.getColumnIndex("Check_flg")).equalsIgnoreCase("1")) {
-            cbx_Check.setChecked(true);
-        }
-        if (c.getString(c.getColumnIndex("Visa_flg")).equalsIgnoreCase("1")) {
-            cbx_Visa.setChecked(true);
-        }
+                if (c.getString(c.getColumnIndex("Cash_flg")).equalsIgnoreCase("1")) {
+                    cbx_Cash.setChecked(true);
+                }
+                if (c.getString(c.getColumnIndex("Check_flg")).equalsIgnoreCase("1")) {
+                    cbx_Check.setChecked(true);
+                }
+                if (c.getString(c.getColumnIndex("Visa_flg")).equalsIgnoreCase("1")) {
+                    cbx_Visa.setChecked(true);
+                }
 
-        if (c.getString(c.getColumnIndex("Card_Type")).equalsIgnoreCase("1")) {
-            rdoviza.setChecked(true);
-        }
-        if (c.getString(c.getColumnIndex("Card_Type")).equalsIgnoreCase("1")) {
-            rdocrdit.setChecked(true);
-        }
-
-
-        Check_Paid_Bank =c.getString(c.getColumnIndex("Check_Paid_Bank"));
-        ed_Cash_Paid_Amt.setText(SToD( c.getString(c.getColumnIndex("Cash_Paid_Amt")))+"");
-        ed_Cust_Amt_Paid.setText(SToD(c.getString(c.getColumnIndex("Cust_Amt_Paid")))+"");
-        ed_RemainAmt.setText(SToD(c.getString(c.getColumnIndex("Remain_Amt")))+"");
-
-        ed_Check_Paid_Amt.setText(SToD(c.getString(c.getColumnIndex("Check_Paid_Amt")))+"");
-        ed_Check_Number.setText(c.getString(c.getColumnIndex("Check_Number")));
-        ed_Check_Date.setText(c.getString(c.getColumnIndex("Check_Paid_Date")));
+                if (c.getString(c.getColumnIndex("Card_Type")).equalsIgnoreCase("1")) {
+                    rdoviza.setChecked(true);
+                }
+                if (c.getString(c.getColumnIndex("Card_Type")).equalsIgnoreCase("1")) {
+                    rdocrdit.setChecked(true);
+                }
 
 
-        ed_Visa_Paid_Amt.setText(SToD(c.getString(c.getColumnIndex("Visa_Paid_Amt")))+"");
-        ed_Visa_Number.setText(c.getString(c.getColumnIndex("Visa_Paid_Type")));
-        ed_Visa_Expire_Date.setText(c.getString(c.getColumnIndex("Visa_Paid_Expire_Date")));
+                Check_Paid_Bank =c.getString(c.getColumnIndex("Check_Paid_Bank"));
+                ed_Cash_Paid_Amt.setText(SToD( c.getString(c.getColumnIndex("Cash_Paid_Amt")))+"");
+                ed_Cust_Amt_Paid.setText(SToD(c.getString(c.getColumnIndex("Cust_Amt_Paid")))+"");
+                ed_RemainAmt.setText(SToD(c.getString(c.getColumnIndex("Remain_Amt")))+"");
+
+                ed_Check_Paid_Amt.setText(SToD(c.getString(c.getColumnIndex("Check_Paid_Amt")))+"");
+                ed_Check_Number.setText(c.getString(c.getColumnIndex("Check_Number")));
+                ed_Check_Date.setText(c.getString(c.getColumnIndex("Check_Paid_Date")));
 
 
+                ed_Visa_Paid_Amt.setText(SToD(c.getString(c.getColumnIndex("Visa_Paid_Amt")))+"");
+                ed_Visa_Number.setText(c.getString(c.getColumnIndex("Visa_Paid_Type")));
+                ed_Visa_Expire_Date.setText(c.getString(c.getColumnIndex("Visa_Paid_Expire_Date")));
 
 
 
-        if (c.getString(c.getColumnIndex("hdr_dis_Type")).equalsIgnoreCase("1")) {
-            rdoPrecent.setChecked(true);
-            et_Discount.setText(c.getString(c.getColumnIndex("hdr_dis_per")));
 
-        }
-        if (c.getString(c.getColumnIndex("hdr_dis_Type")).equalsIgnoreCase("2")) {
-            rdoAmt.setChecked(true);
-            et_Discount.setText(c.getString(c.getColumnIndex("hdr_dis_value")));
 
-        }
+                if (c.getString(c.getColumnIndex("hdr_dis_Type")).equalsIgnoreCase("1")) {
+                    rdoPrecent.setChecked(true);
+                    et_Discount.setText(c.getString(c.getColumnIndex("hdr_dis_per")));
 
-      //  ed_Total.setText(c.getString(c.getColumnIndex("TotalWithoutDiscount")));
-        c.close();
-    }
+                }
+                if (c.getString(c.getColumnIndex("hdr_dis_Type")).equalsIgnoreCase("2")) {
+                    rdoAmt.setChecked(true);
+                    et_Discount.setText(c.getString(c.getColumnIndex("hdr_dis_value")));
+
+                }
+
+                //  ed_Total.setText(c.getString(c.getColumnIndex("TotalWithoutDiscount")));
+                c.close();
+            }
 
             SetBank(Check_Paid_Bank);
-              CalcDiscount();
-             }catch (Exception d){}
+            CalcDiscount();
+        }catch (Exception d){}
 
-}
+    }
     private  void GetSumDetails(){
 
         String OrederNo="";
@@ -457,30 +474,30 @@ public class PopSavePosInvoice extends DialogFragment implements View.OnClickLis
         }catch (Exception d){}
 
     }
-private  void SetBank(String Check_Paid_Bank){
-    Cls_Bank_Search cls_bank_search;
+    private  void SetBank(String Check_Paid_Bank){
+        Cls_Bank_Search cls_bank_search;
         Cls_Pos_Bank_Adapter cls_pos_bank_adapter = (Cls_Pos_Bank_Adapter) sp_banks.getAdapter();
-    for (int i = 0; i < cls_pos_bank_adapter.getCount(); i++) {
-        cls_bank_search = (Cls_Bank_Search) cls_pos_bank_adapter.getItem(i);
-        if (cls_bank_search.getNo().equals(Check_Paid_Bank)) {
-            sp_banks.setSelection(i);
-            break;
+        for (int i = 0; i < cls_pos_bank_adapter.getCount(); i++) {
+            cls_bank_search = (Cls_Bank_Search) cls_pos_bank_adapter.getItem(i);
+            if (cls_bank_search.getNo().equals(Check_Paid_Bank)) {
+                sp_banks.setSelection(i);
+                break;
+            }
         }
-    }
 
-}
+    }
     private  void CalcRemain(){
 
 
-    double NetAmt = SToD(ed_AfterDiscount.getText().toString())- ( SToD(ed_Check_Paid_Amt.getText().toString() )+ SToD(ed_Visa_Paid_Amt.getText().toString()))    ;
+        double NetAmt = SToD(ed_AfterDiscount.getText().toString())- ( SToD(ed_Check_Paid_Amt.getText().toString() )+ SToD(ed_Visa_Paid_Amt.getText().toString()))    ;
 
-    if (NetAmt<0){
-        NetAmt= 0;
+        if (NetAmt<0){
+            NetAmt= 0;
+        }
+        ed_Cash_Paid_Amt.setText( SToD( NetAmt+"")+"");
+
+        ed_RemainAmt.setText(SToD((SToD(ed_Cust_Amt_Paid.getText().toString())- SToD(ed_Cash_Paid_Amt.getText().toString()) )+"")+"");
     }
-    ed_Cash_Paid_Amt.setText( SToD( NetAmt+"")+"");
-
-    ed_RemainAmt.setText(SToD((SToD(ed_Cust_Amt_Paid.getText().toString())- SToD(ed_Cash_Paid_Amt.getText().toString()) )+"")+"");
-}
     private void CalcDiscount() {
         double Result = 0.0;
         et_Discount.setError(null);
@@ -552,9 +569,9 @@ private  void SetBank(String Check_Paid_Bank){
                     ed_Check_Number.requestFocus();
                     return;
                 }
-                 if(  ed_Check_Date.getText().toString().equalsIgnoreCase("") ){
-                     ed_Check_Date.setError("القيمة خاطئة!");
-                     ed_Check_Date.requestFocus();
+                if(  ed_Check_Date.getText().toString().equalsIgnoreCase("") ){
+                    ed_Check_Date.setError("القيمة خاطئة!");
+                    ed_Check_Date.requestFocus();
                     return;
                 }
 
@@ -589,9 +606,9 @@ private  void SetBank(String Check_Paid_Bank){
                     ed_Visa_Number.requestFocus();
                     return;
                 }
-                 if(  ed_Visa_Expire_Date.getText().toString().equalsIgnoreCase("") ){
-                     ed_Visa_Expire_Date.setError("القيمة خاطئة!");
-                     ed_Visa_Expire_Date.requestFocus();
+                if(  ed_Visa_Expire_Date.getText().toString().equalsIgnoreCase("") ){
+                    ed_Visa_Expire_Date.setError("القيمة خاطئة!");
+                    ed_Visa_Expire_Date.requestFocus();
                     return;
                 }
 
@@ -608,7 +625,7 @@ private  void SetBank(String Check_Paid_Bank){
                 new SweetAlertDialog(getActivity(), SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                         .setTitleText("فاتورة البيع")
                         .setContentText("الرجاء التأكد من المبلغ المتبقي")
-                         .setCustomImage(R.drawable.error_new)
+                        .setCustomImage(R.drawable.error_new)
                         .show();
                 ed_RemainAmt.setError("القيمة خاطئة!");
                 ed_RemainAmt.requestFocus();
@@ -652,8 +669,8 @@ private  void SetBank(String Check_Paid_Bank){
                 }else{
                     type_card="0";
                 }
-            ((Pos_Activity) getActivity()).InsertDiscount(et_Discount.getText().toString(), DiscountMethod,cash,check,Visa, ed_Check_Paid_Amt.getText().toString(),ed_Visa_Paid_Amt.getText().toString(),ed_Cash_Paid_Amt.getText().toString(),ed_Cust_Amt_Paid.getText().toString(),ed_RemainAmt.getText().toString(),ed_Check_Date.getText().toString(), bankNo
-                          ,"",ed_Visa_Expire_Date.getText().toString(),ed_Visa_Number.getText().toString(),ed_Check_Number.getText().toString(),Print_Flg,type_card);
+                ((Pos_Activity) getActivity()).InsertDiscount(et_Discount.getText().toString(), DiscountMethod,cash,check,Visa, ed_Check_Paid_Amt.getText().toString(),ed_Visa_Paid_Amt.getText().toString(),ed_Cash_Paid_Amt.getText().toString(),ed_Cust_Amt_Paid.getText().toString(),ed_RemainAmt.getText().toString(),ed_Check_Date.getText().toString(), bankNo
+                        ,"",ed_Visa_Expire_Date.getText().toString(),ed_Visa_Number.getText().toString(),ed_Check_Number.getText().toString(),Print_Flg,type_card);
                 this.dismiss();
             }
         } else if (v == rdoPrecent) {
@@ -699,22 +716,22 @@ private  void SetBank(String Check_Paid_Bank){
 
         return valid;
     }
-public void setdis()
-{
-    et_Discount = (EditText) form.findViewById(R.id.et_Discount);
-    ed_bounse = (EditText) form.findViewById(R.id.ed_bounse);
-    et_Discount.setText(GlobaleVar.dis);
-    ed_bounse.setText(GlobaleVar.bounse);
-   if(GlobaleVar.type_dis=="1")
-   {
-       cbx_Check.setChecked(true);
-   }
-   else
-   {
-       cbx_Cash.setChecked(true);
-   }
+    public void setdis()
+    {
+        et_Discount = (EditText) form.findViewById(R.id.et_Discount);
+        ed_bounse = (EditText) form.findViewById(R.id.ed_bounse);
+        et_Discount.setText(GlobaleVar.dis);
+        ed_bounse.setText(GlobaleVar.bounse);
+        if(GlobaleVar.type_dis=="1")
+        {
+            cbx_Check.setChecked(true);
+        }
+        else
+        {
+            cbx_Cash.setChecked(true);
+        }
 
-}
+    }
     private void ShowCodePop() {
 
         final Dialog dialog = new Dialog(this.getActivity());
@@ -740,7 +757,7 @@ public void setdis()
         Accept.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Hacen Tunisia Lt.ttf"));
 
         Button btnCancel = (Button) dialog.findViewById(R.id.Cancel);
-         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -811,20 +828,20 @@ public void setdis()
                             JSONArray Bounse = js.getJSONArray("Bounse");
                             JSONArray dis = js.getJSONArray("dis");
                             JSONArray Type_dis = js.getJSONArray("Type_dis");
-                             if( !(BarCode.get(0).toString().equals(""))) {
-                                 GlobaleVar.barcode = BarCode.get(0).toString();
-                                 GlobaleVar.bounse = Bounse.get(0).toString();
-                                 GlobaleVar.dis = dis.get(0).toString();
-                                 GlobaleVar.type_dis = Type_dis.get(0).toString();
+                            if( !(BarCode.get(0).toString().equals(""))) {
+                                GlobaleVar.barcode = BarCode.get(0).toString();
+                                GlobaleVar.bounse = Bounse.get(0).toString();
+                                GlobaleVar.dis = dis.get(0).toString();
+                                GlobaleVar.type_dis = Type_dis.get(0).toString();
 
-                             }
-                             else
-                             {
-                                 GlobaleVar.barcode = "";
-                                 GlobaleVar.bounse = "";
-                                 GlobaleVar.dis = "";
-                                 GlobaleVar.type_dis = "0";
-                             }
+                            }
+                            else
+                            {
+                                GlobaleVar.barcode = "";
+                                GlobaleVar.bounse = "";
+                                GlobaleVar.dis = "";
+                                GlobaleVar.type_dis = "0";
+                            }
 
 
 
@@ -840,5 +857,3 @@ public void setdis()
     }
 
 }
-
-

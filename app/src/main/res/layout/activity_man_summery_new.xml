@@ -122,9 +122,11 @@ android:textStyle="bold"
 
 
             <LinearLayout
+                android:id="@+id/T6l"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.6"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -140,9 +142,11 @@ android:textStyle="bold"
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/T5l"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.6"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -158,9 +162,11 @@ android:textStyle="bold"
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/T4l"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.6"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -176,10 +182,11 @@ android:textStyle="bold"
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/T8l"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.6"
-                android:visibility="gone"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -195,10 +202,11 @@ android:textStyle="bold"
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/T3l"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.2"
-                android:visibility="gone"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -215,10 +223,11 @@ android:textStyle="bold"
 
 
             <LinearLayout
+                android:id="@+id/T2l"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.2"
-                android:visibility="gone"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -235,10 +244,11 @@ android:textStyle="bold"
 
 
             <LinearLayout
+                android:id="@+id/T1l"
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.6"
-
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -254,9 +264,10 @@ android:textStyle="bold"
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"
+                android:layout_weight="1"
                 android:background="@color/Black11"
                 android:orientation="vertical"
                 android:padding="8dp"
