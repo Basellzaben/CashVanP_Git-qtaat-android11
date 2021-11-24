@@ -99,7 +99,7 @@ public class GalaxyLoginActivity extends FragmentActivity {
                             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                             SharedPreferences.Editor editor    = sharedPreferences.edit();
                             editor.putString("UserName", String.valueOf(c1.getString(0)));
-                            editor.putString("UserID", UserName.getText().toString());
+                            editor.putString("UserID",UserName.getText().toString());
                             editor.putString("Login", "Yes");
                             editor.commit();
                             c1.close();

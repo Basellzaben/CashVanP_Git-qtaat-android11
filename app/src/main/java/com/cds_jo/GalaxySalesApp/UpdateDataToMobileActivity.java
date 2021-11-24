@@ -1,5 +1,6 @@
 package com.cds_jo.GalaxySalesApp;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -62,7 +63,7 @@ import java.util.Locale;
 public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     String str = "";
-    private static final int LASTUPDATE = 202;
+    private static final int LASTUPDATE = 203;
     String FD;
     String TD;
     private Handler progressBarHandler = new Handler();
@@ -1053,7 +1054,10 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
         }
 
 
-
+        try {
+            sqlHandler.executeQuery("Alter Table Offers_Hdr  Add  COLUMN  Offer_No  text null ");
+        } catch (SQLException e) {
+        }
 
 
         if (!isFieldExist()) {
@@ -2168,7 +2172,7 @@ public class UpdateDataToMobileActivity extends AppCompatActivity {
 
     private void GetManPermession() {
 
-
+        UserID="-1";
         if (UserID == "-1") {
             return;
         }
@@ -2574,8 +2578,8 @@ public void run() {
                 ws.GetcompanyInfo();
                 try {
 
-                    JSONObject js = new JSONObject(We_Result.Msg);
-                    JSONArray js_ID = js.getJSONArray("ID");
+                  //  JSONObject js = new JSONObject(We_Result.Msg);
+                  //  JSONArray js_ID = js.getJSONArray("ID");
                     _handler.post(new Runnable() {
                         public void run() {
                             System.out.println("Yes Internet");
@@ -2586,7 +2590,8 @@ public void run() {
                 } catch (final Exception e) {
                     _handler.post(new Runnable() {
                         public void run() {
-                            System.out.println("No Internet");
+                            System.out.println("No Internet  :"+e.getMessage());
+
                             AlertDialog alertDialog = new AlertDialog.Builder(UpdateDataToMobileActivity.this).create();
                             alertDialog = new AlertDialog.Builder(
                                     UpdateDataToMobileActivity.this).create();
@@ -3655,6 +3660,7 @@ public void run() {
                         JSONArray dno = js.getJSONArray("dno");
                         JSONArray tax = js.getJSONArray("tax");
 
+
                         q = "Delete from invf";
                         sqlHandler.executeQuery(q);
                         q = " delete from sqlite_sequence where name='invf'";
@@ -4153,6 +4159,9 @@ public void run() {
                     } catch (final Exception e) {
                         _handler.post(new Runnable() {
                             public void run() {
+
+                                System.out.print("errors deptf"+e.getMessage());
+
                                 progressDialog.dismiss();
                                 filllist(" اصناف المواد ", 0, 0);
                                 Chk_deptf.setChecked(false);
@@ -4189,7 +4198,7 @@ public void run() {
             progressDialog.setProgressDrawable(greenProgressbar);
             progressDialog.show();
             GetManPermession();
-            GetManExceptions();
+           // GetManExceptions();
 
             Get_Tab_Password();
 
@@ -4231,10 +4240,10 @@ public void run() {
 
 
                         JSONArray js_AlternativeMan = js.getJSONArray("AlternativeMan");
-                        JSONArray js_MaxBouns = js.getJSONArray("MaxBouns");
-                        JSONArray js_MaxDiscount = js.getJSONArray("MaxDiscount");
+                       // JSONArray js_MaxBouns = js.getJSONArray("MaxBouns");
+                       // JSONArray js_MaxDiscount = js.getJSONArray("MaxDiscount");
 
-                        final JSONArray SupervisorMobile = js.getJSONArray("MobileNoSupervisor");
+                       // final JSONArray SupervisorMobile = js.getJSONArray("MobileNoSupervisor");
 
 
 
@@ -4247,8 +4256,8 @@ public void run() {
 
                         for (i = 0; i < js_man.length(); i++) {
                             q = "Insert INTO manf(man,name,MEName,username,password,StoreNo,Stoped,SupNo,Mobile1,Mobile2" +
-                                    " , ManType,TypeDesc,AlternativeMan,BranchName,SupervisorName,Email,Acc,AccName,PosAcc,PosAccName,MaxBouns,MaxDiscount,SupervisorMobile) values ("
-                                    + js_man.get(i).toString()
+                                    " , ManType,TypeDesc,AlternativeMan,BranchName,SupervisorName,Email,Acc,AccName,PosAcc,PosAccName) values ("
+                                 + js_man.get(i).toString()
                                     + ",'" + js_name.get(i).toString()
                                     + "','" + js_MEName.get(i).toString()
                                     + "','" + js_UserName.get(i).toString()
@@ -4268,9 +4277,9 @@ public void run() {
                                     + "','" + js_AccName.get(i).toString()
                                     + "','" + js_PosAcc.get(i).toString()
                                     + "','" + js_PosAccName.get(i).toString()
-                                    + "','" + js_MaxBouns.get(i).toString()
-                                    + "','" + js_MaxDiscount.get(i).toString()
-                                    + "','" + SupervisorMobile.get(i).toString()
+                                //    + "','" + js_MaxBouns.get(i).toString()
+                                  //  + "','" + js_MaxDiscount.get(i).toString()
+                                  //  + "','" + SupervisorMobile.get(i).toString()
                                     + "')";
 
 
@@ -4299,6 +4308,9 @@ public void run() {
                             }
                         });
                     } catch (final Exception e) {
+
+                        System.out.println("eroors"+e.getMessage());
+
                         progressDialog.dismiss();
                         _handler.post(new Runnable() {
                             public void run() {
@@ -4602,6 +4614,10 @@ public void run() {
                         });
 
                     } catch (final Exception e) {
+
+
+                        System.out.println("errors manstore"+e.getMessage()+"  "+We_Result.Msg);
+
                         custDialog.dismiss();
                         _handler.post(new Runnable() {
 
@@ -4615,7 +4631,7 @@ public void run() {
                     }
                 }
             }).start();
-        } else if (chk_Pro.isChecked()) {
+        } /*else if (chk_Pro.isChecked()) {
 
             tv = new TextView(getApplicationContext());
             lp = new RelativeLayout.LayoutParams(
@@ -4648,9 +4664,9 @@ public void run() {
             q = " delete from sqlite_sequence where name='Offers_Hdr'";
             sqlHandler.executeQuery(q);
 
-          /*  Get_Offers_Groups();
+          *//*  Get_Offers_Groups();
             GetOffersDtlCond();
-            Get_Offers_Dtl_Gifts();*/
+            Get_Offers_Dtl_Gifts();*//*
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -4743,7 +4759,7 @@ public void run() {
                 }
             }).start();
 
-        } else if (chk_Gift.isChecked()) {
+        }*/ else if (chk_Gift.isChecked()) {
 
             tv = new TextView(getApplicationContext());
             lp = new RelativeLayout.LayoutParams(
@@ -5716,11 +5732,11 @@ public void run() {
 
 
         q = "DELETE   FROM Offers_Hdr WHERE no NOT IN (SELECT MAX(no) FROM Offers_Hdr GROUP BY Offer_No )";
-        sqlHandler.executeQuery(q);
+      //  sqlHandler.executeQuery(q);
 
 
         q = "DELETE   FROM Categ WHERE no NOT IN (SELECT MAX(no) FROM Categ GROUP BY Offer_No )";
-        sqlHandler.executeQuery(q);
+      //  sqlHandler.executeQuery(q);
 
         new Thread(new Runnable() {
             @Override
@@ -6036,6 +6052,7 @@ try {
 
     }
 
+    @SuppressLint("Range")
     private void FillSal_InvAdapter(String OrderNo) {
         String query = "";
         contactList = new ArrayList<Cls_Sal_InvItems>();
@@ -6113,6 +6130,7 @@ try {
 
     }
 
+    @SuppressLint("Range")
     private void FillPayMents_Check_Adapter(String OrderNo) {
         String query = "";
         ChecklList.clear();
@@ -6145,6 +6163,7 @@ try {
 
     }
 
+    @SuppressLint("Range")
     private void Fill_Po_Adapter(String OrderNo) {
         String query = "";
         PoList = new ArrayList<ContactListItems>();
@@ -6349,6 +6368,7 @@ try {
 
     }
 
+    @SuppressLint("Range")
     private void Post_Payments(String OrderNo) {
 
         final String pno = OrderNo;
@@ -6462,6 +6482,7 @@ try {
 
     }
 
+    @SuppressLint("Range")
     private void Post_Purch_Order(String OrderNo) {
         final String pno = OrderNo;
         final ProgressDialog loading_dialog;
@@ -6842,6 +6863,7 @@ try {
         }).start();
     }
 
+    @SuppressLint("Range")
     public void SharCashCust() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(UpdateDataToMobileActivity.this);
         String u = sharedPreferences.getString("UserID", "");
@@ -6996,6 +7018,7 @@ try {
         }).start();
     }
 
+    @SuppressLint("Range")
     public void SharUseCode() {
 
         //sqlHandler=new SqlHandler(this);
@@ -7068,6 +7091,7 @@ try {
     }
 
 
+    @SuppressLint("Range")
     private void filllist_post(String str, int f, String c) {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

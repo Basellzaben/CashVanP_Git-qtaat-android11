@@ -69,7 +69,9 @@ public class CallWebServices  {
 
    URL = "http://10.0.1.104:8589/CV.asmx";// قطاعات
 
-   //  URL = "http://79.173.250.118:3755/CV.asmx";// sector
+
+   URL = "http://79.173.250.118:3755/CV.asmx";// sector
+
 
     }
     public void GetItem_D(String Item_no, int flag) {

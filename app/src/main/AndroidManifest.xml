@@ -3,7 +3,8 @@
     package="com.cds_jo.GalaxySalesApp"
     android:versionCode="3"
     android:versionName="3.0">
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -43,7 +44,8 @@
         android:label="Galaxy Sales App"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity android:name=".Catch_Receipt"></activity>
         <activity android:name=".Delivery_VoucherAct" />
         <activity android:name=".AbuHaltam.LoginHalitamNew" />

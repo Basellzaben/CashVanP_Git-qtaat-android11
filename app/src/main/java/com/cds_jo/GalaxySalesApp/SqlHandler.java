@@ -18,7 +18,7 @@ public class SqlHandler {
 
     public static final String DATABASE_NAME = "CVDB.db";
       //public static final String DATABASE_NAME = "/mnt/sdcard/Android/CVDB.db";
-    public static final int DATABASE_VERSION =41;
+    public static final int DATABASE_VERSION =43;
     Context context;
     SQLiteDatabase sqlDatabase;
     SqlDbHelper dbHelper;
@@ -34,9 +34,9 @@ public class SqlHandler {
 
         try {
 
-          /*  if (sqlDatabase.isOpen()) {
-                sqlDatabase.close();
-            }*/
+           // if (sqlDatabase.isOpen()) {
+             //   sqlDatabase.close();
+            //}
 
             sqlDatabase = dbHelper.getWritableDatabase();
             sqlDatabase.execSQL(query);
